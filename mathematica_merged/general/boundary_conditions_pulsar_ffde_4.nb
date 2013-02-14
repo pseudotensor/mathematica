@@ -1,0 +1,1659 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 5.1'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     56052,       1415]*)
+(*NotebookOutlinePosition[     56696,       1437]*)
+(*  CellTagsIndexPosition[     56652,       1433]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+    \(sols = 
+      Solve[{\((vu3 - omegaf)\)/Bu3 \[Equal] vu1/Bu1, 
+          vu3 \[Equal] \((\(-Bd0\) - vu1*Bd1 - vu2*Bd2)\)/Bd3, 
+          vu1/Bu1 \[Equal] vu2/Bu2}, {vu1, vu2, vu3}]\)], "Input"],
+
+Cell[BoxData[
+    \({{vu2 \[Rule] \(-\(\(Bu2\ \((Bd0 + Bd3\ omegaf)\)\)\/\(Bd1\ Bu1 + 
+                  Bd2\ Bu2 + Bd3\ Bu3\)\)\), 
+        vu1 \[Rule] \(-\(\(Bd0\ Bu1 + Bd3\ Bu1\ omegaf\)\/\(Bd1\ Bu1 + 
+                  Bd2\ Bu2 + Bd3\ Bu3\)\)\), 
+        vu3 \[Rule] \(-\(\(Bd0\ Bu3 - Bd1\ Bu1\ omegaf - 
+                  Bd2\ Bu2\ omegaf\)\/\(Bd1\ Bu1 + Bd2\ Bu2 + 
+                  Bd3\ Bu3\)\)\)}}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(FullSimplify[sols]\)], "Input"],
+
+Cell[BoxData[
+    \({{vu2 \[Rule] \(-\(\(Bu2\ \((Bd0 + Bd3\ omegaf)\)\)\/\(Bd1\ Bu1 + 
+                  Bd2\ Bu2 + Bd3\ Bu3\)\)\), 
+        vu1 \[Rule] \(-\(\(Bu1\ \((Bd0 + Bd3\ omegaf)\)\)\/\(Bd1\ Bu1 + 
+                  Bd2\ Bu2 + Bd3\ Bu3\)\)\), 
+        vu3 \[Rule] \(\(-Bd0\)\ Bu3 + Bd1\ Bu1\ omegaf + Bd2\ Bu2\ omegaf\)\/\
+\(Bd1\ Bu1 + Bd2\ Bu2 + Bd3\ Bu3\)}}\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[""], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \( (*gcov = {{gcov11, gcov12, gcov13, gcov14}, {gcov12, gcov22, gcov23, 
+            gcov24}, {gcov13, gcov23, gcov33, gcov34}, {gcov14, gcov24, 
+            gcov34, gcov44}}*) \)], "Input"],
+
+Cell[BoxData[
+    \({{gcov11, gcov12, gcov13, gcov14}, {gcov12, gcov22, gcov23, 
+        gcov24}, {gcov13, gcov23, gcov33, gcov34}, {gcov14, gcov24, gcov34, 
+        gcov44}}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(myv = {vu1, vu2, vu3} //. sols[\([1]\)]\)], "Input"],
+
+Cell[BoxData[
+    \({\(-\(\(Bd0\ Bu1 + Bd3\ Bu1\ omegaf\)\/\(Bd1\ Bu1 + Bd2\ Bu2 + 
+              Bd3\ Bu3\)\)\), \(-\(\(Bu2\ \((Bd0 + 
+                  Bd3\ omegaf)\)\)\/\(Bd1\ Bu1 + Bd2\ Bu2 + 
+              Bd3\ Bu3\)\)\), \(-\(\(Bd0\ Bu3 - Bd1\ Bu1\ omegaf - 
+              Bd2\ Bu2\ omegaf\)\/\(Bd1\ Bu1 + Bd2\ Bu2 + 
+              Bd3\ Bu3\)\)\)}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(utsq = 
+      1/\((\(-gcov[\([1, 1]\)]\) - 
+            2*Sum[gcov[\([1, 1 + i]\)]*myv[\([i]\)], {i, 1, 3}] - 
+            Sum[gcov[\([1 + i, 1 + j]\)]*myv[\([i]\)]*myv[\([j]\)], {i, 1, 
+                3}, {j, 1, 3}])\)\)], "Input"],
+
+Cell[BoxData[
+    \(1/\((1 - \(2\ M\ x\)\/\(x\^2 + a\^2\ Cos[y]\^2\) - \(Bu2\^2\ \((Bd0 + \
+Bd3\ omegaf)\)\^2\ \((x\^2 + a\^2\ Cos[y]\^2)\)\)\/\((Bd1\ Bu1 + Bd2\ Bu2 + \
+Bd3\ Bu3)\)\^2 - \(\((Bd0\ Bu1 + Bd3\ Bu1\ omegaf)\)\^2\ \((1 + \(2\ M\ x\)\/\
+\(x\^2 + a\^2\ Cos[y]\^2\))\)\)\/\((Bd1\ Bu1 + Bd2\ Bu2 + Bd3\ Bu3)\)\^2 + \
+\(2\ a\ \((Bd0\ Bu1 + Bd3\ Bu1\ omegaf)\)\ \((Bd0\ Bu3 - Bd1\ Bu1\ omegaf - \
+Bd2\ Bu2\ omegaf)\)\ \((1 + \(2\ M\ x\)\/\(x\^2 + a\^2\ Cos[y]\^2\))\)\ \
+Sin[y]\^2\)\/\((Bd1\ Bu1 + Bd2\ Bu2 + Bd3\ Bu3)\)\^2 - 
+          2\ \((\(-\(\(2\ M\ \((Bd0\ Bu1 + 
+                            Bd3\ Bu1\ omegaf)\)\ x\)\/\(\((Bd1\ Bu1 + 
+                            Bd2\ Bu2 + Bd3\ Bu3)\)\ \((x\^2 + 
+                            a\^2\ Cos[y]\^2)\)\)\)\) + \(2\ a\ M\ \((Bd0\ Bu3 \
+- Bd1\ Bu1\ omegaf - Bd2\ Bu2\ omegaf)\)\ x\ Sin[y]\^2\)\/\(\((Bd1\ Bu1 + Bd2\
+\ Bu2 + Bd3\ Bu3)\)\ \((x\^2 + a\^2\ Cos[y]\^2)\)\))\) - \(\((Bd0\ Bu3 - Bd1\ \
+Bu1\ omegaf - Bd2\ Bu2\ omegaf)\)\^2\ Sin[y]\^2\ \((x\^2 + a\^2\ Cos[y]\^2 + \
+a\^2\ \((1 + \(2\ M\ x\)\/\(x\^2 + a\^2\ Cos[y]\^2\))\)\ \
+Sin[y]\^2)\)\)\/\((Bd1\ Bu1 + Bd2\ Bu2 + Bd3\ Bu3)\)\^2)\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Bu = {0, Bu1, Bu2, Bu3}\)], "Input"],
+
+Cell[BoxData[
+    \({0, Bu1, Bu2, Bu3}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(Bd = 
+      Table[Sum[gcov[\([i, j]\)]*Bu[\([i]\)], {i, 1, 4}], {j, 1, 
+          4}]\), "\[IndentingNewLine]", 
+    \(\(Bd0 = Bd[\([1]\)];\)\), "\[IndentingNewLine]", 
+    \(\(Bd1 = Bd[\([2]\)];\)\), "\[IndentingNewLine]", 
+    \(\(Bd2 = Bd[\([3]\)];\)\), "\[IndentingNewLine]", 
+    \(\(Bd3 = Bd[\([4]\)];\)\)}], "Input"],
+
+Cell[BoxData[
+    \({\(2\ Bu1\ M\ x\)\/\(x\^2 + a\^2\ Cos[y]\^2\) - \(2\ a\ Bu3\ M\ x\ \
+Sin[y]\^2\)\/\(x\^2 + a\^2\ Cos[y]\^2\), 
+      Bu1\ \((1 + \(2\ M\ x\)\/\(x\^2 + a\^2\ Cos[y]\^2\))\) - 
+        a\ Bu3\ \((1 + \(2\ M\ x\)\/\(x\^2 + a\^2\ Cos[y]\^2\))\)\ Sin[y]\^2, 
+      Bu2\ \((x\^2 + 
+            a\^2\ Cos[y]\^2)\), \(-a\)\ Bu1\ \((1 + \(2\ M\ x\)\/\(x\^2 + \
+a\^2\ Cos[y]\^2\))\)\ Sin[y]\^2 + 
+        Bu3\ Sin[y]\^2\ \((x\^2 + a\^2\ Cos[y]\^2 + 
+              a\^2\ \((1 + \(2\ M\ x\)\/\(x\^2 + a\^2\ Cos[y]\^2\))\)\ Sin[y]\
+\^2)\)}\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[""], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(1 + Sqrt[1 - 0.9^2]\)], "Input"],
+
+Cell[BoxData[
+    \(1.4358898943540672`\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    \(\(god = 
+        utsq //. {M \[Rule] 1, a \[Rule]  .5, x \[Rule] 2, 
+            omegaf \[Rule] 0.022};\)\)], "Input"],
+
+Cell[BoxData[
+    \( (*Plot[god, {Bu1, \(-10\), 10}]*) \)], "Input"],
+
+Cell[BoxData[""], "Input"],
+
+Cell[BoxData[
+    \( (*Plot3D[god, {Bu1, \(-10\), 10}, {Bu3, \(-800\), 800}]*) \)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(Minimize[
+      utsq //. {M \[Rule] 1, omegaf \[Rule] 0.022, a \[Rule]  .9, 
+          x \[Rule] 44}, 
+      0 \[LessEqual] y \[LessEqual] Pi, {Bu1, Bu2, Bu3, 
+        y}]\), "\[IndentingNewLine]", 
+    \(Minimize[
+      utsq //. {M \[Rule] 1, omegaf \[Rule] 0.022, a \[Rule]  .9, 
+          x \[Rule] 2.0}, 
+      0 \[LessEqual] y \[LessEqual] Pi, {Bu1, Bu2, Bu3, y}]\)}], "Input"],
+
+Cell[BoxData[
+    \({1.0454355357520873`, {Bu1 \[Rule] \(-0.08270538349592858`\), 
+        Bu2 \[Rule] 5.536491118046103`*^-12, 
+        Bu3 \[Rule] 0.48987539970102456`, 
+        y \[Rule] 3.8996442636830617`*^-10}}\)], "Output"],
+
+Cell[BoxData[
+    \({1.8316008316008374`, {Bu1 \[Rule] \(-0.4700547931826955`\), 
+        Bu2 \[Rule] \(-1.386986065262292`*^-9\), 
+        Bu3 \[Rule] \(-0.058572538352304394`\), 
+        y \[Rule] 1.9811305728055872`*^-7}}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(Maximize[
+      utsq //. {M \[Rule] 1, omegaf \[Rule] 0.022, a \[Rule]  .9, 
+          x \[Rule] 44.44}, 
+      0 \[LessEqual] y \[LessEqual] Pi, {Bu1, Bu2, Bu3, 
+        y}]\), "\[IndentingNewLine]", 
+    \(Maximize[
+      utsq //. {M \[Rule] 1, omegaf \[Rule] 0.022, a \[Rule]  .9, 
+          x \[Rule] 1.93}, 
+      0 \[LessEqual] y \[LessEqual] Pi, {Bu1, Bu2, Bu3, y}]\)}], "Input"],
+
+Cell[BoxData[
+    \({1961.50813553319`, {Bu1 \[Rule] \(-5.980951779251772`*^8\), 
+        Bu2 \[Rule] 1.7631108132775405`*^8, Bu3 \[Rule] 334859.9373372166`, 
+        y \[Rule] 1.5707963267948966`}}\)], "Output"],
+
+Cell[BoxData[
+    \({461.72885465463486`, {Bu1 \[Rule] \(-8.483525844396988`*^13\), 
+        Bu2 \[Rule] 1.8057345711844158`*^15, 
+        Bu3 \[Rule] \(-1.0499251365567522`*^14\), 
+        y \[Rule] 1.5707963267948966`}}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Pi/2.0\)], "Input"],
+
+Cell[BoxData[
+    \(1.5707963267948966`\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    \( (*consts = {gcov12 \[Rule] 0, gcov13 \[Rule] 0, gcov14 \[Rule] 0, 
+          gcov11 \[Rule] \(- .57729\), gcov24 \[Rule] 0, gcov34 \[Rule] 0, 
+          gcov22 \[Rule]  .2255685, gcov23 \[Rule] \(- .0203\), 
+          gcov33 \[Rule] 125.32938, gcov44 \[Rule] 20.8086}*) \)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(newutsq = 
+      FullSimplify[
+        utsq //. {Bd0 \[Rule] 0, Bd3 \[Rule] Bu3*gcov[\([4, 4]\)], 
+            Bd1 \[Rule] Bu1*gcov[\([2, 2]\)], 
+            Bd2 \[Rule] Bu2*gcov[\([3, 3]\)]}]\), "\[IndentingNewLine]", 
+    \(\(newutsq //. consts\) //. {omegaf \[Rule] 0.022, Bu1 \[Rule] 0, 
+        Bu3 \[Rule] 1, Bu2 \[Rule] 0}\)}], "Input"],
+
+Cell[BoxData[
+    \($Aborted\)], "Output"],
+
+Cell[BoxData[
+    \(newutsq\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[""], "Input"],
+
+Cell[BoxData[
+    \(1.7322316340141004`\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(gcov[\([1, 1]\)]\)], "Input"],
+
+Cell[BoxData[
+    \(\(-1\) + \(2\ M\ x\)\/\(x\^2 + a\^2\ Cos[y]\^2\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(2*Pi/ .022\)], "Input"],
+
+Cell[BoxData[
+    \(285.59933214452667`\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(1/ .022\)], "Input"],
+
+Cell[BoxData[
+    \(45.45454545454546`\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    \( (*\ new\ *) \)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(sols = 
+      Solve[{y1 \[Equal] A + B*x1 + C*x1^2, y2 \[Equal] A + B*x2 + C*x2^2, 
+          y3 \[Equal] A + B*x3 + C*x3^2}, {A, B, 
+          C}]\), "\[IndentingNewLine]", 
+    \(FullSimplify[sols]\)}], "Input"],
+
+Cell[BoxData[
+    \({{A \[Rule] \(-\(\(\(-x2\^2\)\ x3\ y1 + x2\ x3\^2\ y1 + x1\^2\ x3\ y2 - 
+                  x1\ x3\^2\ y2 - x1\^2\ x2\ y3 + 
+                  x1\ x2\^2\ y3\)\/\(\((x2 - x3)\)\ \((x1\^2 - x1\ x2 - 
+                      x1\ x3 + x2\ x3)\)\)\)\), 
+        B \[Rule] \(-\(\(x2\^2\ y1 - x3\^2\ y1 - x1\^2\ y2 + x3\^2\ y2 + 
+                  x1\^2\ y3 - 
+                  x2\^2\ y3\)\/\(\((x1 - x2)\)\ \((x1 - x3)\)\ \((x2 - 
+                      x3)\)\)\)\), 
+        C \[Rule] \(-\(\(\(-x2\)\ y1 + x3\ y1 + x1\ y2 - x3\ y2 - x1\ y3 + 
+                  x2\ y3\)\/\(\((x2 - x3)\)\ \((x1\^2 - x1\ x2 - x1\ x3 + 
+                      x2\ x3)\)\)\)\)}}\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    \(\(sols = 
+        Solve[{y1 \[Equal] AA + BB*x1 + CC*x1^2 + DD*x1^3 + EE*x1^4, 
+            y2 \[Equal] AA + BB*x2 + CC*x2^2 + DD*x2^3 + EE*x2^4, 
+            y3 \[Equal] AA + BB*x3 + CC*x3^2 + DD*x3^3 + EE*x3^4, 
+            y4 \[Equal] AA + BB*x4 + CC*x4^2 + DD*x4^3 + EE*x4^4, 
+            y5 \[Equal] AA + BB*x5 + CC*x5^2 + DD*x5^3 + EE*x5^4}, {AA, BB, 
+            CC, DD, EE}];\)\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(it1 = 
+      FullSimplify[
+        PowerExpand[sols[\([1, 1, 2]\)]]]\), "\[IndentingNewLine]", 
+    \(CForm[it1]\)}], "Input"],
+
+Cell[BoxData[
+    \(\((\(-x1\)\ \((x1 - x3)\)\ x3\ \((x1 - x4)\)\ \((x3 - 
+                x4)\)\ x4\ \((x1 - x5)\)\ \((x3 - x5)\)\ \((x4 - 
+                x5)\)\ x5\ y2 + 
+          x2\^2\ \((\(-x1\)\ \((x1 - x4)\)\ x4\ \((x1 - x5)\)\ \((x4 - 
+                      x5)\)\ x5\ \((x1\ x4 + \((x1 + x4)\)\ x5)\)\ y3 + 
+                x3\ x5\^3\ \((x4\^3\ \((x4 - x5)\)\ y1 + 
+                      x1\^3\ \((\(-x1\) + x5)\)\ y4)\) + 
+                x1\^3\ x3\ \((x1 - x4)\)\ x4\^3\ y5 + 
+                x3\^4\ \((x4\^3\ x5\ y1 - x4\ x5\^3\ y1 - x1\^3\ x5\ y4 + 
+                      x1\ x5\^3\ y4 + x1\^3\ x4\ y5 - x1\ x4\^3\ y5)\) + 
+                x3\^3\ \((\(-x4\^4\)\ x5\ y1 + x4\ x5\^4\ y1 + 
+                      x1\^4\ x5\ y4 - x1\ x5\^4\ y4 - x1\^4\ x4\ y5 + 
+                      x1\ x4\^4\ y5)\))\) + 
+          x2\^4\ \((\(-x1\)\ \((x1 - x4)\)\ x4\ \((x1 - x5)\)\ \((x4 - 
+                      x5)\)\ x5\ y3 + 
+                x3\ x5\^2\ \((x4\^2\ \((x4 - x5)\)\ y1 + 
+                      x1\^2\ \((\(-x1\) + x5)\)\ y4)\) + 
+                x1\^2\ x3\ \((x1 - x4)\)\ x4\^2\ y5 + 
+                x3\^3\ \((x5\ \((x4\ \((x4 - x5)\)\ y1 + 
+                            x1\ \((\(-x1\) + x5)\)\ y4)\) + 
+                      x1\ \((x1 - x4)\)\ x4\ y5)\) + 
+                x3\^2\ \((x1\ \((x1 - x5)\)\ x5\ \((x1 + x5)\)\ y4 + 
+                      x4\^3\ \((\(-x5\)\ y1 + x1\ y5)\) + 
+                      x4\ \((x5\^3\ y1 - x1\^3\ y5)\))\))\) + 
+          x2\^3\ \((x1\ \((x1 - x4)\)\ x4\ \((x1 - x5)\)\ \((x4 - 
+                      x5)\)\ x5\ \((x1 + x4 + x5)\)\ y3 + 
+                x3\^4\ \((x5\ \((\(-x4\^2\)\ y1 + x4\ x5\ y1 + 
+                            x1\ \((x1 - x5)\)\ y4)\) + 
+                      x1\ x4\ \((\(-x1\) + x4)\)\ y5)\) + 
+                x3\ \((x1\^2\ \((x1 - x5)\)\ x5\^2\ \((x1 + x5)\)\ y4 + 
+                      x4\^4\ \((\(-x5\^2\)\ y1 + x1\^2\ y5)\) + 
+                      x4\^2\ \((x5\^4\ y1 - x1\^4\ y5)\))\) + 
+                x3\^2\ \((x1\ x5\ \((\(-x1\^3\) + x5\^3)\)\ y4 + 
+                      x4\^4\ \((x5\ y1 - x1\ y5)\) + 
+                      x4\ \((\(-x5\^4\)\ y1 + x1\^4\ y5)\))\))\) + 
+          x2\ \((x1\^2\ \((x1 - x4)\)\ x4\^2\ \((x1 - x5)\)\ \((x4 - 
+                      x5)\)\ x5\^2\ y3 + 
+                x3\^4\ \((x5\^2\ \((\(-x4\^3\)\ y1 + x4\^2\ x5\ y1 + 
+                            x1\^2\ \((x1 - x5)\)\ y4)\) + 
+                      x1\^2\ x4\^2\ \((\(-x1\) + x4)\)\ y5)\) + 
+                x3\^2\ \((x5\^3\ \((\(-x4\^4\)\ y1 + x4\^3\ x5\ y1 + 
+                            x1\^3\ \((x1 - x5)\)\ y4)\) + 
+                      x1\^3\ x4\^3\ \((\(-x1\) + x4)\)\ y5)\) + 
+                x3\^3\ \((x1\^2\ x5\^2\ \((\(-x1\^2\) + x5\^2)\)\ y4 + 
+                      x4\^4\ \((x5\^2\ y1 - x1\^2\ y5)\) + 
+                      x4\^2\ \((\(-x5\^4\)\ y1 + 
+                            x1\^4\ y5)\))\))\))\)/\((\((x1 - x2)\)\ \((x1 - 
+              x3)\)\ \((x2 - x3)\)\ \((x1 - x4)\)\ \((x2 - x4)\)\ \((x3 - 
+              x4)\)\ \((x1 - x5)\)\ \((x2 - x5)\)\ \((x3 - x5)\)\ \((x4 - 
+              x5)\))\)\)], "Output"],
+
+Cell["\<\
+(-(x1*(x1 - x3)*x3*(x1 - x4)*(x3 - x4)*x4*(x1 - x5)*(x3 - x5)*(x4 - \
+x5)*x5*y2) + 
+     Power(x2,2)*(-(x1*(x1 - x4)*x4*(x1 - x5)*(x4 - x5)*x5*(x1*x4 + (x1 + \
+x4)*x5)*y3) + x3*Power(x5,3)*(Power(x4,3)*(x4 - x5)*y1 + Power(x1,3)*(-x1 + \
+x5)*y4) + 
+        Power(x1,3)*x3*(x1 - x4)*Power(x4,3)*y5 + \
+Power(x3,4)*(Power(x4,3)*x5*y1 - x4*Power(x5,3)*y1 - Power(x1,3)*x5*y4 + \
+x1*Power(x5,3)*y4 + Power(x1,3)*x4*y5 - 
+           x1*Power(x4,3)*y5) + Power(x3,3)*(-(Power(x4,4)*x5*y1) + \
+x4*Power(x5,4)*y1 + Power(x1,4)*x5*y4 - x1*Power(x5,4)*y4 - Power(x1,4)*x4*y5 \
++ 
+           x1*Power(x4,4)*y5)) + Power(x2,4)*(-(x1*(x1 - x4)*x4*(x1 - x5)*(x4 \
+- x5)*x5*y3) + x3*Power(x5,2)*(Power(x4,2)*(x4 - x5)*y1 + Power(x1,2)*(-x1 + \
+x5)*y4) + 
+        Power(x1,2)*x3*(x1 - x4)*Power(x4,2)*y5 + Power(x3,3)*(x5*(x4*(x4 - \
+x5)*y1 + x1*(-x1 + x5)*y4) + x1*(x1 - x4)*x4*y5) + 
+        Power(x3,2)*(x1*(x1 - x5)*x5*(x1 + x5)*y4 + Power(x4,3)*(-(x5*y1) + \
+x1*y5) + x4*(Power(x5,3)*y1 - Power(x1,3)*y5))) + 
+     Power(x2,3)*(x1*(x1 - x4)*x4*(x1 - x5)*(x4 - x5)*x5*(x1 + x4 + x5)*y3 + 
+        Power(x3,4)*(x5*(-(Power(x4,2)*y1) + x4*x5*y1 + x1*(x1 - x5)*y4) + \
+x1*x4*(-x1 + x4)*y5) + 
+        x3*(Power(x1,2)*(x1 - x5)*Power(x5,2)*(x1 + x5)*y4 + \
+Power(x4,4)*(-(Power(x5,2)*y1) + Power(x1,2)*y5) + \
+Power(x4,2)*(Power(x5,4)*y1 - Power(x1,4)*y5)) + 
+        Power(x3,2)*(x1*x5*(-Power(x1,3) + Power(x5,3))*y4 + \
+Power(x4,4)*(x5*y1 - x1*y5) + x4*(-(Power(x5,4)*y1) + Power(x1,4)*y5))) + 
+     x2*(Power(x1,2)*(x1 - x4)*Power(x4,2)*(x1 - x5)*(x4 - x5)*Power(x5,2)*y3 \
++ 
+        Power(x3,4)*(Power(x5,2)*(-(Power(x4,3)*y1) + Power(x4,2)*x5*y1 + \
+Power(x1,2)*(x1 - x5)*y4) + Power(x1,2)*Power(x4,2)*(-x1 + x4)*y5) + 
+        Power(x3,2)*(Power(x5,3)*(-(Power(x4,4)*y1) + Power(x4,3)*x5*y1 + \
+Power(x1,3)*(x1 - x5)*y4) + Power(x1,3)*Power(x4,3)*(-x1 + x4)*y5) + 
+        Power(x3,3)*(Power(x1,2)*Power(x5,2)*(-Power(x1,2) + Power(x5,2))*y4 \
++ Power(x4,4)*(Power(x5,2)*y1 - Power(x1,2)*y5) + 
+           Power(x4,2)*(-(Power(x5,4)*y1) + Power(x1,4)*y5))))/((x1 - x2)*(x1 \
+- x3)*(x2 - x3)*(x1 - x4)*(x2 - x4)*(x3 - x4)*(x1 - x5)*(x2 - x5)*(x3 - \
+x5)*(x4 - x5))\
+\>", "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(it2 = 
+      FullSimplify[
+        PowerExpand[sols[\([1, 2, 2]\)]]]\), "\[IndentingNewLine]", 
+    \(CForm[it2]\)}], "Input"],
+
+Cell[BoxData[
+    \(\((x1\^2\ \((x1 - x4)\)\ x4\^2\ \((x1 - x5)\)\ \((x4 - 
+                x5)\)\ x5\^2\ \((y2 - y3)\) + 
+          x3\^3\ \((\(-x1\^2\)\ \((x1 - x5)\)\ x5\^2\ \((x1 + x5)\)\ \((y2 - 
+                      y4)\) + 
+                x4\^2\ \((x5\^4\ \((y1 - y2)\) + x1\^4\ \((y2 - y5)\))\) + 
+                x4\^4\ \((x5\^2\ \((\(-y1\) + y2)\) + 
+                      x1\^2\ \((\(-y2\) + y5)\))\))\) + 
+          x3\^4\ \((x1\^2\ \((x1 - x5)\)\ x5\^2\ \((y2 - y4)\) + 
+                x4\^3\ \((x5\^2\ \((y1 - y2)\) + x1\^2\ \((y2 - y5)\))\) + 
+                x4\^2\ \((x5\^3\ \((\(-y1\) + y2)\) + 
+                      x1\^3\ \((\(-y2\) + y5)\))\))\) + 
+          x3\^2\ \((x1\^3\ \((x1 - x5)\)\ x5\^3\ \((y2 - y4)\) + 
+                x4\^4\ \((x5\^3\ \((y1 - y2)\) + x1\^3\ \((y2 - y5)\))\) + 
+                x4\^3\ \((x5\^4\ \((\(-y1\) + y2)\) + 
+                      x1\^4\ \((\(-y2\) + y5)\))\))\) + 
+          x2\^3\ \((x1\^2\ \((x1 - x5)\)\ x5\^2\ \((x1 + x5)\)\ \((y3 - 
+                      y4)\) + 
+                x4\^4\ \((x5\^2\ \((y1 - y3)\) + x1\^2\ \((y3 - y5)\))\) + 
+                x3\^2\ \((x5\^4\ \((y1 - y4)\) + x1\^4\ \((y4 - y5)\) + 
+                      x4\^4\ \((\(-y1\) + y5)\))\) + 
+                x4\^2\ \((x5\^4\ \((\(-y1\) + y3)\) + 
+                      x1\^4\ \((\(-y3\) + y5)\))\) + 
+                x3\^4\ \((x5\^2\ \((\(-y1\) + y4)\) + x4\^2\ \((y1 - y5)\) + 
+                      x1\^2\ \((\(-y4\) + y5)\))\))\) + 
+          x2\^4\ \((\(-x1\^2\)\ \((x1 - x5)\)\ x5\^2\ \((y3 - y4)\) + 
+                x4\^2\ \((x5\^3\ \((y1 - y3)\) + x1\^3\ \((y3 - y5)\))\) + 
+                x3\^3\ \((x5\^2\ \((y1 - y4)\) + x1\^2\ \((y4 - y5)\) + 
+                      x4\^2\ \((\(-y1\) + y5)\))\) + 
+                x4\^3\ \((x5\^2\ \((\(-y1\) + y3)\) + 
+                      x1\^2\ \((\(-y3\) + y5)\))\) + 
+                x3\^2\ \((x5\^3\ \((\(-y1\) + y4)\) + x4\^3\ \((y1 - y5)\) + 
+                      x1\^3\ \((\(-y4\) + y5)\))\))\) + 
+          x2\^2\ \((\(-x1\^3\)\ \((x1 - x5)\)\ x5\^3\ \((y3 - y4)\) + 
+                x4\^3\ \((x5\^4\ \((y1 - y3)\) + x1\^4\ \((y3 - y5)\))\) + 
+                x3\^4\ \((x5\^3\ \((y1 - y4)\) + x1\^3\ \((y4 - y5)\) + 
+                      x4\^3\ \((\(-y1\) + y5)\))\) + 
+                x4\^4\ \((x5\^3\ \((\(-y1\) + y3)\) + 
+                      x1\^3\ \((\(-y3\) + y5)\))\) + 
+                x3\^3\ \((x5\^4\ \((\(-y1\) + y4)\) + x4\^4\ \((y1 - y5)\) + 
+                      x1\^4\ \((\(-y4\) + y5)\))\))\))\)/\((\((x1 - 
+              x2)\)\ \((x1 - x3)\)\ \((x2 - x3)\)\ \((x1 - x4)\)\ \((x2 - 
+              x4)\)\ \((x3 - x4)\)\ \((x1 - x5)\)\ \((x2 - x5)\)\ \((x3 - 
+              x5)\)\ \((x4 - x5)\))\)\)], "Output"],
+
+Cell["\<\
+(Power(x1,2)*(x1 - x4)*Power(x4,2)*(x1 - x5)*(x4 - x5)*Power(x5,2)*(y2 - y3) \
++ 
+     Power(x3,3)*(-(Power(x1,2)*(x1 - x5)*Power(x5,2)*(x1 + x5)*(y2 - y4)) + \
+Power(x4,2)*(Power(x5,4)*(y1 - y2) + Power(x1,4)*(y2 - y5)) + 
+        Power(x4,4)*(Power(x5,2)*(-y1 + y2) + Power(x1,2)*(-y2 + y5))) + 
+     Power(x3,4)*(Power(x1,2)*(x1 - x5)*Power(x5,2)*(y2 - y4) + \
+Power(x4,3)*(Power(x5,2)*(y1 - y2) + Power(x1,2)*(y2 - y5)) + 
+        Power(x4,2)*(Power(x5,3)*(-y1 + y2) + Power(x1,3)*(-y2 + y5))) + 
+     Power(x3,2)*(Power(x1,3)*(x1 - x5)*Power(x5,3)*(y2 - y4) + \
+Power(x4,4)*(Power(x5,3)*(y1 - y2) + Power(x1,3)*(y2 - y5)) + 
+        Power(x4,3)*(Power(x5,4)*(-y1 + y2) + Power(x1,4)*(-y2 + y5))) + 
+     Power(x2,3)*(Power(x1,2)*(x1 - x5)*Power(x5,2)*(x1 + x5)*(y3 - y4) + \
+Power(x4,4)*(Power(x5,2)*(y1 - y3) + Power(x1,2)*(y3 - y5)) + 
+        Power(x3,2)*(Power(x5,4)*(y1 - y4) + Power(x1,4)*(y4 - y5) + \
+Power(x4,4)*(-y1 + y5)) + Power(x4,2)*(Power(x5,4)*(-y1 + y3) + \
+Power(x1,4)*(-y3 + y5)) + 
+        Power(x3,4)*(Power(x5,2)*(-y1 + y4) + Power(x4,2)*(y1 - y5) + \
+Power(x1,2)*(-y4 + y5))) + 
+     Power(x2,4)*(-(Power(x1,2)*(x1 - x5)*Power(x5,2)*(y3 - y4)) + \
+Power(x4,2)*(Power(x5,3)*(y1 - y3) + Power(x1,3)*(y3 - y5)) + 
+        Power(x3,3)*(Power(x5,2)*(y1 - y4) + Power(x1,2)*(y4 - y5) + \
+Power(x4,2)*(-y1 + y5)) + Power(x4,3)*(Power(x5,2)*(-y1 + y3) + \
+Power(x1,2)*(-y3 + y5)) + 
+        Power(x3,2)*(Power(x5,3)*(-y1 + y4) + Power(x4,3)*(y1 - y5) + \
+Power(x1,3)*(-y4 + y5))) + 
+     Power(x2,2)*(-(Power(x1,3)*(x1 - x5)*Power(x5,3)*(y3 - y4)) + \
+Power(x4,3)*(Power(x5,4)*(y1 - y3) + Power(x1,4)*(y3 - y5)) + 
+        Power(x3,4)*(Power(x5,3)*(y1 - y4) + Power(x1,3)*(y4 - y5) + \
+Power(x4,3)*(-y1 + y5)) + Power(x4,4)*(Power(x5,3)*(-y1 + y3) + \
+Power(x1,3)*(-y3 + y5)) + 
+        Power(x3,3)*(Power(x5,4)*(-y1 + y4) + Power(x4,4)*(y1 - y5) + \
+Power(x1,4)*(-y4 + y5))))/
+   ((x1 - x2)*(x1 - x3)*(x2 - x3)*(x1 - x4)*(x2 - x4)*(x3 - x4)*(x1 - x5)*(x2 \
+- x5)*(x3 - x5)*(x4 - x5))\
+\>", "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(it3 = 
+      FullSimplify[
+        PowerExpand[sols[\([1, 3, 2]\)]]]\), "\[IndentingNewLine]", 
+    \(CForm[it3]\)}], "Input"],
+
+Cell[BoxData[
+    \(\((\(-x1\)\ \((x1 - x4)\)\ x4\ \((x1 - x5)\)\ \((x4 - 
+                x5)\)\ x5\ \((x4\ x5 + x1\ \((x4 + x5)\))\)\ \((y2 - y3)\) + 
+          x3\^4\ \((\(-x1\)\ \((x1 - x5)\)\ x5\ \((x1 + x5)\)\ \((y2 - 
+                      y4)\) + 
+                x4\ \((x5\^3\ \((y1 - y2)\) + x1\^3\ \((y2 - y5)\))\) + 
+                x4\^3\ \((x5\ \((\(-y1\) + y2)\) + 
+                      x1\ \((\(-y2\) + y5)\))\))\) + 
+          x3\ \((\(-x1\^3\)\ \((x1 - x5)\)\ x5\^3\ \((y2 - y4)\) + 
+                x4\^3\ \((x5\^4\ \((y1 - y2)\) + x1\^4\ \((y2 - y5)\))\) + 
+                x4\^4\ \((x5\^3\ \((\(-y1\) + y2)\) + 
+                      x1\^3\ \((\(-y2\) + y5)\))\))\) + 
+          x3\^3\ \((x1\ x5\ \((x1\^3 - x5\^3)\)\ \((y2 - y4)\) + 
+                x4\^4\ \((x5\ \((y1 - y2)\) + x1\ \((y2 - y5)\))\) + 
+                x4\ \((x5\^4\ \((\(-y1\) + y2)\) + 
+                      x1\^4\ \((\(-y2\) + y5)\))\))\) + 
+          x2\^4\ \((x1\ \((x1 - x5)\)\ x5\ \((x1 + x5)\)\ \((y3 - y4)\) + 
+                x4\^3\ \((x5\ y1 + x1\ y3 - x5\ y3 - x1\ y5)\) + 
+                x3\^3\ \((\(-x5\)\ y1 - x1\ y4 + x5\ y4 + x4\ \((y1 - y5)\) + 
+                      x1\ y5)\) + 
+                x3\ \((x5\^3\ \((y1 - y4)\) + x1\^3\ \((y4 - y5)\) + 
+                      x4\^3\ \((\(-y1\) + y5)\))\) + 
+                x4\ \((x5\^3\ \((\(-y1\) + y3)\) + 
+                      x1\^3\ \((\(-y3\) + y5)\))\))\) + 
+          x2\ \((x1\^3\ \((x1 - x5)\)\ x5\^3\ \((y3 - y4)\) + 
+                x4\^4\ \((x5\^3\ \((y1 - y3)\) + x1\^3\ \((y3 - y5)\))\) + 
+                x3\^3\ \((x5\^4\ \((y1 - y4)\) + x1\^4\ \((y4 - y5)\) + 
+                      x4\^4\ \((\(-y1\) + y5)\))\) + 
+                x4\^3\ \((x5\^4\ \((\(-y1\) + y3)\) + 
+                      x1\^4\ \((\(-y3\) + y5)\))\) + 
+                x3\^4\ \((x5\^3\ \((\(-y1\) + y4)\) + x4\^3\ \((y1 - y5)\) + 
+                      x1\^3\ \((\(-y4\) + y5)\))\))\) + 
+          x2\^3\ \((\(-x1\)\ x5\ \((x1\^3 - x5\^3)\)\ \((y3 - y4)\) + 
+                x4\ \((x5\^4\ \((y1 - y3)\) + x1\^4\ \((y3 - y5)\))\) + 
+                x3\^4\ \((x5\ \((y1 - y4)\) + x1\ \((y4 - y5)\) + 
+                      x4\ \((\(-y1\) + y5)\))\) + 
+                x4\^4\ \((x5\ \((\(-y1\) + y3)\) + 
+                      x1\ \((\(-y3\) + y5)\))\) + 
+                x3\ \((x5\^4\ \((\(-y1\) + y4)\) + x4\^4\ \((y1 - y5)\) + 
+                      x1\^4\ \((\(-y4\) + y5)\))\))\))\)/\((\((x1 - 
+              x2)\)\ \((x1 - x3)\)\ \((x2 - x3)\)\ \((x1 - x4)\)\ \((x2 - 
+              x4)\)\ \((x3 - x4)\)\ \((x1 - x5)\)\ \((x2 - x5)\)\ \((x3 - 
+              x5)\)\ \((x4 - x5)\))\)\)], "Output"],
+
+Cell["\<\
+(-(x1*(x1 - x4)*x4*(x1 - x5)*(x4 - x5)*x5*(x4*x5 + x1*(x4 + x5))*(y2 - y3)) + \
+
+     Power(x3,4)*(-(x1*(x1 - x5)*x5*(x1 + x5)*(y2 - y4)) + \
+x4*(Power(x5,3)*(y1 - y2) + Power(x1,3)*(y2 - y5)) + Power(x4,3)*(x5*(-y1 + \
+y2) + x1*(-y2 + y5))) + 
+     x3*(-(Power(x1,3)*(x1 - x5)*Power(x5,3)*(y2 - y4)) + \
+Power(x4,3)*(Power(x5,4)*(y1 - y2) + Power(x1,4)*(y2 - y5)) + 
+        Power(x4,4)*(Power(x5,3)*(-y1 + y2) + Power(x1,3)*(-y2 + y5))) + 
+     Power(x3,3)*(x1*x5*(Power(x1,3) - Power(x5,3))*(y2 - y4) + \
+Power(x4,4)*(x5*(y1 - y2) + x1*(y2 - y5)) + x4*(Power(x5,4)*(-y1 + y2) + \
+Power(x1,4)*(-y2 + y5))) + 
+     Power(x2,4)*(x1*(x1 - x5)*x5*(x1 + x5)*(y3 - y4) + Power(x4,3)*(x5*y1 + \
+x1*y3 - x5*y3 - x1*y5) + 
+        Power(x3,3)*(-(x5*y1) - x1*y4 + x5*y4 + x4*(y1 - y5) + x1*y5) + \
+x3*(Power(x5,3)*(y1 - y4) + Power(x1,3)*(y4 - y5) + Power(x4,3)*(-y1 + y5)) + \
+
+        x4*(Power(x5,3)*(-y1 + y3) + Power(x1,3)*(-y3 + y5))) + x2*
+      (Power(x1,3)*(x1 - x5)*Power(x5,3)*(y3 - y4) + \
+Power(x4,4)*(Power(x5,3)*(y1 - y3) + Power(x1,3)*(y3 - y5)) + 
+        Power(x3,3)*(Power(x5,4)*(y1 - y4) + Power(x1,4)*(y4 - y5) + \
+Power(x4,4)*(-y1 + y5)) + Power(x4,3)*(Power(x5,4)*(-y1 + y3) + \
+Power(x1,4)*(-y3 + y5)) + 
+        Power(x3,4)*(Power(x5,3)*(-y1 + y4) + Power(x4,3)*(y1 - y5) + \
+Power(x1,3)*(-y4 + y5))) + 
+     Power(x2,3)*(-(x1*x5*(Power(x1,3) - Power(x5,3))*(y3 - y4)) + \
+x4*(Power(x5,4)*(y1 - y3) + Power(x1,4)*(y3 - y5)) + 
+        Power(x3,4)*(x5*(y1 - y4) + x1*(y4 - y5) + x4*(-y1 + y5)) + \
+Power(x4,4)*(x5*(-y1 + y3) + x1*(-y3 + y5)) + 
+        x3*(Power(x5,4)*(-y1 + y4) + Power(x4,4)*(y1 - y5) + Power(x1,4)*(-y4 \
++ y5))))/
+   ((x1 - x2)*(x1 - x3)*(x2 - x3)*(x1 - x4)*(x2 - x4)*(x3 - x4)*(x1 - x5)*(x2 \
+- x5)*(x3 - x5)*(x4 - x5))\
+\>", "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(it4 = 
+      FullSimplify[
+        PowerExpand[sols[\([1, 4, 2]\)]]]\), "\[IndentingNewLine]", 
+    \(CForm[it4]\)}], "Input"],
+
+Cell[BoxData[
+    \(\((x1\ \((x1 - x4)\)\ x4\ \((x1 - x5)\)\ \((x4 - x5)\)\ x5\ \((x1 + 
+                x4 + x5)\)\ \((y2 - y3)\) + 
+          x3\^2\ \((\(-x1\)\ x5\ \((x1\^3 - x5\^3)\)\ \((y2 - y4)\) + 
+                x4\ \((x5\^4\ \((y1 - y2)\) + x1\^4\ \((y2 - y5)\))\) + 
+                x4\^4\ \((x5\ \((\(-y1\) + y2)\) + 
+                      x1\ \((\(-y2\) + y5)\))\))\) + 
+          x3\^4\ \((x1\ \((x1 - x5)\)\ x5\ \((y2 - y4)\) + 
+                x4\^2\ \((x5\ \((y1 - y2)\) + x1\ \((y2 - y5)\))\) + 
+                x4\ \((x5\^2\ \((\(-y1\) + y2)\) + 
+                      x1\^2\ \((\(-y2\) + y5)\))\))\) + 
+          x3\ \((x1\^2\ \((x1 - x5)\)\ x5\^2\ \((x1 + x5)\)\ \((y2 - y4)\) + 
+                x4\^4\ \((x5\^2\ \((y1 - y2)\) + x1\^2\ \((y2 - y5)\))\) + 
+                x4\^2\ \((x5\^4\ \((\(-y1\) + y2)\) + 
+                      x1\^4\ \((\(-y2\) + y5)\))\))\) + 
+          x2\^2\ \((x1\ x5\ \((x1\^3 - x5\^3)\)\ \((y3 - y4)\) + 
+                x4\^4\ \((x5\ \((y1 - y3)\) + x1\ \((y3 - y5)\))\) + 
+                x3\ \((x5\^4\ \((y1 - y4)\) + x1\^4\ \((y4 - y5)\) + 
+                      x4\^4\ \((\(-y1\) + y5)\))\) + 
+                x4\ \((x5\^4\ \((\(-y1\) + y3)\) + 
+                      x1\^4\ \((\(-y3\) + y5)\))\) + 
+                x3\^4\ \((x5\ \((\(-y1\) + y4)\) + x4\ \((y1 - y5)\) + 
+                      x1\ \((\(-y4\) + y5)\))\))\) + 
+          x2\^4\ \((\(-x1\)\ \((x1 - x5)\)\ x5\ \((y3 - y4)\) + 
+                x4\ \((x5\^2\ \((y1 - y3)\) + x1\^2\ \((y3 - y5)\))\) + 
+                x4\^2\ \((\(-x5\)\ y1 - x1\ y3 + x5\ y3 + x1\ y5)\) + 
+                x3\^2\ \((x5\ y1 + x1\ y4 - x5\ y4 - x1\ y5 + 
+                      x4\ \((\(-y1\) + y5)\))\) + 
+                x3\ \((x5\^2\ \((\(-y1\) + y4)\) + x4\^2\ \((y1 - y5)\) + 
+                      x1\^2\ \((\(-y4\) + y5)\))\))\) + 
+          x2\ \((\(-x1\^2\)\ \((x1 - x5)\)\ x5\^2\ \((x1 + x5)\)\ \((y3 - 
+                      y4)\) + 
+                x4\^2\ \((x5\^4\ \((y1 - y3)\) + x1\^4\ \((y3 - y5)\))\) + 
+                x3\^4\ \((x5\^2\ \((y1 - y4)\) + x1\^2\ \((y4 - y5)\) + 
+                      x4\^2\ \((\(-y1\) + y5)\))\) + 
+                x4\^4\ \((x5\^2\ \((\(-y1\) + y3)\) + 
+                      x1\^2\ \((\(-y3\) + y5)\))\) + 
+                x3\^2\ \((x5\^4\ \((\(-y1\) + y4)\) + x4\^4\ \((y1 - y5)\) + 
+                      x1\^4\ \((\(-y4\) + y5)\))\))\))\)/\((\((x1 - 
+              x2)\)\ \((x1 - x3)\)\ \((x2 - x3)\)\ \((x1 - x4)\)\ \((x2 - 
+              x4)\)\ \((x3 - x4)\)\ \((x1 - x5)\)\ \((x2 - x5)\)\ \((x3 - 
+              x5)\)\ \((x4 - x5)\))\)\)], "Output"],
+
+Cell["\<\
+(x1*(x1 - x4)*x4*(x1 - x5)*(x4 - x5)*x5*(x1 + x4 + x5)*(y2 - y3) + 
+     Power(x3,2)*(-(x1*x5*(Power(x1,3) - Power(x5,3))*(y2 - y4)) + \
+x4*(Power(x5,4)*(y1 - y2) + Power(x1,4)*(y2 - y5)) + 
+        Power(x4,4)*(x5*(-y1 + y2) + x1*(-y2 + y5))) + Power(x3,4)*
+      (x1*(x1 - x5)*x5*(y2 - y4) + Power(x4,2)*(x5*(y1 - y2) + x1*(y2 - y5)) \
++ x4*(Power(x5,2)*(-y1 + y2) + Power(x1,2)*(-y2 + y5))) + 
+     x3*(Power(x1,2)*(x1 - x5)*Power(x5,2)*(x1 + x5)*(y2 - y4) + \
+Power(x4,4)*(Power(x5,2)*(y1 - y2) + Power(x1,2)*(y2 - y5)) + 
+        Power(x4,2)*(Power(x5,4)*(-y1 + y2) + Power(x1,4)*(-y2 + y5))) + 
+     Power(x2,2)*(x1*x5*(Power(x1,3) - Power(x5,3))*(y3 - y4) + \
+Power(x4,4)*(x5*(y1 - y3) + x1*(y3 - y5)) + 
+        x3*(Power(x5,4)*(y1 - y4) + Power(x1,4)*(y4 - y5) + Power(x4,4)*(-y1 \
++ y5)) + x4*(Power(x5,4)*(-y1 + y3) + Power(x1,4)*(-y3 + y5)) + 
+        Power(x3,4)*(x5*(-y1 + y4) + x4*(y1 - y5) + x1*(-y4 + y5))) + 
+     Power(x2,4)*(-(x1*(x1 - x5)*x5*(y3 - y4)) + x4*(Power(x5,2)*(y1 - y3) + \
+Power(x1,2)*(y3 - y5)) + Power(x4,2)*(-(x5*y1) - x1*y3 + x5*y3 + x1*y5) + 
+        Power(x3,2)*(x5*y1 + x1*y4 - x5*y4 - x1*y5 + x4*(-y1 + y5)) + \
+x3*(Power(x5,2)*(-y1 + y4) + Power(x4,2)*(y1 - y5) + Power(x1,2)*(-y4 + y5))) \
++ 
+     x2*(-(Power(x1,2)*(x1 - x5)*Power(x5,2)*(x1 + x5)*(y3 - y4)) + \
+Power(x4,2)*(Power(x5,4)*(y1 - y3) + Power(x1,4)*(y3 - y5)) + 
+        Power(x3,4)*(Power(x5,2)*(y1 - y4) + Power(x1,2)*(y4 - y5) + \
+Power(x4,2)*(-y1 + y5)) + Power(x4,4)*(Power(x5,2)*(-y1 + y3) + \
+Power(x1,2)*(-y3 + y5)) + 
+        Power(x3,2)*(Power(x5,4)*(-y1 + y4) + Power(x4,4)*(y1 - y5) + \
+Power(x1,4)*(-y4 + y5))))/
+   ((x1 - x2)*(x1 - x3)*(x2 - x3)*(x1 - x4)*(x2 - x4)*(x3 - x4)*(x1 - x5)*(x2 \
+- x5)*(x3 - x5)*(x4 - x5))\
+\>", "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(it5 = 
+      FullSimplify[
+        PowerExpand[sols[\([1, 5, 2]\)]]]\), "\[IndentingNewLine]", 
+    \(CForm[it5]\)}], "Input"],
+
+Cell[BoxData[
+    \(\((x1\ \((x1 - x4)\)\ x4\ \((x1 - x5)\)\ \((x4 - 
+                x5)\)\ x5\ \((\(-y2\) + y3)\) + 
+          x3\^3\ \((\(-x1\)\ \((x1 - x5)\)\ x5\ \((y2 - y4)\) + 
+                x4\ \((x5\^2\ \((y1 - y2)\) + x1\^2\ \((y2 - y5)\))\) + 
+                x4\^2\ \((x5\ \((\(-y1\) + y2)\) + 
+                      x1\ \((\(-y2\) + y5)\))\))\) + 
+          x3\ \((\(-x1\^2\)\ \((x1 - x5)\)\ x5\^2\ \((y2 - y4)\) + 
+                x4\^2\ \((x5\^3\ \((y1 - y2)\) + x1\^3\ \((y2 - y5)\))\) + 
+                x4\^3\ \((x5\^2\ \((\(-y1\) + y2)\) + 
+                      x1\^2\ \((\(-y2\) + y5)\))\))\) + 
+          x3\^2\ \((x1\ \((x1 - x5)\)\ x5\ \((x1 + x5)\)\ \((y2 - y4)\) + 
+                x4\^3\ \((x5\ \((y1 - y2)\) + x1\ \((y2 - y5)\))\) + 
+                x4\ \((x5\^3\ \((\(-y1\) + y2)\) + 
+                      x1\^3\ \((\(-y2\) + y5)\))\))\) + 
+          x2\^3\ \((x1\ \((x1 - x5)\)\ x5\ \((y3 - y4)\) + 
+                x4\^2\ \((x5\ y1 + x1\ y3 - x5\ y3 - x1\ y5)\) + 
+                x3\^2\ \((\(-x5\)\ y1 - x1\ y4 + x5\ y4 + x4\ \((y1 - y5)\) + 
+                      x1\ y5)\) + 
+                x3\ \((x5\^2\ \((y1 - y4)\) + x1\^2\ \((y4 - y5)\) + 
+                      x4\^2\ \((\(-y1\) + y5)\))\) + 
+                x4\ \((x5\^2\ \((\(-y1\) + y3)\) + 
+                      x1\^2\ \((\(-y3\) + y5)\))\))\) + 
+          x2\ \((x1\^2\ \((x1 - x5)\)\ x5\^2\ \((y3 - y4)\) + 
+                x4\^3\ \((x5\^2\ \((y1 - y3)\) + x1\^2\ \((y3 - y5)\))\) + 
+                x3\^2\ \((x5\^3\ \((y1 - y4)\) + x1\^3\ \((y4 - y5)\) + 
+                      x4\^3\ \((\(-y1\) + y5)\))\) + 
+                x4\^2\ \((x5\^3\ \((\(-y1\) + y3)\) + 
+                      x1\^3\ \((\(-y3\) + y5)\))\) + 
+                x3\^3\ \((x5\^2\ \((\(-y1\) + y4)\) + x4\^2\ \((y1 - y5)\) + 
+                      x1\^2\ \((\(-y4\) + y5)\))\))\) + 
+          x2\^2\ \((\(-x1\)\ \((x1 - x5)\)\ x5\ \((x1 + x5)\)\ \((y3 - 
+                      y4)\) + 
+                x4\ \((x5\^3\ \((y1 - y3)\) + x1\^3\ \((y3 - y5)\))\) + 
+                x4\^3\ \((\(-x5\)\ y1 - x1\ y3 + x5\ y3 + x1\ y5)\) + 
+                x3\^3\ \((x5\ y1 + x1\ y4 - x5\ y4 - x1\ y5 + 
+                      x4\ \((\(-y1\) + y5)\))\) + 
+                x3\ \((x5\^3\ \((\(-y1\) + y4)\) + x4\^3\ \((y1 - y5)\) + 
+                      x1\^3\ \((\(-y4\) + y5)\))\))\))\)/\((\((x1 - 
+              x2)\)\ \((x1 - x3)\)\ \((x2 - x3)\)\ \((x1 - x4)\)\ \((x2 - 
+              x4)\)\ \((x3 - x4)\)\ \((x1 - x5)\)\ \((x2 - x5)\)\ \((x3 - 
+              x5)\)\ \((x4 - x5)\))\)\)], "Output"],
+
+Cell["\<\
+(x1*(x1 - x4)*x4*(x1 - x5)*(x4 - x5)*x5*(-y2 + y3) + Power(x3,3)*(-(x1*(x1 - \
+x5)*x5*(y2 - y4)) + x4*(Power(x5,2)*(y1 - y2) + Power(x1,2)*(y2 - y5)) + 
+        Power(x4,2)*(x5*(-y1 + y2) + x1*(-y2 + y5))) + x3*(-(Power(x1,2)*(x1 \
+- x5)*Power(x5,2)*(y2 - y4)) + 
+        Power(x4,2)*(Power(x5,3)*(y1 - y2) + Power(x1,3)*(y2 - y5)) + \
+Power(x4,3)*(Power(x5,2)*(-y1 + y2) + Power(x1,2)*(-y2 + y5))) + 
+     Power(x3,2)*(x1*(x1 - x5)*x5*(x1 + x5)*(y2 - y4) + Power(x4,3)*(x5*(y1 - \
+y2) + x1*(y2 - y5)) + x4*(Power(x5,3)*(-y1 + y2) + Power(x1,3)*(-y2 + y5))) + \
+
+     Power(x2,3)*(x1*(x1 - x5)*x5*(y3 - y4) + Power(x4,2)*(x5*y1 + x1*y3 - \
+x5*y3 - x1*y5) + Power(x3,2)*(-(x5*y1) - x1*y4 + x5*y4 + x4*(y1 - y5) + \
+x1*y5) + 
+        x3*(Power(x5,2)*(y1 - y4) + Power(x1,2)*(y4 - y5) + Power(x4,2)*(-y1 \
++ y5)) + x4*(Power(x5,2)*(-y1 + y3) + Power(x1,2)*(-y3 + y5))) + 
+     x2*(Power(x1,2)*(x1 - x5)*Power(x5,2)*(y3 - y4) + \
+Power(x4,3)*(Power(x5,2)*(y1 - y3) + Power(x1,2)*(y3 - y5)) + 
+        Power(x3,2)*(Power(x5,3)*(y1 - y4) + Power(x1,3)*(y4 - y5) + \
+Power(x4,3)*(-y1 + y5)) + Power(x4,2)*(Power(x5,3)*(-y1 + y3) + \
+Power(x1,3)*(-y3 + y5)) + 
+        Power(x3,3)*(Power(x5,2)*(-y1 + y4) + Power(x4,2)*(y1 - y5) + \
+Power(x1,2)*(-y4 + y5))) + 
+     Power(x2,2)*(-(x1*(x1 - x5)*x5*(x1 + x5)*(y3 - y4)) + \
+x4*(Power(x5,3)*(y1 - y3) + Power(x1,3)*(y3 - y5)) + Power(x4,3)*(-(x5*y1) - \
+x1*y3 + x5*y3 + x1*y5) + 
+        Power(x3,3)*(x5*y1 + x1*y4 - x5*y4 - x1*y5 + x4*(-y1 + y5)) + \
+x3*(Power(x5,3)*(-y1 + y4) + Power(x4,3)*(y1 - y5) + Power(x1,3)*(-y4 + \
+y5))))/
+   ((x1 - x2)*(x1 - x3)*(x2 - x3)*(x1 - x4)*(x2 - x4)*(x3 - x4)*(x1 - x5)*(x2 \
+- x5)*(x3 - x5)*(x4 - x5))\
+\>", "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    \(\(\(\[IndentingNewLine]\)\(\[IndentingNewLine]\)\(\[IndentingNewLine]\)\
+\(\[IndentingNewLine]\)\(\[IndentingNewLine]\)\(\[IndentingNewLine]\)\(\
+\[IndentingNewLine]\)\(\[IndentingNewLine]\)\(\[IndentingNewLine]\)\(\
+\[IndentingNewLine]\)\(\[IndentingNewLine]\)\)\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(rl = 1/ .022\)], "Input"],
+
+Cell[BoxData[
+    \(45.45454545454546`\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(rl*0.7\)], "Input"],
+
+Cell[BoxData[
+    \(31.81818181818182`\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    \( (*\ new\ *) \)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(Bu = {0, Bu1, Bu2, Bu3}\), "\[IndentingNewLine]", 
+    \(gcov = {{gcov11, gcov12, gcov13, gcov14}, {gcov12, gcov22, gcov23, 
+          gcov24}, {gcov13, gcov23, gcov33, gcov34}, {gcov14, gcov24, gcov34, 
+          gcov44}}\), "\[IndentingNewLine]", 
+    \(Bd = 
+      Table[Sum[Bu[\([i]\)]*gcov[\([i, j]\)], {i, 1, 4}], {j, 1, 
+          4}]\)}], "Input"],
+
+Cell[BoxData[
+    \({0, Bu1, Bu2, Bu3}\)], "Output"],
+
+Cell[BoxData[
+    \({{gcov11, gcov12, gcov13, gcov14}, {gcov12, gcov22, gcov23, 
+        gcov24}, {gcov13, gcov23, gcov33, gcov34}, {gcov14, gcov24, gcov34, 
+        gcov44}}\)], "Output"],
+
+Cell[BoxData[
+    \({Bu1\ gcov12 + Bu2\ gcov13 + Bu3\ gcov14, 
+      Bu1\ gcov22 + Bu2\ gcov23 + Bu3\ gcov24, 
+      Bu1\ gcov23 + Bu2\ gcov33 + Bu3\ gcov34, 
+      Bu1\ gcov24 + Bu2\ gcov34 + Bu3\ gcov44}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Bsq = Bu . Bd\)], "Input"],
+
+Cell[BoxData[
+    \(Bu1\ \((Bu1\ gcov22 + Bu2\ gcov23 + Bu3\ gcov24)\) + 
+      Bu2\ \((Bu1\ gcov23 + Bu2\ gcov33 + Bu3\ gcov34)\) + 
+      Bu3\ \((Bu1\ gcov24 + Bu2\ gcov34 + Bu3\ gcov44)\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(sols = Solve[Bsq \[Equal] Bsq0, Bu3]\)], "Input"],
+
+Cell[BoxData[
+    \({{Bu3 \[Rule] \(\(-2\)\ Bu1\ gcov24 - 2\ Bu2\ gcov34 - \@\(\((2\ Bu1\ \
+gcov24 + 2\ Bu2\ gcov34)\)\^2 - 4\ \((\(-Bsq0\) + Bu1\^2\ gcov22 + 2\ Bu1\ \
+Bu2\ gcov23 + Bu2\^2\ gcov33)\)\ gcov44\)\)\/\(2\ gcov44\)}, {Bu3 \[Rule] \
+\(\(-2\)\ Bu1\ gcov24 - 2\ Bu2\ gcov34 + \@\(\((2\ Bu1\ gcov24 + 2\ Bu2\ \
+gcov34)\)\^2 - 4\ \((\(-Bsq0\) + Bu1\^2\ gcov22 + 2\ Bu1\ Bu2\ gcov23 + \
+Bu2\^2\ gcov33)\)\ gcov44\)\)\/\(2\ gcov44\)}}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(CForm[N[sols[\([1, 1, 2]\)]]]\)], "Input"],
+
+Cell["\<\
+(0.5*(-2.*Bu1*gcov23 - 2.*Bu3*gcov34 - 1.*Sqrt(Power(2.*Bu1*gcov23 + \
+2.*Bu3*gcov34,2) - 
+          4.*gcov33*(-1.*Bsq0 + Power(Bu1,2)*gcov22 + 2.*Bu1*Bu3*gcov24 + \
+Power(Bu3,2)*gcov44))))/gcov33\
+\>", "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\(-N1BND\)*N2 - N2BND\)], "Input"],
+
+Cell[BoxData[
+    \(\(-N1BND\)\ N2 - N2BND\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(FullSimplify[
+      sols //. {gcov24 \[Rule] 0, gcov34 \[Rule] 0, 
+          gcov23 \[Rule] 0}]\)], "Input"],
+
+Cell[BoxData[
+    \({{Bu3 \[Rule] \(-\(\@\(\((Bsq0 - Bu1\^2\ gcov22 - Bu2\^2\ gcov33)\)\ \
+gcov44\)\/gcov44\)\)}, {Bu3 \[Rule] \@\(\((Bsq0 - Bu1\^2\ gcov22 - Bu2\^2\ \
+gcov33)\)\ gcov44\)\/gcov44}}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(t = 45\), "\[IndentingNewLine]", 
+    \(IntegerPart[Mod[t/20.0, 2]]\)}], "Input"],
+
+Cell[BoxData[
+    \(45\)], "Output"],
+
+Cell[BoxData[
+    \(0\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Plot[ArcTan[x], {x, \(-10\), 10}]\)], "Input"],
+
+Cell[GraphicsData["PostScript", "\<\
+%!
+%%Creator: Mathematica
+%%AspectRatio: .61803 
+MathPictureStart
+/Mabs {
+Mgmatrix idtransform
+Mtmatrix dtransform
+} bind def
+/Mabsadd { Mabs
+3 -1 roll add
+3 1 roll add
+exch } bind def
+%% Graphics
+%%IncludeResource: font Courier
+%%IncludeFont: Courier
+/Courier findfont 10  scalefont  setfont
+% Scaling calculations
+0.5 0.0476191 0.309017 0.200052 [
+[.02381 .29652 -9 -9 ]
+[.02381 .29652 9 0 ]
+[.2619 .29652 -6 -9 ]
+[.2619 .29652 6 0 ]
+[.7381 .29652 -3 -9 ]
+[.7381 .29652 3 0 ]
+[.97619 .29652 -6 -9 ]
+[.97619 .29652 6 0 ]
+[.4875 .00894 -24 -4.5 ]
+[.4875 .00894 0 4.5 ]
+[.4875 .10897 -12 -4.5 ]
+[.4875 .10897 0 4.5 ]
+[.4875 .20899 -24 -4.5 ]
+[.4875 .20899 0 4.5 ]
+[.4875 .40904 -18 -4.5 ]
+[.4875 .40904 0 4.5 ]
+[.4875 .50907 -6 -4.5 ]
+[.4875 .50907 0 4.5 ]
+[.4875 .60909 -18 -4.5 ]
+[.4875 .60909 0 4.5 ]
+[ 0 0 0 0 ]
+[ 1 .61803 0 0 ]
+] MathScale
+% Start of Graphics
+1 setlinecap
+1 setlinejoin
+newpath
+0 g
+.25 Mabswid
+[ ] 0 setdash
+.02381 .30902 m
+.02381 .31527 L
+s
+[(-10)] .02381 .29652 0 1 Mshowa
+.2619 .30902 m
+.2619 .31527 L
+s
+[(-5)] .2619 .29652 0 1 Mshowa
+.7381 .30902 m
+.7381 .31527 L
+s
+[(5)] .7381 .29652 0 1 Mshowa
+.97619 .30902 m
+.97619 .31527 L
+s
+[(10)] .97619 .29652 0 1 Mshowa
+.125 Mabswid
+.07143 .30902 m
+.07143 .31277 L
+s
+.11905 .30902 m
+.11905 .31277 L
+s
+.16667 .30902 m
+.16667 .31277 L
+s
+.21429 .30902 m
+.21429 .31277 L
+s
+.30952 .30902 m
+.30952 .31277 L
+s
+.35714 .30902 m
+.35714 .31277 L
+s
+.40476 .30902 m
+.40476 .31277 L
+s
+.45238 .30902 m
+.45238 .31277 L
+s
+.54762 .30902 m
+.54762 .31277 L
+s
+.59524 .30902 m
+.59524 .31277 L
+s
+.64286 .30902 m
+.64286 .31277 L
+s
+.69048 .30902 m
+.69048 .31277 L
+s
+.78571 .30902 m
+.78571 .31277 L
+s
+.83333 .30902 m
+.83333 .31277 L
+s
+.88095 .30902 m
+.88095 .31277 L
+s
+.92857 .30902 m
+.92857 .31277 L
+s
+.25 Mabswid
+0 .30902 m
+1 .30902 L
+s
+.5 .00894 m
+.50625 .00894 L
+s
+[(-1.5)] .4875 .00894 1 0 Mshowa
+.5 .10897 m
+.50625 .10897 L
+s
+[(-1)] .4875 .10897 1 0 Mshowa
+.5 .20899 m
+.50625 .20899 L
+s
+[(-0.5)] .4875 .20899 1 0 Mshowa
+.5 .40904 m
+.50625 .40904 L
+s
+[(0.5)] .4875 .40904 1 0 Mshowa
+.5 .50907 m
+.50625 .50907 L
+s
+[(1)] .4875 .50907 1 0 Mshowa
+.5 .60909 m
+.50625 .60909 L
+s
+[(1.5)] .4875 .60909 1 0 Mshowa
+.125 Mabswid
+.5 .02894 m
+.50375 .02894 L
+s
+.5 .04895 m
+.50375 .04895 L
+s
+.5 .06895 m
+.50375 .06895 L
+s
+.5 .08896 m
+.50375 .08896 L
+s
+.5 .12897 m
+.50375 .12897 L
+s
+.5 .14898 m
+.50375 .14898 L
+s
+.5 .16898 m
+.50375 .16898 L
+s
+.5 .18899 m
+.50375 .18899 L
+s
+.5 .229 m
+.50375 .229 L
+s
+.5 .249 m
+.50375 .249 L
+s
+.5 .26901 m
+.50375 .26901 L
+s
+.5 .28901 m
+.50375 .28901 L
+s
+.5 .32902 m
+.50375 .32902 L
+s
+.5 .34903 m
+.50375 .34903 L
+s
+.5 .36903 m
+.50375 .36903 L
+s
+.5 .38904 m
+.50375 .38904 L
+s
+.5 .42905 m
+.50375 .42905 L
+s
+.5 .44905 m
+.50375 .44905 L
+s
+.5 .46906 m
+.50375 .46906 L
+s
+.5 .48906 m
+.50375 .48906 L
+s
+.5 .52907 m
+.50375 .52907 L
+s
+.5 .54908 m
+.50375 .54908 L
+s
+.5 .56908 m
+.50375 .56908 L
+s
+.5 .58909 m
+.50375 .58909 L
+s
+.25 Mabswid
+.5 0 m
+.5 .61803 L
+s
+0 0 m
+1 0 L
+1 .61803 L
+0 .61803 L
+closepath
+clip
+newpath
+.5 Mabswid
+.02381 .01472 m
+.06244 .01646 L
+.10458 .01875 L
+.14415 .02139 L
+.18221 .02453 L
+.22272 .0288 L
+.26171 .03423 L
+.28158 .03772 L
+.30316 .04226 L
+.34309 .05372 L
+.36292 .06166 L
+.38395 .07267 L
+.40349 .08647 L
+.42179 .10418 L
+.43217 .11722 L
+.44203 .13235 L
+.46056 .17063 L
+.47014 .19699 L
+.48036 .23077 L
+.49875 .30377 L
+.51873 .38397 L
+.52923 .41916 L
+.54033 .4496 L
+.55028 .47158 L
+.5612 .49098 L
+.5804 .51629 L
+.59061 .52645 L
+.59991 .53428 L
+.62082 .54815 L
+.63991 .55763 L
+.66067 .56562 L
+.68005 .57153 L
+.70145 .57682 L
+.74072 .58419 L
+.78092 .58967 L
+.81961 .59367 L
+.86075 .597 L
+.90037 .59958 L
+.93848 .60162 L
+.97619 .60332 L
+s
+% End of Graphics
+MathPictureEnd
+\
+\>"], "Graphics",
+  ImageSize->{288, 177.938},
+  ImageMargins->{{43, 0}, {0, 0}},
+  ImageRegion->{{0, 1}, {0, 1}},
+  ImageCache->GraphicsData["Bitmap", "\<\
+CF5dJ6E]HGAYHf4PAg9QL6QYHg<PAVmbKF5d0`40004P0000/B000`400?l00000o`00003oo`3ooolQ
+0?ooo`00o`3ooolQ0?ooo`00O03oool500000080oooo0P0000040?ooo`8000001@3oool00`000000
+oooo0?ooo`2=0?ooo`00OP3oool00`000000oooo0?ooo`070?ooo`040000003oool0oooo000000@0
+oooo00<000000?ooo`3oool0S@3oool007h0oooo00<000000?ooo`3oool02P3oool00`000000oooo
+0?ooo`020?ooo`<00000S@3oool007H0oooo100000040?ooo`030000003oool0oooo00P0oooo0P00
+00050?ooo`030000003oool0oooo08d0oooo000;0?oooa400000HP3oool00`000000oooo0?ooo`08
+0?ooo`030000003oool0oooo00@0oooo00<000000?ooo`3oool0S@3oool001`0oooo3000001E0?oo
+o`8000002P3oool3000000@0oooo00<000000?ooo`3oool0S@3oool002P0oooo4P00001F0?ooo`03
+0000003oool0oooo08d0oooo000j0?ooo`H00000D03oool00`000000oooo0?ooo`2=0?ooo`00@03o
+ool8000004P0oooo0P00002>0?ooo`00B03oool800000400oooo00<000000?ooo`3oool0S@3oool0
+0500oooo1P00000j0?ooo`030000003oool0oooo08d0oooo001F0?ooo`D00000=@3oool00`000000
+oooo0?ooo`2=0?ooo`00F`3oool300000380oooo00<000000?ooo`3oool0S@3oool005h0oooo0P00
+000`0?ooo`800000SP3oool00600oooo0`00000]0?ooo`030000003oool0oooo08d0oooo001S0?oo
+o`<00000:P3oool00`000000oooo0?ooo`2=0?ooo`00IP3oool3000002L0oooo00<000000?ooo`3o
+ool0S@3oool006T0oooo0P00000U0?ooo`030000003oool0oooo08d0oooo001[0?ooo`8000008`3o
+ool00`000000oooo0?ooo`2=0?ooo`00K@3oool200000240oooo0P00002>0?ooo`00K`3oool20000
+01l0oooo00<000000?ooo`3oool0S@3oool00740oooo00<000000?ooo`3oool0703oool00`000000
+oooo0?ooo`2=0?ooo`00LP3oool2000001`0oooo00<000000?ooo`3oool0S@3oool007@0oooo00<0
+00000?ooo`3oool06@3oool00`000000oooo0?ooo`2=0?ooo`00M@3oool00`000000oooo0?ooo`0H
+0?ooo`800000SP3oool007H0oooo00<000000?ooo`3oool05`3oool00`000000oooo0?ooo`2=0?oo
+o`00M`3oool00`000000oooo0?ooo`0F0?ooo`030000003oool0oooo08d0oooo001h0?ooo`030000
+003oool0oooo01D0oooo00<000000?ooo`3oool0S@3oool007T0oooo00<000000?ooo`3oool0303o
+ool5000000<0oooo00<000000?ooo`3oool0S@3oool007X0oooo00<000000?ooo`3oool03@3oool0
+0`000000oooo0?ooo`030?ooo`030000003oool0oooo08d0oooo001k0?ooo`030000003oool0oooo
+00`0oooo00<000000?ooo`3oool00`3oool3000008d0oooo001l0?ooo`030000003oool0oooo00<0
+oooo100000040?ooo`030000003oool0oooo00<0oooo00<000000?ooo`3oool0S@3oool007d0oooo
+00<000000?ooo`3oool02P3oool00`000000oooo0?ooo`030?ooo`030000003oool0oooo08d0oooo
+001n0?ooo`030000003oool0oooo00P0oooo0P0000050?ooo`030000003oool0oooo08d0oooo001n
+0?ooo`030000003oool0oooo00l0oooo00<000000?ooo`3oool0S@3oool007l0oooo00<000000?oo
+o`3oool03P3oool00`000000oooo0?ooo`2=0?ooo`00O`3oool00`000000oooo0?ooo`0>0?ooo`80
+0000SP3oool00800oooo00<000000?ooo`3oool03@3oool00`000000oooo0?ooo`2=0?ooo`00P03o
+ool00`000000oooo0?ooo`0=0?ooo`030000003oool0oooo08d0oooo00210?ooo`030000003oool0
+oooo00`0oooo00<000000?ooo`3oool0S@3oool00840oooo00<000000?ooo`3oool0303oool00`00
+0000oooo0?ooo`2=0?ooo`00PP3oool00`000000oooo0?ooo`0;0?ooo`800000SP3oool00880oooo
+00<000000?ooo`3oool02`3oool00`000000oooo0?ooo`2=0?ooo`00P`3oool00`000000oooo0?oo
+o`0:0?ooo`030000003oool0oooo08d0oooo00230?ooo`030000003oool0oooo00X0oooo00<00000
+0?ooo`3oool0S@3oool008@0oooo00<000000?ooo`3oool02@3oool00`000000oooo0?ooo`2=0?oo
+o`00Q03oool00`000000oooo0?ooo`090?ooo`030000003oool0oooo08d0oooo00250?ooo`030000
+003oool0oooo00P0oooo0P00002>0?ooo`00Q@3oool00`000000oooo0?ooo`080?ooo`030000003o
+ool0oooo08d0oooo00260?ooo`030000003oool0oooo00L0oooo00<000000?ooo`3oool0S@3oool0
+08H0oooo00<000000?ooo`3oool01`3oool00`000000oooo0?ooo`2=0?ooo`00QP3oool00`000000
+oooo0?ooo`070?ooo`030000003oool0oooo08d0oooo00270?ooo`030000003oool0oooo00H0oooo
+0P00002>0?ooo`00Q`3oool00`000000oooo0?ooo`060?ooo`030000003oool0oooo08d0oooo0028
+0?ooo`030000003oool0oooo00D0oooo00<000000?ooo`3oool0S@3oool008P0oooo00<000000?oo
+o`3oool01@3oool00`000000oooo0?ooo`2=0?ooo`00O@3oool2000000@0oooo0P0000030?ooo`<0
+00001@3oool00`000000oooo0?ooo`2=0?ooo`00O03oool010000000oooo0?ooo`0000080?ooo`80
+000000<0oooo0000003oool00`3oool00`000000oooo0?ooo`2=0?ooo`00O03oool010000000oooo
+0?ooo`0000090?ooo`030000003oool0000000@0oooo0`00002=0?ooo`00MP3oool400000080oooo
+00@000000?ooo`3oool000002@3oool2000000D0oooo00<000000?ooo`3oool0S@3oool007`0oooo
+00@000000?ooo`3oool000002@3oool2000000D0oooo00<000000?ooo`3oool0S@3oool007d0oooo
+0P00000:0?ooo`<00000103oool00`000000oooo0?ooo`2=0?ooo`00RP3oool00`000000oooo0?oo
+o`030?ooo`030000003oool0oooo08d0oooo002;0?ooo`030000003oool0oooo0080oooo00<00000
+0?ooo`3oool0S@3oool008/0oooo00<000000?ooo`3oool00P3oool2000008h0oooo002;0?ooo`03
+0000003oool0oooo0080oooo00<000000?ooo`3oool0S@3oool008/0oooo00<000000?ooo`3oool0
+0P3oool00`000000oooo0?ooo`2=0?ooo`00S03oool01@000000oooo0?ooo`3oool0000008l0oooo
+002<0?ooo`050000003oool0oooo0?ooo`000000S`3oool008`0oooo00@000000?ooo`3oool0oooo
+0P00002>0?ooo`00S03oool01@000000oooo0?ooo`3oool0000008l0oooo002=0?ooo`040000003o
+ool0oooo000008l0oooo002=0?ooo`040000003oool0oooo000008l0oooo002=0?ooo`040000003o
+ool0oooo000008l0oooo002=0?ooo`040000003oool0oooo000008l0oooo00090?ooo`D000000P3o
+ool2000003h0oooo0P00000l0?ooo`040000003oool0000000000400oooo0P00000l0?ooo`D00000
+0P3oool2000000L0oooo000;0?ooo`050000003oool0oooo0?ooo`0000000P3oool00`000000oooo
+0?ooo`0j0?ooo`040000003oool0oooo000003/0oooo00<000000?ooo`000000@03oool010000000
+oooo0?ooo`00000m0?ooo`050000003oool0oooo0?ooo`0000000P3oool00`000000oooo0?ooo`04
+0?ooo`002`3oool01@000000oooo0?ooo`3oool000000080oooo00<000000?ooo`3oool0?@3oool0
+0`000000oooo0?ooo`0i0?ooo`030000003oool0000004<0oooo00<000000?ooo`3oool0>`3oool0
+1@000000oooo0?ooo`3oool000000080oooo00<000000?ooo`3oool0103oool000<0oooo10000004
+0?ooo`050000003oool0oooo0?ooo`0000000P3oool00`000000oooo0?ooo`0d0?ooo`@000000`3o
+ool2000003`0oooo00<000000?ooo`000000@@3oool2000003h0oooo00D000000?ooo`3oool0oooo
+000000020?ooo`030000003oool0oooo00@0oooo000;0?ooo`050000003oool0oooo0?ooo`000000
+0P3oool00`000000oooo0?ooo`0k0?ooo`030000003oool0oooo03`0oooo0P0000110?ooo`030000
+003oool0oooo03d0oooo00D000000?ooo`3oool0oooo000000020?ooo`030000003oool0oooo00@0
+oooo000:0?ooo`800000103oool2000003h0oooo0`00000l0?ooo`<00000@03oool3000003`0oooo
+0P0000040?ooo`8000001`3oool008l0oooo0P00002?0?ooo`00S`3oool2000008l0oooo002@0?oo
+o`030000003oool0oooo08d0oooo002@0?ooo`030000003oool0oooo08d0oooo002@0?ooo`030000
+003oool0oooo08d0oooo00040?ooool000006P0000030?ooo`002`3oool00`000000oooo0?ooo`0:
+0?ooo`030000003oool0oooo00/0oooo00<000000?ooo`3oool02P3oool00`000000oooo0?ooo`0:
+0?ooo`030000003oool0oooo00/0oooo00<000000?ooo`3oool02P3oool00`000000oooo0?ooo`0:
+0?ooo`030000003oool0oooo00/0oooo00<000000?ooo`3oool02P3oool00`000000oooo0?ooo`0:
+0?ooo`030000003oool0oooo00X0oooo00<000000?ooo`3oool02`3oool00`000000oooo0?ooo`0:
+0?ooo`030000003oool0oooo00X0oooo00<000000?ooo`3oool02`3oool00`000000oooo0?ooo`0:
+0?ooo`030000003oool0oooo00X0oooo00<000000?ooo`3oool02`3oool00`000000oooo0?ooo`0:
+0?ooo`030000003oool0oooo00X0oooo00<000000?ooo`3oool0203oool000/0oooo00<000000?oo
+o`3oool0@03oool00`000000oooo0?ooo`0o0?ooo`800000@@3oool00`000000oooo0?ooo`0o0?oo
+o`030000003oool0oooo00P0oooo002@0?ooo`800000SP3oool00900oooo0P00002>0?ooo`00T03o
+ool2000008h0oooo002@0?ooo`<00000S@3oool00900oooo00<000000?ooo`000000S@3oool00900
+oooo00<000000?ooo`000000S@3oool00900oooo00<000000?ooo`000000S@3oool00900oooo00<0
+00000?ooo`000000S@3oool00900oooo0P0000000`3oool000000?ooo`2;0?ooo`00T03oool01000
+0000oooo0?ooo`00002<0?ooo`00T03oool010000000oooo0?ooo`00002<0?ooo`00T03oool01000
+0000oooo0?ooo`00002<0?ooo`00T03oool01@000000oooo0?ooo`3oool0000008/0oooo002@0?oo
+o`050000003oool0oooo0?ooo`000000R`3oool00900oooo0P0000020?ooo`030000003oool0oooo
+08T0oooo002@0?ooo`050000003oool0oooo0?ooo`000000R`3oool00900oooo00<000000?ooo`3o
+ool00P3oool00`000000oooo0?ooo`280?ooo`00T03oool00`000000oooo0?ooo`020?ooo`030000
+003oool0oooo08P0oooo002@0?ooo`030000003oool0oooo0080oooo00<000000?ooo`3oool0R03o
+ool00900oooo0P0000030?ooo`030000003oool0oooo08P0oooo002@0?ooo`030000003oool0oooo
+00<0oooo00<000000?ooo`3oool0Q`3oool00900oooo00<000000?ooo`3oool00`3oool00`000000
+oooo0?ooo`270?ooo`00T03oool00`000000oooo0?ooo`030?ooo`030000003oool0oooo08L0oooo
+001m0?ooo`800000103oool2000000@0oooo0P0000050?ooo`030000003oool0oooo00<0oooo00<0
+00000?ooo`3oool0Q`3oool007`0oooo00@000000?ooo`3oool00000203oool010000000oooo0?oo
+o`0000040?ooo`030000003oool0oooo00@0oooo00<000000?ooo`3oool0QP3oool007`0oooo00@0
+00000?ooo`3oool000002`3oool00`000000oooo0?ooo`020?ooo`<00000103oool00`000000oooo
+0?ooo`260?ooo`00O03oool010000000oooo0?ooo`0000090?ooo`8000001@3oool00`000000oooo
+0?ooo`040?ooo`030000003oool0oooo08H0oooo001l0?ooo`040000003oool0oooo000000T0oooo
+00<000000?ooo`3oool0103oool00`000000oooo0?ooo`050?ooo`030000003oool0oooo08D0oooo
+001m0?ooo`8000002P3oool3000000@0oooo00<000000?ooo`3oool01@3oool00`000000oooo0?oo
+o`250?ooo`00T03oool00`000000oooo0?ooo`050?ooo`030000003oool0oooo08D0oooo002@0?oo
+o`030000003oool0oooo00H0oooo00<000000?ooo`3oool0Q03oool00900oooo0P0000070?ooo`03
+0000003oool0oooo08@0oooo002@0?ooo`030000003oool0oooo00H0oooo00<000000?ooo`3oool0
+Q03oool00900oooo00<000000?ooo`3oool01`3oool00`000000oooo0?ooo`230?ooo`00T03oool0
+0`000000oooo0?ooo`070?ooo`030000003oool0oooo08<0oooo002@0?ooo`030000003oool0oooo
+00P0oooo00<000000?ooo`3oool0PP3oool00900oooo0P0000090?ooo`030000003oool0oooo0880
+oooo002@0?ooo`030000003oool0oooo00P0oooo00<000000?ooo`3oool0PP3oool00900oooo00<0
+00000?ooo`3oool02@3oool00`000000oooo0?ooo`210?ooo`00T03oool00`000000oooo0?ooo`09
+0?ooo`030000003oool0oooo0840oooo002@0?ooo`030000003oool0oooo00X0oooo00<000000?oo
+o`3oool0P03oool00900oooo00<000000?ooo`3oool02P3oool00`000000oooo0?ooo`200?ooo`00
+T03oool2000000`0oooo00<000000?ooo`3oool0O`3oool00900oooo00<000000?ooo`3oool02`3o
+ool00`000000oooo0?ooo`1o0?ooo`00T03oool00`000000oooo0?ooo`0<0?ooo`030000003oool0
+oooo07h0oooo002@0?ooo`030000003oool0oooo00`0oooo00<000000?ooo`3oool0OP3oool00900
+oooo00<000000?ooo`3oool03@3oool00`000000oooo0?ooo`1m0?ooo`00T03oool2000000h0oooo
+00<000000?ooo`3oool0O@3oool00900oooo00<000000?ooo`3oool03P3oool00`000000oooo0?oo
+o`1l0?ooo`00T03oool00`000000oooo0?ooo`0?0?ooo`030000003oool0oooo07/0oooo002@0?oo
+o`030000003oool0oooo0100oooo00<000000?ooo`3oool0NP3oool008P0oooo1@0000030?ooo`03
+0000003oool0oooo0140oooo00<000000?ooo`3oool0N@3oool008X0oooo00<000000?ooo`3oool0
+0`3oool00`000000oooo0?ooo`0A0?ooo`030000003oool0oooo07T0oooo002:0?ooo`030000003o
+ool0oooo00<0oooo0`00000B0?ooo`030000003oool0oooo07P0oooo002:0?ooo`030000003oool0
+oooo00<0oooo00<000000?ooo`3oool04`3oool00`000000oooo0?ooo`1g0?ooo`00RP3oool00`00
+0000oooo0?ooo`030?ooo`030000003oool0oooo01@0oooo00<000000?ooo`3oool0MP3oool008T0
+oooo0P0000050?ooo`030000003oool0oooo01D0oooo00<000000?ooo`3oool0M@3oool00900oooo
+00<000000?ooo`3oool05P3oool00`000000oooo0?ooo`1d0?ooo`00T03oool00`000000oooo0?oo
+o`0G0?ooo`030000003oool0oooo07<0oooo002@0?ooo`8000006@3oool00`000000oooo0?ooo`1b
+0?ooo`00T03oool00`000000oooo0?ooo`0I0?ooo`030000003oool0oooo0740oooo002@0?ooo`03
+0000003oool0oooo01X0oooo0P00001a0?ooo`00T03oool00`000000oooo0?ooo`0L0?ooo`030000
+003oool0oooo06h0oooo002@0?ooo`030000003oool0oooo01d0oooo0P00001^0?ooo`00T03oool2
+00000200oooo00<000000?ooo`3oool0J`3oool00900oooo00<000000?ooo`3oool0803oool20000
+06/0oooo002@0?ooo`030000003oool0oooo0280oooo0P00001Y0?ooo`00T03oool00`000000oooo
+0?ooo`0T0?ooo`800000I`3oool00900oooo00<000000?ooo`3oool09P3oool3000006@0oooo002@
+0?ooo`030000003oool0oooo02T0oooo1000001P0?ooo`00T03oool2000002h0oooo1@00001K0?oo
+o`00T03oool00`000000oooo0?ooo`0b0?ooo`<00000F03oool00900oooo00<000000?ooo`3oool0
+=@3oool4000005@0oooo002@0?ooo`030000003oool0oooo03T0oooo1P00001>0?ooo`00T03oool0
+0`000000oooo0?ooo`0o0?ooo`D00000B@3oool00900oooo0P0000150?ooo`H00000@`3oool00900
+oooo00<000000?ooo`3oool0BP3oool8000003/0oooo002@0?ooo`030000003oool0oooo0580oooo
+2`00000`0?ooo`00T03oool00`000000oooo0?ooo`1M0?oooaH000006P3oool007`0oooo1@000002
+0?ooo`800000103oool2000000D0oooo00<000000?ooo`3oool0L`3oool@000000X0oooo001n0?oo
+o`030000003oool0oooo00L0oooo00@000000?ooo`3oool00000103oool00`000000oooo0?ooo`2=
+0?ooo`00OP3oool00`000000oooo0?ooo`0:0?ooo`030000003oool0oooo0080oooo0`00002=0?oo
+o`00OP3oool00`000000oooo0?ooo`080?ooo`8000001@3oool00`000000oooo0?ooo`2=0?ooo`00
+OP3oool00`000000oooo0?ooo`080?ooo`030000003oool0oooo00@0oooo00<000000?ooo`3oool0
+S@3oool007d0oooo0P00000:0?ooo`<00000U03oool00?l0oooo8@3oool00001\
+\>"],
+  ImageRangeCache->{{{0, 287}, {176.938, 0}} -> {-10.857, -1.5804, 0.0750473, \
+0.0178638}}],
+
+Cell[BoxData[
+    TagBox[\(\[SkeletonIndicator]  Graphics  \[SkeletonIndicator]\),
+      False,
+      Editable->False]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Solve[1.53891633438221 == 1.04*\((x)\)^\((2/3)\), x]\)], "Input"],
+
+Cell[BoxData[
+    \({{x \[Rule] 1.7999999999999938`}}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(1.53891633438221/ .0769458167191107\)], "Input"],
+
+Cell[BoxData[
+    \(19.99999999999995`\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(1/20. \)], "Input"],
+
+Cell[BoxData[
+    \(0.05`\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(Rin = 4.84\), "\[IndentingNewLine]", 
+    \(R0 = 4.37052\), "\[IndentingNewLine]", 
+    \(R0/Rin\)}], "Input"],
+
+Cell[BoxData[
+    \(4.84`\)], "Output"],
+
+Cell[BoxData[
+    \(4.37052`\)], "Output"],
+
+Cell[BoxData[
+    \(0.903`\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(25*5\)], "Input"],
+
+Cell[BoxData[
+    \(125\)], "Output"]
+}, Open  ]]
+},
+FrontEndVersion->"5.1 for Microsoft Windows",
+ScreenRectangle->{{0, 1400}, {0, 967}},
+WindowSize->{1271, 740},
+WindowMargins->{{0, Automatic}, {Automatic, 0}}
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[1776, 53, 213, 4, 30, "Input"],
+Cell[1992, 59, 420, 7, 43, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[2449, 71, 51, 1, 30, "Input"],
+Cell[2503, 74, 381, 6, 43, "Output"]
+}, Open  ]],
+Cell[2899, 83, 26, 0, 30, "Input"],
+
+Cell[CellGroupData[{
+Cell[2950, 87, 208, 3, 30, "Input"],
+Cell[3161, 92, 188, 3, 29, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[3386, 100, 72, 1, 30, "Input"],
+Cell[3461, 103, 367, 6, 43, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[3865, 114, 253, 5, 30, "Input"],
+Cell[4121, 121, 1161, 16, 213, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[5319, 142, 56, 1, 30, "Input"],
+Cell[5378, 145, 52, 1, 29, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[5467, 151, 344, 7, 110, "Input"],
+Cell[5814, 160, 560, 10, 84, "Output"]
+}, Open  ]],
+Cell[6389, 173, 26, 0, 30, "Input"],
+
+Cell[CellGroupData[{
+Cell[6440, 177, 52, 1, 30, "Input"],
+Cell[6495, 180, 53, 1, 29, "Output"]
+}, Open  ]],
+Cell[6563, 184, 138, 3, 30, "Input"],
+Cell[6704, 189, 68, 1, 30, "Input"],
+Cell[6775, 192, 26, 0, 30, "Input"],
+Cell[6804, 194, 92, 1, 30, "Input"],
+
+Cell[CellGroupData[{
+Cell[6921, 199, 403, 9, 50, "Input"],
+Cell[7327, 210, 230, 4, 29, "Output"],
+Cell[7560, 216, 238, 4, 29, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[7835, 225, 407, 9, 50, "Input"],
+Cell[8245, 236, 212, 3, 29, "Output"],
+Cell[8460, 241, 235, 4, 29, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[8732, 250, 39, 1, 30, "Input"],
+Cell[8774, 253, 53, 1, 29, "Output"]
+}, Open  ]],
+Cell[8842, 257, 304, 4, 30, "Input"],
+
+Cell[CellGroupData[{
+Cell[9171, 265, 364, 7, 50, "Input"],
+Cell[9538, 274, 42, 1, 29, "Output"],
+Cell[9583, 277, 41, 1, 29, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[9661, 283, 26, 0, 30, "Input"],
+Cell[9690, 285, 53, 1, 29, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[9780, 291, 49, 1, 30, "Input"],
+Cell[9832, 294, 82, 1, 44, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[9951, 300, 43, 1, 30, "Input"],
+Cell[9997, 303, 53, 1, 29, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[10087, 309, 40, 1, 30, "Input"],
+Cell[10130, 312, 52, 1, 29, "Output"]
+}, Open  ]],
+Cell[10197, 316, 46, 1, 30, "Input"],
+
+Cell[CellGroupData[{
+Cell[10268, 321, 234, 5, 50, "Input"],
+Cell[10505, 328, 683, 11, 47, "Output"]
+}, Open  ]],
+Cell[11203, 342, 418, 7, 50, "Input"],
+
+Cell[CellGroupData[{
+Cell[11646, 353, 147, 4, 50, "Input"],
+Cell[11796, 359, 3105, 50, 201, "Output"],
+Cell[14904, 411, 2181, 38, 298, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[17122, 454, 147, 4, 50, "Input"],
+Cell[17272, 460, 2728, 43, 163, "Output"],
+Cell[20003, 505, 2030, 35, 315, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[22070, 545, 147, 4, 50, "Input"],
+Cell[22220, 551, 2644, 42, 163, "Output"],
+Cell[24867, 595, 1783, 33, 281, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[26687, 633, 147, 4, 50, "Input"],
+Cell[26837, 639, 2602, 41, 182, "Output"],
+Cell[29442, 682, 1764, 29, 281, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[31243, 716, 147, 4, 50, "Input"],
+Cell[31393, 722, 2562, 41, 163, "Output"],
+Cell[33958, 765, 1705, 30, 230, "Output"]
+}, Open  ]],
+Cell[35678, 798, 296, 4, 250, "Input"],
+
+Cell[CellGroupData[{
+Cell[35999, 806, 45, 1, 30, "Input"],
+Cell[36047, 809, 52, 1, 29, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[36136, 815, 39, 1, 30, "Input"],
+Cell[36178, 818, 52, 1, 29, "Output"]
+}, Open  ]],
+Cell[36245, 822, 46, 1, 30, "Input"],
+
+Cell[CellGroupData[{
+Cell[36316, 827, 376, 7, 70, "Input"],
+Cell[36695, 836, 52, 1, 29, "Output"],
+Cell[36750, 839, 188, 3, 29, "Output"],
+Cell[36941, 844, 219, 4, 29, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[37197, 853, 46, 1, 30, "Input"],
+Cell[37246, 856, 204, 3, 29, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[37487, 864, 69, 1, 30, "Input"],
+Cell[37559, 867, 454, 6, 92, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[38050, 878, 62, 1, 30, "Input"],
+Cell[38115, 881, 223, 5, 60, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[38375, 891, 54, 1, 30, "Input"],
+Cell[38432, 894, 56, 1, 29, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[38525, 900, 128, 3, 30, "Input"],
+Cell[38656, 905, 211, 3, 49, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[38904, 913, 102, 2, 50, "Input"],
+Cell[39009, 917, 36, 1, 29, "Output"],
+Cell[39048, 920, 35, 1, 29, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[39120, 926, 66, 1, 30, "Input"],
+Cell[39189, 929, 15832, 425, 186, 3702, 271, "GraphicsData", "PostScript", \
+"Graphics"],
+Cell[55024, 1356, 130, 3, 29, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[55191, 1364, 85, 1, 30, "Input"],
+Cell[55279, 1367, 67, 1, 29, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[55383, 1373, 68, 1, 30, "Input"],
+Cell[55454, 1376, 52, 1, 29, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[55543, 1382, 39, 1, 30, "Input"],
+Cell[55585, 1385, 39, 1, 29, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[55661, 1391, 131, 3, 70, "Input"],
+Cell[55795, 1396, 39, 1, 29, "Output"],
+Cell[55837, 1399, 42, 1, 29, "Output"],
+Cell[55882, 1402, 40, 1, 29, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[55959, 1408, 37, 1, 30, "Input"],
+Cell[55999, 1411, 37, 1, 29, "Output"]
+}, Open  ]]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

@@ -1,0 +1,882 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 5.0'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     31269,        766]*)
+(*NotebookOutlinePosition[     31934,        789]*)
+(*  CellTagsIndexPosition[     31890,        785]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell[BoxData[
+    \( (*\ Connection\ for\ KS\ coords\ in\ coordinate\ basis\ *) \)], "Input"],
+
+Cell[BoxData[
+    \(MyD[f_, i_] := 
+      If[i \[Equal] 1, D[f, Xp[\([1]\)]], 
+        If[i \[Equal] 2, D[f, Xp[\([2]\)]], 
+          If[i \[Equal] 3, D[f, Xp[\([3]\)]], 
+            If[i \[Equal] 4, D[f, Xp[\([4]\)]]]]]]\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(Asymten[f_] := 
+      1/2*Table[
+          f[\([i, j]\)] - f[\([j, i]\)], {i, 1, 4}, {j, 1, 
+            4}]\), "\[IndentingNewLine]", 
+    \(Asym1100[f_] := 
+      1/2*Table[
+          f[\([i, j, k, l]\)] - f[\([j, i, k, l]\)], {i, 1, 4}, {j, 1, 
+            4}, {k, 1, 4}, {l, 1, 4}]\), "\[IndentingNewLine]", 
+    \(Asym0011[f_] := 
+      1/2*Table[
+          f[\([i, j, k, l]\)] - f[\([i, j, l, k]\)], {i, 1, 4}, {j, 1, 
+            4}, {k, 1, 4}, {l, 1, 4}]\), "\[IndentingNewLine]", 
+    \(Asym22[f_] := 
+      1/4*Table[
+          f[\([i, j, k, l]\)] - f[\([i, j, l, k]\)] - f[\([j, i, k, l]\)] + 
+            f[\([j, i, l, k]\)], {i, 1, 4}, {j, 1, 4}, {k, 1, 4}, {l, 1, 
+            4}]\), "\[IndentingNewLine]", 
+    \(Asym03[f_] := 
+      1/\(3!\)*Table[
+          f[\([i, j, k, l]\)] - f[\([i, k, j, l]\)] + f[\([i, l, j, k]\)] - 
+            f[\([i, j, l, k]\)] + f[\([i, k, l, j]\)] - 
+            f[\([i, l, k, j]\)], {i, 1, 4}, {j, 1, 4}, {k, 1, 4}, {l, 1, 
+            4}]\), "\[IndentingNewLine]", 
+    \(Symten[f_] := \(\(1/2*
+        Table[f[\([i, j]\)] + f[\([j, i]\)], {i, 1, 4}, {j, 1, 
+            4}]\)\(\[IndentingNewLine]\)
+      \)\), "\[IndentingNewLine]", 
+    \(getlstc[n_] := 
+      Characters[
+        StringTake["\<acdefghijklmnopqrstuvwxyz\>", 
+          n]]\), "\[IndentingNewLine]", 
+    \(getlst[n_] := 
+      ToExpression[
+        Characters[
+          StringTake["\<acdefghijklmnopqrstuvwxyz\>", 
+            n]]]\), "\[IndentingNewLine]", 
+    \(sublist[n_, mys_] := 
+      Table[\(getlst[n]\)[\([mys[\([i]\)]]\)], {i, 
+          1, \(Dimensions[mys]\)[\([1]\)]}]\), "\[IndentingNewLine]", 
+    \(\(Clear[
+        Evaluate[Sequence @@ getlstc[25]]];\)\), "\[IndentingNewLine]", 
+    \(\(myperm[x_] := 
+        MinimumChangePermutations[x];\)\[IndentingNewLine] (*lims[n_, d_, 
+          mys_] := Table[{\(sublist[n, mys]\)[\([AAA]\)], 1, d}, {AAA, 
+            1, \(Dimensions[mys]\)[\([1]\)]}]*) \), "\[IndentingNewLine]", 
+    \(\(\(lims[n_] := 
+      Table[{\(getlst[n]\)[\([AAA]\)], 1, n}, {AAA, 1, 
+          n}]\)\(\[IndentingNewLine]\)
+    \) (*fullasym[f_, n_, mys_] := 
+        Sum[\((\(-1\))\)^\((AAA - 1)\)*\(Apply[f, 
+                myperm[sublist[n, mys]], {1}]\)[\([AAA]\)], {AAA, 
+            1, \(n!\)}]*) \), "\[IndentingNewLine]", 
+    \(fullasym[f_, n_] := 
+      Sum[\((\(-1\))\)^\((AAA - 1)\)*\(Apply[f, 
+              myperm[getlst[n]], {1}]\)[\([AAA]\)], {AAA, 
+          1, \(n!\)}]\), "\[IndentingNewLine]", 
+    \(fullasym2[f_, n_] := 
+      Table[fullasym[f, n], 
+        Evaluate[Sequence\  @@ \ lims[n]]]\), "\[IndentingNewLine]", 
+    \(fullsym[f_, n_] := 
+      Sum[\(Apply[f, myperm[getlst[n]], {1}]\)[\([AAA]\)], {AAA, 
+          1, \(n!\)}]\), "\[IndentingNewLine]", 
+    \(\(\(fullsym2[f_, n_] := 
+      Table[fullsym[f, n], 
+        Evaluate[Sequence\  @@ \ lims[n]]]\)\(\[IndentingNewLine]\)
+    \) (*\ replace\ f\ with\ your\ function\ *) \), "\[IndentingNewLine]", 
+    \(Clear[Evaluate[Sequence @@ getlstc[20]]]; crazyf[A___] := f[\([A]\)]; 
+    temp = fullasym2[crazyf, 3];\), "\[IndentingNewLine]", 
+    \(Asym3[f_] := temp\)}], "Input"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell1"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(getlst\\)\\\" is similar to existing symbol \
+\\\"\\!\\(getlstc\\)\\\". \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell1\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell1"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(fullsym\\)\\\" is similar to existing symbol \
+\\\"\\!\\(fullasym\\)\\\". \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell1\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell1"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(fullsym2\\)\\\" is similar to existing \
+symbol \\\"\\!\\(fullasym2\\)\\\". \
+\\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", ButtonStyle->\\\"RefGuideLinkText\
+\\\", ButtonFrame->None, ButtonData:>\\\"General::spell1\\\"]\\)\"\>"}]], \
+"Message"],
+
+Cell[BoxData[
+    RowBox[{\(Part::"partd"\), \(\(:\)\(\ \)\), "\<\"Part specification \
+\\!\\(f \[LeftDoubleBracket] \\(\\(1, 1, 1\\)\\) \[RightDoubleBracket]\\) is \
+longer than depth of object. \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::partd\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(Part::"partd"\), \(\(:\)\(\ \)\), "\<\"Part specification \
+\\!\\(f \[LeftDoubleBracket] \\(\\(1, 1, 1\\)\\) \[RightDoubleBracket]\\) is \
+longer than depth of object. \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::partd\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(Part::"partd"\), \(\(:\)\(\ \)\), "\<\"Part specification \
+\\!\\(f \[LeftDoubleBracket] \\(\\(1, 1, 1\\)\\) \[RightDoubleBracket]\\) is \
+longer than depth of object. \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::partd\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(General::"stop"\), \(\(:\)\(\ \)\), "\<\"Further output of \
+\\!\\(Part :: \\\"partd\\\"\\) will be suppressed during this calculation. \
+\\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", ButtonStyle->\\\"RefGuideLinkText\
+\\\", ButtonFrame->None, ButtonData:>\\\"General::stop\\\"]\\)\"\>"}]], \
+"Message"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell1"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(Asym3\\)\\\" is similar to existing symbol \
+\\\"\\!\\(Asym03\\)\\\". \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell1\\\"]\\)\"\>"}]], "Message"]
+}, Open  ]],
+
+Cell[BoxData[""], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(\(\(MyD[f_, i_] := 
+      If[i \[Equal] 1, D[f, t], 
+        If[i \[Equal] 2, D[f, x], 
+          If[i \[Equal] 3, D[f, y], 
+            If[i \[Equal] 4, D[f, z]]]]]\)\(\[IndentingNewLine]\)
+    \) (*\ Connection\ for\ KS\ coords\ in\ coordinate\ basis, \ 
+      assumes\ symmetric\ metric\ *) \), "\[IndentingNewLine]", 
+    \(\(mygcov = gcov //. metricconsts;\)\), "\[IndentingNewLine]", 
+    \(\(gabc = 
+        Table[MyD[mygcov[\([i, j]\)], k], {i, 1, 4}, {j, 1, 4}, {k, 1, 
+            4}];\)\), "\[IndentingNewLine]", 
+    \(\(Connddd = 
+        1/2*Table[
+            gabc[\([i, k, j]\)] + gabc[\([j, k, i]\)] - 
+              gabc[\([i, j, k]\)], {k, 1, 4}, {j, 1, 4}, {i, 1, 
+              4}];\)\), "\[IndentingNewLine]", 
+    \(\(Connection = 
+        Table[Sum[gcon[\([k, m]\)]*Connddd[\([k, i, j]\)], {k, 1, 4}], {m, 1, 
+            4}, {i, 1, 4}, {j, 1, 4}];\)\), "\[IndentingNewLine]", 
+    \(If[simplemetric \[Equal] 
+        1, \[IndentingNewLine]\(Connection2 = 
+          FullSimplify[
+            FullSimplify[
+                FullSimplify[
+                    FullSimplify[
+                        FullSimplify[
+                            FullSimplify[Connection //. myconvert] //. 
+                              mybackconvertr] //. myconvertr] //. 
+                      myconvertr] //. mysigmabackconvert] //. 
+              mysigmaconvert];\)\[IndentingNewLine]]\), \
+"\[IndentingNewLine]", 
+    \(If[simplemetric \[Equal] 
+        0, \[IndentingNewLine]\(Connection2 = 
+          Connection;\)\[IndentingNewLine]]\), "\[IndentingNewLine]", 
+    \(MatrixForm[Connection2]\)}], "Input"],
+
+Cell[BoxData[
+    InterpretationBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {
+              RowBox[{"(", "\[NoBreak]", GridBox[{
+                    {"0"},
+                    {"0"},
+                    {"0"},
+                    {"0"}
+                    }], "\[NoBreak]", ")"}], 
+              RowBox[{"(", "\[NoBreak]", GridBox[{
+                    {"0"},
+                    {"0"},
+                    {"0"},
+                    {"0"}
+                    }], "\[NoBreak]", ")"}], 
+              RowBox[{"(", "\[NoBreak]", GridBox[{
+                    {"0"},
+                    {"0"},
+                    {"0"},
+                    {"0"}
+                    }], "\[NoBreak]", ")"}], 
+              RowBox[{"(", "\[NoBreak]", GridBox[{
+                    {"0"},
+                    {"0"},
+                    {"0"},
+                    {"0"}
+                    }], "\[NoBreak]", ")"}]},
+            {
+              RowBox[{"(", "\[NoBreak]", GridBox[{
+                    {"0"},
+                    {"0"},
+                    {"0"},
+                    {"0"}
+                    }], "\[NoBreak]", ")"}], 
+              RowBox[{"(", "\[NoBreak]", GridBox[{
+                    {"0"},
+                    {"0"},
+                    {"0"},
+                    {"0"}
+                    }], "\[NoBreak]", ")"}], 
+              RowBox[{"(", "\[NoBreak]", GridBox[{
+                    {"0"},
+                    {"0"},
+                    {\(-x\)},
+                    {"0"}
+                    }], "\[NoBreak]", ")"}], 
+              RowBox[{"(", "\[NoBreak]", GridBox[{
+                    {"0"},
+                    {"0"},
+                    {"0"},
+                    {\(\(-x\)\ Sin[y]\^2\)}
+                    }], "\[NoBreak]", ")"}]},
+            {
+              RowBox[{"(", "\[NoBreak]", GridBox[{
+                    {"0"},
+                    {"0"},
+                    {"0"},
+                    {"0"}
+                    }], "\[NoBreak]", ")"}], 
+              RowBox[{"(", "\[NoBreak]", GridBox[{
+                    {"0"},
+                    {"0"},
+                    {\(1\/x\)},
+                    {"0"}
+                    }], "\[NoBreak]", ")"}], 
+              RowBox[{"(", "\[NoBreak]", GridBox[{
+                    {"0"},
+                    {\(1\/x\)},
+                    {"0"},
+                    {"0"}
+                    }], "\[NoBreak]", ")"}], 
+              RowBox[{"(", "\[NoBreak]", GridBox[{
+                    {"0"},
+                    {"0"},
+                    {"0"},
+                    {\(\(-Cos[y]\)\ Sin[y]\)}
+                    }], "\[NoBreak]", ")"}]},
+            {
+              RowBox[{"(", "\[NoBreak]", GridBox[{
+                    {"0"},
+                    {"0"},
+                    {"0"},
+                    {"0"}
+                    }], "\[NoBreak]", ")"}], 
+              RowBox[{"(", "\[NoBreak]", GridBox[{
+                    {"0"},
+                    {"0"},
+                    {"0"},
+                    {\(1\/x\)}
+                    }], "\[NoBreak]", ")"}], 
+              RowBox[{"(", "\[NoBreak]", GridBox[{
+                    {"0"},
+                    {"0"},
+                    {"0"},
+                    {\(Cot[y]\)}
+                    }], "\[NoBreak]", ")"}], 
+              RowBox[{"(", "\[NoBreak]", GridBox[{
+                    {"0"},
+                    {\(1\/x\)},
+                    {\(Cot[y]\)},
+                    {"0"}
+                    }], "\[NoBreak]", ")"}]}
+            }], "\[NoBreak]", ")"}],
+      MatrixForm[ {{{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 
+        0}}, {{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 
+        Times[ -1, x], 0}, {0, 0, 0, 
+        Times[ -1, x, 
+          Power[ 
+            Sin[ y], 2]]}}, {{0, 0, 0, 0}, {0, 0, 
+        Power[ x, -1], 0}, {0, 
+        Power[ x, -1], 0, 0}, {0, 0, 0, 
+        Times[ -1, 
+          Cos[ y], 
+          Sin[ y]]}}, {{0, 0, 0, 0}, {0, 0, 0, 
+        Power[ x, -1]}, {0, 0, 0, 
+        Cot[ y]}, {0, 
+        Power[ x, -1], 
+        Cot[ y], 0}}}]]], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    \( (*\ connection\ "\<2\>"\ *) \)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(\(gdet2fs = 
+        FullSimplify[
+          gdet2, {dhdx2 > 0, Sin[h] > 0, sigma > 0, 
+            Im[x] \[Equal] 0}];\)\), "\[IndentingNewLine]", 
+    \(\(gdet2der = \((gdet2fs)\) //. 
+          mybackconvert;\)\), "\[IndentingNewLine]", 
+    \(\(Print["\<before simplify1\>"];\)\), "\[IndentingNewLine]", 
+    \(\(dgdetdx = 
+        FullSimplify[\(-D[gdet2der, x]\) //. 
+            myconvert];\)\), "\[IndentingNewLine]", 
+    \(\(dgdetdy = 
+        FullSimplify[\(-D[gdet2der, y]\) //. 
+            myconvert];\)\), "\[IndentingNewLine]", 
+    \(\(conn2 = Table[0, {i, 1, 4}];\)\), "\[IndentingNewLine]", 
+    \(\(Print["\<before simplify\>"];\)\), "\[IndentingNewLine]", 
+    \(\(conn2[\([1]\)] = 
+        FullSimplify[
+          FullSimplify[\((0/gdet2fs)\)] //. 
+            myconvert];\)\), "\[IndentingNewLine]", 
+    \(\(conn2[\([2]\)] = 
+        FullSimplify[
+          FullSimplify[\((dgdetdx/gdet2fs)\)] //. 
+            myconvert];\)\), "\[IndentingNewLine]", 
+    \(\(conn2[\([3]\)] = 
+        FullSimplify[
+          FullSimplify[\((dgdetdy/gdet2fs)\)] //. 
+            myconvert];\)\), "\[IndentingNewLine]", 
+    \(\(conn2[\([4]\)] = 
+        FullSimplify[
+          FullSimplify[\((0/gdet2fs)\)] //. 
+            myconvert];\)\), "\[IndentingNewLine]", 
+    \(MatrixForm[conn2]\), "\[IndentingNewLine]", 
+    \(Limit[conn2 //. mybackconvert, y \[Rule] 0] //. 
+      myconvert\), "\[IndentingNewLine]", 
+    \(\)}], "Input"],
+
+Cell[BoxData[
+    \("before simplify1"\)], "Print"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell1"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(dgdetdy\\)\\\" is similar to existing symbol \
+\\\"\\!\\(dgdetdx\\)\\\". \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell1\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    \("before simplify"\)], "Print"],
+
+Cell[BoxData[
+    InterpretationBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {"0"},
+            {\(\(-1\) - \(2\ drdx1\ r\)\/sigma\)},
+            {\(\(4\ \[Pi]\^2\ \((h - \[Pi]\ y)\)\)\/dhdx2 - 
+                dhdx2\ Cot[h] + \(a\^2\ dhdx2\ Sin[2\ h]\)\/sigma\)},
+            {"0"}
+            }], "\[NoBreak]", ")"}],
+      MatrixForm[ {0, 
+        Plus[ -1, 
+          Times[ -2, drdx1, r, 
+            Power[ sigma, -1]]], 
+        Plus[ 
+          Times[ 4, 
+            Power[ dhdx2, -1], 
+            Power[ Pi, 2], 
+            Plus[ h, 
+              Times[ -1, Pi, y]]], 
+          Times[ -1, dhdx2, 
+            Cot[ h]], 
+          Times[ 
+            Power[ a, 2], dhdx2, 
+            Power[ sigma, -1], 
+            Sin[ 
+              Times[ 2, h]]]], 0}]]], "Output"],
+
+Cell[BoxData[
+    \({0, \(-\(\(a\^2 + 3\ drdx1\^2 + 4\ drdx1\ R0 + R0\^2\)\/\(a\^2 + 
+              r\^2\)\)\), \(-\[Infinity]\), 0}\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    \(\(\(\[IndentingNewLine]\)\(\[IndentingNewLine]\)\(\[IndentingNewLine]\)\
+\)\)], "Input"],
+
+Cell[BoxData[
+    \(\(\( (*R^{i} _ {jkl}*) \)\(\(Riemann = 
+        Table[MyD[Connection[\([i, j, l]\)], k] - 
+            MyD[Connection[\([i, j, k]\)], l] + 
+            Sum[Connection[\([i, mu, k]\)]*Connection[\([mu, j, l]\)] - 
+                Connection[\([i, mu, l]\)]*Connection[\([mu, j, k]\)], {mu, 
+                1, 4}], {i, 1, 4}, {j, 1, 4}, {k, 1, 4}, {l, 1, 
+            4}];\)\[IndentingNewLine]
+    \(\(Riemanndddd = 
+        Table[Sum[
+            gcov[\([i, mu]\)]*Riemann[\([mu, j, k, l]\)], {mu, 1, 4}], {i, 1, 
+            4}, {j, 1, 4}, {k, 1, 4}, {l, 1, 4}];\)\(\[IndentingNewLine]\)
+    \)\)\)\)], "Input"],
+
+Cell[BoxData[
+    \(\(\( (*\ 
+      R_ {mu\ nu}\ *) \)\(\[IndentingNewLine]\)\(Ricci = 
+        Table[Sum[Riemann[\([alpha, i, alpha, j]\)], {alpha, 1, 4}], {i, 1, 
+            4}, {j, 1, 4}];\)\)\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\(\( (*\ 
+      R^{mu} _ {nu}\ *) \)\(\[IndentingNewLine]\)\(\(Ricciud = 
+        Table[Sum[Ricci[\([i, j]\)]*gcon[\([i, k]\)], {i, 1, 4}], {j, 1, 
+            4}, {k, 1, 4}];\)\[IndentingNewLine]
+    \(Riccidu = 
+        Table[Sum[Ricci[\([i, j]\)]*gcon[\([j, k]\)], {j, 1, 4}], {i, 1, 
+            4}, {k, 1, 4}];\)\)\)\)], "Input"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell1"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(Riccidu\\)\\\" is similar to existing symbol \
+\\\"\\!\\(Ricciud\\)\\\". \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell1\\\"]\\)\"\>"}]], "Message"]
+}, Open  ]],
+
+Cell[BoxData[{
+    \(\(R1 = \(R = 
+          Sum[Ricciud[\([i, i]\)], {i, 1, 4}]\);\)\), "\[IndentingNewLine]", 
+    \(\(R2 = Sum[Riccidu[\([i, i]\)], {i, 1, 4}];\)\)}], "Input"],
+
+Cell[BoxData[""], "Input"],
+
+Cell[BoxData[{
+    \(\(Gud = Array[#1^#2 &, {4, 4}]*0;\)\), "\[IndentingNewLine]", 
+    \(\(Gud = 
+        Table[Ricciud[\([i, j]\)] - 1/2*KroneckerDelta[i, j]*R, {i, 1, 
+            4}, {j, 1, 4}];\)\), "\[IndentingNewLine]", 
+    \(\(Guu = Array[#1^#2 &, {4, 4}]*0;\)\), "\[IndentingNewLine]", 
+    \(\(Guu = 
+        Table[Sum[Gud[\([i, j]\)]*gcon[\([j, k]\)], {j, 1, 4}], {i, 1, 
+            4}, {k, 1, 4}];\)\), "\[IndentingNewLine]", 
+    \(\(Gtest = Array[#1^#2 &, {4, 4}]*0;\)\), "\[IndentingNewLine]", 
+    \(\(MyCovD[f_, i_, j_, k_] := 
+        MyD[f[\([i, j]\)], k] + 
+          Sum[Connection[\([i, mu, k]\)]*f[\([mu, j]\)], {mu, 1, 4}] - 
+          Sum[Connection[\([mu, j, k]\)]*f[\([i, mu]\)], {mu, 1, 
+              4}];\)\), "\[IndentingNewLine]", 
+    \(\(Gtest = 
+        Table[MyCovD[Guu, i, j, k], {i, 1, 4}, {j, 1, 4}, {k, 1, 
+            4}];\)\)}], "Input"],
+
+Cell[BoxData[
+    \(\(Weyl = 
+        Table[Riemanndddd[\([l, m, n, k]\)] - 
+            1/2*\((gcov[\([l, n]\)]*Ricci[\([m, k]\)] - 
+                  gcov[\([l, k]\)]*Ricci[\([m, n]\)] - 
+                  gcov[\([m, n]\)]*Ricci[\([l, k]\)] + 
+                  gcov[\([m, k]\)]*Ricci[\([l, n]\)])\) + 
+            1/6*\((gcov[\([l, n]\)]*gcov[\([m, k]\)] - 
+                  gcov[\([l, k]\)]*gcov[\([m, n]\)])\)*R, {l, 1, 4}, {m, 1, 
+            4}, {n, 1, 4}, {k, 1, 4}];\)\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\(Weyln = Weyl //. {M \[Rule] 1, y \[Rule] Pi/2};\)\)], "Input"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell1"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(Weyln\\)\\\" is similar to existing symbol \
+\\\"\\!\\(Weyl\\)\\\". \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell1\\\"]\\)\"\>"}]], "Message"]
+}, Open  ]],
+
+Cell[BoxData[
+    \( (*\ functionalize\ the\ tetrad\ since\ often\ can' 
+        t\ find\ general\ solution\ for\ complicated\ metric\ for\ arbitrary\ \
+parameters, \ 
+      should\ base\ order\ on\ fact\ that\ eta\ should\ result\ from\ n . g . 
+          n\ *) \)], "Input"],
+
+Cell[BoxData[
+    \( (*\ 
+      how\ to\ order\ in\ general \(?? \(?? \(! \(! \(! \(! \ \ Need\ \
+timelike\ first\ at\ least\)\)\)\), \ 
+            after\ that\ just\ rigid\ rotations\ get\ same\ tetrad\)\)\ *) \
+\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\(\(tetradcon = 
+        Function[{aa, tt, xx, yy, zz, MM}, \[IndentingNewLine]SMALL = 
+            10^\((\(-30\))\); \[IndentingNewLine]ERROR = 
+            10^\((\(-7\))\); \[IndentingNewLine]mygcov = 
+            gcov //. {a \[Rule] aa, t \[Rule] tt, x \[Rule] xx, y \[Rule] yy, 
+                z \[Rule] zz, M \[Rule] MM}; \[IndentingNewLine]es = 
+            Eigensystem[mygcov]; \[IndentingNewLine]ges = 
+            GramSchmidt[es[\([2]\)]]; \[IndentingNewLine]gev = 
+            es[\([1]\)]; \[IndentingNewLine]n = 1; 
+          While[Re[N[gev[\([n]\)], 30]] > 0, 
+            n = n + 1]; \[IndentingNewLine]timelikeev = 
+            n; \[IndentingNewLine]pretetradcon = 
+            Table[ges[\([i, j]\)]/
+                Sqrt[Abs[\(es[\([1]\)]\)[\([i]\)]] + SMALL], {i, 1, 4}, {j, 
+                1, 4}]; \[IndentingNewLine]gi = 0; \[IndentingNewLine]gj = 
+            0; \[IndentingNewLine]gk = 0; \[IndentingNewLine]For[i = 1, 
+            i <= 4, \[IndentingNewLine]If[i \[Equal] timelikeev, \(i++\); 
+              Continue[]]; \[IndentingNewLine]For[j = 1, 
+              j <= 4, \[IndentingNewLine]If[j \[Equal] timelikeev, \(j++\); 
+                Continue[]]; \[IndentingNewLine]For[k = 1, 
+                k <= 4, \[IndentingNewLine]If[
+                  k \[Equal] timelikeev || i \[Equal] j || i \[Equal] k || 
+                    j \[Equal] k, \(k++\); 
+                  Continue[]]; \[IndentingNewLine]order = {timelikeev, i, j, 
+                    k}; \[IndentingNewLine]tetradcontmp = 
+                  Table[pretetradcon[\([order[\([ii]\)]]\)], {ii, 1, 
+                      4}]; \[IndentingNewLine]diff = 
+                  N[tetradcontmp . mygcov . Transpose[tetradcontmp], 30] - 
+                    nab; \[IndentingNewLine]rdiff = 
+                  Re[diff]; \[IndentingNewLine]idiff = 
+                  Im[diff]; \[IndentingNewLine]rsumdiff = 
+                  Sum[Abs[rdiff[\([n, m]\)]], {n, 1, 4}, {m, 1, 
+                      4}]; \[IndentingNewLine]isumdiff = 
+                  Sum[Abs[idiff[\([n, m]\)]], {n, 1, 4}, {m, 1, 
+                      4}]; \[IndentingNewLine]If[rsumdiff < ERROR, gi = i; 
+                  gj = j; gk = k;]; \[IndentingNewLine]If[
+                  isumdiff > 
+                    ERROR, \(Print["\<problem!  Imaginary too large!\>"];\)]; \
+\[IndentingNewLine]If[gi \[NotEqual] 0, \ 
+                  Break[]]; \[IndentingNewLine]\(k++\)]; \
+\[IndentingNewLine]If[gi \[NotEqual] 0, \ 
+                Break[]]; \[IndentingNewLine]\(j++\)]; \[IndentingNewLine]If[
+              gi \[NotEqual] 0, \ 
+              Break[]]; \[IndentingNewLine]\(i++\)]; \
+\[IndentingNewLine]tetradcontmp\[IndentingNewLine]];\)\(\[IndentingNewLine]\)
+    \)\)], "Input"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell1"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(order\\)\\\" is similar to existing symbol \
+\\\"\\!\\(Order\\)\\\". \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell1\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell1"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(rdiff\\)\\\" is similar to existing symbol \
+\\\"\\!\\(diff\\)\\\". \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell1\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(idiff\\)\\\" is similar to existing symbols \
+\\!\\({diff, rdiff}\\). \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell1"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(isumdiff\\)\\\" is similar to existing \
+symbol \\\"\\!\\(rsumdiff\\)\\\". \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell1\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(General::"stop"\), \(\(:\)\(\ \)\), "\<\"Further output of \
+\\!\\(General :: \\\"spell1\\\"\\) will be suppressed during this \
+calculation. \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::stop\\\"]\\)\"\>"}]], "Message"]
+}, Open  ]],
+
+Cell[BoxData[
+    \( (*evs = 
+        Table[\(es[\([1]\)]\)[\([order[\([i]\)]]\)], {i, 1, 4}]*) \)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\(tetradcov = 
+        Function[{aa, tt, xx, yy, zz, MM}, \[IndentingNewLine]mytemp = 
+            tetradcon[aa, tt, xx, yy, zz, MM]; \[IndentingNewLine]mymetric = 
+            gcov //. {a \[Rule] aa, t \[Rule] tt, x \[Rule] xx, y \[Rule] yy, 
+                z \[Rule] zz, M \[Rule] MM}; \[IndentingNewLine]tmp = 
+            Table[Sum[
+                mytemp[\([j, l]\)]*mymetric[\([l, k]\)], {l, 1, 4}], {j, 1, 
+                4}, {k, 1, 4}]; \[IndentingNewLine]tetradcovtemp = 
+            FullSimplify[
+              Table[Sum[nab[\([j, l]\)]*tmp[\([l, k]\)], {l, 1, 4}], {j, 1, 
+                  4}, {k, 1, 4}], {x \[GreaterEqual] 0, 
+                0 \[LessEqual] y \[LessEqual] 
+                  Pi}]; \[IndentingNewLine]tetradcovtemp\[IndentingNewLine]];\
+\)\)], "Input"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell1"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(tetradcov\\)\\\" is similar to existing \
+symbol \\\"\\!\\(tetradcon\\)\\\". \
+\\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", ButtonStyle->\\\"RefGuideLinkText\
+\\\", ButtonFrame->None, ButtonData:>\\\"General::spell1\\\"]\\)\"\>"}]], \
+"Message"]
+}, Open  ]],
+
+Cell[BoxData[
+    \( (*\ 
+      the\ tetrad\ acts\ as\ a\ transformation\ as\ well\ since\ the\ \
+original\ basis\ is\ identity\ *) \)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(\(transcov = 
+        Function[{aa, tt, xx, yy, zz, MM}, \[IndentingNewLine]Inverse[
+            tetradcov[aa, tt, xx, yy, zz, 
+              MM]]\[IndentingNewLine]];\)\), "\[IndentingNewLine]", 
+    \(\(transcon = 
+        Function[{aa, tt, xx, yy, zz, MM}, 
+          Inverse[tetradcon[aa, tt, xx, yy, zz, MM]]];\)\)}], "Input"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell1"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(transcon\\)\\\" is similar to existing \
+symbol \\\"\\!\\(transcov\\)\\\". \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell1\\\"]\\)\"\>"}]], "Message"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(\(OrthoRiemanndddd = 
+        Function[{aa, tt, xx, yy, zz, MM}, \[IndentingNewLine]mytrans = 
+            transcov[aa, tt, xx, yy, zz, MM]; \[IndentingNewLine]myRdddd = 
+            Riemanndddd //. {a \[Rule] aa, t \[Rule] tt, x \[Rule] xx, 
+                y \[Rule] yy, z \[Rule] zz, 
+                M \[Rule] MM}; \[IndentingNewLine]ordddd = 
+            Table[Sum[
+                myRdddd[\([ii, jj, kk, ll]\)]*mytrans[\([i, ii]\)]*
+                  mytrans[\([j, jj]\)]*mytrans[\([k, kk]\)]*
+                  mytrans[\([l, ll]\)], {ii, 1, 4}, {jj, 1, 4}, {kk, 1, 
+                  4}, {ll, 1, 4}], {i, 1, 4}, {j, 1, 4}, {k, 1, 4}, {l, 1, 
+                4}]; \[IndentingNewLine]ordddd\[IndentingNewLine]];\)\), "\
+\[IndentingNewLine]", 
+    \(\(\(OrthoRiemann = 
+        Function[{aa, tt, xx, yy, zz, MM}, 
+          mytranscon = 
+            transcon[aa, tt, xx, yy, zz, MM]; \[IndentingNewLine]mytranscov = 
+            transcov[aa, tt, xx, yy, zz, MM]; \[IndentingNewLine]myRdddd = 
+            Riemanndddd //. {a \[Rule] aa, t \[Rule] tt, x \[Rule] xx, 
+                y \[Rule] yy, z \[Rule] zz, 
+                M \[Rule] MM}; \[IndentingNewLine]ordddd = 
+            Table[Sum[
+                myRdddd[\([ii, jj, kk, ll]\)]*mytranscon[\([i, ii]\)]*
+                  mytranscov[\([j, jj]\)]*mytranscov[\([k, kk]\)]*
+                  mytranscov[\([l, ll]\)], {ii, 1, 4}, {jj, 1, 4}, {kk, 1, 
+                  4}, {ll, 1, 4}], {i, 1, 4}, {j, 1, 4}, {k, 1, 4}, {l, 1, 
+                4}]; \[IndentingNewLine]ordddd];\)\(\n\)
+    \)\), "\[IndentingNewLine]", 
+    \(\)}], "Input"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell1"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(mytranscov\\)\\\" is similar to existing \
+symbol \\\"\\!\\(mytranscon\\)\\\". \
+\\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", ButtonStyle->\\\"RefGuideLinkText\
+\\\", ButtonFrame->None, ButtonData:>\\\"General::spell1\\\"]\\)\"\>"}]], \
+"Message"]
+}, Open  ]],
+
+Cell[BoxData[""], "Input"],
+
+Cell[BoxData[
+    \(\(minus1[i_, j_, k_, l_] := 
+        If[i \[Equal] 1, \(-1\), 1]*If[j \[Equal] 1, \(-1\), 1]*
+          If[k \[Equal] 1, \(-1\), 1]*
+          If[l \[Equal] 1, \(-1\), 1];\)\)], "Input"],
+
+Cell[BoxData[
+    \( (*\(OrthoRiemannuuuu = 
+          Table[Sum[
+              OrthoRiemanndddd[\([ii, jj, kk, ll]\)]*nab[\([i, ii]\)]*
+                nab[\([j, jj]\)]*nab[\([k, kk]\)]*nab[\([l, ll]\)], {ii, 1, 
+                4}, {jj, 1, 4}, {kk, 1, 4}, {ll, 1, 4}], {i, 1, 4}, {j, 1, 
+              4}, {k, 1, 4}, {l, 1, 4}];\)*) \)], "Input"],
+
+Cell[BoxData[
+    \( (*\(CI = 
+          Sum[OrthoRiemanndddd[\([i, j, k, l]\)]*
+              OrthoRiemannuuuu[\([i, j, k, l]\)], {i, 1, 4}, {j, 1, 4}, {k, 
+              1, 4}, {l, 1, 4}];\)*) \)], "Input"],
+
+Cell[BoxData[
+    \(\(\(\[IndentingNewLine]\)\(CI = 
+        Function[{aa, tt, xx, yy, zz, MM}, \[IndentingNewLine]myordddd = 
+            OrthoRiemanndddd[aa, tt, xx, yy, zz, MM]; \[IndentingNewLine]ci = 
+            Sum[myordddd[\([i, j, k, l]\)]^2*minus1[i, j, k, l], {i, 1, 
+                4}, {j, 1, 4}, {k, 1, 4}, {l, 1, 
+                4}]; \[IndentingNewLine]ci\[IndentingNewLine]];\)\)\)], \
+"Input"],
+
+Cell[BoxData[""], "Input"],
+
+Cell[BoxData[""], "Input"]
+},
+FrontEndVersion->"5.0 for Microsoft Windows",
+ScreenRectangle->{{0, 1280}, {0, 941}},
+WindowSize->{1272, 907},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+Magnification->1.25
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1754, 51, 93, 1, 35, "Input"],
+Cell[1850, 54, 234, 5, 35, "Input"],
+
+Cell[CellGroupData[{
+Cell[2109, 63, 3141, 69, 518, "Input"],
+Cell[5253, 134, 361, 5, 29, "Message"],
+Cell[5617, 141, 363, 5, 29, "Message"],
+Cell[5983, 148, 367, 6, 29, "Message"],
+Cell[6353, 156, 360, 5, 29, "Message"],
+Cell[6716, 163, 360, 5, 29, "Message"],
+Cell[7079, 170, 360, 5, 29, "Message"],
+Cell[7442, 177, 329, 5, 29, "Message"],
+Cell[7774, 184, 359, 5, 29, "Message"]
+}, Open  ]],
+Cell[8148, 192, 26, 0, 35, "Input"],
+
+Cell[CellGroupData[{
+Cell[8199, 196, 1631, 35, 371, "Input"],
+Cell[9833, 233, 4042, 118, 340, "Output"]
+}, Open  ]],
+Cell[13890, 354, 62, 1, 35, "Input"],
+
+Cell[CellGroupData[{
+Cell[13977, 359, 1464, 35, 308, "Input"],
+Cell[15444, 396, 51, 1, 30, "Print"],
+Cell[15498, 399, 362, 5, 29, "Message"],
+Cell[15863, 406, 50, 1, 30, "Print"],
+Cell[15916, 409, 799, 25, 113, "Output"],
+Cell[16718, 436, 146, 2, 52, "Output"]
+}, Open  ]],
+Cell[16879, 441, 108, 2, 98, "Input"],
+Cell[16990, 445, 632, 12, 140, "Input"],
+Cell[17625, 459, 209, 4, 56, "Input"],
+
+Cell[CellGroupData[{
+Cell[17859, 467, 354, 7, 77, "Input"],
+Cell[18216, 476, 362, 5, 28, "Message"]
+}, Open  ]],
+Cell[18593, 484, 178, 3, 56, "Input"],
+Cell[18774, 489, 26, 0, 35, "Input"],
+Cell[18803, 491, 881, 17, 161, "Input"],
+Cell[19687, 510, 491, 9, 98, "Input"],
+
+Cell[CellGroupData[{
+Cell[20203, 523, 84, 1, 35, "Input"],
+Cell[20290, 526, 357, 5, 29, "Message"]
+}, Open  ]],
+Cell[20662, 534, 276, 5, 56, "Input"],
+Cell[20941, 541, 227, 5, 35, "Input"],
+
+Cell[CellGroupData[{
+Cell[21193, 550, 2747, 46, 791, "Input"],
+Cell[23943, 598, 358, 5, 29, "Message"],
+Cell[24304, 605, 357, 5, 29, "Message"],
+Cell[24664, 612, 357, 5, 29, "Message"],
+Cell[25024, 619, 364, 5, 29, "Message"],
+Cell[25391, 626, 333, 5, 29, "Message"]
+}, Open  ]],
+Cell[25739, 634, 109, 2, 35, "Input"],
+
+Cell[CellGroupData[{
+Cell[25873, 640, 804, 14, 161, "Input"],
+Cell[26680, 656, 368, 6, 29, "Message"]
+}, Open  ]],
+Cell[27063, 665, 145, 3, 35, "Input"],
+
+Cell[CellGroupData[{
+Cell[27233, 672, 352, 7, 98, "Input"],
+Cell[27588, 681, 364, 5, 29, "Message"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[27989, 691, 1619, 29, 329, "Input"],
+Cell[29611, 722, 370, 6, 29, "Message"]
+}, Open  ]],
+Cell[29996, 731, 26, 0, 35, "Input"],
+Cell[30025, 733, 206, 4, 35, "Input"],
+Cell[30234, 739, 348, 6, 56, "Input"],
+Cell[30585, 747, 208, 4, 35, "Input"],
+Cell[30796, 753, 411, 7, 140, "Input"],
+Cell[31210, 762, 26, 0, 35, "Input"],
+Cell[31239, 764, 26, 0, 35, "Input"]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

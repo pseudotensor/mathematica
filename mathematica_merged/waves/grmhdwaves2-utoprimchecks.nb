@@ -1,0 +1,768 @@
+(************** Content-type: application/mathematica **************
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     25195,        628]*)
+(*NotebookOutlinePosition[     25824,        650]*)
+(*  CellTagsIndexPosition[     25780,        646]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell[BoxData[
+    \(\(\( (*\ 
+      see\ why\ newt\ failed\ *) \)\(\[IndentingNewLine]\)\(\(failconst = {r -> 
+            1.64983175133848\ , h -> 2.46664110692011, a \[Rule] 1/2, M -> 1, 
+          gam \[Rule] 5/3};\)\[IndentingNewLine]
+    p0 = Table[0*i, {i, 8}]; U0 = p0; pc = p0; Uf = p0;\[IndentingNewLine]
+    \(alpha = Table[0*i*j, {i, 8}, {j, 8}];\)\[IndentingNewLine]
+    \(ucon = Table[0*i, {i, 4}];\)\[IndentingNewLine]
+    \(\(gconc = 
+      Table[0*i*j, {i, 4}, {j, 4}]\)\(;\)\(\(gcovc = 
+        gconc\) \)\(;\)\(\(tetrconc = gconc\) \)\(;\)\(\(tetrcovc = 
+        gconc\) \)\(;\)\(\[IndentingNewLine]\)\)\)\)\)], "Input"],
+
+Cell[BoxData[{
+    \(\(ucon[\([1]\)] = 1.61665046413125;\)\), "\n", 
+    \(\(ucon[\([2]\)] = \(-1.03914246270751\);\)\), "\n", 
+    \(\(ucon[\([3]\)] = \(-0.115361653648047\);\)\), "\n", 
+    \(\(ucon[\([4]\)] = 0.250857090609485;\)\), "\n", 
+    \(p0[\([1]\)] = 0.000207209339836118; U0[\([1]\)] = 0.000601651254972988; 
+    pc[\([1]\)] = 2.05713051031995  e - 05; 
+    Uf[\([1]\)] = 0.00060472934873231;\), "\[IndentingNewLine]", 
+    \(p0[\([2]\)] = 0.000204185771539042; 
+    U0[\([2]\)] = \(-0.0056270334813389\); 
+    pc[\([2]\)] = \(-2.07870777099839\) e - 05; 
+    Uf[\([2]\)] = \(-0.00425810065561604\);\), "\[IndentingNewLine]", 
+    \(p0[\([3]\)] = \(-1.03914246270751\); 
+    U0[\([3]\)] = 9.069649985694*10^\((\(-05\))\); 
+    pc[\([3]\)] = \(-0.35752499556222\); 
+    Uf[\([3]\)] = 0.00141917944251351;\), "\[IndentingNewLine]", 
+    \(p0[\([4]\)] = \(-0.115361653648047\); 
+    U0[\([4]\)] = \(-0.00401837901868498\); 
+    pc[\([4]\)] = \(-0.0573731748347978\); 
+    Uf[\([4]\)] = \(-0.0035844015767544\);\), "\[IndentingNewLine]", 
+    \(p0[\([5]\)] = 0.250857090609485; U0[\([5]\)] = 0.00354706201125361; 
+    pc[\([5]\)] = 0.214448816427168; 
+    Uf[\([5]\)] = 0.00306001971285245;\), "\[IndentingNewLine]", 
+    \(p0[\([6]\)] = \(-0.0713535619855721\); 
+    U0[\([6]\)] = \(-0.128154844098035\); 
+    pc[\([6]\)] = \(-0.0715378350984859\); 
+    Uf[\([6]\)] = \(-0.128485808543254\);\), "\[IndentingNewLine]", 
+    \(p0[\([7]\)] = \(-0.00704962465422005\); 
+    U0[\([7]\)] = \(-0.0126615059342646\); 
+    pc[\([7]\)] = \(-0.00704940645895275\); 
+    Uf[\([7]\)] = \(-0.0126611140438013\);\), "\[IndentingNewLine]", 
+    \(p0[\([8]\)] = 0.0123604380490759; U0[\([8]\)] = 0.0222000131049245; 
+    pc[\([8]\)] = 0.0123483357019075; 
+    Uf[\([8]\)] = 0.0221782766369554;\), "\[IndentingNewLine]", 
+    \(\(alpha[\([1, 1]\)] = 2.90359138950414;\)\), "\n", 
+    \(\(alpha[\([1, 2]\)] = 0;\)\), "\n", 
+    \(\(alpha[\([1, 3]\)] = \(-0.000177389536331346\);\)\), "\n", 
+    \(\(alpha[\([1, 4]\)] = \(-0.000122192998153578\);\)\), "\n", 
+    \(\(alpha[\([1, 5]\)] = 0.000138377917408797;\)\), "\n", 
+    \(\(alpha[\([2, 1]\)] = \(-0.0287622672875803\);\)\), "\n", 
+    \(\(alpha[\([2, 2]\)] = \(-3.68988682037194\);\)\), "\n", 
+    \(\(alpha[\([2, 3]\)] = 0.0018668173863831;\)\), "\n", 
+    \(\(alpha[\([2, 4]\)] = 0.000370596307620956;\)\), "\n", 
+    \(\(alpha[\([2, 5]\)] = \(-0.00108723203859604\);\)\), "\n", 
+    \(\(alpha[\([3, 1]\)] = \(-1.39770542283599\);\)\), "\n", 
+    \(\(alpha[\([3, 2]\)] = \(-2.32950903805998\);\)\), "\n", 
+    \(\(alpha[\([3, 3]\)] = 0.00358187605520624;\)\), "\n", 
+    \(\(alpha[\([3, 4]\)] = \(-0.00396850513672509\);\)\), "\n", 
+    \(\(alpha[\([3, 5]\)] = 0.00208357883163451;\)\), "\n", 
+    \(\(alpha[\([4, 1]\)] = \(-0.962795324256476\);\)\), "\n", 
+    \(\(alpha[\([4, 2]\)] = \(-1.60465887376079\);\)\), "\n", 
+    \(\(alpha[\([4, 3]\)] = \(-0.00353220763248568\);\)\), "\n", 
+    \(\(alpha[\([4, 4]\)] = 0.0424650918403855;\)\), "\n", 
+    \(\(alpha[\([4, 5]\)] = 0.000981540603076129;\)\), "\n", 
+    \(\(alpha[\([5, 1]\)] = 1.09032116303496;\)\), "\n", 
+    \(\(alpha[\([5, 2]\)] = 1.81720193839161;\)\), "\n", 
+    \(\(alpha[\([5, 3]\)] = 0.00190767904326016;\)\), "\n", 
+    \(\(alpha[\([5, 4]\)] = 0.00120072048423124;\)\), "\n", 
+    \(\(alpha[\([5, 5]\)] = 0.0155232121108129;\)\), "\n", 
+    \(gconc[\([1, 1]\)] = \(-2.1479755892701\); 
+    gcovc[\([1, 1]\)] = 0.1479755892701; 
+    tetrconc[\([1, 1]\)] = \(-1.487959301247\); 
+    tetrcovc[\([1, 1]\)] = \(-0.558106185874021\);\), "\[IndentingNewLine]", 
+    \(gconc[\([1, 2]\)] = 1.1479755892701; 
+    gcovc[\([1, 2]\)] = 1.1479755892701; 
+    tetrconc[\([1, 2]\)] = 0.671554150338349; 
+    tetrcovc[\([1, 2]\)] = 0.25188761892822;\), "\[IndentingNewLine]", 
+    \(gconc[\([1, 3]\)] = 0; gcovc[\([1, 3]\)] = 0; 
+    tetrconc[\([1, 3]\)] = 9.40506327130386  e - 17; 
+    tetrcovc[\([1, 3]\)] = \(-2.70332786748719\) e - 
+        16;\), "\[IndentingNewLine]", 
+    \(gconc[\([1, 4]\)] = 0; gcovc[\([1, 4]\)] = \(-0.224113178497802\); 
+    tetrconc[\([1, 4]\)] = \(-0.0328408569003325\); 
+    tetrcovc[\([1, 
+          4]\)] = \(-0.0123180018231134\);\), "\[IndentingNewLine]", 
+    \(gconc[\([2, 1]\)] = 1.1479755892701; 
+    gcovc[\([2, 1]\)] = 1.1479755892701; 
+    tetrconc[\([2, 1]\)] = 0.0959423725091609; 
+    tetrcovc[\([2, 1]\)] = 0.102137849185141;\), "\[IndentingNewLine]", 
+    \(gconc[\([2, 2]\)] = \(-0.114015584209587\); 
+    gcovc[\([2, 2]\)] = 2.1479755892701; 
+    tetrconc[\([2, 2]\)] = 0.258023409115016; 
+    tetrcovc[\([2, 2]\)] = 0.274685265302451;\), "\[IndentingNewLine]", 
+    \(gconc[\([2, 3]\)] = 0; gcovc[\([2, 3]\)] = 0; 
+    tetrconc[\([2, 3]\)] = 1.04764437266669  e - 16; 
+    tetrcovc[\([2, 3]\)] = 
+      3.01127822976717  e - 16;\), "\[IndentingNewLine]", 
+    \(gconc[\([2, 4]\)] = 0.173953433181712; 
+    gcovc[\([2, 4]\)] = \(-0.419337868458585\); 
+    tetrconc[\([2, 4]\)] = 0.929279823895795; 
+    tetrcovc[\([2, 4]\)] = 0.989288048873299;\), "\[IndentingNewLine]", 
+    \(gconc[\([3, 1]\)] = 0; gcovc[\([3, 1]\)] = 0; 
+    tetrconc[\([3, 1]\)] = 0.238416346030814; 
+    tetrcovc[\([3, 1]\)] = 0.670093996201116;\), "\[IndentingNewLine]", 
+    \(gconc[\([3, 2]\)] = 0; gcovc[\([3, 2]\)] = 0; 
+    tetrconc[\([3, 2]\)] = 0.519993570129228; 
+    tetrcovc[\([3, 2]\)] = 1.4614961398735;\), "\[IndentingNewLine]", 
+    \(gconc[\([3, 3]\)] = 0.347906866363424; 
+    gcovc[\([3, 3]\)] = 2.87433246274421; 
+    tetrconc[\([3, 3]\)] = 6.07216711301363  e - 15; 
+    tetrcovc[\([3, 3]\)] = 
+      1.74534270521429  e - 14;\), "\[IndentingNewLine]", 
+    \(gconc[\([3, 4]\)] = 0; gcovc[\([3, 4]\)] = 0; 
+    tetrconc[\([3, 4]\)] = \(-0.168996183418056\); 
+    tetrcovc[\([3, 4]\)] = \(-0.47498139189964\);\), "\[IndentingNewLine]", 
+    \(gconc[\([4, 1]\)] = 0; gcovc[\([4, 1]\)] = \(-0.224113178497802\); 
+    tetrconc[\([4, 1]\)] = 2.458059749545  e - 15; 
+    tetrcovc[\([4, 1]\)] = 
+      6.7426886424664  e - 15;\), "\[IndentingNewLine]", 
+    \(gconc[\([4, 2]\)] = 0.173953433181712; 
+    gcovc[\([4, 2]\)] = \(-0.419337868458585\); 
+    tetrconc[\([4, 2]\)] = 5.23638740692963  e - 15; 
+    tetrcovc[\([4, 2]\)] = 
+      1.4757448257574  e - 14;\), "\[IndentingNewLine]", 
+    \(gconc[\([4, 3]\)] = 0; gcovc[\([4, 3]\)] = 0; 
+    tetrconc[\([4, 3]\)] = \(-0.589836304718032\); 
+    tetrcovc[\([4, 3]\)] = \(-1.69538563835613\);\), "\[IndentingNewLine]", 
+    \(gconc[\([4, 4]\)] = 0.891042179227721; 
+    gcovc[\([4, 4]\)] = 1.20414643312554; 
+    tetrconc[\([4, 4]\)] = \(-1.64073744308343\) e - 15; 
+    tetrcovc[\([4, 4]\)] = \(-4.72238725683773\) e - 15;\)}], "Input"],
+
+Cell[BoxData[{
+    \(\(alpha[\([6, 6]\)] = g;\)\), "\[IndentingNewLine]", 
+    \(\(alpha[\([7, 7]\)] = g;\)\), "\[IndentingNewLine]", 
+    \(\(alpha[\([8, 8]\)] = g;\)\), "\[IndentingNewLine]", 
+    \(\(subsconst = {rho \[Rule] p0[\([1]\)], en \[Rule] p0[\([2]\)], 
+          vx \[Rule] p0[\([3]\)], vy \[Rule] p0[\([4]\)], 
+          vz \[Rule] p0[\([5]\)], bx \[Rule] p0[\([6]\)], 
+          by \[Rule] p0[\([7]\)], bz \[Rule] p0[\([8]\)]};\)\)}], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(greal = 
+      Abs[\((\((r^2 + a^2*Cos[h]^2)\)*Abs[Sin[h]])\)] //. 
+        failconst\), "\[IndentingNewLine]", 
+    \(\(gconnum = \(gcon //. subsconst\) //. 
+          failconst;\)\), "\[IndentingNewLine]", 
+    \(\(gcovnum = \(gcov //. subsconst\) //. 
+          failconst;\)\), "\[IndentingNewLine]", 
+    \(MatrixForm[gconnum]\), "\[IndentingNewLine]", 
+    \(Sqrt[\(-Det[gconnum]\)]\), "\[IndentingNewLine]", 
+    \(MatrixForm[gcovnum]\), "\[IndentingNewLine]", 
+    \(Sqrt[\(-Det[gcovnum]\)]\), "\[IndentingNewLine]", 
+    \(MatrixForm[gconc]\), "\[IndentingNewLine]", 
+    \(Sqrt[\(-Det[gconc]\)]\), "\[IndentingNewLine]", 
+    \(MatrixForm[gcovc]\), "\[IndentingNewLine]", 
+    \(\(\(Sqrt[\(-Det[gcovc]\)]\)\(\[IndentingNewLine]\)
+    \)\), "\[IndentingNewLine]", 
+    \(\)}], "Input"],
+
+Cell[BoxData[
+    \(1.7960539114213905`\)], "Output"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {\(-2.147975589270102`\), "1.1479755892701016`", "0", "0"},
+            {"1.1479755892701016`", \(-0.11401558420958789`\), "0", 
+              "0.17395343318171214`"},
+            {"0", "0", "0.34790686636342427`", "0"},
+            {"0", "0.17395343318171214`", "0", "0.8910421792277202`"}
+            }], "\[NoBreak]", ")"}],
+      Function[ BoxForm`e$, 
+        MatrixForm[ BoxForm`e$]]]], "Output"],
+
+Cell[BoxData[
+    \(0.5567761600255104`\)], "Output"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {"0.14797558927010157`", "1.1479755892701016`", 
+              "0", \(-0.22411317849780274`\)},
+            {"1.1479755892701016`", "2.147975589270102`", 
+              "0", \(-0.41933786845858584`\)},
+            {"0", "0", "2.874332462744204`", "0"},
+            {\(-0.22411317849780274`\), \(-0.41933786845858584`\), "0", 
+              "1.2041464331255454`"}
+            }], "\[NoBreak]", ")"}],
+      Function[ BoxForm`e$, 
+        MatrixForm[ BoxForm`e$]]]], "Output"],
+
+Cell[BoxData[
+    \(1.7960539114213903`\)], "Output"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {\(-2.1479755892701`\), "1.1479755892701`", "0", "0"},
+            {"1.1479755892701`", \(-0.114015584209587`\), "0", 
+              "0.173953433181712`"},
+            {"0", "0", "0.347906866363424`", "0"},
+            {"0", "0.173953433181712`", "0", "0.891042179227721`"}
+            }], "\[NoBreak]", ")"}],
+      Function[ BoxForm`e$, 
+        MatrixForm[ BoxForm`e$]]]], "Output"],
+
+Cell[BoxData[
+    \(0.5567761600255102`\)], "Output"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {"0.1479755892701`", "1.1479755892701`", 
+              "0", \(-0.224113178497802`\)},
+            {"1.1479755892701`", "2.1479755892701`", 
+              "0", \(-0.419337868458585`\)},
+            {"0", "0", "2.87433246274421`", "0"},
+            {\(-0.224113178497802`\), \(-0.419337868458585`\), "0", 
+              "1.20414643312554`"}
+            }], "\[NoBreak]", ")"}],
+      Function[ BoxForm`e$, 
+        MatrixForm[ BoxForm`e$]]]], "Output"],
+
+Cell[BoxData[
+    \(1.7960539114213883`\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(gnum = \(g //. subsconst\) //. failconst\), "\[IndentingNewLine]", 
+    \(gnumc = Sqrt[\(-Det[gcovc]\)]\), "\[IndentingNewLine]", 
+    \(unum = \(u //. subsconst\) //. failconst\), "\[IndentingNewLine]", 
+    \(ucon\), "\[IndentingNewLine]", 
+    \(Unum = \(U //. subsconst\) //. failconst\), "\[IndentingNewLine]", 
+    \(U0\), "\[IndentingNewLine]", 
+    \(\(Unumgen = U //. failconst;\)\), "\[IndentingNewLine]", 
+    \(Uf\)}], "Input"],
+
+Cell[BoxData[
+    \(1.7960539114213905`\)], "Output"],
+
+Cell[BoxData[
+    \(1.7960539114213883`\)], "Output"],
+
+Cell[BoxData[
+    \({1.616650464131252`, \(-1.03914246270751`\), \(-0.115361653648047`\), 
+      0.250857090609485`}\)], "Output"],
+
+Cell[BoxData[
+    \({1.61665046413125`, \(-1.03914246270751`\), \(-0.115361653648047`\), 
+      0.250857090609485`}\)], "Output"],
+
+Cell[BoxData[
+    \({0.0006016512549729897`, \(-0.005627033481338904`\), 
+      0.00009069649985693739`, \(-0.004018379018684988`\), 
+      0.0035470620112536084`, \(-0.12815484409803543`\), \
+\(-0.012661505934264588`\), 0.02220001310492455`}\)], "Output"],
+
+Cell[BoxData[
+    \({0.000601651254972988`, \(-0.0056270334813389`\), 
+      0.00009069649985693999`, \(-0.00401837901868498`\), 
+      0.00354706201125361`, \(-0.128154844098035`\), \
+\(-0.0126615059342646`\), 0.0222000131049245`}\)], "Output"],
+
+Cell[BoxData[
+    \({0.00060472934873231`, \(-0.00425810065561604`\), 
+      0.00141917944251351`, \(-0.0035844015767544`\), 
+      0.00306001971285245`, \(-0.128485808543254`\), \
+\(-0.0126611140438013`\), 0.0221782766369554`}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(U0 - Uf\)], "Input"],
+
+Cell[BoxData[
+    \({\(-3.0780937593220294`*^-6\), \(-0.0013689328257228605`\), \
+\(-0.00132848294265657`\), \(-0.0004339774419305797`\), 
+      0.00048704229840116015`, 
+      0.00033096444521901747`, \(-3.918904632992104`*^-7\), 
+      0.000021736467969102335`}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Uavg = \((Uf + U0)\)/2\)], "Input"],
+
+Cell[BoxData[
+    \({0.000603190301852649`, \(-0.00494256706847747`\), 
+      0.000754937971185225`, \(-0.00380139029771969`\), 
+      0.0033035408620530303`, \(-0.1283203263206445`\), \
+\(-0.01266130998903295`\), 0.02218914487093995`}\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    \(it = 
+      FindRoot[Unumgen \[Equal] Unum, {rho, p0[\([1]\)]}, {en, 
+          p0[\([2]\)]}, {vx, p0[\([3]\)]}, {vy, p0[\([4]\)]}, {vz, 
+          p0[\([5]\)]}, {bx, p0[\([6]\)]}, {by, p0[\([7]\)]}, {bz, 
+          p0[\([8]\)]}]\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(it = 
+      FindRoot[Unumgen \[Equal] U0, {rho, p0[\([1]\)]}, {en, 
+          p0[\([2]\)]}, {vx, p0[\([3]\)]}, {vy, p0[\([4]\)]}, {vz, 
+          p0[\([5]\)]}, {bx, p0[\([6]\)]}, {by, p0[\([7]\)]}, {bz, 
+          p0[\([8]\)]}]\)], "Input"],
+
+Cell[BoxData[
+    \({rho \[Rule] 0.000207209339836118`, en \[Rule] 0.000204185771539042`, 
+      vx \[Rule] \(-1.03914246270751`\), vy \[Rule] \(-0.115361653648047`\), 
+      vz \[Rule] 0.250857090609485`, bx \[Rule] \(-0.0713535619855721`\), 
+      by \[Rule] \(-0.00704962465422005`\), 
+      bz \[Rule] 0.0123604380490759`}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(it = 
+      FindRoot[Unumgen \[Equal] Uf, {rho, p0[\([1]\)]}, {en, 
+          p0[\([2]\)]}, {vx, p0[\([3]\)]}, {vy, p0[\([4]\)]}, {vz, 
+          p0[\([5]\)]}, {bx, p0[\([6]\)]}, {by, p0[\([7]\)]}, {bz, 
+          p0[\([8]\)]}]\)], "Input"],
+
+Cell[BoxData[
+    \(FindRoot::"cvnwt" \(\(:\)\(\ \)\) 
+      "Newton's method failed to converge to the prescribed accuracy after \!\
+\(15\) iterations."\)], "Message"],
+
+Cell[BoxData[
+    \({rho \[Rule] \(\(0.00006816284568178047`\)\(\[InvisibleSpace]\)\) - 
+          5.27395597949335`*^-8\ \[ImaginaryI], 
+      en \[Rule] \(-0.00003680603268153058`\) + 
+          6.86682414176257`*^-7\ \[ImaginaryI], 
+      vx \[Rule] \(-0.35070631458650375`\) + 
+          0.025688411618440734`\ \[ImaginaryI], 
+      vy \[Rule] \(-0.0695860202266361`\) + 
+          0.003063648844714957`\ \[ImaginaryI], 
+      vz \[Rule] \(\(0.2559351656377215`\)\(\[InvisibleSpace]\)\) - 
+          0.007587521567002793`\ \[ImaginaryI], 
+      bx \[Rule] \(-0.07153783509848588`\) + 0.`\ \[ImaginaryI], 
+      by \[Rule] \(-0.00704940645895275`\) + 0.`\ \[ImaginaryI], 
+      bz \[Rule] \(\(0.012348335701907518`\)\(\[InvisibleSpace]\)\) + 
+          0.`\ \[ImaginaryI]}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(it = 
+      FindRoot[Unumgen \[Equal] Uavg, {rho, p0[\([1]\)]}, {en, 
+          p0[\([2]\)]}, {vx, p0[\([3]\)]}, {vy, p0[\([4]\)]}, {vz, 
+          p0[\([5]\)]}, {bx, p0[\([6]\)]}, {by, p0[\([7]\)]}, {bz, 
+          p0[\([8]\)]}]\)], "Input"],
+
+Cell[BoxData[
+    \({rho \[Rule] 0.00021992934631666887`, 
+      en \[Rule] 0.00008224633324382458`, 
+      vx \[Rule] \(-0.8307988934647154`\), 
+      vy \[Rule] \(-0.09506727315948126`\), vz \[Rule] 0.2166514069684949`, 
+      bx \[Rule] \(-0.07144569854202887`\), 
+      by \[Rule] \(-0.007049515556586403`\), 
+      bz \[Rule] 0.012354386875491695`}\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[""], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(p0\), "\[IndentingNewLine]", 
+    \(p0 - prim //. it\)}], "Input"],
+
+Cell[BoxData[
+    \({0.000207209339836118`, 
+      0.000204185771539042`, \(-1.03914246270751`\), \(-0.115361653648047`\), 
+      0.250857090609485`, \(-0.0713535619855721`\), \
+\(-0.00704962465422005`\), 0.0123604380490759`}\)], "Output"],
+
+Cell[BoxData[
+    \({0.`, 0.`, 0.`, 0.`, 0.`, 0.`, 0.`, 0.`}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\(ut //. it\) //. failconst\)], "Input"],
+
+Cell[BoxData[
+    \(1.616650464131252`\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(U0\), "\[IndentingNewLine]", 
+    \(N[Unumgen //. it]\), "\[IndentingNewLine]", 
+    \(Unum\)}], "Input"],
+
+Cell[BoxData[
+    \({0.000601651254972988`, \(-0.0056270334813389`\), 
+      0.00009069649985693999`, \(-0.00401837901868498`\), 
+      0.00354706201125361`, \(-0.128154844098035`\), \
+\(-0.0126615059342646`\), 0.0222000131049245`}\)], "Output"],
+
+Cell[BoxData[
+    \({0.0006016512549729892`, \(-0.005627033481338892`\), 
+      0.00009069649985693116`, \(-0.004018379018684988`\), 
+      0.003547062011253611`, \(-0.12815484409803543`\), \
+\(-0.012661505934264588`\), 0.02220001310492455`}\)], "Output"],
+
+Cell[BoxData[
+    \({0.0006016512549729897`, \(-0.005627033481338904`\), 
+      0.00009069649985693739`, \(-0.004018379018684988`\), 
+      0.0035470620112536084`, \(-0.12815484409803543`\), \
+\(-0.012661505934264588`\), 0.02220001310492455`}\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[""], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(prim\)], "Input"],
+
+Cell[BoxData[
+    \({rho, en, vx, vy, vz, bx, by, bz}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(MatrixForm[dudpnum = \(dudp //. subsconst\) //. failconst]\), "\n", 
+    \(MatrixForm[\(alpha //. subsconst\) //. failconst]\)}], "Input"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {"2.9035913895041414`", 
+              "0", \(-0.00017738953633134697`\), \(-0.00012219299815357862`\),
+               "0.0001383779174087976`", "0", "0", "0"},
+            {\(-0.02876226728758508`\), \(-3.6898868203719504`\), 
+              "0.0018668173863830993`", 
+              "0.00037059630762096066`", \(-0.0010872320385960379`\), 
+              "0.13500033365928907`", \(-0.009068378155496427`\), \
+\(-0.01346849949428362`\)},
+            {\(-1.3977054228359973`\), \(-2.3295090380599945`\), 
+              "0.003581876055206239`", \(-0.00396850513672508`\), 
+              "0.0020835788316345125`", \(-0.013882376107681522`\), \
+\(-0.036697303126471195`\), "0.03743186425076189`"},
+            {\(-0.9627953242564782`\), \(-1.6046588737607965`\), \
+\(-0.0035322076324856714`\), "0.04246509184038545`", "0.000981540603076129`", 
+              "0.10590390761672103`", \(-0.12450370300316482`\), \
+\(-0.024557704693714464`\)},
+            {"1.0903211630349665`", "1.8172019383916111`", 
+              "0.001907679043260161`", "0.0012007204842312354`", 
+              "0.015523212110812909`", \(-0.08898882868695923`\), \
+\(-0.0004010652857469877`\), \(-0.03659386954012306`\)},
+            {"0", "0", "0", "0", "0", "1.7960539114213905`", "0", "0"},
+            {"0", "0", "0", "0", "0", "0", "1.7960539114213905`", "0"},
+            {"0", "0", "0", "0", "0", "0", "0", "1.7960539114213905`"}
+            }], "\[NoBreak]", ")"}],
+      Function[ BoxForm`e$, 
+        MatrixForm[ BoxForm`e$]]]], "Output"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {"2.90359138950414`", 
+              "0", \(-0.000177389536331346`\), \(-0.000122192998153578`\), 
+              "0.000138377917408797`", "0", "0", "0"},
+            {\(-0.0287622672875803`\), \(-3.68988682037194`\), 
+              "0.0018668173863831`", 
+              "0.000370596307620956`", \(-0.00108723203859604`\), "0", "0", 
+              "0"},
+            {\(-1.39770542283599`\), \(-2.32950903805998`\), 
+              "0.00358187605520624`", \(-0.00396850513672509`\), 
+              "0.00208357883163451`", "0", "0", "0"},
+            {\(-0.962795324256476`\), \(-1.60465887376079`\), \
+\(-0.00353220763248568`\), "0.0424650918403855`", "0.000981540603076129`", 
+              "0", "0", "0"},
+            {"1.09032116303496`", "1.81720193839161`", "0.00190767904326016`",
+               "0.00120072048423124`", "0.0155232121108129`", "0", "0", "0"},
+            {"0", "0", "0", "0", "0", "1.7960539114213905`", "0", "0"},
+            {"0", "0", "0", "0", "0", "0", "1.7960539114213905`", "0"},
+            {"0", "0", "0", "0", "0", "0", "0", "1.7960539114213905`"}
+            }], "\[NoBreak]", ")"}],
+      Function[ BoxForm`e$, 
+        MatrixForm[ BoxForm`e$]]]], "Output"]
+}, Open  ]],
+
+Cell[BoxData[""], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(dprim = {drho, den, dvx, dvy, dvz, dbx, dby, dbz}\)], "Input"],
+
+Cell[BoxData[
+    \(General::"spell1" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(dprim\)\" is similar to \
+existing symbol \"\!\(prim\)\"."\)], "Message"],
+
+Cell[BoxData[
+    \(General::"spell1" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(drho\)\" is similar to \
+existing symbol \"\!\(rho\)\"."\)], "Message"],
+
+Cell[BoxData[
+    \({drho, den, dvx, dvy, dvz, dbx, dby, dbz}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(np = subsconst\), "\[IndentingNewLine]", 
+    \(pn = p0\), "\[IndentingNewLine]", 
+    \(\(dudpnum = dudp //. failconst;\)\)}], "Input"],
+
+Cell[BoxData[
+    \({rho \[Rule] 0.000207209339836118`, en \[Rule] 0.000204185771539042`, 
+      vx \[Rule] \(-1.03914246270751`\), vy \[Rule] \(-0.115361653648047`\), 
+      vz \[Rule] 0.250857090609485`, bx \[Rule] \(-0.0713535619855721`\), 
+      by \[Rule] \(-0.00704962465422005`\), 
+      bz \[Rule] 0.0123604380490759`}\)], "Output"],
+
+Cell[BoxData[
+    \({0.000207209339836118`, 
+      0.000204185771539042`, \(-1.03914246270751`\), \(-0.115361653648047`\), 
+      0.250857090609485`, \(-0.0713535619855721`\), \
+\(-0.00704962465422005`\), 0.0123604380490759`}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(\(pnold = pn;\)\), "\[IndentingNewLine]", 
+    \(\(dudpnumn = dudpnum //. np;\)\), "\[IndentingNewLine]", 
+    \(\(np = \(Solve[dudpnumn . prim - dudpnumn . pn \[Equal] \(-Unum\), 
+            prim]\)[\([1]\)];\)\), "\[IndentingNewLine]", 
+    \(pn = prim //. np\), "\[IndentingNewLine]", 
+    \(diffp = pn - pnold\), "\[IndentingNewLine]", 
+    \(diffU = \(U //. failconst\) //. np\), "\[IndentingNewLine]", 
+    \(\)}], "Input"],
+
+Cell[BoxData[
+    \({\(-0.0004286120334181298`\), \(-0.01556916688496384`\), 
+      7.420045719196986`, 0.6992286534766344`, \(-1.2100489176450628`\), 
+      0.07135356198557212`, 
+      0.00704962465422005`, \(-0.0123604380490759`\)}\)], "Output"],
+
+Cell[BoxData[
+    \({\(-0.0006443807642592497`\), \(-0.018546477729261945`\), 
+      5.557731344237471`, 0.5252934996361001`, \(-0.9083171050254621`\), 
+      0.07135356198557212`, 
+      0.00704962465422005`, \(-0.0123604380490759`\)}\)], "Output"],
+
+Cell[BoxData[
+    \({0.08535000481505622`, \(-39.94690828799387`\), \
+\(-582.1487061479316`\), 10.553545928525923`, 106.51888331179859`, 
+      0.12815484409803543`, 
+      0.012661505934264588`, \(-0.02220001310492455`\)}\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[""], "Input"]
+},
+FrontEndVersion->"4.1 for X",
+ScreenRectangle->{{0, 1400}, {0, 1050}},
+WindowSize->{1132, 915},
+WindowMargins->{{0, Automatic}, {0, Automatic}}
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1705, 50, 638, 11, 123, "Input"],
+Cell[2346, 63, 6625, 120, 907, "Input"],
+Cell[8974, 185, 458, 7, 75, "Input"],
+
+Cell[CellGroupData[{
+Cell[9457, 196, 814, 17, 219, "Input"],
+Cell[10274, 215, 53, 1, 27, "Output"],
+Cell[10330, 218, 483, 10, 94, "Output"],
+Cell[10816, 230, 53, 1, 27, "Output"],
+Cell[10872, 233, 555, 12, 94, "Output"],
+Cell[11430, 247, 53, 1, 27, "Output"],
+Cell[11486, 250, 466, 10, 94, "Output"],
+Cell[11955, 262, 53, 1, 27, "Output"],
+Cell[12011, 265, 532, 12, 94, "Output"],
+Cell[12546, 279, 53, 1, 27, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[12636, 285, 460, 8, 139, "Input"],
+Cell[13099, 295, 53, 1, 27, "Output"],
+Cell[13155, 298, 53, 1, 27, "Output"],
+Cell[13211, 301, 130, 2, 27, "Output"],
+Cell[13344, 305, 129, 2, 27, "Output"],
+Cell[13476, 309, 256, 4, 27, "Output"],
+Cell[13735, 315, 245, 4, 27, "Output"],
+Cell[13983, 321, 241, 4, 27, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[14261, 330, 40, 1, 27, "Input"],
+Cell[14304, 333, 277, 5, 32, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[14618, 343, 55, 1, 27, "Input"],
+Cell[14676, 346, 249, 4, 27, "Output"]
+}, Open  ]],
+Cell[14940, 353, 262, 5, 27, "Input"],
+
+Cell[CellGroupData[{
+Cell[15227, 362, 260, 5, 27, "Input"],
+Cell[15490, 369, 340, 5, 27, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[15867, 379, 260, 5, 27, "Input"],
+Cell[16130, 386, 168, 3, 20, "Message"],
+Cell[16301, 391, 789, 14, 52, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[17127, 410, 262, 5, 27, "Input"],
+Cell[17392, 417, 367, 7, 27, "Output"]
+}, Open  ]],
+Cell[17774, 427, 26, 0, 27, "Input"],
+
+Cell[CellGroupData[{
+Cell[17825, 431, 87, 2, 43, "Input"],
+Cell[17915, 435, 239, 4, 27, "Output"],
+Cell[18157, 441, 74, 1, 27, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[18268, 447, 60, 1, 27, "Input"],
+Cell[18331, 450, 52, 1, 27, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[18420, 456, 126, 3, 59, "Input"],
+Cell[18549, 461, 245, 4, 27, "Output"],
+Cell[18797, 467, 255, 4, 27, "Output"],
+Cell[19055, 473, 256, 4, 27, "Output"]
+}, Open  ]],
+Cell[19326, 480, 26, 0, 27, "Input"],
+
+Cell[CellGroupData[{
+Cell[19377, 484, 37, 1, 27, "Input"],
+Cell[19417, 487, 67, 1, 27, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[19521, 493, 159, 2, 43, "Input"],
+Cell[19683, 497, 1592, 28, 166, "Output"],
+Cell[21278, 527, 1269, 23, 166, "Output"]
+}, Open  ]],
+Cell[22562, 553, 26, 0, 27, "Input"],
+
+Cell[CellGroupData[{
+Cell[22613, 557, 82, 1, 27, "Input"],
+Cell[22698, 560, 182, 3, 20, "Message"],
+Cell[22883, 565, 180, 3, 20, "Message"],
+Cell[23066, 570, 75, 1, 27, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[23178, 576, 157, 3, 59, "Input"],
+Cell[23338, 581, 340, 5, 27, "Output"],
+Cell[23681, 588, 239, 4, 27, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[23957, 597, 451, 8, 123, "Input"],
+Cell[24411, 607, 248, 4, 27, "Output"],
+Cell[24662, 613, 249, 4, 27, "Output"],
+Cell[24914, 619, 236, 4, 27, "Output"]
+}, Open  ]],
+Cell[25165, 626, 26, 0, 27, "Input"]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

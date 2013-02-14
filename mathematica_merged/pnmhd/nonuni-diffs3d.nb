@@ -1,0 +1,876 @@
+(***********************************************************************
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used on any computer system with Mathematica 4.0,
+MathReader 4.0, or any compatible application. The data for the notebook 
+starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do one of 
+the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing the 
+word CacheID, otherwise Mathematica-compatible applications may try to 
+use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+***********************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     20811,        642]*)
+(*NotebookOutlinePosition[     21450,        665]*)
+(*  CellTagsIndexPosition[     21406,        661]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell[BoxData[
+    \(z2e[
+        i_] := \((var[i - 1]*dx[i] + var[i]*dx[i - 1])\)/\((dx[i] + 
+            dx[i - 1])\)\)], "Input"],
+
+Cell[BoxData[
+    \(e2z[i_] := \((var[i] + var[i + 1])\)/2\)], "Input"],
+
+Cell[BoxData[
+    \(zavg[
+        i_] := \((var[i - 1]*\((dx[i] + dx[i + 1])\)/2 + 
+            var[i + 1]*\((dx[i] + dx[i - 1])\)/2)\)/\((dx[
+              i] + \((dx[i + 1] + dx[i - 1])\)/2)\)\)], "Input"],
+
+Cell[BoxData[
+    \(h1z[i_] := \((dx[i] + dx[i + 1])\)/2\)], "Input"],
+
+Cell[BoxData[""], "Input"],
+
+Cell[BoxData[
+    \(h2z[i_] := \((dx[i] + dx[i - 1])\)/2\)], "Input"],
+
+Cell[BoxData[
+    \(der1z[
+        i_] := \((var[i + 1]*h2z[i]*h2z[i] - 
+            var[i]*\((h2z[i]*h2z[i] - h1z[i]*h1z[i])\) - 
+            var[i - 1]*h1z[i]*h1z[i])\)/\((h1z[i]*h2z[i]*h2z[i] + 
+            h2z[i]*h1z[i]*h1z[i])\)\)], "Input"],
+
+Cell[BoxData[
+    \(dx[i_] := F^i\)], "Input"],
+
+Cell[BoxData[
+    \(h1z2e[i_] := dx[i]/2\)], "Input"],
+
+Cell[BoxData[
+    \(h1z2e[i_] := \((F^i + F^\((i + 1)\))\)/2\)], "Input"],
+
+Cell[BoxData[
+    \(h2z2e[i_] := dx[i - 1]/2\)], "Input"],
+
+Cell[BoxData[
+    \(h2z2e[i_] := \((F^i + F^\((i - 1)\))\)/2\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Simplify[der1z[i]]\)], "Input"],
+
+Cell[BoxData[
+    \(\(-\(\(2\ F\^\(-i\)\ \((F\^2\ var[\(-1\) + i] + var[i] - F\^2\ var[i] - 
+                var[1 + i])\)\)\/\((1 + F)\)\^2\)\)\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    \(var2z2e[i_] := z2e[i]\)], "Input"],
+
+Cell[BoxData[
+    \(der1z2e[
+        i_] := \((var[i]*h2z2e[i]*h2z2e[i] - 
+            var2z2e[i]*\((h2z2e[i]*h2z2e[i] - h1z2e[i]*h1z2e[i])\) - 
+            var[i - 1]*h1z2e[i]*h1z2e[i])\)/\((h1z2e[i]*h2z2e[i]*h2z2e[i] + 
+            h1z2e[i]*h1z2e[i]*h2z2e[i])\)\)], "Input"],
+
+Cell[BoxData[
+    \(h1e2z[i_] := dx[i]/2\)], "Input"],
+
+Cell[BoxData[
+    \(h2e2z[i_] := dx[i]/2\)], "Input"],
+
+Cell[BoxData[
+    \(var2e2z[i_] := e2z[i]\)], "Input"],
+
+Cell[BoxData[
+    \(der1e2z[
+        i_] := \((var[i]*h2e2z[i]*h2e2z[i] - 
+            var2e2z[i]*\((h2e2z[i]*h2e2z[i] - h1e2z[i]*h1e2z[i])\) - 
+            var[i - 1]*h1e2z[i]*h1e2z[i])\)/\((h1e2z[i]*h2e2z[i]*h2e2z[i] + 
+            h1e2z[i]*h1e2z[i]*h2e2z[i])\)\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(FullSimplify[der1z2e[i]]\)], "Input"],
+
+Cell[BoxData[
+    \(\(-\(\(2\ \((var[\(-1\) + i] - var[i])\)\)\/\(dx[\(-1\) + i] + 
+            dx[i]\)\)\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(FullSimplify[der1e2z[i]]\)], "Input"],
+
+Cell[BoxData[
+    \(\(\(-var[\(-1\) + i]\) + var[i]\)\/dx[i]\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(h12z[i_] := \((dx[i] + dx[i + 1])\)/2\)], "Input"],
+
+Cell[BoxData[
+    \(General::"spell" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(h12z\)\" is similar to \
+existing symbols \!\({h1e2z, h1z, h2z}\)."\)], "Message"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(h22z[i_] := \((dx[i] + dx[i - 1])\)/2\)], "Input"],
+
+Cell[BoxData[
+    \(General::"spell" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(h22z\)\" is similar to \
+existing symbols \!\({h2e2z, h2z}\)."\)], "Message"]
+}, Open  ]],
+
+Cell[BoxData[
+    \(der2z[i_] := 
+      2*\((var[i + 1]*h22z[i] - var[i]*\((h22z[i] + h12z[i])\) + 
+              var[i - 1]*h12z[i])\)/\((h12z[i]*h22z[i]*h22z[i] + 
+              h12z[i]*h12z[i]*h22z[i])\)\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(FullSimplify[der2z[i]]\)], "Input"],
+
+Cell[BoxData[
+    \(\(8\ \((dx[1 + i]\ \((var[\(-1\) + i] - var[i])\) + dx[i]\ \
+\((var[\(-1\) + i] - 2\ var[i] + var[1 + i])\) + dx[\(-1\) + i]\ \((\(-var[i]\
+\) + var[1 + i])\))\)\)\/\(\((dx[\(-1\) + i] + dx[i])\)\ \((dx[i] + dx[1 + \
+i])\)\ \((dx[\(-1\) + i] + 2\ dx[i] + dx[1 + i])\)\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(FullSimplify[der1z[i]]\)], "Input"],
+
+Cell[BoxData[
+    \(\(2\ \((\(-\((dx[i] + dx[1 + i])\)\^2\)\ var[\(-1\) + i] - \
+\((\((dx[\(-1\) + i] + dx[i])\)\^2 - \((dx[i] + dx[1 + i])\)\^2)\)\ var[i] + \
+\((dx[\(-1\) + i] + dx[i])\)\^2\ var[1 + i])\)\)\/\(\((dx[\(-1\) + i] + \
+dx[i])\)\ \((dx[i] + dx[1 + i])\)\ \((dx[\(-1\) + i] + 2\ dx[i] + dx[1 + \
+i])\)\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(FullSimplify[z2e[i]]\)], "Input"],
+
+Cell[BoxData[
+    \(\(dx[i]\ var[\(-1\) + i] + dx[\(-1\) + i]\ var[i]\)\/\(dx[\(-1\) + i] + \
+dx[i]\)\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    \(vexm[i_] := 
+      v[i + 1]*\((1 + dx[i]/dx[i + 1])\) - 
+        v[i + 2]*\((dx[i]/dx[i + 1])\)\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(vexp[i_] := 
+      v[i - 1]*\((1 + dx[i - 1]/dx[i - 2])\) - 
+        v[i - 2]*\((dx[i - 1]/dx[i - 2])\)\)], "Input"],
+
+Cell[BoxData[
+    \(General::"spell1" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(vexp\)\" is similar to \
+existing symbol \"\!\(vexm\)\"."\)], "Message"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Solve[vexm[i - 2] \[Equal] v[i - 2], v[i]]\)], "Input"],
+
+Cell[BoxData[
+    \({{v[
+            i] \[Rule] \(-\(\(dx[\(-1\) + i]\ v[\(-2\) + i] - 
+                  dx[\(-2\) + i]\ v[\(-1\) + i] - 
+                  dx[\(-1\) + i]\ v[\(-1\) + i]\)\/dx[\(-2\) + 
+                    i]\)\)}}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(FullSimplify[vexp[i]]\)], "Input"],
+
+Cell[BoxData[
+    \(\(\(-dx[\(-1\) + i]\)\ v[\(-2\) + i] + \((dx[\(-2\) + i] + dx[\(-1\) + \
+i])\)\ v[\(-1\) + i]\)\/dx[\(-2\) + i]\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    \( (*\ start\ the\ interps\ *) \)], "Input"],
+
+Cell[BoxData[
+    \( (*var[k_, j_, i_] := \(\(f[k]\)[j]\)[i]*) \)], "Input"],
+
+Cell[BoxData[
+    \(z2e1[k_, j_, i_] := 
+      0.5*\((\(\(dx[1]\)[1]\)[i]*var[k, j, i - 1] + \(\(dx[1]\)[1]\)[i - 1]*
+                var[k, j, i])\)/\(\(dx[2]\)[1]\)[i]\)], "Input"],
+
+Cell[BoxData[{
+    \(z2e2[k_, j_, i_] := 
+      0.5*\((\(\(dx[1]\)[2]\)[j]*var[k, j - 1, i] + \(\(dx[1]\)[2]\)[j - 1]*
+                var[k, j, i])\)/\(\(dx[2]\)[2]\)[
+            j]\), "\[IndentingNewLine]", 
+    \(z2e3[k_, j_, i_] := 
+      0.5*\((\(\(dx[1]\)[3]\)[k]*var[k - 1, j, i] + \(\(dx[1]\)[3]\)[k - 1]*
+                var[k, j, i])\)/\(\(dx[2]\)[3]\)[k]\)}], "Input"],
+
+Cell[BoxData[
+    \(e2z1[k_, j_, i_] := 
+      0.5*\((var[k, j, i] + var[k, j, i + 1])\)\)], "Input"],
+
+Cell[BoxData[
+    \(e2z2[k_, j_, i_] := 
+      0.5*\((var[k, j, i] + var[k, j + 1, i])\)\)], "Input"],
+
+Cell[BoxData[
+    \(e2z3[k_, j_, i_] := 
+      0.5*\((var[k, j, i] + var[k + 1, j, i])\)\)], "Input"],
+
+Cell[BoxData[
+    \(v1tov2[k_, j_, i_] := e2z1[k, j, i] /. {var \[Rule] z2e2}\)], "Input"],
+
+Cell[BoxData[
+    \(v2tov1[k_, j_, i_] := e2z2[k, j, i] /. {var \[Rule] z2e1}\)], "Input"],
+
+Cell[BoxData[
+    \(v2to050[k_, j_, i_] := v2tov1[k, j, i] /. {var \[Rule] z2e3}\)], "Input"],
+
+Cell[BoxData[
+    \(z2c3[k_, j_, i_] := z2e1[k, j, i] /. {var \[Rule] z2e2}\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(c2z3[k_, j_, i_] := e2z2[k, j, i] /. {var \[Rule] e2z1}\)], "Input"],
+
+Cell[BoxData[
+    \(General::"spell" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(c2z3\)\" is similar to \
+existing symbols \!\({c2z13, c2z3d, e2z3}\)."\)], "Message"]
+}, Open  ]],
+
+Cell[BoxData[
+    \(z2c3d[k_, j_, i_] := z2e3[k, j, i] /. {var \[Rule] z2c2d}\)], "Input"],
+
+Cell[BoxData[
+    \(c2z3d[k_, j_, i_] := c2z2d[k, j, i] /. {var \[Rule] e2z3}\)], "Input"],
+
+Cell[BoxData[
+    \(v3to005[k_, j_, i_] := e2z3[k, j, i] /. {var \[Rule] z2c2d}\)], "Input"],
+
+Cell[BoxData[
+    \(v1to500[k_, j_, i_] := z2e3[k, j, i] /. {var \[Rule] v1tov2}\)], "Input"],
+
+Cell[BoxData[
+    \(v3tov1[k_, j_, i_] := e2z3[k, j, i] /. {var \[Rule] z2e1}\)], "Input"],
+
+Cell[BoxData[
+    \(v3tov2[k_, j_, 
+        i_] := \(\(e2z3[k, j, 
+          i]\)\(/.\)\({var \[Rule] 
+            z2e2}\)\(\[IndentingNewLine]\)\)\)], "Input"],
+
+Cell[BoxData[
+    \(v1tov3[k_, j_, i_] := e2z1[k, j, i] /. {var \[Rule] z2e3}\)], "Input"],
+
+Cell[BoxData[
+    \(v2tov3[k_, j_, i_] := e2z2[k, j, i] /. {var \[Rule] z2e3}\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(z2c2[k_, j_, i_] := z2e1[k, j, i] /. {var \[Rule] z2e3}\)], "Input"],
+
+Cell[BoxData[
+    \(General::"spell" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(z2c2\)\" is similar to \
+existing symbols \!\({z2c12, z2c2d, z2e2}\)."\)], "Message"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(c2z2[k_, j_, i_] := e2z1[k, j, i] /. {var \[Rule] e2z3}\)], "Input"],
+
+Cell[BoxData[
+    \(General::"spell" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(c2z2\)\" is similar to \
+existing symbols \!\({c2z12, c2z2d, e2z2}\)."\)], "Message"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(z2c1[k_, j_, i_] := z2e2[k, j, i] /. {var \[Rule] z2e3}\)], "Input"],
+
+Cell[BoxData[
+    \(General::"spell1" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(z2c1\)\" is similar to \
+existing symbol \"\!\(z2e1\)\"."\)], "Message"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(c2z1[k_, j_, i_] := e2z2[k, j, i] /. {var \[Rule] e2z3}\)], "Input"],
+
+Cell[BoxData[
+    \(General::"spell1" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(c2z1\)\" is similar to \
+existing symbol \"\!\(e2z1\)\"."\)], "Message"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(FullSimplify[v1tov2[k, j, i]] /. 
+      var[k_, j_, i_] \[Rule] \(\(f[k]\)[j]\)[i]\)], "Input"],
+
+Cell[BoxData[
+    \(\(0.25`\ \((\(\(dx[1]\)[2]\)[j]\ \((\(\(f[k]\)[\(-1\) + j]\)[i] + \
+\(\(f[k]\)[\(-1\) + j]\)[1 + i])\) + \(\(dx[1]\)[2]\)[\(-1\) + j]\ \
+\((\(\(f[k]\)[j]\)[i] + \(\(f[k]\)[j]\)[1 + \
+i])\))\)\)\/\(\(dx[2]\)[2]\)[j]\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(FullSimplify[v2tov1[k, j, i]] /. 
+      var[k_, j_, i_] \[Rule] \(\(f[k]\)[j]\)[i]\)], "Input"],
+
+Cell[BoxData[
+    \(\(0.25`\ \((\(\(dx[1]\)[1]\)[i]\ \((\(\(f[k]\)[j]\)[\(-1\) + i] + \
+\(\(f[k]\)[1 + j]\)[\(-1\) + i])\) + \(\(dx[1]\)[1]\)[\(-1\) + i]\ \
+\((\(\(f[k]\)[j]\)[i] + \(\(f[k]\)[1 + \
+j]\)[i])\))\)\)\/\(\(dx[2]\)[1]\)[i]\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(FullSimplify[v2to050[k, j, i]] /. 
+      var[k_, j_, i_] \[Rule] \(\(f[k]\)[j]\)[i]\)], "Input"],
+
+Cell[BoxData[
+    \(\(\(1\/\(\(\(dx[2]\)[1]\)[i]\ \(\(dx[2]\)[3]\)[
+            k]\)\)\((0.125`\ \((\(\(dx[1]\)[3]\)[
+                k]\ \((\(\(dx[1]\)[1]\)[
+                      i]\ \((\(\(f[\(-1\) + k]\)[j]\)[\(-1\) + 
+                            i] + \(\(f[\(-1\) + k]\)[1 + j]\)[\(-1\) + 
+                            i])\) + \(\(dx[1]\)[1]\)[\(-1\) + 
+                        i]\ \((\(\(f[\(-1\) + k]\)[j]\)[
+                          i] + \(\(f[\(-1\) + k]\)[1 + j]\)[i])\))\) + \(\(dx[
+                    1]\)[3]\)[\(-1\) + 
+                  k]\ \((\(\(dx[1]\)[1]\)[
+                      i]\ \((\(\(f[k]\)[j]\)[\(-1\) + i] + \(\(f[k]\)[
+                            1 + j]\)[\(-1\) + i])\) + \(\(dx[1]\)[
+                        1]\)[\(-1\) + 
+                        i]\ \((\(\(f[k]\)[j]\)[i] + \(\(f[k]\)[1 + j]\)[
+                          i])\))\))\))\)\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(FullSimplify[z2c2d[k, j, i]] /. 
+      var[k_, j_, i_] \[Rule] \(\(f[k]\)[j]\)[i]\)], "Input"],
+
+Cell[BoxData[
+    \(\(0.25`\ \((\(\(dx[1]\)[2]\)[j]\ \((\(\(dx[1]\)[1]\)[i]\ \
+\(\(f[k]\)[\(-1\) + j]\)[\(-1\) + i] + \(\(dx[1]\)[1]\)[\(-1\) + i]\ \(\(f[k]\
+\)[\(-1\) + j]\)[i])\) + \(\(dx[1]\)[2]\)[\(-1\) + j]\ \((\(\(dx[1]\)[1]\)[i]\
+\ \(\(f[k]\)[j]\)[\(-1\) + i] + \(\(dx[1]\)[1]\)[\(-1\) + i]\ \
+\(\(f[k]\)[j]\)[i])\))\)\)\/\(\(\(dx[2]\)[1]\)[i]\ \(\(dx[2]\)[2]\)[j]\)\)], \
+"Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(FullSimplify[c2z2d[k, j, i]] /. 
+      var[k_, j_, i_] \[Rule] \(\(f[k]\)[j]\)[i]\)], "Input"],
+
+Cell[BoxData[
+    \(0.25`\ \((\(\(f[k]\)[j]\)[i] + \(\(f[k]\)[j]\)[
+            1 + i] + \(\(f[k]\)[1 + j]\)[i] + \(\(f[k]\)[1 + j]\)[
+            1 + i])\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(FullSimplify[z2c3d[k, j, i]] /. 
+      var[k_, j_, i_] \[Rule] \(\(f[k]\)[j]\)[i]\)], "Input"],
+
+Cell[BoxData[
+    \(\(\(1\/\(\(\(dx[2]\)[1]\)[i]\ \(\(dx[2]\)[2]\)[j]\ \(\(dx[2]\)[3]\)[
+            k]\)\)\((0.125`\ \((\(\(dx[1]\)[3]\)[
+                k]\ \((\(\(dx[1]\)[2]\)[
+                      j]\ \((\(\(dx[1]\)[1]\)[
+                            i]\ \(\(f[\(-1\) + k]\)[\(-1\) + j]\)[\(-1\) + 
+                              i] + \(\(dx[1]\)[1]\)[\(-1\) + 
+                              i]\ \(\(f[\(-1\) + k]\)[\(-1\) + j]\)[
+                            i])\) + \(\(dx[1]\)[2]\)[\(-1\) + 
+                        j]\ \((\(\(dx[1]\)[1]\)[
+                            i]\ \(\(f[\(-1\) + k]\)[j]\)[\(-1\) + 
+                              i] + \(\(dx[1]\)[1]\)[\(-1\) + 
+                              i]\ \(\(f[\(-1\) + k]\)[j]\)[i])\))\) + \(\(dx[
+                    1]\)[3]\)[\(-1\) + 
+                  k]\ \((\(\(dx[1]\)[2]\)[
+                      j]\ \((\(\(dx[1]\)[1]\)[
+                            i]\ \(\(f[k]\)[\(-1\) + j]\)[\(-1\) + 
+                              i] + \(\(dx[1]\)[1]\)[\(-1\) + 
+                              i]\ \(\(f[k]\)[\(-1\) + j]\)[i])\) + \(\(dx[
+                          1]\)[2]\)[\(-1\) + 
+                        j]\ \((\(\(dx[1]\)[1]\)[
+                            i]\ \(\(f[k]\)[j]\)[\(-1\) + i] + \(\(dx[1]\)[
+                              1]\)[\(-1\) + i]\ \(\(f[k]\)[j]\)[
+                            i])\))\))\))\)\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(FullSimplify[c2z3d[k, j, i]] /. 
+      var[k_, j_, i_] \[Rule] \(\(f[k]\)[j]\)[i]\)], "Input"],
+
+Cell[BoxData[
+    \(0.125`\ \((\(\(f[k]\)[j]\)[i] + \(\(f[k]\)[j]\)[
+            1 + i] + \(\(f[k]\)[1 + j]\)[i] + \(\(f[k]\)[1 + j]\)[
+            1 + i] + \(\(f[1 + k]\)[j]\)[i] + \(\(f[1 + k]\)[j]\)[
+            1 + i] + \(\(f[1 + k]\)[1 + j]\)[i] + \(\(f[1 + k]\)[1 + j]\)[
+            1 + i])\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(FullSimplify[v3to005[k, j, i]] /. 
+      var[k_, j_, i_] \[Rule] \(\(f[k]\)[j]\)[i]\)], "Input"],
+
+Cell[BoxData[
+    \(\(\(1\/\(\(\(dx[2]\)[1]\)[i]\ \(\(dx[2]\)[2]\)[
+            j]\)\)\((0.125`\ \((\(\(dx[1]\)[2]\)[
+                j]\ \((\(\(dx[1]\)[1]\)[
+                      i]\ \((\(\(f[k]\)[\(-1\) + j]\)[\(-1\) + 
+                            i] + \(\(f[1 + k]\)[\(-1\) + j]\)[\(-1\) + 
+                            i])\) + \(\(dx[1]\)[1]\)[\(-1\) + 
+                        i]\ \((\(\(f[k]\)[\(-1\) + j]\)[
+                          i] + \(\(f[1 + k]\)[\(-1\) + j]\)[i])\))\) + \(\(dx[
+                    1]\)[2]\)[\(-1\) + 
+                  j]\ \((\(\(dx[1]\)[1]\)[
+                      i]\ \((\(\(f[k]\)[j]\)[\(-1\) + i] + \(\(f[1 + k]\)[
+                            j]\)[\(-1\) + i])\) + \(\(dx[1]\)[1]\)[\(-1\) + 
+                        i]\ \((\(\(f[k]\)[j]\)[i] + \(\(f[1 + k]\)[j]\)[
+                          i])\))\))\))\)\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(FullSimplify[v1to500[k, j, i]] /. 
+      var[k_, j_, i_] \[Rule] \(\(f[k]\)[j]\)[i]\)], "Input"],
+
+Cell[BoxData[
+    \(\(\(1\/\(\(\(dx[2]\)[2]\)[j]\ \(\(dx[2]\)[3]\)[
+            k]\)\)\((0.125`\ \((\(\(dx[1]\)[3]\)[
+                k]\ \((\(\(dx[1]\)[2]\)[
+                      j]\ \((\(\(f[\(-1\) + k]\)[\(-1\) + j]\)[
+                          i] + \(\(f[\(-1\) + k]\)[\(-1\) + j]\)[
+                          1 + i])\) + \(\(dx[1]\)[2]\)[\(-1\) + 
+                        j]\ \((\(\(f[\(-1\) + k]\)[j]\)[
+                          i] + \(\(f[\(-1\) + k]\)[j]\)[1 + i])\))\) + \(\(dx[
+                    1]\)[3]\)[\(-1\) + 
+                  k]\ \((\(\(dx[1]\)[2]\)[
+                      j]\ \((\(\(f[k]\)[\(-1\) + j]\)[
+                          i] + \(\(f[k]\)[\(-1\) + j]\)[1 + i])\) + \(\(dx[
+                          1]\)[2]\)[\(-1\) + 
+                        j]\ \((\(\(f[k]\)[j]\)[i] + \(\(f[k]\)[j]\)[
+                          1 + i])\))\))\))\)\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(FullSimplify[v3tov1[k, j, i]] /. 
+      var[k_, j_, i_] \[Rule] \(\(f[k]\)[j]\)[i]\)], "Input"],
+
+Cell[BoxData[
+    \(\(0.25`\ \((\(\(dx[1]\)[1]\)[i]\ \((\(\(f[k]\)[j]\)[\(-1\) + i] + \
+\(\(f[1 + k]\)[j]\)[\(-1\) + i])\) + \(\(dx[1]\)[1]\)[\(-1\) + i]\ \
+\((\(\(f[k]\)[j]\)[i] + \(\(f[1 + \
+k]\)[j]\)[i])\))\)\)\/\(\(dx[2]\)[1]\)[i]\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(FullSimplify[v3tov2[k, j, i]] /. 
+      var[k_, j_, i_] \[Rule] \(\(f[k]\)[j]\)[i]\)], "Input"],
+
+Cell[BoxData[
+    \(\(0.25`\ \((\(\(dx[1]\)[2]\)[j]\ \((\(\(f[k]\)[\(-1\) + j]\)[i] + \
+\(\(f[1 + k]\)[\(-1\) + j]\)[i])\) + \(\(dx[1]\)[2]\)[\(-1\) + j]\ \
+\((\(\(f[k]\)[j]\)[i] + \(\(f[1 + \
+k]\)[j]\)[i])\))\)\)\/\(\(dx[2]\)[2]\)[j]\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(FullSimplify[v1tov3[k, j, i]] /. 
+      var[k_, j_, i_] \[Rule] \(\(f[k]\)[j]\)[i]\)], "Input"],
+
+Cell[BoxData[
+    \(\(0.25`\ \((\(\(dx[1]\)[3]\)[k]\ \((\(\(f[\(-1\) + k]\)[j]\)[i] + \
+\(\(f[\(-1\) + k]\)[j]\)[1 + i])\) + \(\(dx[1]\)[3]\)[\(-1\) + k]\ \
+\((\(\(f[k]\)[j]\)[i] + \(\(f[k]\)[j]\)[1 + \
+i])\))\)\)\/\(\(dx[2]\)[3]\)[k]\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(FullSimplify[v2tov3[k, j, i]] /. 
+      var[k_, j_, i_] \[Rule] \(\(f[k]\)[j]\)[i]\)], "Input"],
+
+Cell[BoxData[
+    \(\(0.25`\ \((\(\(dx[1]\)[3]\)[k]\ \((\(\(f[\(-1\) + k]\)[j]\)[i] + \
+\(\(f[\(-1\) + k]\)[1 + j]\)[i])\) + \(\(dx[1]\)[3]\)[\(-1\) + k]\ \
+\((\(\(f[k]\)[j]\)[i] + \(\(f[k]\)[1 + \
+j]\)[i])\))\)\)\/\(\(dx[2]\)[3]\)[k]\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(FullSimplify[z2c13[k, j, i]] /. 
+      var[k_, j_, i_] \[Rule] \(\(f[k]\)[j]\)[i]\)], "Input"],
+
+Cell[BoxData[
+    \(\(0.25`\ \((\(\(dx[1]\)[3]\)[k]\ \((\(\(dx[1]\)[1]\)[i]\ \(\(f[\(-1\) + \
+k]\)[j]\)[\(-1\) + i] + \(\(dx[1]\)[1]\)[\(-1\) + i]\ \(\(f[\(-1\) + \
+k]\)[j]\)[i])\) + \(\(dx[1]\)[3]\)[\(-1\) + k]\ \((\(\(dx[1]\)[1]\)[i]\ \
+\(\(f[k]\)[j]\)[\(-1\) + i] + \(\(dx[1]\)[1]\)[\(-1\) + i]\ \
+\(\(f[k]\)[j]\)[i])\))\)\)\/\(\(\(dx[2]\)[1]\)[i]\ \(\(dx[2]\)[3]\)[k]\)\)], \
+"Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(FullSimplify[z2c1[k, j, i]] /. 
+      var[k_, j_, i_] \[Rule] \(\(f[k]\)[j]\)[i]\)], "Input"],
+
+Cell[BoxData[
+    \(\(0.25`\ \((\(\(dx[1]\)[3]\)[k]\ \((\(\(dx[1]\)[2]\)[j]\ \(\(f[\(-1\) + \
+k]\)[\(-1\) + j]\)[i] + \(\(dx[1]\)[2]\)[\(-1\) + j]\ \(\(f[\(-1\) + \
+k]\)[j]\)[i])\) + \(\(dx[1]\)[3]\)[\(-1\) + k]\ \((\(\(dx[1]\)[2]\)[j]\ \
+\(\(f[k]\)[\(-1\) + j]\)[i] + \(\(dx[1]\)[2]\)[\(-1\) + j]\ \
+\(\(f[k]\)[j]\)[i])\))\)\)\/\(\(\(dx[2]\)[2]\)[j]\ \(\(dx[2]\)[3]\)[k]\)\)], \
+"Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(FullSimplify[c2z1[k, j, i]] /. 
+      var[k_, j_, i_] \[Rule] \(\(f[k]\)[j]\)[i]\)], "Input"],
+
+Cell[BoxData[
+    \(0.25`\ \((\(\(f[k]\)[j]\)[i] + \(\(f[k]\)[1 + j]\)[
+            i] + \(\(f[1 + k]\)[j]\)[i] + \(\(f[1 + k]\)[1 + j]\)[
+            i])\)\)], "Output"]
+}, Open  ]]
+},
+FrontEndVersion->"4.0 for X",
+ScreenRectangle->{{0, 1280}, {0, 1024}},
+WindowSize->{1248, 980},
+WindowMargins->{{Automatic, 1}, {Automatic, 4}}
+]
+
+
+(***********************************************************************
+Cached data follows.  If you edit this Notebook file directly, not using
+Mathematica, you must remove the line containing CacheID at the top of 
+the file.  The cache data will then be recreated when you save this file 
+from within Mathematica.
+***********************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1717, 49, 131, 3, 27, "Input"],
+Cell[1851, 54, 71, 1, 27, "Input"],
+Cell[1925, 57, 207, 4, 27, "Input"],
+Cell[2135, 63, 69, 1, 27, "Input"],
+Cell[2207, 66, 26, 0, 27, "Input"],
+Cell[2236, 68, 69, 1, 27, "Input"],
+Cell[2308, 71, 246, 5, 27, "Input"],
+Cell[2557, 78, 46, 1, 27, "Input"],
+Cell[2606, 81, 53, 1, 27, "Input"],
+Cell[2662, 84, 73, 1, 27, "Input"],
+Cell[2738, 87, 57, 1, 27, "Input"],
+Cell[2798, 90, 73, 1, 27, "Input"],
+
+Cell[CellGroupData[{
+Cell[2896, 95, 51, 1, 27, "Input"],
+Cell[2950, 98, 158, 2, 49, "Output"]
+}, Open  ]],
+Cell[3123, 103, 54, 1, 27, "Input"],
+Cell[3180, 106, 276, 5, 43, "Input"],
+Cell[3459, 113, 53, 1, 27, "Input"],
+Cell[3515, 116, 53, 1, 27, "Input"],
+Cell[3571, 119, 54, 1, 27, "Input"],
+Cell[3628, 122, 276, 5, 43, "Input"],
+
+Cell[CellGroupData[{
+Cell[3929, 131, 57, 1, 27, "Input"],
+Cell[3989, 134, 121, 2, 46, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[4147, 141, 57, 1, 27, "Input"],
+Cell[4207, 144, 74, 1, 46, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[4318, 150, 70, 1, 27, "Input"],
+Cell[4391, 153, 190, 3, 23, "Message"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[4618, 161, 70, 1, 27, "Input"],
+Cell[4691, 164, 185, 3, 23, "Message"]
+}, Open  ]],
+Cell[4891, 170, 219, 4, 27, "Input"],
+
+Cell[CellGroupData[{
+Cell[5135, 178, 55, 1, 27, "Input"],
+Cell[5193, 181, 303, 4, 46, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[5533, 190, 55, 1, 27, "Input"],
+Cell[5591, 193, 330, 5, 48, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[5958, 203, 53, 1, 27, "Input"],
+Cell[6014, 206, 115, 2, 46, "Output"]
+}, Open  ]],
+Cell[6144, 211, 128, 3, 27, "Input"],
+
+Cell[CellGroupData[{
+Cell[6297, 218, 136, 3, 27, "Input"],
+Cell[6436, 223, 181, 3, 23, "Message"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[6654, 231, 75, 1, 27, "Input"],
+Cell[6732, 234, 245, 5, 46, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[7014, 244, 54, 1, 27, "Input"],
+Cell[7071, 247, 145, 2, 46, "Output"]
+}, Open  ]],
+Cell[7231, 252, 62, 1, 27, "Input"],
+Cell[7296, 255, 76, 1, 27, "Input"],
+Cell[7375, 258, 182, 3, 27, "Input"],
+Cell[7560, 263, 380, 7, 43, "Input"],
+Cell[7943, 272, 101, 2, 27, "Input"],
+Cell[8047, 276, 101, 2, 27, "Input"],
+Cell[8151, 280, 101, 2, 27, "Input"],
+Cell[8255, 284, 90, 1, 27, "Input"],
+Cell[8348, 287, 90, 1, 27, "Input"],
+Cell[8441, 290, 93, 1, 27, "Input"],
+Cell[8537, 293, 88, 1, 27, "Input"],
+
+Cell[CellGroupData[{
+Cell[8650, 298, 88, 1, 27, "Input"],
+Cell[8741, 301, 193, 3, 23, "Message"]
+}, Open  ]],
+Cell[8949, 307, 90, 1, 27, "Input"],
+Cell[9042, 310, 90, 1, 27, "Input"],
+Cell[9135, 313, 92, 1, 27, "Input"],
+Cell[9230, 316, 93, 1, 27, "Input"],
+Cell[9326, 319, 90, 1, 27, "Input"],
+Cell[9419, 322, 160, 4, 43, "Input"],
+Cell[9582, 328, 90, 1, 27, "Input"],
+Cell[9675, 331, 90, 1, 27, "Input"],
+
+Cell[CellGroupData[{
+Cell[9790, 336, 88, 1, 27, "Input"],
+Cell[9881, 339, 193, 3, 23, "Message"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[10111, 347, 88, 1, 27, "Input"],
+Cell[10202, 350, 193, 3, 23, "Message"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[10432, 358, 88, 1, 27, "Input"],
+Cell[10523, 361, 181, 3, 23, "Message"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[10741, 369, 88, 1, 27, "Input"],
+Cell[10832, 372, 181, 3, 23, "Message"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[11050, 380, 115, 2, 27, "Input"],
+Cell[11168, 384, 248, 4, 47, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[11453, 393, 115, 2, 27, "Input"],
+Cell[11571, 397, 248, 4, 46, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[11856, 406, 116, 2, 27, "Input"],
+Cell[11975, 410, 883, 15, 64, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[12895, 430, 114, 2, 27, "Input"],
+Cell[13012, 434, 389, 6, 47, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[13438, 445, 114, 2, 27, "Input"],
+Cell[13555, 449, 170, 3, 27, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[13762, 457, 114, 2, 27, "Input"],
+Cell[13879, 461, 1380, 23, 81, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[15296, 489, 114, 2, 27, "Input"],
+Cell[15413, 493, 313, 5, 27, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[15763, 503, 116, 2, 27, "Input"],
+Cell[15882, 507, 858, 14, 65, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[16777, 526, 116, 2, 27, "Input"],
+Cell[16896, 530, 879, 15, 65, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[17812, 550, 115, 2, 27, "Input"],
+Cell[17930, 554, 248, 4, 46, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[18215, 563, 115, 2, 27, "Input"],
+Cell[18333, 567, 248, 4, 47, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[18618, 576, 115, 2, 27, "Input"],
+Cell[18736, 580, 248, 4, 46, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[19021, 589, 115, 2, 27, "Input"],
+Cell[19139, 593, 248, 4, 46, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[19424, 602, 114, 2, 27, "Input"],
+Cell[19541, 606, 389, 6, 46, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[19967, 617, 113, 2, 27, "Input"],
+Cell[20083, 621, 389, 6, 47, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[20509, 632, 113, 2, 27, "Input"],
+Cell[20625, 636, 170, 3, 27, "Output"]
+}, Open  ]]
+}
+]
+*)
+
+
+
+
+(***********************************************************************
+End of Mathematica Notebook file.
+***********************************************************************)
+

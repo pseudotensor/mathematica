@@ -1,0 +1,450 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 5.2'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     10303,        338]*)
+(*NotebookOutlinePosition[     10950,        360]*)
+(*  CellTagsIndexPosition[     10906,        356]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[{
+    \(a[v] = \((1 + alpha[v]^2*v^4)\)^\((\(-1\)/
+            2)\)\), "\[IndentingNewLine]", 
+    \(b[v] = 
+      alpha[v]*\((1 + alpha[v]^2*v^4)\)^\((\(-3\)/2)\)*
+        D[alpha[v]*v^2, v]\)}], "Input"],
+
+Cell[BoxData[
+    \(1\/\@\(1 + v\^4\ alpha[v]\^2\)\)], "Output"],
+
+Cell[BoxData[
+    FractionBox[
+      RowBox[{\(alpha[v]\), " ", 
+        RowBox[{"(", 
+          RowBox[{\(2\ v\ alpha[v]\), "+", 
+            RowBox[{\(v\^2\), " ", 
+              RowBox[{
+                SuperscriptBox["alpha", "\[Prime]",
+                  MultilineFunction->None], "[", "v", "]"}]}]}], 
+          ")"}]}], \(\((1 + v\^4\ alpha[v]\^2)\)\^\(3/2\)\)]], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    \(Clear[a, b]\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(hv = \((u^2 + v^2)\)^\((1/2)\)\), "\[IndentingNewLine]", 
+    \(Clear[R, u]\), "\[IndentingNewLine]", 
+    \(R[v] = 
+      u*v\[IndentingNewLine] (*b[v] = 
+        D[a[v], v]/v^2\[IndentingNewLine]Clear[
+            b]*) \), "\[IndentingNewLine]", 
+    \(alpha[v] = m/R[v]\), "\[IndentingNewLine]", 
+    \(one = 
+      a[v]*alpha[v]*D[alpha[v]*R[v]^2, v] - \((1 - alpha[v]^2*R[v]^2)\)*
+          D[a[v], v] - \((u^2 + v^2)\)*b[v]\), "\[IndentingNewLine]", 
+    \(one = FullSimplify[one]\)}], "Input"],
+
+Cell[BoxData[
+    \(\@\(u\^2 + v\^2\)\)], "Output"],
+
+Cell[BoxData[
+    \(u\ v\)], "Output"],
+
+Cell[BoxData[
+    \(m\/\(u\ v\)\)], "Output"],
+
+Cell[BoxData[
+    RowBox[{\(\(m\^2\ a[v]\)\/v\), "-", \(\((u\^2 + v\^2)\)\ b[v]\), "-", 
+      RowBox[{\((1 - m\^2)\), " ", 
+        RowBox[{
+          SuperscriptBox["a", "\[Prime]",
+            MultilineFunction->None], "[", "v", "]"}]}]}]], "Output"],
+
+Cell[BoxData[
+    RowBox[{\(\(m\^2\ a[v]\)\/v\), "-", \(\((u\^2 + v\^2)\)\ b[v]\), "+", 
+      RowBox[{\((\(-1\) + m\^2)\), " ", 
+        RowBox[{
+          SuperscriptBox["a", "\[Prime]",
+            MultilineFunction->None], "[", "v", "]"}]}]}]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(it = one //. {b[v] \[Rule] 0}\)], "Input"],
+
+Cell[BoxData[
+    RowBox[{\(\(m\^2\ a[v]\)\/v\), "+", 
+      RowBox[{\((\(-1\) + m\^2)\), " ", 
+        RowBox[{
+          SuperscriptBox["a", "\[Prime]",
+            MultilineFunction->None], "[", "v", "]"}]}]}]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\(\(DSolve[it \[Equal] 0, a[v], 
+      v]\)\(\[IndentingNewLine]\)\(\[IndentingNewLine]\)\(\[IndentingNewLine]\
+\)
+    \)\)], "Input"],
+
+Cell[BoxData[
+    \({{a[
+            v] \[Rule] \((v - m\^2\ v)\)\^\(m\^2\/\(1 - m\^2\)\)\ C[
+              1]}}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(FullSimplify[{{a[
+              v] \[Rule] \((v - m\^2\ v)\)\^\(m\^2\/\(1 - m\^2\)\)\ C[
+                1]}}]\)], "Input"],
+
+Cell[BoxData[
+    \({{a[
+            v] \[Rule] \((v - m\^2\ v)\)\^\(m\^2\/\(1 - m\^2\)\)\ C[
+              1]}}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[""], "Input"],
+
+Cell[BoxData[
+    RowBox[{\(\(-v\^2\)\ b[v]\), "-", 
+      RowBox[{
+        SuperscriptBox["a", "\[Prime]",
+          MultilineFunction->None], "[", "v", "]"}], "+", 
+      RowBox[{\(u\^2\), " ", 
+        RowBox[{"(", 
+          RowBox[{\(2\ v\ a[v]\ alpha[v]\^2\), "-", \(b[v]\), "+", 
+            RowBox[{\(v\^2\), " ", \(alpha[v]\^2\), " ", 
+              RowBox[{
+                SuperscriptBox["a", "\[Prime]",
+                  MultilineFunction->None], "[", "v", "]"}]}], "+", 
+            RowBox[{\(v\^2\), " ", \(a[v]\), " ", \(alpha[v]\), " ", 
+              RowBox[{
+                SuperscriptBox["alpha", "\[Prime]",
+                  MultilineFunction->None], "[", "v", "]"}]}]}], 
+          ")"}]}]}]], "Output"]
+}, Open  ]],
+
+Cell[BoxData[""], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    RowBox[{"newone", "=", 
+      RowBox[{"FullSimplify", "[", 
+        RowBox[{\(2\ v\ a[v]\ alpha[v]\^2\), "-", \(b[v]\), 
+          "+", \(v\^2\ alpha[v]\^2\ D[a[v], v]\), "+", 
+          RowBox[{\(v\^2\), " ", \(a[v]\), " ", \(alpha[v]\), " ", 
+            RowBox[{
+              SuperscriptBox["alpha", "\[Prime]",
+                MultilineFunction->None], "[", "v", "]"}]}]}], 
+        "]"}]}]], "Input"],
+
+Cell[BoxData[
+    RowBox[{\(-b[v]\), "+", 
+      RowBox[{"v", " ", \(alpha[v]\), " ", 
+        RowBox[{"(", 
+          RowBox[{
+            RowBox[{"v", " ", \(alpha[v]\), " ", 
+              RowBox[{
+                SuperscriptBox["a", "\[Prime]",
+                  MultilineFunction->None], "[", "v", "]"}]}], "+", 
+            RowBox[{\(a[v]\), " ", 
+              RowBox[{"(", 
+                RowBox[{\(2\ alpha[v]\), "+", 
+                  RowBox[{"v", " ", 
+                    RowBox[{
+                      SuperscriptBox["alpha", "\[Prime]",
+                        MultilineFunction->None], "[", "v", "]"}]}]}], 
+                ")"}]}]}], ")"}]}]}]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(newtwo = FullSimplify[\(-v\^2\)\ b[v] - D[a[v], v]]\)], "Input"],
+
+Cell[BoxData[
+    RowBox[{\(\(-v\^2\)\ b[v]\), "-", 
+      RowBox[{
+        SuperscriptBox["a", "\[Prime]",
+          MultilineFunction->None], "[", "v", "]"}]}]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(solb = Solve[newtwo \[Equal] 0, b[v]]\)], "Input"],
+
+Cell[BoxData[
+    RowBox[{"{", 
+      RowBox[{"{", 
+        RowBox[{\(b[v]\), "\[Rule]", 
+          RowBox[{"-", 
+            FractionBox[
+              RowBox[{
+                SuperscriptBox["a", "\[Prime]",
+                  MultilineFunction->None], "[", "v", "]"}], \(v\^2\)]}]}], 
+        "}"}], "}"}]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(sola = newone //. solb[\([1]\)]\)], "Input"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell1"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(sola\\)\\\" is similar to existing symbol \\\
+\"\\!\\(solb\\)\\\". \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell1\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{
+      FractionBox[
+        RowBox[{
+          SuperscriptBox["a", "\[Prime]",
+            MultilineFunction->None], "[", "v", "]"}], \(v\^2\)], "+", 
+      RowBox[{"v", " ", \(alpha[v]\), " ", 
+        RowBox[{"(", 
+          RowBox[{
+            RowBox[{"v", " ", \(alpha[v]\), " ", 
+              RowBox[{
+                SuperscriptBox["a", "\[Prime]",
+                  MultilineFunction->None], "[", "v", "]"}]}], "+", 
+            RowBox[{\(a[v]\), " ", 
+              RowBox[{"(", 
+                RowBox[{\(2\ alpha[v]\), "+", 
+                  RowBox[{"v", " ", 
+                    RowBox[{
+                      SuperscriptBox["alpha", "\[Prime]",
+                        MultilineFunction->None], "[", "v", "]"}]}]}], 
+                ")"}]}]}], ")"}]}]}]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(myfinala = DSolve[sola \[Equal] 0, a[v], v]\)], "Input"],
+
+Cell[BoxData[
+    \({{a[v] \[Rule] C[1]\/\@\(1 + v\^4\ alpha[v]\^2\)}}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(myfinala[\([1, 1, 2]\)]\)], "Input"],
+
+Cell[BoxData[
+    \(C[1]\/\@\(1 + v\^4\ alpha[v]\^2\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(godb = \(solb //. 
+          myfinala[\([1]\)]\) //. {D[a[v], v] \[Rule] 
+            D[myfinala[\([1, 1, 2]\)], v]}\)], "Input"],
+
+Cell[BoxData[
+    RowBox[{"{", 
+      RowBox[{"{", 
+        RowBox[{\(b[v]\), "\[Rule]", 
+          FractionBox[
+            RowBox[{\(C[1]\), " ", 
+              RowBox[{"(", 
+                RowBox[{\(4\ v\^3\ alpha[v]\^2\), "+", 
+                  RowBox[{"2", " ", \(v\^4\), " ", \(alpha[v]\), " ", 
+                    RowBox[{
+                      SuperscriptBox["alpha", "\[Prime]",
+                        MultilineFunction->None], "[", "v", "]"}]}]}], 
+                ")"}]}], \(2\ v\^2\ \((1 + v\^4\ alpha[v]\^2)\)\^\(3/2\)\)]}],
+         "}"}], "}"}]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(mygodb = FullSimplify[godb[\([1, 1, 2]\)]]\)], "Input"],
+
+Cell[BoxData[
+    FractionBox[
+      RowBox[{"v", " ", \(alpha[v]\), " ", \(C[1]\), " ", 
+        RowBox[{"(", 
+          RowBox[{\(2\ alpha[v]\), "+", 
+            RowBox[{"v", " ", 
+              RowBox[{
+                SuperscriptBox["alpha", "\[Prime]",
+                  MultilineFunction->None], "[", "v", "]"}]}]}], 
+          ")"}]}], \(\((1 + v\^4\ alpha[v]\^2)\)\^\(3/2\)\)]], "Output"]
+}, Open  ]],
+
+Cell[BoxData[""], "Input"]
+},
+FrontEndVersion->"5.2 for Microsoft Windows",
+ScreenRectangle->{{0, 1600}, {0, 1117}},
+WindowSize->{919, 765},
+WindowMargins->{{96, Automatic}, {Automatic, 120}}
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[1776, 53, 218, 5, 50, "Input"],
+Cell[1997, 60, 64, 1, 47, "Output"],
+Cell[2064, 63, 380, 9, 48, "Output"]
+}, Open  ]],
+Cell[2459, 75, 44, 1, 30, "Input"],
+
+Cell[CellGroupData[{
+Cell[2528, 80, 521, 11, 170, "Input"],
+Cell[3052, 93, 51, 1, 35, "Output"],
+Cell[3106, 96, 38, 1, 29, "Output"],
+Cell[3147, 99, 45, 1, 41, "Output"],
+Cell[3195, 102, 253, 5, 45, "Output"],
+Cell[3451, 109, 258, 5, 45, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[3746, 119, 62, 1, 30, "Input"],
+Cell[3811, 122, 224, 5, 45, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[4072, 132, 154, 4, 90, "Input"],
+Cell[4229, 138, 126, 3, 45, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[4392, 146, 143, 3, 43, "Input"],
+Cell[4538, 151, 126, 3, 45, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[4701, 159, 26, 0, 30, "Input"],
+Cell[4730, 161, 727, 16, 29, "Output"]
+}, Open  ]],
+Cell[5472, 180, 26, 0, 30, "Input"],
+
+Cell[CellGroupData[{
+Cell[5523, 184, 424, 9, 31, "Input"],
+Cell[5950, 195, 673, 16, 29, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[6660, 216, 84, 1, 31, "Input"],
+Cell[6747, 219, 173, 4, 29, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[6957, 228, 70, 1, 30, "Input"],
+Cell[7030, 231, 319, 9, 42, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[7386, 245, 64, 1, 30, "Input"],
+Cell[7453, 248, 356, 5, 22, "Message"],
+Cell[7812, 255, 807, 20, 42, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[8656, 280, 76, 1, 30, "Input"],
+Cell[8735, 283, 84, 1, 47, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[8856, 289, 56, 1, 30, "Input"],
+Cell[8915, 292, 67, 1, 47, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[9019, 298, 149, 3, 30, "Input"],
+Cell[9171, 303, 575, 13, 48, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[9783, 321, 75, 1, 30, "Input"],
+Cell[9861, 324, 397, 9, 45, "Output"]
+}, Open  ]],
+Cell[10273, 336, 26, 0, 30, "Input"]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

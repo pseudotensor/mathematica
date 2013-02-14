@@ -1,0 +1,547 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 5.1'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     18312,        480]*)
+(*NotebookOutlinePosition[     18956,        502]*)
+(*  CellTagsIndexPosition[     18912,        498]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[{
+    \(f = x^alpha*y^beta\), "\[IndentingNewLine]", 
+    \(fl = 
+      f //. {x \[Rule] x0 - dx/2, y \[Rule] y0}\), "\[IndentingNewLine]", 
+    \(fr = 
+      f //. {x \[Rule] x0 + dx/2, y \[Rule] y0}\), "\[IndentingNewLine]", 
+    \(fd = 
+      f //. {x \[Rule] x0, y \[Rule] y0 - dy/2}\), "\[IndentingNewLine]", 
+    \(fu = 
+      f //. {x \[Rule] x0, y \[Rule] y0 + dy/2}\), "\[IndentingNewLine]", 
+    \(\(Print["\<D1\>"];\)\), "\[IndentingNewLine]", 
+    \(DfDx1 = \((fr - fl)\)/dx*dt\), "\[IndentingNewLine]", 
+    \(DfDy1 = \((fu - fd)\)/dy*dt\), "\[IndentingNewLine]", 
+    \(\(Print["\<dU1\>"];\)\), "\[IndentingNewLine]", 
+    \(dUavg1 = \(-DfDx1\) - DfDy1\), "\[IndentingNewLine]", 
+    \(\(Print["\<fl\>"];\)\), "\[IndentingNewLine]", 
+    \(flavg = \((1/dy)\)*
+        Simplify[
+          Integrate[
+              f, {y, y0 - dy/2, y0 + dy/2}] //. {x \[Rule] x0 - dx/2}, {Im[
+                x0] \[Equal] 0, Im[y0] \[Equal] 0, Im[dx] \[Equal] 0, 
+            Im[dy] \[Equal] 0, Re[dx] > 0, Re[dy] > 0, 
+            2\ y0 \[GreaterEqual] dy, 2*x0 > dx}]\), "\[IndentingNewLine]", 
+    \(fravg = \((1/dy)\)*
+        Simplify[
+          Integrate[
+              f, {y, y0 - dy/2, y0 + dy/2}] //. {x \[Rule] x0 + dx/2}, {Im[
+                x0] \[Equal] 0, Im[y0] \[Equal] 0, Im[dx] \[Equal] 0, 
+            Im[dy] \[Equal] 0, Re[dx] > 0, Re[dy] > 0, 
+            2\ y0 \[GreaterEqual] dy, 2*x0 > dx}]\), "\[IndentingNewLine]", 
+    \(fdavg = \((1/dx)\)*
+        Simplify[
+          Integrate[
+              f, {x, x0 - dx/2, x0 + dx/2}] //. {y \[Rule] y0 - dy/2}, {Im[
+                x0] \[Equal] 0, Im[y0] \[Equal] 0, Im[dx] \[Equal] 0, 
+            Im[dy] \[Equal] 0, Re[dx] > 0, Re[dy] > 0, 
+            2\ y0 \[GreaterEqual] dy, 2*x0 > dx}]\), "\[IndentingNewLine]", 
+    \(fuavg = \((1/dx)\)*
+        Simplify[
+          Integrate[
+              f, {x, x0 - dx/2, x0 + dx/2}] //. {y \[Rule] y0 + dy/2}, {Im[
+                x0] \[Equal] 0, Im[y0] \[Equal] 0, Im[dx] \[Equal] 0, 
+            Im[dy] \[Equal] 0, Re[dx] > 0, Re[dy] > 0, 
+            2\ y0 \[GreaterEqual] dy, 2*x0 > dx}]\), "\[IndentingNewLine]", 
+    \(\(Print["\<D2\>"];\)\), "\[IndentingNewLine]", 
+    \(DfDx2 = \((fravg - flavg)\)/dx*dt\), "\[IndentingNewLine]", 
+    \(DfDy2 = \((fuavg - fdavg)\)/dy*dt\), "\[IndentingNewLine]", 
+    \(\(Print["\<dU2\>"];\)\), "\[IndentingNewLine]", 
+    \(dUavg2 = 
+      FullSimplify[\(-DfDx2\) - DfDy2, {Im[x0] \[Equal] 0, Im[y0] \[Equal] 0, 
+          Im[dx] \[Equal] 0, Im[dy] \[Equal] 0, Re[dx] > 0, Re[dy] > 0, 
+          2\ y0 \[GreaterEqual] dy, 2*x0 > dx}]\), "\[IndentingNewLine]", 
+    \(dU3 = \(-D[f, x]\) - D[f, y]\), "\[IndentingNewLine]", 
+    \(dUavg3 = \((dt/\((dx*dy)\))\)*
+        Simplify[
+          Integrate[
+            Integrate[dU3, {y, y0 - dy/2, y0 + dy/2}], {x, x0 - dx/2, 
+              x0 + dx/2}], {Im[x0] \[Equal] 0, Im[y0] \[Equal] 0, 
+            Im[dx] \[Equal] 0, Im[dy] \[Equal] 0, Re[dx] > 0, Re[dy] > 0, 
+            2\ y0 \[GreaterEqual] dy, 2*x0 > dx}]\), "\[IndentingNewLine]", 
+    \(myseries12 = 
+      Series[dUavg1 - dUavg2, {dx, 0, 5}]\), "\[IndentingNewLine]", 
+    \(myseries23 = Series[dUavg2 - dUavg3, {dx, 0, 5}]\)}], "Input"],
+
+Cell[BoxData[
+    \(x\^alpha\ y\^beta\)], "Output"],
+
+Cell[BoxData[
+    \(\((\(-\(dx\/2\)\) + x0)\)\^alpha\ y0\^beta\)], "Output"],
+
+Cell[BoxData[
+    \(\((dx\/2 + x0)\)\^alpha\ y0\^beta\)], "Output"],
+
+Cell[BoxData[
+    \(x0\^alpha\ \((\(-\(dy\/2\)\) + y0)\)\^beta\)], "Output"],
+
+Cell[BoxData[
+    \(x0\^alpha\ \((dy\/2 + y0)\)\^beta\)], "Output"],
+
+Cell[BoxData[
+    \("D1"\)], "Print"],
+
+Cell[BoxData[
+    \(\(dt\ \((\(-\((\(-\(dx\/2\)\) + x0)\)\^alpha\)\ y0\^beta + \((dx\/2 + \
+x0)\)\^alpha\ y0\^beta)\)\)\/dx\)], "Output"],
+
+Cell[BoxData[
+    \(\(dt\ \((\(-x0\^alpha\)\ \((\(-\(dy\/2\)\) + y0)\)\^beta + x0\^alpha\ \
+\((dy\/2 + y0)\)\^beta)\)\)\/dy\)], "Output"],
+
+Cell[BoxData[
+    \("dU1"\)], "Print"],
+
+Cell[BoxData[
+    \(\(-\(\(dt\ \((\(-\((\(-\(dx\/2\)\) + x0)\)\^alpha\)\ y0\^beta + \
+\((dx\/2 + x0)\)\^alpha\ y0\^beta)\)\)\/dx\)\) - \(dt\ \((\(-x0\^alpha\)\ \((\
+\(-\(dy\/2\)\) + y0)\)\^beta + x0\^alpha\ \((dy\/2 + y0)\)\^beta)\)\)\/dy\)], \
+"Output"],
+
+Cell[BoxData[
+    \("fl"\)], "Print"],
+
+Cell[BoxData[
+    \(\(\((\(-\(dx\/2\)\) + x0)\)\^alpha\ \((\(-\((\(-\(dy\/2\)\) + \
+y0)\)\^\(1 + beta\)\) + \((dy\/2 + y0)\)\^\(1 + beta\))\)\)\/\(\((1 + beta)\)\
+\ dy\)\)], "Output"],
+
+Cell[BoxData[
+    \(\(\((dx\/2 + x0)\)\^alpha\ \((\(-\((\(-\(dy\/2\)\) + y0)\)\^\(1 + \
+beta\)\) + \((dy\/2 + y0)\)\^\(1 + beta\))\)\)\/\(\((1 + beta)\)\ dy\)\)], \
+"Output"],
+
+Cell[BoxData[
+    \(\(\((\(-\((\(-\(dx\/2\)\) + x0)\)\^\(1 + alpha\)\) + \((dx\/2 + x0)\)\^\
+\(1 + alpha\))\)\ \((\(-\(dy\/2\)\) + y0)\)\^beta\)\/\(\((1 + alpha)\)\ \
+dx\)\)], "Output"],
+
+Cell[BoxData[
+    \(\(\((\(-\((\(-\(dx\/2\)\) + x0)\)\^\(1 + alpha\)\) + \((dx\/2 + x0)\)\^\
+\(1 + alpha\))\)\ \((dy\/2 + y0)\)\^beta\)\/\(\((1 + alpha)\)\ dx\)\)], \
+"Output"],
+
+Cell[BoxData[
+    \("D2"\)], "Print"],
+
+Cell[BoxData[
+    \(\(dt\ \((\(-\(\(\((\(-\(dx\/2\)\) + x0)\)\^alpha\ \((\(-\((\(-\(dy\/2\)\
+\) + y0)\)\^\(1 + beta\)\) + \((dy\/2 + y0)\)\^\(1 + beta\))\)\)\/\(\((1 + \
+beta)\)\ dy\)\)\) + \(\((dx\/2 + x0)\)\^alpha\ \((\(-\((\(-\(dy\/2\)\) + \
+y0)\)\^\(1 + beta\)\) + \((dy\/2 + y0)\)\^\(1 + beta\))\)\)\/\(\((1 + beta)\)\
+\ dy\))\)\)\/dx\)], "Output"],
+
+Cell[BoxData[
+    \(\(dt\ \((\(-\(\(\((\(-\((\(-\(dx\/2\)\) + x0)\)\^\(1 + alpha\)\) + \
+\((dx\/2 + x0)\)\^\(1 + alpha\))\)\ \((\(-\(dy\/2\)\) + y0)\)\^beta\)\/\(\((1 \
++ alpha)\)\ dx\)\)\) + \(\((\(-\((\(-\(dx\/2\)\) + x0)\)\^\(1 + alpha\)\) + \
+\((dx\/2 + x0)\)\^\(1 + alpha\))\)\ \((dy\/2 + y0)\)\^beta\)\/\(\((1 + alpha)\
+\)\ dx\))\)\)\/dy\)], "Output"],
+
+Cell[BoxData[
+    \("dU2"\)], "Print"],
+
+Cell[BoxData[
+    \(\(dt\ \((\(\((\((dx - 2\ x0)\)\ \((\(-\(dx\/2\)\) + x0)\)\^alpha + \
+\((dx\/2 + x0)\)\^alpha\ \((dx + 2\ x0)\))\)\ \((\((\(-\(dy\/2\)\) + \
+y0)\)\^beta - \((dy\/2 + y0)\)\^beta)\)\)\/\(1 + alpha\) + \(\((\((\(-\(dx\/2\
+\)\) + x0)\)\^alpha - \((dx\/2 + x0)\)\^alpha)\)\ \((\((dy - 2\ y0)\)\ \((\(-\
+\(dy\/2\)\) + y0)\)\^beta + \((dy\/2 + y0)\)\^beta\ \((dy + 2\ \
+y0)\))\)\)\/\(1 + beta\))\)\)\/\(2\ dx\ dy\)\)], "Output"],
+
+Cell[BoxData[
+    \(\(-beta\)\ x\^alpha\ y\^\(\(-1\) + beta\) - 
+      alpha\ x\^\(\(-1\) + alpha\)\ y\^beta\)], "Output"],
+
+Cell[BoxData[
+    \(\(\(1\/\(2\ \((1 + 
+              beta)\)\ dx\ dy\)\)\((dt\ \((2\ \((1 + 
+                  beta)\)\ \((\(-\(dx\/2\)\) + x0)\)\^\(1 + alpha\)\ \
+\((\(-\(1\/\(1 + 
+                          alpha\)\)\) + \((\(-\(\(dx - 2\ x0\)\/\(dx + 2\ \
+x0\)\)\))\)\^\(\(-1\) - alpha\)\/\(1 + alpha\))\)\ \((\(-\(dy\/2\)\) + \
+y0)\)\^beta + 
+            2\^\(-alpha\)\ \((\((\(-dx\) + 2\ x0)\)\^alpha - \((dx + 2\ x0)\)\
+\^alpha)\)\ \((dy - 2\ y0)\)\ \((\(-\(dy\/2\)\) + y0)\)\^beta - 
+            2\ \((1 + 
+                  beta)\)\ \((\(-\(dx\/2\)\) + x0)\)\^\(1 + alpha\)\ \
+\((\(-\(1\/\(1 + 
+                          alpha\)\)\) + \((\(-\(\(dx - 2\ x0\)\/\(dx + 2\ \
+x0\)\)\))\)\^\(\(-1\) - alpha\)\/\(1 + alpha\))\)\ \((dy\/2 + y0)\)\^beta + 
+            2\^\(-alpha\)\ \((\((\(-dx\) + 2\ x0)\)\^alpha - \((dx + 2\ x0)\)\
+\^alpha)\)\ \((dy\/2 + y0)\)\^beta\ \((dy + 2\ y0)\))\))\)\)\)], "Output"],
+
+Cell[BoxData[
+    InterpretationBox[
+      RowBox[{\((\(-alpha\)\ dt\ x0\^\(\(-1\) + alpha\)\ y0\^beta - \(dt\ \((\
+\(-x0\^alpha\)\ \((\(-\(dy\/2\)\) + y0)\)\^beta + x0\^alpha\ \((dy\/2 + y0)\)\
+\^beta)\)\)\/dy + \(dt\ \((\(-\(\(\((2\ x0\^alpha + 2\ alpha\ x0\^alpha)\)\ \
+\((\((\(-\(dy\/2\)\) + y0)\)\^beta - \((dy\/2 + y0)\)\^beta)\)\)\/\(1 + alpha\
+\)\)\) + \(alpha\ x0\^\(\(-1\) + alpha\)\ \((\((dy - 2\ y0)\)\ \
+\((\(-\(dy\/2\)\) + y0)\)\^beta + \((dy\/2 + y0)\)\^beta\ \((dy + 2\ y0)\))\)\
+\)\/\(1 + beta\))\)\)\/\(2\ dy\))\), 
+        "+", \(\((\(-\(1\/24\)\)\ \((\(-2\) + alpha)\)\ \((\(-1\) + 
+                    alpha)\)\ alpha\ dt\ x0\^\(\(-3\) + alpha\)\ y0\^beta + \
+\(dt\ \((\(-\(\(\((\(-\(1\/12\)\)\ alpha\ x0\^\(\(-2\) + alpha\) + 1\/12\ \
+alpha\^3\ x0\^\(\(-2\) + alpha\))\)\ \((\((\(-\(dy\/2\)\) + y0)\)\^beta - \
+\((dy\/2 + y0)\)\^beta)\)\)\/\(1 + alpha\)\)\) + \(\((\(-2\) + alpha)\)\ \
+\((\(-1\) + alpha)\)\ alpha\ x0\^\(\(-3\) + alpha\)\ \((\((dy - 2\ y0)\)\ \((\
+\(-\(dy\/2\)\) + y0)\)\^beta + \((dy\/2 + y0)\)\^beta\ \((dy + 2\ \
+y0)\))\)\)\/\(24\ \((1 + beta)\)\))\)\)\/\(2\ dy\))\)\ dx\^2\), 
+        "+", \(\((\(-\(\(\((\(-4\) + alpha)\)\ \((\(-3\) + 
+                          alpha)\)\ \((\(-2\) + alpha)\)\ \((\(-1\) + 
+                          alpha)\)\ alpha\ dt\ x0\^\(\(-5\) + alpha\)\ \
+y0\^beta\)\/1920\)\) + \(\(1\/\(2\ dy\)\)\((dt\ \((\(-\(\(\((\(-\(1\/160\)\)\ \
+alpha\ x0\^\(\(-4\) + alpha\) + 1\/192\ alpha\^2\ x0\^\(\(-4\) + alpha\) + 
+                                  1\/192\ alpha\^3\ x0\^\(\(-4\) + alpha\) - 
+                                  1\/192\ alpha\^4\ x0\^\(\(-4\) + alpha\) + 
+                                  1\/960\ alpha\^5\ x0\^\(\(-4\) + alpha\))\)\
+\ \((\((\(-\(dy\/2\)\) + y0)\)\^beta - \((dy\/2 + y0)\)\^beta)\)\)\/\(1 + 
+                              alpha\)\)\) + \(\((\(-4\) + alpha)\)\ \((\(-3\) \
++ alpha)\)\ \((\(-2\) + alpha)\)\ \((\(-1\) + alpha)\)\ alpha\ x0\^\(\(-5\) + \
+alpha\)\ \((\((dy - 2\ y0)\)\ \((\(-\(dy\/2\)\) + y0)\)\^beta + \((dy\/2 + \
+y0)\)\^beta\ \((dy + 2\ y0)\))\)\)\/\(1920\ \((1 + beta)\)\))\))\)\))\)\ \
+dx\^4\), "+", 
+        InterpretationBox[\(O[dx]\^6\),
+          SeriesData[ dx, 0, {}, 0, 6, 1],
+          Editable->False]}],
+      SeriesData[ dx, 0, {
+        Plus[ 
+          Times[ -1, alpha, dt, 
+            Power[ x0, 
+              Plus[ -1, alpha]], 
+            Power[ y0, beta]], 
+          Times[ -1, dt, 
+            Power[ dy, -1], 
+            Plus[ 
+              Times[ -1, 
+                Power[ x0, alpha], 
+                Power[ 
+                  Plus[ 
+                    Times[ 
+                      Rational[ -1, 2], dy], y0], beta]], 
+              Times[ 
+                Power[ x0, alpha], 
+                Power[ 
+                  Plus[ 
+                    Times[ 
+                      Rational[ 1, 2], dy], y0], beta]]]], 
+          Times[ 
+            Rational[ 1, 2], dt, 
+            Power[ dy, -1], 
+            Plus[ 
+              Times[ -1, 
+                Power[ 
+                  Plus[ 1, alpha], -1], 
+                Plus[ 
+                  Times[ 2, 
+                    Power[ x0, alpha]], 
+                  Times[ 2, alpha, 
+                    Power[ x0, alpha]]], 
+                Plus[ 
+                  Power[ 
+                    Plus[ 
+                      Times[ 
+                        Rational[ -1, 2], dy], y0], beta], 
+                  Times[ -1, 
+                    Power[ 
+                      Plus[ 
+                        Times[ 
+                          Rational[ 1, 2], dy], y0], beta]]]], 
+              Times[ alpha, 
+                Power[ 
+                  Plus[ 1, beta], -1], 
+                Power[ x0, 
+                  Plus[ -1, alpha]], 
+                Plus[ 
+                  Times[ 
+                    Plus[ dy, 
+                      Times[ -2, y0]], 
+                    Power[ 
+                      Plus[ 
+                        Times[ 
+                          Rational[ -1, 2], dy], y0], beta]], 
+                  Times[ 
+                    Power[ 
+                      Plus[ 
+                        Times[ 
+                          Rational[ 1, 2], dy], y0], beta], 
+                    Plus[ dy, 
+                      Times[ 2, y0]]]]]]]], 0, 
+        Plus[ 
+          Times[ 
+            Rational[ -1, 24], 
+            Plus[ -2, alpha], 
+            Plus[ -1, alpha], alpha, dt, 
+            Power[ x0, 
+              Plus[ -3, alpha]], 
+            Power[ y0, beta]], 
+          Times[ 
+            Rational[ 1, 2], dt, 
+            Power[ dy, -1], 
+            Plus[ 
+              Times[ -1, 
+                Power[ 
+                  Plus[ 1, alpha], -1], 
+                Plus[ 
+                  Times[ 
+                    Rational[ -1, 12], alpha, 
+                    Power[ x0, 
+                      Plus[ -2, alpha]]], 
+                  Times[ 
+                    Rational[ 1, 12], 
+                    Power[ alpha, 3], 
+                    Power[ x0, 
+                      Plus[ -2, alpha]]]], 
+                Plus[ 
+                  Power[ 
+                    Plus[ 
+                      Times[ 
+                        Rational[ -1, 2], dy], y0], beta], 
+                  Times[ -1, 
+                    Power[ 
+                      Plus[ 
+                        Times[ 
+                          Rational[ 1, 2], dy], y0], beta]]]], 
+              Times[ 
+                Rational[ 1, 24], 
+                Plus[ -2, alpha], 
+                Plus[ -1, alpha], alpha, 
+                Power[ 
+                  Plus[ 1, beta], -1], 
+                Power[ x0, 
+                  Plus[ -3, alpha]], 
+                Plus[ 
+                  Times[ 
+                    Plus[ dy, 
+                      Times[ -2, y0]], 
+                    Power[ 
+                      Plus[ 
+                        Times[ 
+                          Rational[ -1, 2], dy], y0], beta]], 
+                  Times[ 
+                    Power[ 
+                      Plus[ 
+                        Times[ 
+                          Rational[ 1, 2], dy], y0], beta], 
+                    Plus[ dy, 
+                      Times[ 2, y0]]]]]]]], 0, 
+        Plus[ 
+          Times[ 
+            Rational[ -1, 1920], 
+            Plus[ -4, alpha], 
+            Plus[ -3, alpha], 
+            Plus[ -2, alpha], 
+            Plus[ -1, alpha], alpha, dt, 
+            Power[ x0, 
+              Plus[ -5, alpha]], 
+            Power[ y0, beta]], 
+          Times[ 
+            Rational[ 1, 2], dt, 
+            Power[ dy, -1], 
+            Plus[ 
+              Times[ -1, 
+                Power[ 
+                  Plus[ 1, alpha], -1], 
+                Plus[ 
+                  Times[ 
+                    Rational[ -1, 160], alpha, 
+                    Power[ x0, 
+                      Plus[ -4, alpha]]], 
+                  Times[ 
+                    Rational[ 1, 192], 
+                    Power[ alpha, 2], 
+                    Power[ x0, 
+                      Plus[ -4, alpha]]], 
+                  Times[ 
+                    Rational[ 1, 192], 
+                    Power[ alpha, 3], 
+                    Power[ x0, 
+                      Plus[ -4, alpha]]], 
+                  Times[ 
+                    Rational[ -1, 192], 
+                    Power[ alpha, 4], 
+                    Power[ x0, 
+                      Plus[ -4, alpha]]], 
+                  Times[ 
+                    Rational[ 1, 960], 
+                    Power[ alpha, 5], 
+                    Power[ x0, 
+                      Plus[ -4, alpha]]]], 
+                Plus[ 
+                  Power[ 
+                    Plus[ 
+                      Times[ 
+                        Rational[ -1, 2], dy], y0], beta], 
+                  Times[ -1, 
+                    Power[ 
+                      Plus[ 
+                        Times[ 
+                          Rational[ 1, 2], dy], y0], beta]]]], 
+              Times[ 
+                Rational[ 1, 1920], 
+                Plus[ -4, alpha], 
+                Plus[ -3, alpha], 
+                Plus[ -2, alpha], 
+                Plus[ -1, alpha], alpha, 
+                Power[ 
+                  Plus[ 1, beta], -1], 
+                Power[ x0, 
+                  Plus[ -5, alpha]], 
+                Plus[ 
+                  Times[ 
+                    Plus[ dy, 
+                      Times[ -2, y0]], 
+                    Power[ 
+                      Plus[ 
+                        Times[ 
+                          Rational[ -1, 2], dy], y0], beta]], 
+                  Times[ 
+                    Power[ 
+                      Plus[ 
+                        Times[ 
+                          Rational[ 1, 2], dy], y0], beta], 
+                    Plus[ dy, 
+                      Times[ 2, y0]]]]]]]]}, 0, 6, 1],
+      Editable->False]], "Output"],
+
+Cell[BoxData[
+    InterpretationBox[\(O[dx]\^6\),
+      SeriesData[ dx, 0, {}, 6, 6, 1],
+      Editable->False]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(Collect[FullSimplify[myseries12 //. {alpha \[Rule] 1, beta \[Rule] 2}], 
+      dx]\), "\[IndentingNewLine]", 
+    \(Collect[FullSimplify[myseries23 //. {alpha \[Rule] 1, beta \[Rule] 2}], 
+      dx]\)}], "Input"],
+
+Cell[BoxData[
+    \(\(dt\ dy\^2\)\/12\)], "Output"],
+
+Cell[BoxData[
+    \(0\)], "Output"]
+}, Open  ]]
+},
+FrontEndVersion->"5.1 for Microsoft Windows",
+ScreenRectangle->{{0, 1400}, {0, 967}},
+WindowSize->{1392, 933},
+WindowMargins->{{0, Automatic}, {Automatic, 0}}
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[1776, 53, 3212, 62, 510, "Input"],
+Cell[4991, 117, 51, 1, 29, "Output"],
+Cell[5045, 120, 76, 1, 43, "Output"],
+Cell[5124, 123, 67, 1, 43, "Output"],
+Cell[5194, 126, 76, 1, 43, "Output"],
+Cell[5273, 129, 67, 1, 43, "Output"],
+Cell[5343, 132, 37, 1, 25, "Print"],
+Cell[5383, 135, 137, 2, 51, "Output"],
+Cell[5523, 139, 137, 2, 54, "Output"],
+Cell[5663, 143, 38, 1, 25, "Print"],
+Cell[5704, 146, 254, 4, 54, "Output"],
+Cell[5961, 152, 37, 1, 25, "Print"],
+Cell[6001, 155, 183, 3, 54, "Output"],
+Cell[6187, 160, 174, 3, 54, "Output"],
+Cell[6364, 165, 185, 3, 54, "Output"],
+Cell[6552, 170, 176, 3, 54, "Output"],
+Cell[6731, 175, 37, 1, 25, "Print"],
+Cell[6771, 178, 353, 5, 69, "Output"],
+Cell[7127, 185, 357, 5, 71, "Output"],
+Cell[7487, 192, 38, 1, 25, "Print"],
+Cell[7528, 195, 441, 6, 71, "Output"],
+Cell[7972, 203, 122, 2, 29, "Output"],
+Cell[8097, 207, 909, 16, 117, "Output"],
+Cell[9009, 225, 8799, 232, 368, "Output"],
+Cell[17811, 459, 123, 3, 29, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[17971, 467, 233, 4, 50, "Input"],
+Cell[18207, 473, 51, 1, 45, "Output"],
+Cell[18261, 476, 35, 1, 29, "Output"]
+}, Open  ]]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

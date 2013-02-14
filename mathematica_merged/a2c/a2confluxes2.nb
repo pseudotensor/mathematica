@@ -1,0 +1,410 @@
+(* Content-type: application/mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 6.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       145,          7]
+NotebookDataLength[     12455,        400]
+NotebookOptionsPosition[     11791,        372]
+NotebookOutlinePosition[     12133,        387]
+CellTagsIndexPosition[     12090,        384]
+WindowFrame->Normal
+ContainsDynamic->False*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "Start", " ", "with", " ", "expansions", " ", "of", " ", "5", "th", " ", 
+    "order"}], " ", "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"F", " ", ":=", 
+     RowBox[{"F0", "+", 
+      RowBox[{"F1", " ", "x"}], " ", "+", " ", 
+      RowBox[{"F2", " ", 
+       FractionBox[
+        SuperscriptBox["x", "2"], "2"]}], "+", 
+      RowBox[{"F3", " ", 
+       FractionBox[
+        SuperscriptBox["x", "3"], "6"]}], "+", 
+      RowBox[{"F4", " ", 
+       FractionBox[
+        SuperscriptBox["x", "4"], "24"]}], "+", 
+      RowBox[{"F5", " ", 
+       FractionBox[
+        SuperscriptBox["x", "5"], "120"]}]}]}], ";"}], "\[IndentingNewLine]", 
+   
+   RowBox[{
+    RowBox[{"f", ":=", 
+     RowBox[{"f0", "+", 
+      RowBox[{"f1", " ", "x"}], " ", "+", " ", 
+      RowBox[{"f2", " ", 
+       FractionBox[
+        SuperscriptBox["x", "2"], "2"]}], "+", 
+      RowBox[{"f3", " ", 
+       FractionBox[
+        SuperscriptBox["x", "3"], "6"]}], "+", 
+      RowBox[{"f4", " ", 
+       FractionBox[
+        SuperscriptBox["x", "4"], "24"]}], "+", 
+      RowBox[{"f5", " ", 
+       FractionBox[
+        SuperscriptBox["x", "5"], "120"]}]}]}], ";"}], "\[IndentingNewLine]", 
+   
+   RowBox[{"(*", " ", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+      "We", " ", "are", " ", "given", " ", "the", " ", "\"\<average\>\"", " ",
+        "value", " ", "F0", " ", "at", " ", "x"}], " ", "=", " ", "0"}], ",", 
+     " ", 
+     RowBox[{
+     "we", " ", "want", " ", "to", " ", "find", " ", "the", " ", 
+      "\"\<point\>\"", " ", "value", " ", 
+      RowBox[{"f0", ".", "\[IndentingNewLine]", "For"}], " ", "this"}], ",", 
+     " ", 
+     RowBox[{
+     "construct", " ", "the", " ", "running", " ", "average", " ", "of", " ", 
+      "f", " ", "which", " ", "by", " ", "definition", " ", "equals", " ", 
+      "F"}]}], " ", "*)"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"RunningAverage", ":=", 
+     RowBox[{
+      RowBox[{"Integrate", "[", 
+       RowBox[{"f", ",", 
+        RowBox[{"{", 
+         RowBox[{"x", ",", 
+          RowBox[{"t", "-", 
+           RowBox[{"dx", "/", "2"}]}], ",", 
+          RowBox[{"t", "+", 
+           RowBox[{"dx", "/", "2"}]}]}], "}"}]}], "]"}], "/", "dx"}]}], ";", 
+    " ", 
+    RowBox[{"(*", " ", 
+     RowBox[{"==", " ", 
+      RowBox[{"F", " ", "by", " ", 
+       RowBox[{"def", "."}]}]}], " ", "*)"}], "\[IndentingNewLine]", 
+    RowBox[{"(*", " ", 
+     RowBox[{
+      RowBox[{
+      "Equate", " ", "F", " ", "and", " ", "RunningAverage", " ", "and", " ", 
+       "determine", " ", "the", " ", "coefficients"}], ",", " ", 
+      RowBox[{"f", "#"}]}], " ", "*)"}], "\[IndentingNewLine]", 
+    RowBox[{"sol", "=", 
+     RowBox[{"Solve", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"CoefficientList", "[", 
+         RowBox[{"RunningAverage", ",", "t"}], "]"}], " ", "==", 
+        RowBox[{"CoefficientList", "[", 
+         RowBox[{"F", ",", "x"}], "]"}]}], ",", 
+       RowBox[{"{", 
+        RowBox[{"f0", ",", "f1", ",", "f2", ",", "f3", ",", "f4", ",", "f5"}],
+         "}"}]}], "]"}]}]}]}]}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"f1", "\[Rule]", 
+     FractionBox[
+      RowBox[{
+       RowBox[{"5760", " ", "F1"}], "-", 
+       RowBox[{"240", " ", 
+        SuperscriptBox["dx", "2"], " ", "F3"}], "+", 
+       RowBox[{"7", " ", 
+        SuperscriptBox["dx", "4"], " ", "F5"}]}], "5760"]}], ",", 
+    RowBox[{"f0", "\[Rule]", 
+     FractionBox[
+      RowBox[{
+       RowBox[{"5760", " ", "F0"}], "-", 
+       RowBox[{"240", " ", 
+        SuperscriptBox["dx", "2"], " ", "F2"}], "+", 
+       RowBox[{"7", " ", 
+        SuperscriptBox["dx", "4"], " ", "F4"}]}], "5760"]}], ",", 
+    RowBox[{"f2", "\[Rule]", 
+     RowBox[{
+      FractionBox["1", "24"], " ", 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"24", " ", "F2"}], "-", 
+        RowBox[{
+         SuperscriptBox["dx", "2"], " ", "F4"}]}], ")"}]}]}], ",", 
+    RowBox[{"f3", "\[Rule]", 
+     RowBox[{
+      FractionBox["1", "24"], " ", 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"24", " ", "F3"}], "-", 
+        RowBox[{
+         SuperscriptBox["dx", "2"], " ", "F5"}]}], ")"}]}]}], ",", 
+    RowBox[{"f4", "\[Rule]", "F4"}], ",", 
+    RowBox[{"f5", "\[Rule]", "F5"}]}], "}"}], "}"}]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "The", " ", "desired", " ", "point", " ", "value", " ", "f0", " ", "is"}], 
+   " ", "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"PointValue", "=", 
+   RowBox[{"f0", "/.", "sol"}]}]}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  FractionBox[
+   RowBox[{
+    RowBox[{"5760", " ", "F0"}], "-", 
+    RowBox[{"240", " ", 
+     SuperscriptBox["dx", "2"], " ", "F2"}], "+", 
+    RowBox[{"7", " ", 
+     SuperscriptBox["dx", "4"], " ", "F4"}]}], "5760"], "}"}]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData["RunningAverage"], "Input"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"dx", " ", "f0"}], "+", 
+  FractionBox[
+   RowBox[{
+    SuperscriptBox["dx", "3"], " ", "f2"}], "24"], "+", 
+  FractionBox[
+   RowBox[{
+    SuperscriptBox["dx", "5"], " ", "f4"}], "1920"], "+", 
+  RowBox[{"dx", " ", "f1", " ", "t"}], "+", 
+  RowBox[{
+   FractionBox["1", "24"], " ", 
+   SuperscriptBox["dx", "3"], " ", "f3", " ", "t"}], "+", 
+  FractionBox[
+   RowBox[{
+    SuperscriptBox["dx", "5"], " ", "f5", " ", "t"}], "1920"], "+", 
+  RowBox[{
+   FractionBox["1", "2"], " ", "dx", " ", "f2", " ", 
+   SuperscriptBox["t", "2"]}], "+", 
+  RowBox[{
+   FractionBox["1", "48"], " ", 
+   SuperscriptBox["dx", "3"], " ", "f4", " ", 
+   SuperscriptBox["t", "2"]}], "+", 
+  RowBox[{
+   FractionBox["1", "6"], " ", "dx", " ", "f3", " ", 
+   SuperscriptBox["t", "3"]}], "+", 
+  RowBox[{
+   FractionBox["1", "144"], " ", 
+   SuperscriptBox["dx", "3"], " ", "f5", " ", 
+   SuperscriptBox["t", "3"]}], "+", 
+  RowBox[{
+   FractionBox["1", "24"], " ", "dx", " ", "f4", " ", 
+   SuperscriptBox["t", "4"]}], "+", 
+  RowBox[{
+   FractionBox["1", "120"], " ", "dx", " ", "f5", " ", 
+   SuperscriptBox["t", "5"]}]}]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{"Average", " ", "to", " ", 
+    RowBox[{"Edge", ":", " ", 
+     RowBox[{
+     "Start", " ", "with", " ", "expansions", " ", "of", " ", "5", "th", " ", 
+      "order"}]}]}], " ", "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"F", " ", ":=", 
+     RowBox[{
+      RowBox[{"F0", "+", 
+       RowBox[{"F1", " ", "x"}], " ", "+", " ", 
+       RowBox[{"F2", " ", 
+        FractionBox[
+         SuperscriptBox["x", "2"], "2"]}], "+", 
+       RowBox[{"F3", " ", 
+        FractionBox[
+         SuperscriptBox["x", "3"], "6"]}], "+", 
+       RowBox[{"F4", " ", 
+        FractionBox[
+         SuperscriptBox["x", "4"], "24"]}], "+", 
+       RowBox[{"F5", " ", 
+        FractionBox[
+         SuperscriptBox["x", "5"], "120"]}]}], "/.", 
+      RowBox[{"{", 
+       RowBox[{"x", "\[Rule]", 
+        RowBox[{"x", "-", 
+         RowBox[{"dx", "/", "2"}]}]}], "}"}]}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"f", ":=", 
+     RowBox[{"f0", "+", 
+      RowBox[{"f1", " ", "x"}], " ", "+", " ", 
+      RowBox[{"f2", " ", 
+       FractionBox[
+        SuperscriptBox["x", "2"], "2"]}], "+", 
+      RowBox[{"f3", " ", 
+       FractionBox[
+        SuperscriptBox["x", "3"], "6"]}], "+", 
+      RowBox[{"f4", " ", 
+       FractionBox[
+        SuperscriptBox["x", "4"], "24"]}], "+", 
+      RowBox[{"f5", " ", 
+       FractionBox[
+        SuperscriptBox["x", "5"], "120"]}]}]}], ";"}], "\[IndentingNewLine]", 
+   
+   RowBox[{"(*", " ", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+      "We", " ", "are", " ", "given", " ", "the", " ", "\"\<average\>\"", " ",
+        "value", " ", "F0", " ", "at", " ", "x"}], " ", "=", " ", "0"}], ",", 
+     " ", 
+     RowBox[{
+     "we", " ", "want", " ", "to", " ", "find", " ", "the", " ", 
+      "\"\<point\>\"", " ", "value", " ", 
+      RowBox[{"f0", ".", "\[IndentingNewLine]", "For"}], " ", "this"}], ",", 
+     " ", 
+     RowBox[{
+     "construct", " ", "the", " ", "running", " ", "average", " ", "of", " ", 
+      "f", " ", "which", " ", "by", " ", "definition", " ", "equals", " ", 
+      "F"}]}], " ", "*)"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"RunningAverage", ":=", 
+     RowBox[{
+      RowBox[{"Integrate", "[", 
+       RowBox[{"f", ",", 
+        RowBox[{"{", 
+         RowBox[{"x", ",", 
+          RowBox[{"t", "-", 
+           RowBox[{"dx", "/", "2"}]}], ",", 
+          RowBox[{"t", "+", 
+           RowBox[{"dx", "/", "2"}]}]}], "}"}]}], "]"}], "/", "dx"}]}], ";", 
+    " ", 
+    RowBox[{"(*", " ", 
+     RowBox[{"==", " ", 
+      RowBox[{"F", " ", "by", " ", 
+       RowBox[{"def", "."}]}]}], " ", "*)"}], "\[IndentingNewLine]", 
+    RowBox[{"(*", " ", 
+     RowBox[{
+      RowBox[{
+      "Equate", " ", "F", " ", "and", " ", "RunningAverage", " ", "and", " ", 
+       "determine", " ", "the", " ", "coefficients"}], ",", " ", 
+      RowBox[{"f", "#"}]}], " ", "*)"}], "\[IndentingNewLine]", 
+    RowBox[{"sol", "=", 
+     RowBox[{"Solve", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"CoefficientList", "[", 
+         RowBox[{"RunningAverage", ",", "t"}], "]"}], " ", "==", 
+        RowBox[{"CoefficientList", "[", 
+         RowBox[{"F", ",", "x"}], "]"}]}], ",", 
+       RowBox[{"{", 
+        RowBox[{"f0", ",", "f1", ",", "f2", ",", "f3", ",", "f4", ",", "f5"}],
+         "}"}]}], "]"}]}]}]}]}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"f1", "\[Rule]", 
+     RowBox[{
+      FractionBox["1", "720"], " ", 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"720", " ", "F1"}], "-", 
+        RowBox[{"360", " ", "dx", " ", "F2"}], "+", 
+        RowBox[{"60", " ", 
+         SuperscriptBox["dx", "2"], " ", "F3"}], "-", 
+        RowBox[{
+         SuperscriptBox["dx", "4"], " ", "F5"}]}], ")"}]}]}], ",", 
+    RowBox[{"f0", "\[Rule]", 
+     RowBox[{
+      FractionBox["1", "720"], " ", 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"720", " ", "F0"}], "-", 
+        RowBox[{"360", " ", "dx", " ", "F1"}], "+", 
+        RowBox[{"60", " ", 
+         SuperscriptBox["dx", "2"], " ", "F2"}], "-", 
+        RowBox[{
+         SuperscriptBox["dx", "4"], " ", "F4"}]}], ")"}]}]}], ",", 
+    RowBox[{"f2", "\[Rule]", 
+     RowBox[{
+      FractionBox["1", "12"], " ", 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"12", " ", "F2"}], "-", 
+        RowBox[{"6", " ", "dx", " ", "F3"}], "+", 
+        RowBox[{
+         SuperscriptBox["dx", "2"], " ", "F4"}]}], ")"}]}]}], ",", 
+    RowBox[{"f3", "\[Rule]", 
+     RowBox[{
+      FractionBox["1", "12"], " ", 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"12", " ", "F3"}], "-", 
+        RowBox[{"6", " ", "dx", " ", "F4"}], "+", 
+        RowBox[{
+         SuperscriptBox["dx", "2"], " ", "F5"}]}], ")"}]}]}], ",", 
+    RowBox[{"f4", "\[Rule]", 
+     RowBox[{
+      FractionBox["1", "2"], " ", 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"2", " ", "F4"}], "-", 
+        RowBox[{"dx", " ", "F5"}]}], ")"}]}]}], ",", 
+    RowBox[{"f5", "\[Rule]", "F5"}]}], "}"}], "}"}]], "Output"]
+}, Open  ]]
+},
+WindowSize->{933, 961},
+WindowMargins->{{Automatic, 42}, {Automatic, 60}},
+FrontEndVersion->"6.0 for Microsoft Windows (32-bit) (April 20, 2007)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[590, 23, 3116, 89, 208, "Input"],
+Cell[3709, 114, 1207, 37, 83, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[4953, 156, 252, 7, 52, "Input"],
+Cell[5208, 165, 267, 8, 48, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[5512, 178, 40, 0, 31, "Input"],
+Cell[5555, 180, 1147, 35, 83, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[6739, 220, 3358, 96, 208, "Input"],
+Cell[10100, 318, 1675, 51, 79, "Output"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
+

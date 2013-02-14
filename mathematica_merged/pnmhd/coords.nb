@@ -1,0 +1,1953 @@
+(***********************************************************************
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used on any computer system with Mathematica 4.0,
+MathReader 4.0, or any compatible application. The data for the notebook 
+starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do one of 
+the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing the 
+word CacheID, otherwise Mathematica-compatible applications may try to 
+use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+***********************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     65196,       1689]*)
+(*NotebookOutlinePosition[     65834,       1712]*)
+(*  CellTagsIndexPosition[     65790,       1708]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+    \(er = {Sin[t]*Cos[p], Sin[t]*Sin[p], Cos[t]}\)], "Input"],
+
+Cell[BoxData[
+    \({Cos[p]\ Sin[t], Sin[p]\ Sin[t], Cos[t]}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(et = {Cos[t]*Cos[p], Cos[t]*Sin[p], \(-Sin[t]\)}\)], "Input"],
+
+Cell[BoxData[
+    \({Cos[p]\ Cos[t], Cos[t]\ Sin[p], \(-Sin[t]\)}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(ep = {\(-Sin[p]\), Cos[p], 0}\)], "Input"],
+
+Cell[BoxData[
+    \({\(-Sin[p]\), Cos[p], 0}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(ei = {Sin[t]*Cos[p], Cos[t]*Cos[p], \(-Sin[p]\)}\)], "Input"],
+
+Cell[BoxData[
+    \({Cos[p]\ Sin[t], Cos[p]\ Cos[t], \(-Sin[p]\)}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(ej = {Sin[t]*Sin[p], Cos[t]*Sin[p], Cos[p]}\)], "Input"],
+
+Cell[BoxData[
+    \({Sin[p]\ Sin[t], Cos[t]\ Sin[p], Cos[p]}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(ek = {Cos[t], \(-Sin[t]\), 0}\)], "Input"],
+
+Cell[BoxData[
+    \({Cos[t], \(-Sin[t]\), 0}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(vcart = {vi, vj, vk}\)], "Input"],
+
+Cell[BoxData[
+    \({vi, vj, vk}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(vspc = {vr, vt, vp}\)], "Input"],
+
+Cell[BoxData[
+    \({vr, vt, vp}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(v = vcart . {ei, ej, ek}\)], "Input"],
+
+Cell[BoxData[
+    \({vk\ Cos[t] + vi\ Cos[p]\ Sin[t] + vj\ Sin[p]\ Sin[t], 
+      vi\ Cos[p]\ Cos[t] + vj\ Cos[t]\ Sin[p] - vk\ Sin[t], 
+      vj\ Cos[p] - vi\ Sin[p]}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(vifinal = FullSimplify[v . ei]\)], "Input"],
+
+Cell[BoxData[
+    \(vi\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(vjfinal = FullSimplify[v . ej]\)], "Input"],
+
+Cell[BoxData[
+    \(General::"spell1" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(vjfinal\)\" is similar \
+to existing symbol \"\!\(vifinal\)\"."\)], "Message"],
+
+Cell[BoxData[
+    \(vj\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(vkfinal = FullSimplify[v . ek]\)], "Input"],
+
+Cell[BoxData[
+    \(General::"spell" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(vkfinal\)\" is similar \
+to existing symbols \!\({vifinal, vjfinal}\)."\)], "Message"],
+
+Cell[BoxData[
+    \(vk\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    \(x[r_, t_, p_] := r*Sin[t]*Cos[p]\)], "Input"],
+
+Cell[BoxData[
+    \(y[r_, t_, p_] := r*Sin[t]*Sin[p]\)], "Input"],
+
+Cell[BoxData[
+    \(z[r_, t_, p_] := r*Cos[t]\)], "Input"],
+
+Cell[BoxData[
+    \(r[x_, y_, z_] := Sqrt[x^2 + y^2 + z^2]\)], "Input"],
+
+Cell[BoxData[
+    \(t[x_, y_, z_] := ArcCos[z/r[x, y, z]]\)], "Input"],
+
+Cell[BoxData[
+    \(p[x_, y_, z_] := ArcTan[y/x]\)], "Input"],
+
+Cell[BoxData[{
+    \(\(temp = D[r[x, y, z], x];\)\), "\[IndentingNewLine]", 
+    \(\(drdxtemp[x_, y_, z_] = %;\)\), "\[IndentingNewLine]", 
+    \(drdx[r_, t_, p_] := 
+      Simplify[FullSimplify[
+          drdxtemp[x[r, t, p], y[r, t, p], z[r, t, p]]], {r > 0, t < Pi, 
+          t > 0, p > 0, p < 2*Pi}]\)}], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(\(temp = D[t[x, y, z], x];\)\), "\[IndentingNewLine]", 
+    \(\(dtdxtemp[x_, y_, z_] = %;\)\), "\[IndentingNewLine]", 
+    \(dtdx[r_, t_, p_] := 
+      Simplify[FullSimplify[
+          dtdxtemp[x[r, t, p], y[r, t, p], z[r, t, p]]], {r > 0, t < Pi, 
+          t > 0, p > 0, p < 2*Pi}]\)}], "Input"],
+
+Cell[BoxData[
+    \(General::"spell1" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(dtdxtemp\)\" is similar \
+to existing symbol \"\!\(drdxtemp\)\"."\)], "Message"],
+
+Cell[BoxData[
+    \(General::"spell1" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(dtdx\)\" is similar to \
+existing symbol \"\!\(drdx\)\"."\)], "Message"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(\(temp = D[p[x, y, z], x];\)\), "\[IndentingNewLine]", 
+    \(\(dpdxtemp[x_, y_, z_] = %;\)\), "\[IndentingNewLine]", 
+    \(dpdx[r_, t_, p_] := 
+      Simplify[FullSimplify[
+          dpdxtemp[x[r, t, p], y[r, t, p], z[r, t, p]]], {r > 0, t < Pi, 
+          t > 0, p > 0, p < 2*Pi}]\)}], "Input"],
+
+Cell[BoxData[
+    \(General::"spell" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(dpdxtemp\)\" is similar \
+to existing symbols \!\({drdxtemp, dtdxtemp}\)."\)], "Message"],
+
+Cell[BoxData[
+    \(General::"spell" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(dpdx\)\" is similar to \
+existing symbols \!\({drdx, dtdx}\)."\)], "Message"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(\(temp = D[r[x, y, z], y];\)\), "\[IndentingNewLine]", 
+    \(\(drdytemp[x_, y_, z_] = %;\)\), "\[IndentingNewLine]", 
+    \(drdy[r_, t_, p_] := 
+      Simplify[FullSimplify[
+          drdytemp[x[r, t, p], y[r, t, p], z[r, t, p]]], {r > 0, t < Pi, 
+          t > 0, p > 0, p < 2*Pi}]\)}], "Input"],
+
+Cell[BoxData[
+    \(General::"spell1" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(drdytemp\)\" is similar \
+to existing symbol \"\!\(drdxtemp\)\"."\)], "Message"],
+
+Cell[BoxData[
+    \(General::"spell1" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(drdy\)\" is similar to \
+existing symbol \"\!\(drdx\)\"."\)], "Message"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(\(temp = D[t[x, y, z], y];\)\), "\[IndentingNewLine]", 
+    \(\(dtdytemp[x_, y_, z_] = %;\)\), "\[IndentingNewLine]", 
+    \(dtdy[r_, t_, p_] := 
+      Simplify[FullSimplify[
+          dtdytemp[x[r, t, p], y[r, t, p], z[r, t, p]]], {r > 0, t < Pi, 
+          t > 0, p > 0, p < 2*Pi}]\)}], "Input"],
+
+Cell[BoxData[
+    \(General::"spell" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(dtdytemp\)\" is similar \
+to existing symbols \!\({drdytemp, dtdxtemp}\)."\)], "Message"],
+
+Cell[BoxData[
+    \(General::"spell" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(dtdy\)\" is similar to \
+existing symbols \!\({drdy, dtdx}\)."\)], "Message"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(\(temp = D[p[x, y, z], y];\)\), "\[IndentingNewLine]", 
+    \(\(dpdytemp[x_, y_, z_] = %;\)\), "\[IndentingNewLine]", 
+    \(dpdy[r_, t_, p_] := 
+      Simplify[FullSimplify[
+          dpdytemp[x[r, t, p], y[r, t, p], z[r, t, p]]], {r > 0, t < Pi, 
+          t > 0, p > 0, p < 2*Pi}]\)}], "Input"],
+
+Cell[BoxData[
+    \(General::"spell" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(dpdytemp\)\" is similar \
+to existing symbols \!\({dpdxtemp, drdytemp, dtdytemp}\)."\)], "Message"],
+
+Cell[BoxData[
+    \(General::"spell" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(dpdy\)\" is similar to \
+existing symbols \!\({dpdx, drdy, dtdy}\)."\)], "Message"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(\(temp = D[r[x, y, z], z];\)\), "\[IndentingNewLine]", 
+    \(\(drdztemp[x_, y_, z_] = %;\)\), "\[IndentingNewLine]", 
+    \(drdz[r_, t_, p_] := 
+      Simplify[FullSimplify[
+          drdztemp[x[r, t, p], y[r, t, p], z[r, t, p]]], {r > 0, t < Pi, 
+          t > 0, p > 0, p < 2*Pi}]\)}], "Input"],
+
+Cell[BoxData[
+    \(General::"spell" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(drdztemp\)\" is similar \
+to existing symbols \!\({drdxtemp, drdytemp}\)."\)], "Message"],
+
+Cell[BoxData[
+    \(General::"spell" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(drdz\)\" is similar to \
+existing symbols \!\({drdx, drdy}\)."\)], "Message"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(\(temp = D[t[x, y, z], z];\)\), "\[IndentingNewLine]", 
+    \(\(dtdztemp[x_, y_, z_] = %;\)\), "\[IndentingNewLine]", 
+    \(dtdz[r_, t_, p_] := 
+      Simplify[FullSimplify[
+          dtdztemp[x[r, t, p], y[r, t, p], z[r, t, p]]], {r > 0, t < Pi, 
+          t > 0, p > 0, p < 2*Pi}]\)}], "Input"],
+
+Cell[BoxData[
+    \(General::"spell" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(dtdztemp\)\" is similar \
+to existing symbols \!\({drdztemp, dtdxtemp, dtdytemp}\)."\)], "Message"],
+
+Cell[BoxData[
+    \(General::"spell" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(dtdz\)\" is similar to \
+existing symbols \!\({drdz, dtdx, dtdy}\)."\)], "Message"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(\(temp = D[p[x, y, z], z];\)\), "\[IndentingNewLine]", 
+    \(\(dpdztemp[x_, y_, z_] = %;\)\), "\[IndentingNewLine]", 
+    \(dpdz[r_, t_, p_] := 
+      Simplify[FullSimplify[
+          dpdztemp[x[r, t, p], y[r, t, p], z[r, t, p]]], {r > 0, t < Pi, 
+          t > 0, p > 0, p < 2*Pi}]\)}], "Input"],
+
+Cell[BoxData[
+    \(General::"spell" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(dpdztemp\)\" is similar \
+to existing symbols \!\({dpdxtemp, dpdytemp, drdztemp, dtdztemp}\)."\)], \
+"Message"],
+
+Cell[BoxData[
+    \(General::"spell" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(dpdz\)\" is similar to \
+existing symbols \!\({dpdx, dpdy, drdz, dtdz}\)."\)], "Message"]
+}, Open  ]],
+
+Cell[BoxData[
+    \(ffinal[x_, y_, z_] := f[r[x, y, z], t[x, y, z], p[x, y, z]]\)], "Input"],
+
+Cell[BoxData[
+    \(fapprox[x_, y_, z_, x0_, y0_, z0_] := 
+      ffinal[x0, y0, z0] + \((x[r, t, p] - x[r0, t0, p0])\)*
+          D[ffinal[x0, y0, z0], x0] + \((z[r, t, p] - z[r0, t0, p0])\)*
+          D[ffinal[x0, y0, z0], z0]\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Simplify[
+      fapprox[x, y, z, x0, y0, z0], {r > 0, t > 0, t < Pi, p > 0, 
+        p < 2*Pi}]\)], "Input"],
+
+Cell[BoxData[
+    RowBox[{\(f[\@\(x0\^2 + y0\^2 + z0\^2\), 
+        ArcCos[z0\/\@\(x0\^2 + y0\^2 + z0\^2\)], ArcTan[y0\/x0]]\), "+", 
+      RowBox[{\(1\/\(x0\^2 + y0\^2\)\), 
+        RowBox[{"(", 
+          RowBox[{
+            
+            RowBox[{\(-y0\), 
+              " ", \((r\ Cos[p]\ Sin[t] - r0\ Cos[p0]\ Sin[t0])\), " ", 
+              RowBox[{
+                SuperscriptBox["f", 
+                  TagBox[\((0, 0, 1)\),
+                    Derivative],
+                  MultilineFunction->None], 
+                "[", \(\@\(x0\^2 + y0\^2 + z0\^2\), 
+                ArcCos[z0\/\@\(x0\^2 + y0\^2 + z0\^2\)], ArcTan[y0\/x0]\), 
+                "]"}]}], "+", 
+            RowBox[{\(1\/\@\(x0\^2 + y0\^2 + z0\^2\)\), 
+              RowBox[{"(", 
+                RowBox[{
+                  
+                  RowBox[{\(-\@\(\(x0\^2 + y0\^2\)\/\(x0\^2 + y0\^2 + z0\^2\)\
+\)\), " ", \((r\ \((x0\^2 + y0\^2)\)\ Cos[t] - 
+                        r0\ \((x0\^2 + y0\^2)\)\ Cos[t0] + 
+                        x0\ z0\ \((\(-r\)\ Cos[p]\ Sin[t] + 
+                              r0\ Cos[p0]\ Sin[t0])\))\), " ", 
+                    RowBox[{
+                      SuperscriptBox["f", 
+                        TagBox[\((0, 1, 0)\),
+                          Derivative],
+                        MultilineFunction->None], 
+                      "[", \(\@\(x0\^2 + y0\^2 + z0\^2\), 
+                      ArcCos[z0\/\@\(x0\^2 + y0\^2 + z0\^2\)], 
+                      ArcTan[y0\/x0]\), "]"}]}], "+", 
+                  
+                  RowBox[{\((x0\^2 + y0\^2)\), 
+                    " ", \((r\ z0\ Cos[t] - r0\ z0\ Cos[t0] + 
+                        r\ x0\ Cos[p]\ Sin[t] - r0\ x0\ Cos[p0]\ Sin[t0])\), 
+                    " ", 
+                    RowBox[{
+                      SuperscriptBox["f", 
+                        TagBox[\((1, 0, 0)\),
+                          Derivative],
+                        MultilineFunction->None], 
+                      "[", \(\@\(x0\^2 + y0\^2 + z0\^2\), 
+                      ArcCos[z0\/\@\(x0\^2 + y0\^2 + z0\^2\)], 
+                      ArcTan[y0\/x0]\), "]"}]}]}], ")"}]}]}], 
+          ")"}]}]}]], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    RowBox[{\(it[x_, y_, z_, x0_, y0_, z0_]\), ":=", 
+      RowBox[{\(f[\@\(x0\^2 + y0\^2 + z0\^2\), 
+          ArcCos[z0\/\@\(x0\^2 + y0\^2 + z0\^2\)], ArcTan[y0\/x0]]\), "+", 
+        RowBox[{\(1\/\(x0\^2 + y0\^2\)\), 
+          RowBox[{"(", 
+            RowBox[{
+              
+              RowBox[{\(-y0\), 
+                " ", \((r\ Cos[p]\ Sin[t] - r0\ Cos[p0]\ Sin[t0])\), " ", 
+                RowBox[{
+                  SuperscriptBox["f", 
+                    TagBox[\((0, 0, 1)\),
+                      Derivative],
+                    MultilineFunction->None], 
+                  "[", \(\@\(x0\^2 + y0\^2 + z0\^2\), 
+                  ArcCos[z0\/\@\(x0\^2 + y0\^2 + z0\^2\)], ArcTan[y0\/x0]\), 
+                  "]"}]}], "+", 
+              RowBox[{\(1\/\@\(x0\^2 + y0\^2 + z0\^2\)\), 
+                RowBox[{"(", 
+                  RowBox[{
+                    
+                    RowBox[{\(-\@\(\(x0\^2 + y0\^2\)\/\(x0\^2 + y0\^2 + z0\^2\
+\)\)\), " ", \((r\ \((x0\^2 + y0\^2)\)\ Cos[t] - 
+                          r0\ \((x0\^2 + y0\^2)\)\ Cos[t0] + 
+                          x0\ z0\ \((\(-r\)\ Cos[p]\ Sin[t] + 
+                                r0\ Cos[p0]\ Sin[t0])\))\), " ", 
+                      RowBox[{
+                        SuperscriptBox["f", 
+                          TagBox[\((0, 1, 0)\),
+                            Derivative],
+                          MultilineFunction->None], 
+                        "[", \(\@\(x0\^2 + y0\^2 + z0\^2\), 
+                        ArcCos[z0\/\@\(x0\^2 + y0\^2 + z0\^2\)], 
+                        ArcTan[y0\/x0]\), "]"}]}], "+", 
+                    
+                    RowBox[{\((x0\^2 + y0\^2)\), 
+                      " ", \((r\ z0\ Cos[t] - r0\ z0\ Cos[t0] + 
+                          r\ x0\ Cos[p]\ Sin[t] - r0\ x0\ Cos[p0]\ Sin[t0])\),
+                       " ", 
+                      RowBox[{
+                        SuperscriptBox["f", 
+                          TagBox[\((1, 0, 0)\),
+                            Derivative],
+                          MultilineFunction->None], 
+                        "[", \(\@\(x0\^2 + y0\^2 + z0\^2\), 
+                        ArcCos[z0\/\@\(x0\^2 + y0\^2 + z0\^2\)], 
+                        ArcTan[y0\/x0]\), "]"}]}]}], ")"}]}]}], 
+            ")"}]}]}]}]], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(temp = 
+      it[x[r, t, p], y[r, t, p], z[r, t, p], x[r0, t0, p0], y[r0, t0, p0], 
+        z[r0, t0, p0]]\)], "Input"],
+
+Cell[BoxData[
+    RowBox[{\(f[\@\(r0\^2\ Cos[t0]\^2 + r0\^2\ Cos[p0]\^2\ Sin[t0]\^2 + r0\^2\
+\ Sin[p0]\^2\ Sin[t0]\^2\), 
+        ArcCos[\(r0\ Cos[t0]\)\/\@\(r0\^2\ Cos[t0]\^2 + r0\^2\ Cos[p0]\^2\ \
+Sin[t0]\^2 + r0\^2\ Sin[p0]\^2\ Sin[t0]\^2\)], ArcTan[Tan[p0]]]\), "+", 
+      RowBox[{
+        RowBox[{"(", 
+          RowBox[{
+            
+            RowBox[{\(-r0\), " ", \(Sin[p0]\), " ", \(Sin[t0]\), 
+              " ", \((r\ Cos[p]\ Sin[t] - r0\ Cos[p0]\ Sin[t0])\), " ", 
+              RowBox[{
+                SuperscriptBox["f", 
+                  TagBox[\((0, 0, 1)\),
+                    Derivative],
+                  MultilineFunction->None], 
+                "[", \(\@\(r0\^2\ Cos[t0]\^2 + r0\^2\ Cos[p0]\^2\ Sin[t0]\^2 \
++ r0\^2\ Sin[p0]\^2\ Sin[t0]\^2\), 
+                ArcCos[\(r0\ Cos[t0]\)\/\@\(r0\^2\ Cos[t0]\^2 + r0\^2\ \
+Cos[p0]\^2\ Sin[t0]\^2 + r0\^2\ Sin[p0]\^2\ Sin[t0]\^2\)], ArcTan[Tan[p0]]\), 
+                "]"}]}], "+", 
+            RowBox[{
+              RowBox[{"(", 
+                RowBox[{
+                  
+                  RowBox[{\(-\@\(\(r0\^2\ Cos[p0]\^2\ Sin[t0]\^2 + r0\^2\ \
+Sin[p0]\^2\ Sin[t0]\^2\)\/\(r0\^2\ Cos[t0]\^2 + r0\^2\ Cos[p0]\^2\ Sin[t0]\^2 \
++ r0\^2\ Sin[p0]\^2\ Sin[t0]\^2\)\)\), 
+                    " ", \((r0\^2\ Cos[p0]\ Cos[t0]\ Sin[
+                            t0]\ \((\(-r\)\ Cos[p]\ Sin[t] + 
+                              r0\ Cos[p0]\ Sin[t0])\) + 
+                        r\ Cos[
+                            t]\ \((r0\^2\ Cos[p0]\^2\ Sin[t0]\^2 + 
+                              r0\^2\ Sin[p0]\^2\ Sin[t0]\^2)\) - 
+                        r0\ Cos[
+                            t0]\ \((r0\^2\ Cos[p0]\^2\ Sin[t0]\^2 + 
+                              r0\^2\ Sin[p0]\^2\ Sin[t0]\^2)\))\), " ", 
+                    RowBox[{
+                      SuperscriptBox["f", 
+                        TagBox[\((0, 1, 0)\),
+                          Derivative],
+                        MultilineFunction->None], 
+                      "[", \(\@\(r0\^2\ Cos[t0]\^2 + r0\^2\ Cos[p0]\^2\ \
+Sin[t0]\^2 + r0\^2\ Sin[p0]\^2\ Sin[t0]\^2\), 
+                      ArcCos[\(r0\ Cos[t0]\)\/\@\(r0\^2\ Cos[t0]\^2 + r0\^2\ \
+Cos[p0]\^2\ Sin[t0]\^2 + r0\^2\ Sin[p0]\^2\ Sin[t0]\^2\)], ArcTan[Tan[p0]]\), 
+                      "]"}]}], "+", 
+                  
+                  RowBox[{\((r\ r0\ Cos[t]\ Cos[t0] - r0\^2\ Cos[t0]\^2 + 
+                        r\ r0\ Cos[p]\ Cos[p0]\ Sin[t]\ Sin[t0] - 
+                        r0\^2\ Cos[p0]\^2\ Sin[t0]\^2)\), 
+                    " ", \((r0\^2\ Cos[p0]\^2\ Sin[t0]\^2 + 
+                        r0\^2\ Sin[p0]\^2\ Sin[t0]\^2)\), " ", 
+                    RowBox[{
+                      SuperscriptBox["f", 
+                        TagBox[\((1, 0, 0)\),
+                          Derivative],
+                        MultilineFunction->None], 
+                      "[", \(\@\(r0\^2\ Cos[t0]\^2 + r0\^2\ Cos[p0]\^2\ \
+Sin[t0]\^2 + r0\^2\ Sin[p0]\^2\ Sin[t0]\^2\), 
+                      ArcCos[\(r0\ Cos[t0]\)\/\@\(r0\^2\ Cos[t0]\^2 + r0\^2\ \
+Cos[p0]\^2\ Sin[t0]\^2 + r0\^2\ Sin[p0]\^2\ Sin[t0]\^2\)], ArcTan[Tan[p0]]\), 
+                      "]"}]}]}], ")"}], 
+              "/", \((\@\(r0\^2\ Cos[t0]\^2 + r0\^2\ Cos[p0]\^2\ Sin[t0]\^2 + \
+r0\^2\ Sin[p0]\^2\ Sin[t0]\^2\))\)}]}], ")"}], 
+        "/", \((r0\^2\ Cos[p0]\^2\ Sin[t0]\^2 + 
+            r0\^2\ Sin[p0]\^2\ Sin[t0]\^2)\)}]}]], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    \(finalcrap[r_, t_, p_, r0_, t0_, p0_] := temp\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Simplify[
+      finalcrap[r0 + dr, t0 + dt, p0 + dp, r0, t0, p0], {r0 > 0, t0 > 0, 
+        t0 < Pi, p0 > 0, p0 < 2*Pi}]\)], "Input"],
+
+Cell[BoxData[
+    RowBox[{\(f[r0, t0, ArcTan[Tan[p0]]]\), "+", 
+      RowBox[{\(1\/r0\), 
+        RowBox[{"(", 
+          RowBox[{
+            
+            RowBox[{\(Sin[p0]\), 
+              " ", \((r0\ Cos[p0] - r\ Cos[p]\ Csc[t0]\ Sin[t])\), " ", 
+              RowBox[{
+                SuperscriptBox["f", 
+                  TagBox[\((0, 0, 1)\),
+                    Derivative],
+                  MultilineFunction->None], "[", \(r0, t0, ArcTan[Tan[p0]]\), 
+                "]"}]}], "+", 
+            
+            RowBox[{\((r\ Cos[p]\ Cos[p0]\ Cos[t0]\ Sin[
+                      t] - \((r\ Cos[p0]\^2\ Cos[
+                            t] + \((r\ Cos[t] - 
+                              r0\ Cos[t0])\)\ Sin[p0]\^2)\)\ Sin[t0])\), " ", 
+              
+              RowBox[{
+                SuperscriptBox["f", 
+                  TagBox[\((0, 1, 0)\),
+                    Derivative],
+                  MultilineFunction->None], "[", \(r0, t0, ArcTan[Tan[p0]]\), 
+                "]"}]}], "+", 
+            RowBox[{
+            "r0", " ", \((r\ Cos[t]\ Cos[t0] - r0\ Cos[t0]\^2 + 
+                  Cos[p0]\ Sin[
+                      t0]\ \((r\ Cos[p]\ Sin[t] - r0\ Cos[p0]\ Sin[t0])\))\), 
+              " ", 
+              RowBox[{
+                SuperscriptBox["f", 
+                  TagBox[\((1, 0, 0)\),
+                    Derivative],
+                  MultilineFunction->None], "[", \(r0, t0, ArcTan[Tan[p0]]\), 
+                "]"}]}]}], ")"}]}]}]], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    \(\(\(*\)\((D[g[r, t, p], r]*drdz + D[g[r, t, p], t]*dtdz + 
+          D[g[r, t, p], p]*dpdz)\)\)\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(finally = 
+      f[r0, t0, 
+          ArcTan[Tan[
+              p0]]] + \(1\/r0\) \((Sin[
+                  p0]\ \((r0\ Cos[p0] - 
+                    r\ Cos[p]\ Csc[t0]\ Sin[t])\)\ *\((D[g[r, t, p], r]*
+                      drdz[r0, t0, p0] + D[g[r, t, p], t]*dtdz[r0, t0, p0] + 
+                    D[g[r, t, p], p]*
+                      dpdz[r0, t0, p0])\) + \((r\ Cos[p]\ Cos[p0]\ Cos[
+                        t0]\ Sin[
+                        t] - \((r\ Cos[p0]\^2\ Cos[
+                              t] + \((r\ Cos[t] - 
+                                r0\ Cos[t0])\)\ Sin[p0]\^2)\)\ Sin[
+                        t0])\)\ *\((D[g[r, t, p], r]*drdy[r0, t0, p0] + 
+                    D[g[r, t, p], t]*dtdy[r0, t0, p0] + 
+                    D[g[r, t, p], p]*dpdy[r0, t0, p0])\) + 
+              r0\ \((r\ Cos[t]\ Cos[t0] - r0\ Cos[t0]\^2 + 
+                    Cos[p0]\ Sin[
+                        t0]\ \((r\ Cos[p]\ Sin[t] - 
+                          r0\ Cos[p0]\ Sin[t0])\))\)\ *\((D[g[r, t, p], r]*
+                      drdx[r0, t0, p0] + D[g[r, t, p], t]*dtdx[r0, t0, p0] + 
+                    D[g[r, t, p], p]*dpdx[r0, t0, p0])\))\)\)], "Input"],
+
+Cell[BoxData[
+    RowBox[{\(f[r0, t0, ArcTan[Tan[p0]]]\), "+", 
+      RowBox[{\(1\/r0\), 
+        RowBox[{"(", 
+          RowBox[{
+            
+            RowBox[{\(Sin[p0]\), 
+              " ", \((r0\ Cos[p0] - r\ Cos[p]\ Csc[t0]\ Sin[t])\), " ", 
+              RowBox[{"(", 
+                RowBox[{
+                  RowBox[{"-", 
+                    FractionBox[
+                      RowBox[{\(Sin[t0]\), " ", 
+                        RowBox[{
+                          SuperscriptBox["g", 
+                            TagBox[\((0, 1, 0)\),
+                              Derivative],
+                            MultilineFunction->None], "[", \(r, t, p\), 
+                          "]"}]}], "r0"]}], "+", 
+                  RowBox[{\(Cos[t0]\), " ", 
+                    RowBox[{
+                      SuperscriptBox["g", 
+                        TagBox[\((1, 0, 0)\),
+                          Derivative],
+                        MultilineFunction->None], "[", \(r, t, p\), "]"}]}]}],
+                 ")"}]}], "+", 
+            RowBox[{
+            "r0", " ", \((r\ Cos[t]\ Cos[t0] - r0\ Cos[t0]\^2 + 
+                  Cos[p0]\ Sin[
+                      t0]\ \((r\ Cos[p]\ Sin[t] - r0\ Cos[p0]\ Sin[t0])\))\), 
+              " ", 
+              RowBox[{"(", 
+                RowBox[{
+                  RowBox[{"-", 
+                    FractionBox[
+                      RowBox[{\(Csc[t0]\), " ", \(Sin[p0]\), " ", 
+                        RowBox[{
+                          SuperscriptBox["g", 
+                            TagBox[\((0, 0, 1)\),
+                              Derivative],
+                            MultilineFunction->None], "[", \(r, t, p\), 
+                          "]"}]}], "r0"]}], "+", 
+                  FractionBox[
+                    RowBox[{\(Cos[p0]\), " ", \(Cos[t0]\), " ", 
+                      RowBox[{
+                        SuperscriptBox["g", 
+                          TagBox[\((0, 1, 0)\),
+                            Derivative],
+                          MultilineFunction->None], "[", \(r, t, p\), "]"}]}],
+                     "r0"], "+", 
+                  RowBox[{\(Cos[p0]\), " ", \(Sin[t0]\), " ", 
+                    RowBox[{
+                      SuperscriptBox["g", 
+                        TagBox[\((1, 0, 0)\),
+                          Derivative],
+                        MultilineFunction->None], "[", \(r, t, p\), "]"}]}]}],
+                 ")"}]}], "+", 
+            
+            RowBox[{\((r\ Cos[p]\ Cos[p0]\ Cos[t0]\ Sin[
+                      t] - \((r\ Cos[p0]\^2\ Cos[
+                            t] + \((r\ Cos[t] - 
+                              r0\ Cos[t0])\)\ Sin[p0]\^2)\)\ Sin[t0])\), " ", 
+              
+              RowBox[{"(", 
+                RowBox[{
+                  FractionBox[
+                    RowBox[{\(Cos[p0]\), " ", \(Csc[t0]\), " ", 
+                      RowBox[{
+                        SuperscriptBox["g", 
+                          TagBox[\((0, 0, 1)\),
+                            Derivative],
+                          MultilineFunction->None], "[", \(r, t, p\), "]"}]}],
+                     "r0"], "+", 
+                  FractionBox[
+                    RowBox[{\(Cos[t0]\), " ", \(Sin[p0]\), " ", 
+                      RowBox[{
+                        SuperscriptBox["g", 
+                          TagBox[\((0, 1, 0)\),
+                            Derivative],
+                          MultilineFunction->None], "[", \(r, t, p\), "]"}]}],
+                     "r0"], "+", 
+                  RowBox[{\(Sin[p0]\), " ", \(Sin[t0]\), " ", 
+                    RowBox[{
+                      SuperscriptBox["g", 
+                        TagBox[\((1, 0, 0)\),
+                          Derivative],
+                        MultilineFunction->None], "[", \(r, t, p\), "]"}]}]}],
+                 ")"}]}]}], ")"}]}]}]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Simplify[%, {r0 > 0, t0 > 0, t0 < Pi, p0 > 0, p0 < 2*Pi}]\)], "Input"],
+
+Cell[BoxData[
+    RowBox[{\(f[r0, t0, ArcTan[Tan[p0]]]\), "+", 
+      RowBox[{\(1\/r0\), 
+        RowBox[{"(", 
+          RowBox[{
+            
+            RowBox[{\(Sin[p0]\), 
+              " ", \((r0\ Cos[p0] - r\ Cos[p]\ Csc[t0]\ Sin[t])\), " ", 
+              RowBox[{"(", 
+                RowBox[{
+                  RowBox[{"-", 
+                    FractionBox[
+                      RowBox[{\(Sin[t0]\), " ", 
+                        RowBox[{
+                          SuperscriptBox["g", 
+                            TagBox[\((0, 1, 0)\),
+                              Derivative],
+                            MultilineFunction->None], "[", \(r, t, p\), 
+                          "]"}]}], "r0"]}], "+", 
+                  RowBox[{\(Cos[t0]\), " ", 
+                    RowBox[{
+                      SuperscriptBox["g", 
+                        TagBox[\((1, 0, 0)\),
+                          Derivative],
+                        MultilineFunction->None], "[", \(r, t, p\), "]"}]}]}],
+                 ")"}]}], "+", 
+            
+            RowBox[{\((r\ Cos[t]\ Cos[t0] - r0\ Cos[t0]\^2 + 
+                  Cos[p0]\ Sin[
+                      t0]\ \((r\ Cos[p]\ Sin[t] - r0\ Cos[p0]\ Sin[t0])\))\), 
+              " ", 
+              RowBox[{"(", 
+                RowBox[{
+                  RowBox[{\(-Csc[t0]\), " ", \(Sin[p0]\), " ", 
+                    RowBox[{
+                      SuperscriptBox["g", 
+                        TagBox[\((0, 0, 1)\),
+                          Derivative],
+                        MultilineFunction->None], "[", \(r, t, p\), "]"}]}], 
+                  "+", 
+                  RowBox[{\(Cos[p0]\), " ", 
+                    RowBox[{"(", 
+                      RowBox[{
+                        RowBox[{\(Cos[t0]\), " ", 
+                          RowBox[{
+                            SuperscriptBox["g", 
+                              TagBox[\((0, 1, 0)\),
+                                Derivative],
+                              MultilineFunction->None], "[", \(r, t, p\), 
+                            "]"}]}], "+", 
+                        RowBox[{"r0", " ", \(Sin[t0]\), " ", 
+                          RowBox[{
+                            SuperscriptBox["g", 
+                              TagBox[\((1, 0, 0)\),
+                                Derivative],
+                              MultilineFunction->None], "[", \(r, t, p\), 
+                            "]"}]}]}], ")"}]}]}], ")"}]}], "+", 
+            RowBox[{\(1\/r0\), 
+              RowBox[{"(", 
+                
+                RowBox[{\((r\ Cos[p]\ Cos[p0]\ Cos[t0]\ Sin[
+                          t] - \((r\ Cos[p0]\^2\ Cos[
+                                t] + \((r\ Cos[t] - 
+                                  r0\ Cos[t0])\)\ Sin[p0]\^2)\)\ Sin[t0])\), 
+                  " ", 
+                  RowBox[{"(", 
+                    RowBox[{
+                      RowBox[{\(Cos[p0]\), " ", \(Csc[t0]\), " ", 
+                        RowBox[{
+                          SuperscriptBox["g", 
+                            TagBox[\((0, 0, 1)\),
+                              Derivative],
+                            MultilineFunction->None], "[", \(r, t, p\), 
+                          "]"}]}], "+", 
+                      RowBox[{\(Sin[p0]\), " ", 
+                        RowBox[{"(", 
+                          RowBox[{
+                            RowBox[{\(Cos[t0]\), " ", 
+                              RowBox[{
+                                SuperscriptBox["g", 
+                                  TagBox[\((0, 1, 0)\),
+                                    Derivative],
+                                  MultilineFunction->None], "[", \(r, t, p\), 
+                                "]"}]}], "+", 
+                            RowBox[{"r0", " ", \(Sin[t0]\), " ", 
+                              RowBox[{
+                                SuperscriptBox["g", 
+                                  TagBox[\((1, 0, 0)\),
+                                    Derivative],
+                                  MultilineFunction->None], "[", \(r, t, p\), 
+                                "]"}]}]}], ")"}]}]}], ")"}]}], ")"}]}]}], 
+          ")"}]}]}]], "Output"]
+}, Open  ]],
+
+Cell[BoxData[""], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    RowBox[{\(crap[f_, r_, t_, p_, dr_, dt_, dp_]\), "=", 
+      RowBox[{\(1\/r\^2\), 
+        RowBox[{"(", 
+          RowBox[{
+            
+            RowBox[{\(-dr\), 
+              " ", \((Cos[dp]\ Cos[p]\ Sin[
+                      dt]\ \((\(-Cos[p]\)\ Cot[t] + r\ Sin[p])\) + 
+                  Cos[dt]\ \((Cos[p] + r\ Cot[t]\ Sin[p])\))\), " ", 
+              RowBox[{
+                SuperscriptBox["f", 
+                  TagBox[\((0, 0, 1)\),
+                    Derivative],
+                  MultilineFunction->None], "[", \(r, t, p\), "]"}]}], "+", 
+            RowBox[{
+            "dr", " ", \((Cos[dp]\ Sin[
+                      dt]\ \((Sin[p] + Cos[p]\ Cos[t]\^2\ Sin[p] + 
+                        r\ Cos[p]\^2\ Cos[t]\ Sin[t])\) + 
+                  Cos[dt]\ Cos[
+                      t]\ \((r\ Cos[p]\ Cos[t] - Sin[p]\ Sin[t])\))\), " ", 
+              RowBox[{
+                SuperscriptBox["f", 
+                  TagBox[\((0, 1, 0)\),
+                    Derivative],
+                  MultilineFunction->None], "[", \(r, t, p\), "]"}]}], "+", 
+            RowBox[{"r", " ", 
+              RowBox[{"(", 
+                RowBox[{\(f\ r\), "+", 
+                  RowBox[{
+                  "dr", " ", \((Cos[dt]\ Sin[
+                            t]\ \((r\ Cos[p]\ Cos[t] - Sin[p]\ Sin[t])\) + 
+                        Cos[dp]\ Sin[
+                            dt]\ \((\(-Cot[t]\)\ Sin[p] + 
+                              Cos[p]\ Sin[
+                                  t]\ \((Cos[t]\ Sin[p] + 
+                                    r\ Cos[p]\ Sin[t])\))\))\), " ", 
+                    RowBox[{
+                      SuperscriptBox["f", 
+                        TagBox[\((1, 0, 0)\),
+                          Derivative],
+                        MultilineFunction->None], "[", \(r, t, p\), "]"}]}]}],
+                 ")"}]}]}], ")"}]}]}]], "Input"],
+
+Cell[BoxData[
+    RowBox[{\(1\/r\^2\), 
+      RowBox[{"(", 
+        RowBox[{
+          
+          RowBox[{\(-dr\), 
+            " ", \((Cos[dp]\ Cos[p]\ Sin[
+                    dt]\ \((\(-Cos[p]\)\ Cot[t] + r\ Sin[p])\) + 
+                Cos[dt]\ \((Cos[p] + r\ Cot[t]\ Sin[p])\))\), " ", 
+            RowBox[{
+              SuperscriptBox["f", 
+                TagBox[\((0, 0, 1)\),
+                  Derivative],
+                MultilineFunction->None], "[", \(r, t, p\), "]"}]}], "+", 
+          RowBox[{
+          "dr", " ", \((Cos[dp]\ Sin[
+                    dt]\ \((Sin[p] + Cos[p]\ Cos[t]\^2\ Sin[p] + 
+                      r\ Cos[p]\^2\ Cos[t]\ Sin[t])\) + 
+                Cos[dt]\ Cos[t]\ \((r\ Cos[p]\ Cos[t] - Sin[p]\ Sin[t])\))\), 
+            " ", 
+            RowBox[{
+              SuperscriptBox["f", 
+                TagBox[\((0, 1, 0)\),
+                  Derivative],
+                MultilineFunction->None], "[", \(r, t, p\), "]"}]}], "+", 
+          RowBox[{"r", " ", 
+            RowBox[{"(", 
+              RowBox[{\(f\ r\), "+", 
+                RowBox[{
+                "dr", " ", \((Cos[dt]\ Sin[
+                          t]\ \((r\ Cos[p]\ Cos[t] - Sin[p]\ Sin[t])\) + 
+                      Cos[dp]\ Sin[
+                          dt]\ \((\(-Cot[t]\)\ Sin[p] + 
+                            Cos[p]\ Sin[
+                                t]\ \((Cos[t]\ Sin[p] + 
+                                  r\ Cos[p]\ Sin[t])\))\))\), " ", 
+                  RowBox[{
+                    SuperscriptBox["f", 
+                      TagBox[\((1, 0, 0)\),
+                        Derivative],
+                      MultilineFunction->None], "[", \(r, t, p\), "]"}]}]}], 
+              ")"}]}]}], ")"}]}]], "Output"]
+}, Open  ]],
+
+Cell[BoxData[""], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(Limit[crap[f, r, t, p, dr, dt, dp], 
+      dp \[Rule] 
+        0]\[IndentingNewLine] (*\(Limit[%, 
+          dt \[Rule] 0];\)*) \[IndentingNewLine]\), "\[IndentingNewLine]", 
+    \(Limit[%, dr \[Rule] 0]\), "\[IndentingNewLine]", 
+    \(Limit[%, p \[Rule] 0]\), "\[IndentingNewLine]", 
+    \(Limit[%, t \[Rule] 0]\)}], "Input"],
+
+Cell[BoxData[
+    RowBox[{\(1\/r\^2\), 
+      RowBox[{"(", 
+        RowBox[{\(f\ r\^2\), "-", 
+          RowBox[{"dr", " ", \(Cos[dt]\), " ", \(Cos[p]\), " ", 
+            RowBox[{
+              SuperscriptBox["f", 
+                TagBox[\((0, 0, 1)\),
+                  Derivative],
+                MultilineFunction->None], "[", \(r, t, p\), "]"}]}], "+", 
+          RowBox[{
+          "dr", " ", \(Cos[p]\^2\), " ", \(Cot[t]\), " ", \(Sin[dt]\), " ", 
+            RowBox[{
+              SuperscriptBox["f", 
+                TagBox[\((0, 0, 1)\),
+                  Derivative],
+                MultilineFunction->None], "[", \(r, t, p\), "]"}]}], "-", 
+          RowBox[{
+          "dr", " ", "r", " ", \(Cos[dt]\), " ", \(Cot[t]\), " ", \(Sin[p]\), 
+            " ", 
+            RowBox[{
+              SuperscriptBox["f", 
+                TagBox[\((0, 0, 1)\),
+                  Derivative],
+                MultilineFunction->None], "[", \(r, t, p\), "]"}]}], "-", 
+          RowBox[{
+          "dr", " ", "r", " ", \(Cos[p]\), " ", \(Sin[dt]\), " ", \(Sin[p]\), 
+            " ", 
+            RowBox[{
+              SuperscriptBox["f", 
+                TagBox[\((0, 0, 1)\),
+                  Derivative],
+                MultilineFunction->None], "[", \(r, t, p\), "]"}]}], "+", 
+          RowBox[{
+          "dr", " ", "r", " ", \(Cos[dt]\), " ", \(Cos[p]\), 
+            " ", \(Cos[t]\^2\), " ", 
+            RowBox[{
+              SuperscriptBox["f", 
+                TagBox[\((0, 1, 0)\),
+                  Derivative],
+                MultilineFunction->None], "[", \(r, t, p\), "]"}]}], "+", 
+          RowBox[{"dr", " ", \(Sin[dt]\), " ", \(Sin[p]\), " ", 
+            RowBox[{
+              SuperscriptBox["f", 
+                TagBox[\((0, 1, 0)\),
+                  Derivative],
+                MultilineFunction->None], "[", \(r, t, p\), "]"}]}], "+", 
+          RowBox[{
+          "dr", " ", \(Cos[p]\), " ", \(Cos[t]\^2\), " ", \(Sin[dt]\), 
+            " ", \(Sin[p]\), " ", 
+            RowBox[{
+              SuperscriptBox["f", 
+                TagBox[\((0, 1, 0)\),
+                  Derivative],
+                MultilineFunction->None], "[", \(r, t, p\), "]"}]}], "+", 
+          RowBox[{
+          "dr", " ", "r", " ", \(Cos[p]\^2\), " ", \(Cos[t]\), 
+            " ", \(Sin[dt]\), " ", \(Sin[t]\), " ", 
+            RowBox[{
+              SuperscriptBox["f", 
+                TagBox[\((0, 1, 0)\),
+                  Derivative],
+                MultilineFunction->None], "[", \(r, t, p\), "]"}]}], "-", 
+          RowBox[{
+          "dr", " ", \(Cos[dt]\), " ", \(Cos[t]\), " ", \(Sin[p]\), 
+            " ", \(Sin[t]\), " ", 
+            RowBox[{
+              SuperscriptBox["f", 
+                TagBox[\((0, 1, 0)\),
+                  Derivative],
+                MultilineFunction->None], "[", \(r, t, p\), "]"}]}], "-", 
+          RowBox[{
+          "dr", " ", "r", " ", \(Cot[t]\), " ", \(Sin[dt]\), " ", \(Sin[p]\), 
+            " ", 
+            RowBox[{
+              SuperscriptBox["f", 
+                TagBox[\((1, 0, 0)\),
+                  Derivative],
+                MultilineFunction->None], "[", \(r, t, p\), "]"}]}], "+", 
+          RowBox[{
+          "dr", " ", \(r\^2\), " ", \(Cos[dt]\), " ", \(Cos[p]\), 
+            " ", \(Cos[t]\), " ", \(Sin[t]\), " ", 
+            RowBox[{
+              SuperscriptBox["f", 
+                TagBox[\((1, 0, 0)\),
+                  Derivative],
+                MultilineFunction->None], "[", \(r, t, p\), "]"}]}], "+", 
+          RowBox[{
+          "dr", " ", "r", " ", \(Cos[p]\), " ", \(Cos[t]\), " ", \(Sin[dt]\), 
+            " ", \(Sin[p]\), " ", \(Sin[t]\), " ", 
+            RowBox[{
+              SuperscriptBox["f", 
+                TagBox[\((1, 0, 0)\),
+                  Derivative],
+                MultilineFunction->None], "[", \(r, t, p\), "]"}]}], "+", 
+          RowBox[{
+          "dr", " ", \(r\^2\), " ", \(Cos[p]\^2\), " ", \(Sin[dt]\), 
+            " ", \(Sin[t]\^2\), " ", 
+            RowBox[{
+              SuperscriptBox["f", 
+                TagBox[\((1, 0, 0)\),
+                  Derivative],
+                MultilineFunction->None], "[", \(r, t, p\), "]"}]}], "-", 
+          RowBox[{
+          "dr", " ", "r", " ", \(Cos[dt]\), " ", \(Sin[p]\), 
+            " ", \(Sin[t]\^2\), " ", 
+            RowBox[{
+              SuperscriptBox["f", 
+                TagBox[\((1, 0, 0)\),
+                  Derivative],
+                MultilineFunction->None], "[", \(r, t, p\), "]"}]}]}], 
+        ")"}]}]], "Output"],
+
+Cell[BoxData[
+    \(f\)], "Output"],
+
+Cell[BoxData[
+    \(f\)], "Output"],
+
+Cell[BoxData[
+    \(f\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(crap[r, r, t, p, dr, dt, dp]\)], "Input"],
+
+Cell[BoxData[
+    \(\(\(1\/r\^2\)\((\(-\(\(dr\ p\ \((Cos[dp]\ Cos[p]\ Sin[
+                        dt]\ \((\(-Cos[p]\)\ Cot[t] + r\ Sin[p])\) + 
+                    Cos[dt]\ \((Cos[p] + 
+                          r\ Cot[t]\ Sin[
+                              p])\))\)\)\/\@\(p\^2 + r\^2 + t\^2\)\)\) + \(dr\
+\ t\ \((Cos[dp]\ Sin[dt]\ \((Sin[p] + Cos[p]\ Cos[t]\^2\ Sin[p] + r\ \
+Cos[p]\^2\ Cos[t]\ Sin[t])\) + Cos[dt]\ Cos[t]\ \((r\ Cos[p]\ Cos[t] - Sin[p]\
+\ Sin[t])\))\)\)\/\@\(p\^2 + r\^2 + t\^2\) + 
+        r\ \((r\^2 + \(\(1\/\@\(p\^2 + r\^2 + t\^2\)\)\((dr\ r\ \((Cos[
+                          dt]\ Sin[
+                          t]\ \((r\ Cos[p]\ Cos[t] - Sin[p]\ Sin[t])\) + 
+                      Cos[dp]\ Sin[
+                          dt]\ \((\(-Cot[t]\)\ Sin[p] + 
+                            Cos[p]\ Sin[
+                                t]\ \((Cos[t]\ Sin[p] + 
+                                  r\ Cos[p]\ Sin[
+                                      t])\))\))\))\)\))\))\)\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(biggercrap[r_, t_, p_, dr_, dt_, 
+        dp_] = \(1\/r\^2\) \((\(-\(\(dr\ p\ \((Cos[dp]\ Cos[p]\ Sin[
+                            dt]\ \((\(-Cos[p]\)\ Cot[t] + r\ Sin[p])\) + 
+                        Cos[dt]\ \((Cos[p] + 
+                              r\ Cot[t]\ Sin[
+                                  p])\))\)\)\/\@\(p\^2 + r\^2 + t\^2\)\)\) + \
+\(dr\ t\ \((Cos[dp]\ Sin[dt]\ \((Sin[p] + Cos[p]\ Cos[t]\^2\ Sin[p] + r\ \
+Cos[p]\^2\ Cos[t]\ Sin[t])\) + Cos[dt]\ Cos[t]\ \((r\ Cos[p]\ Cos[t] - Sin[p]\
+\ Sin[t])\))\)\)\/\@\(p\^2 + r\^2 + t\^2\) + 
+            r\ \((r\^2 + \(\(1\/\@\(p\^2 + r\^2 + t\^2\)\)\((dr\ r\ \((Cos[
+                              dt]\ Sin[
+                              t]\ \((r\ Cos[p]\ Cos[t] - Sin[p]\ Sin[t])\) + 
+                          Cos[dp]\ Sin[
+                              dt]\ \((\(-Cot[t]\)\ Sin[p] + 
+                                Cos[p]\ Sin[
+                                    t]\ \((Cos[t]\ Sin[p] + 
+                                      r\ Cos[p]\ Sin[
+                                        t])\))\))\))\)\))\))\)\)], "Input"],
+
+Cell[BoxData[
+    \(\(\(1\/r\^2\)\((\(-\(\(dr\ p\ \((Cos[dp]\ Cos[p]\ Sin[
+                        dt]\ \((\(-Cos[p]\)\ Cot[t] + r\ Sin[p])\) + 
+                    Cos[dt]\ \((Cos[p] + 
+                          r\ Cot[t]\ Sin[
+                              p])\))\)\)\/\@\(p\^2 + r\^2 + t\^2\)\)\) + \(dr\
+\ t\ \((Cos[dp]\ Sin[dt]\ \((Sin[p] + Cos[p]\ Cos[t]\^2\ Sin[p] + r\ \
+Cos[p]\^2\ Cos[t]\ Sin[t])\) + Cos[dt]\ Cos[t]\ \((r\ Cos[p]\ Cos[t] - Sin[p]\
+\ Sin[t])\))\)\)\/\@\(p\^2 + r\^2 + t\^2\) + 
+        r\ \((r\^2 + \(\(1\/\@\(p\^2 + r\^2 + t\^2\)\)\((dr\ r\ \((Cos[
+                          dt]\ Sin[
+                          t]\ \((r\ Cos[p]\ Cos[t] - Sin[p]\ Sin[t])\) + 
+                      Cos[dp]\ Sin[
+                          dt]\ \((\(-Cot[t]\)\ Sin[p] + 
+                            Cos[p]\ Sin[
+                                t]\ \((Cos[t]\ Sin[p] + 
+                                  r\ Cos[p]\ Sin[
+                                      t])\))\))\))\)\))\))\)\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Limit[biggercrap[r, t, p, dr, dt, dp], dt \[Rule] 0]\)], "Input"],
+
+Cell[BoxData[
+    \(\(\(1\/\(4\ r\^2\ \@\(p\^2 + r\^2 + t\^2\)\)\)\((4\ r\^3\ \@\(p\^2 + \
+r\^2 + t\^2\) - 4\ dr\ p\ Cos[p] + 2\ dr\ r\ t\ Cos[p] - 
+        dr\ t\ Cos[p - 2\ t] + dr\ r\ t\ Cos[p - 2\ t] + 
+        dr\ t\ Cos[p + 2\ t] + dr\ r\ t\ Cos[p + 2\ t] - 
+        2\ dr\ r\^2\ Sin[p] + dr\ r\^2\ Sin[p - 2\ t] - 
+        dr\ r\^3\ Sin[p - 2\ t] - 2\ dr\ p\ r\ Csc[t]\ Sin[p - t] - 
+        2\ dr\ p\ r\ Csc[t]\ Sin[p + t] + dr\ r\^2\ Sin[p + 2\ t] + 
+        dr\ r\^3\ Sin[p + 2\ t])\)\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Limit[%, dp \[Rule] 0]\)], "Input"],
+
+Cell[BoxData[
+    \(\(\(1\/\(4\ r\^2\ \@\(p\^2 + r\^2 + t\^2\)\)\)\((4\ r\^3\ \@\(p\^2 + \
+r\^2 + t\^2\) - 4\ dr\ p\ Cos[p] + 2\ dr\ r\ t\ Cos[p] - 
+        dr\ t\ Cos[p - 2\ t] + dr\ r\ t\ Cos[p - 2\ t] + 
+        dr\ t\ Cos[p + 2\ t] + dr\ r\ t\ Cos[p + 2\ t] - 
+        2\ dr\ r\^2\ Sin[p] + dr\ r\^2\ Sin[p - 2\ t] - 
+        dr\ r\^3\ Sin[p - 2\ t] - 2\ dr\ p\ r\ Csc[t]\ Sin[p - t] - 
+        2\ dr\ p\ r\ Csc[t]\ Sin[p + t] + dr\ r\^2\ Sin[p + 2\ t] + 
+        dr\ r\^3\ Sin[p + 2\ t])\)\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Limit[%, p \[Rule] 0]\)], "Input"],
+
+Cell[BoxData[
+    \(\(dr\ t + 2\ r\^2\ \@\(r\^2 + t\^2\) + dr\ t\ Cos[2\ t] + dr\ r\^2\ \
+Sin[2\ t]\)\/\(2\ r\ \@\(r\^2 + t\^2\)\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Limit[%, t \[Rule] 0]\)], "Input"],
+
+Cell[BoxData[
+    \(r\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    \(\((\(\(\(\(\(#--\)--\)--\)--\)--\) - #)\)\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Plot[
+      biggercrap[r,  .1,  .1,  .1,  .1,  .1], {r, 1 -  .01, 
+        1 +  .01}]\)], "Input"],
+
+Cell[GraphicsData["PostScript", "\<\
+%!
+%%Creator: Mathematica
+%%AspectRatio: .61803 
+MathPictureStart
+/Mabs {
+Mgmatrix idtransform
+Mtmatrix dtransform
+} bind def
+/Mabsadd { Mabs
+3 -1 roll add
+3 1 roll add
+exch } bind def
+%% Graphics
+%%IncludeResource: font Courier
+%%IncludeFont: Courier
+/Courier findfont 10  scalefont  setfont
+% Scaling calculations
+-47.1191 47.6191 -28.8286 29.1392 [
+[.02381 .29806 -12 -9 ]
+[.02381 .29806 12 0 ]
+[.2619 .29806 -15 -9 ]
+[.2619 .29806 15 0 ]
+[.7381 .29806 -15 -9 ]
+[.7381 .29806 15 0 ]
+[.97619 .29806 -12 -9 ]
+[.97619 .29806 12 0 ]
+[.4875 .01917 -24 -4.5 ]
+[.4875 .01917 0 4.5 ]
+[.4875 .16486 -30 -4.5 ]
+[.4875 .16486 0 4.5 ]
+[.4875 .45626 -30 -4.5 ]
+[.4875 .45626 0 4.5 ]
+[.4875 .60195 -24 -4.5 ]
+[.4875 .60195 0 4.5 ]
+[ 0 0 0 0 ]
+[ 1 .61803 0 0 ]
+] MathScale
+% Start of Graphics
+1 setlinecap
+1 setlinejoin
+newpath
+0 g
+.25 Mabswid
+[ ] 0 setdash
+.02381 .31056 m
+.02381 .31681 L
+s
+[(0.99)] .02381 .29806 0 1 Mshowa
+.2619 .31056 m
+.2619 .31681 L
+s
+[(0.995)] .2619 .29806 0 1 Mshowa
+.7381 .31056 m
+.7381 .31681 L
+s
+[(1.005)] .7381 .29806 0 1 Mshowa
+.97619 .31056 m
+.97619 .31681 L
+s
+[(1.01)] .97619 .29806 0 1 Mshowa
+.125 Mabswid
+.07143 .31056 m
+.07143 .31431 L
+s
+.11905 .31056 m
+.11905 .31431 L
+s
+.16667 .31056 m
+.16667 .31431 L
+s
+.21429 .31056 m
+.21429 .31431 L
+s
+.30952 .31056 m
+.30952 .31431 L
+s
+.35714 .31056 m
+.35714 .31431 L
+s
+.40476 .31056 m
+.40476 .31431 L
+s
+.45238 .31056 m
+.45238 .31431 L
+s
+.54762 .31056 m
+.54762 .31431 L
+s
+.59524 .31056 m
+.59524 .31431 L
+s
+.64286 .31056 m
+.64286 .31431 L
+s
+.69048 .31056 m
+.69048 .31431 L
+s
+.78571 .31056 m
+.78571 .31431 L
+s
+.83333 .31056 m
+.83333 .31431 L
+s
+.88095 .31056 m
+.88095 .31431 L
+s
+.92857 .31056 m
+.92857 .31431 L
+s
+.25 Mabswid
+0 .31056 m
+1 .31056 L
+s
+.5 .01917 m
+.50625 .01917 L
+s
+[(0.99)] .4875 .01917 1 0 Mshowa
+.5 .16486 m
+.50625 .16486 L
+s
+[(0.995)] .4875 .16486 1 0 Mshowa
+.5 .45626 m
+.50625 .45626 L
+s
+[(1.005)] .4875 .45626 1 0 Mshowa
+.5 .60195 m
+.50625 .60195 L
+s
+[(1.01)] .4875 .60195 1 0 Mshowa
+.125 Mabswid
+.5 .04831 m
+.50375 .04831 L
+s
+.5 .07745 m
+.50375 .07745 L
+s
+.5 .10659 m
+.50375 .10659 L
+s
+.5 .13573 m
+.50375 .13573 L
+s
+.5 .194 m
+.50375 .194 L
+s
+.5 .22314 m
+.50375 .22314 L
+s
+.5 .25228 m
+.50375 .25228 L
+s
+.5 .28142 m
+.50375 .28142 L
+s
+.5 .3397 m
+.50375 .3397 L
+s
+.5 .36884 m
+.50375 .36884 L
+s
+.5 .39798 m
+.50375 .39798 L
+s
+.5 .42712 m
+.50375 .42712 L
+s
+.5 .4854 m
+.50375 .4854 L
+s
+.5 .51453 m
+.50375 .51453 L
+s
+.5 .54367 m
+.50375 .54367 L
+s
+.5 .57281 m
+.50375 .57281 L
+s
+.25 Mabswid
+.5 0 m
+.5 .61803 L
+s
+0 0 m
+1 0 L
+1 .61803 L
+0 .61803 L
+closepath
+clip
+newpath
+.5 Mabswid
+.02381 .01472 m
+.06244 .0386 L
+.10458 .06464 L
+.14415 .0891 L
+.18221 .11263 L
+.22272 .13767 L
+.26171 .16177 L
+.30316 .18738 L
+.34309 .21206 L
+.3815 .23581 L
+.42237 .26106 L
+.46172 .28539 L
+.49955 .30877 L
+.53984 .33367 L
+.57861 .35763 L
+.61984 .38311 L
+.65954 .40765 L
+.69774 .43125 L
+.73838 .45637 L
+.77751 .48055 L
+.81909 .50624 L
+.85916 .531 L
+.89771 .55482 L
+.93871 .58016 L
+.97619 .60332 L
+s
+% End of Graphics
+MathPictureEnd
+\
+\>"], "Graphics",
+  ImageSize->{288, 177.938},
+  ImageMargins->{{43, 0}, {0, 0}},
+  ImageRegion->{{0, 1}, {0, 1}},
+  ImageCache->GraphicsData["Bitmap", "\<\
+CF5dJ6E]HGAYHf4PAg9QL6QYHg<PAVmbKF5d0`40004P0000/B000`400?l00000o`00003oo`3ooolQ
+0?ooo`00o`3ooolQ0?ooo`00o`3ooolQ0?ooo`00S`3oool00`000000oooo0?ooo`2>0?ooo`00S`3o
+ool00`000000oooo0?ooo`2>0?ooo`00S`3oool00`000000oooo0?ooo`2>0?ooo`00MP3oool20000
+00@0oooo00<000000?ooo`3oool00P3oool3000000<0oooo0`0000050?ooo`030000003oool0oooo
+08h0oooo000<0?ooo`030000003oool0oooo06H0oooo00@000000?ooo`3oool000002`3oool00`00
+0000oooo0?ooo`030?ooo`030000003oool0oooo0080oooo00<000000?ooo`3oool0SP3oool000d0
+oooo0P00001V0?ooo`040000003oool0oooo000000/0oooo00<000000?ooo`3oool00`3oool00`00
+0000oooo0?ooo`020?ooo`<00000SP3oool000l0oooo0P00001T0?ooo`040000003oool0oooo0000
+00T0oooo0`0000030?ooo`<00000103oool00`000000oooo0?ooo`2>0?ooo`004@3oool00`000000
+oooo0?ooo`1Q0?ooo`040000003oool0oooo000000P0oooo00@000000?ooo`3oool000000P3oool0
+10000000oooo0?ooo`0000040?ooo`030000003oool0oooo08h0oooo000B0?ooo`800000H@3oool0
+10000000oooo0?ooo`0000080?ooo`040000003oool0oooo00000080oooo00@000000?ooo`3oool0
+0000103oool00`000000oooo0?ooo`2>0?ooo`00503oool200000600oooo0P00000:0?ooo`800000
+103oool2000000D0oooo00<000000?ooo`3oool0SP3oool001H0oooo00<000000?ooo`3oool0MP3o
+ool00`000000oooo0?ooo`2>0?ooo`005`3oool2000007H0oooo00<000000?ooo`3oool0SP3oool0
+01T0oooo00<000000?ooo`3oool0L`3oool00`000000oooo0?ooo`2>0?ooo`006P3oool2000007<0
+oooo0P00002?0?ooo`00703oool00`000000oooo0?ooo`1`0?ooo`030000003oool0oooo08h0oooo
+000M0?ooo`800000L03oool00`000000oooo0?ooo`2>0?ooo`007`3oool00`000000oooo0?ooo`1]
+0?ooo`030000003oool0oooo08h0oooo000P0?ooo`800000K@3oool00`000000oooo0?ooo`2>0?oo
+o`008P3oool00`000000oooo0?ooo`1Z0?ooo`030000003oool0oooo08h0oooo000S0?ooo`800000
+JP3oool00`000000oooo0?ooo`2>0?ooo`009@3oool2000006P0oooo00<000000?ooo`3oool0SP3o
+ool002L0oooo0P00001V0?ooo`800000S`3oool002T0oooo0P00001T0?ooo`030000003oool0oooo
+08h0oooo000[0?ooo`800000HP3oool00`000000oooo0?ooo`2>0?ooo`00;@3oool00`000000oooo
+0?ooo`1O0?ooo`030000003oool0oooo08h0oooo000^0?ooo`800000G`3oool00`000000oooo0?oo
+o`2>0?ooo`00<03oool00`000000oooo0?ooo`1L0?ooo`030000003oool0oooo08h0oooo000a0?oo
+o`030000003oool0oooo05/0oooo00<000000?ooo`3oool0SP3oool00380oooo0P00001K0?ooo`03
+0000003oool0oooo08h0oooo000d0?ooo`030000003oool0oooo05P0oooo0P00002?0?ooo`00=@3o
+ool2000005P0oooo00<000000?ooo`3oool0SP3oool003L0oooo00<000000?ooo`3oool0E@3oool0
+0`000000oooo0?ooo`2>0?ooo`00>03oool2000005D0oooo00<000000?ooo`3oool0SP3oool003X0
+oooo00<000000?ooo`3oool0DP3oool00`000000oooo0?ooo`2>0?ooo`00>`3oool200000580oooo
+00<000000?ooo`3oool0SP3oool003d0oooo0P00001@0?ooo`030000003oool0oooo08h0oooo000o
+0?ooo`030000003oool0oooo04d0oooo00<000000?ooo`3oool0SP3oool00400oooo0P00001=0?oo
+o`800000S`3oool00480oooo00<000000?ooo`3oool0BP3oool00`000000oooo0?ooo`2>0?ooo`00
+@`3oool2000004X0oooo00<000000?ooo`3oool0SP3oool004D0oooo0P0000180?ooo`030000003o
+ool0oooo08h0oooo00170?ooo`800000AP3oool00`000000oooo0?ooo`2>0?ooo`00B@3oool20000
+04@0oooo00<000000?ooo`3oool0SP3oool004/0oooo0P00000S0?ooo`800000103oool00`000000
+oooo0?ooo`020?ooo`<000000`3oool3000000<0oooo0`0000050?ooo`030000003oool0oooo08h0
+oooo001=0?ooo`030000003oool0oooo01l0oooo00@000000?ooo`3oool000002`3oool00`000000
+oooo0?ooo`030?ooo`030000003oool0oooo00<0oooo00<000000?ooo`3oool00P3oool00`000000
+oooo0?ooo`2>0?ooo`00CP3oool2000001l0oooo00@000000?ooo`3oool000002`3oool00`000000
+oooo0?ooo`030?ooo`030000003oool0oooo00<0oooo00<000000?ooo`3oool00P3oool3000008h0
+oooo001@0?ooo`8000007@3oool010000000oooo0?ooo`0000090?ooo`<000000`3oool300000080
+oooo0`0000050?ooo`030000003oool0oooo08h0oooo001B0?ooo`030000003oool0oooo01X0oooo
+00@000000?ooo`3oool00000203oool010000000oooo0?ooo`0000020?ooo`040000003oool0oooo
+00000080oooo00<000000?ooo`3oool01@3oool00`000000oooo0?ooo`2>0?ooo`00D`3oool20000
+01X0oooo00@000000?ooo`3oool00000203oool010000000oooo0?ooo`0000020?ooo`040000003o
+ool0oooo00000080oooo00<000000?ooo`3oool01@3oool00`000000oooo0?ooo`2>0?ooo`00E@3o
+ool2000001T0oooo0P00000:0?ooo`800000103oool2000000<0oooo100000040?ooo`030000003o
+ool0oooo08h0oooo001G0?ooo`800000=P3oool00`000000oooo0?ooo`2>0?ooo`00F@3oool00`00
+0000oooo0?ooo`0c0?ooo`030000003oool0oooo08h0oooo001J0?ooo`800000<`3oool00`000000
+oooo0?ooo`2>0?ooo`00G03oool00`000000oooo0?ooo`0`0?ooo`800000S`3oool005d0oooo0P00
+000`0?ooo`030000003oool0oooo08h0oooo001O0?ooo`800000;P3oool00`000000oooo0?ooo`2>
+0?ooo`00H@3oool00`000000oooo0?ooo`0[0?ooo`030000003oool0oooo08h0oooo001R0?ooo`80
+0000:`3oool00`000000oooo0?ooo`2>0?ooo`00I03oool00`000000oooo0?ooo`0X0?ooo`030000
+003oool0oooo08h0oooo001U0?ooo`800000:03oool00`000000oooo0?ooo`2>0?ooo`00I`3oool0
+0`000000oooo0?ooo`0U0?ooo`030000003oool0oooo08h0oooo001X0?ooo`030000003oool0oooo
+02@0oooo0P00002?0?ooo`00J@3oool2000002@0oooo00<000000?ooo`3oool0SP3oool006/0oooo
+00<000000?ooo`3oool08@3oool00`000000oooo0?ooo`2>0?ooo`00K03oool200000240oooo00<0
+00000?ooo`3oool0SP3oool006h0oooo00<000000?ooo`3oool07P3oool00`000000oooo0?ooo`2>
+0?ooo`00K`3oool2000001h0oooo00<000000?ooo`3oool0SP3oool00740oooo0P00000L0?ooo`03
+0000003oool0oooo08h0oooo001c0?ooo`030000003oool0oooo01T0oooo00<000000?ooo`3oool0
+SP3oool007@0oooo0P00000I0?ooo`800000S`3oool007H0oooo0P00000G0?ooo`030000003oool0
+oooo08h0oooo001h0?ooo`8000005@3oool00`000000oooo0?ooo`2>0?ooo`00NP3oool00`000000
+oooo0?ooo`0B0?ooo`030000003oool0oooo08h0oooo001k0?ooo`8000004P3oool00`000000oooo
+0?ooo`2>0?ooo`00O@3oool200000100oooo00<000000?ooo`3oool0SP3oool00080oooo0P000004
+0?ooo`030000003oool0oooo0080oooo0`0000030?ooo`<00000:P3oool2000000@0oooo00<00000
+0?ooo`3oool00P3oool3000000<0oooo0`0000030?ooo`<000009@3oool00`000000oooo0?ooo`0=
+0?ooo`030000003oool0oooo0340oooo100000030?ooo`030000003oool0oooo00<0oooo0P000004
+0?ooo`8000000`3oool3000002X0oooo100000030?ooo`030000003oool0oooo00<0oooo0P000003
+0?ooo`@000000P3oool000050?ooo`000000oooo0?ooo`0000002`3oool00`000000oooo0?ooo`03
+0?ooo`030000003oool0oooo02H0oooo00@000000?ooo`3oool000002`3oool00`000000oooo0?oo
+o`030?ooo`030000003oool0oooo00<0oooo00<000000?ooo`3oool08`3oool2000000d0oooo00<0
+00000?ooo`3oool0<`3oool00`000000oooo0?ooo`070?ooo`040000003oool0oooo00000080oooo
+00@000000?ooo`3oool000001@3oool00`000000oooo0?ooo`0Y0?ooo`030000003oool0oooo00L0
+oooo00@000000?ooo`3oool00000103oool00`000000oooo0?ooo`010?ooo`0000D0oooo0000003o
+ool0oooo0000000;0?ooo`030000003oool0oooo00<0oooo00<000000?ooo`3oool09P3oool01000
+0000oooo0?ooo`00000;0?ooo`030000003oool0oooo00<0oooo00<000000?ooo`3oool00`3oool0
+0`000000oooo0?ooo`0U0?ooo`8000002`3oool2000003@0oooo00<000000?ooo`3oool01`3oool0
+10000000oooo0?ooo`0000020?ooo`040000003oool0oooo000000D0oooo00<000000?ooo`3oool0
+:@3oool00`000000oooo0?ooo`070?ooo`040000003oool0oooo000000@0oooo00<000000?ooo`3o
+ool00@3oool000050?ooo`000000oooo0?ooo`0000002@3oool3000000<0oooo0`00000X0?ooo`04
+0000003oool0oooo000000T0oooo0`0000030?ooo`<000000P3oool3000002X0oooo00<000000?oo
+o`3oool0203oool00`000000oooo0?ooo`0c0?ooo`030000003oool0oooo00L0oooo00@000000?oo
+o`3oool000000P3oool010000000oooo0?ooo`0000020?ooo`<00000;03oool00`000000oooo0?oo
+o`070?ooo`040000003oool0oooo000000@0oooo00<000000?ooo`3oool00@3oool000050?ooo`00
+0000oooo0?ooo`000000203oool010000000oooo0?ooo`0000020?ooo`040000003oool0oooo0000
+02P0oooo00@000000?ooo`3oool00000203oool010000000oooo0?ooo`0000020?ooo`040000003o
+ool0oooo00000080oooo00<000000?ooo`3oool0:`3oool2000000P0oooo00<000000?ooo`3oool0
+<`3oool00`000000oooo0?ooo`070?ooo`040000003oool0oooo00000080oooo00@000000?ooo`3o
+ool000000P3oool00`000000oooo0?ooo`0/0?ooo`030000003oool0oooo00L0oooo00@000000?oo
+o`3oool00000103oool00`000000oooo0?ooo`010?ooo`0000D0oooo0000003oool0oooo00000008
+0?ooo`040000003oool0oooo00000080oooo00@000000?ooo`3oool00000:03oool010000000oooo
+0?ooo`0000080?ooo`040000003oool0oooo00000080oooo00@000000?ooo`3oool000000P3oool0
+0`000000oooo0?ooo`0]0?ooo`030000003oool0oooo00D0oooo00<000000?ooo`3oool0<@3oool3
+000000T0oooo00@000000?ooo`3oool000000P3oool010000000oooo0?ooo`0000020?ooo`030000
+003oool0oooo02X0oooo0`0000090?ooo`040000003oool0oooo00000080oooo0`0000030?ooo`00
+0P3oool2000000X0oooo0P0000040?ooo`800000:P3oool2000000X0oooo0P0000040?ooo`800000
+0`3oool4000002d0oooo0P0000050?ooo`030000003oool0oooo03<0oooo00<000000?ooo`3oool0
+203oool2000000@0oooo0P0000030?ooo`@00000:`3oool00`000000oooo0?ooo`080?ooo`800000
+1@3oool00`000000oooo0?ooo`010?ooo`00RP3oool2000000<0oooo00<000000?ooo`3oool0SP3o
+ool008`0oooo00@000000?ooo`3oool00000T03oool008d0oooo0`00002@0?ooo`001@3ooooo0000
+01H000001P3oool000`0oooo00<000000?ooo`3oool02P3oool00`000000oooo0?ooo`0:0?ooo`03
+0000003oool0oooo00X0oooo00<000000?ooo`3oool02P3oool00`000000oooo0?ooo`0:0?ooo`03
+0000003oool0oooo00X0oooo00<000000?ooo`3oool02`3oool00`000000oooo0?ooo`0:0?ooo`03
+0000003oool0oooo00X0oooo00<000000?ooo`3oool02P3oool3000000X0oooo00<000000?ooo`3o
+ool02P3oool00`000000oooo0?ooo`0:0?ooo`030000003oool0oooo00/0oooo00<000000?ooo`3o
+ool02P3oool00`000000oooo0?ooo`0:0?ooo`030000003oool0oooo00X0oooo00<000000?ooo`3o
+ool02P3oool00`000000oooo0?ooo`0:0?ooo`030000003oool0oooo00/0oooo00<000000?ooo`3o
+ool02P3oool000`0oooo00<000000?ooo`3oool0?P3oool00`000000oooo0?ooo`0o0?ooo`040000
+003oool0oooo000003h0oooo00<000000?ooo`3oool0?`3oool00`000000oooo0?ooo`0:0?ooo`00
+S`3oool010000000oooo0?ooo`3oool2000008/0oooo002?0?ooo`030000003oool0oooo00<0oooo
+0P0000290?ooo`00S`3oool00`000000oooo0?ooo`050?ooo`030000003oool0oooo08H0oooo002?
+0?ooo`030000003oool0oooo00H0oooo0P0000260?ooo`00S`3oool00`000000oooo0?ooo`080?oo
+o`030000003oool0oooo08<0oooo002?0?ooo`8000002P3oool2000008<0oooo002?0?ooo`030000
+003oool0oooo00/0oooo0P0000210?ooo`00S`3oool00`000000oooo0?ooo`0=0?ooo`800000O`3o
+ool008l0oooo00<000000?ooo`3oool03`3oool2000007d0oooo002?0?ooo`030000003oool0oooo
+0140oooo0P00001k0?ooo`00S`3oool00`000000oooo0?ooo`0C0?ooo`030000003oool0oooo07P0
+oooo002?0?ooo`030000003oool0oooo01@0oooo0P00001h0?ooo`00S`3oool00`000000oooo0?oo
+o`0F0?ooo`030000003oool0oooo07D0oooo002?0?ooo`030000003oool0oooo01L0oooo0P00001e
+0?ooo`00S`3oool2000001X0oooo0P00001c0?ooo`00S`3oool00`000000oooo0?ooo`0K0?ooo`03
+0000003oool0oooo0700oooo002?0?ooo`030000003oool0oooo01`0oooo0P00001`0?ooo`00S`3o
+ool00`000000oooo0?ooo`0N0?ooo`030000003oool0oooo06d0oooo002?0?ooo`030000003oool0
+oooo01l0oooo0P00001]0?ooo`00S`3oool00`000000oooo0?ooo`0Q0?ooo`030000003oool0oooo
+06X0oooo002?0?ooo`030000003oool0oooo0280oooo0P00001Z0?ooo`00S`3oool00`000000oooo
+0?ooo`0T0?ooo`800000J03oool008l0oooo0P00000W0?ooo`030000003oool0oooo06D0oooo002?
+0?ooo`030000003oool0oooo02L0oooo0P00001U0?ooo`00S`3oool00`000000oooo0?ooo`0Y0?oo
+o`030000003oool0oooo0680oooo002?0?ooo`030000003oool0oooo02X0oooo0P00001R0?ooo`00
+S`3oool00`000000oooo0?ooo`0/0?ooo`030000003oool0oooo05l0oooo002?0?ooo`030000003o
+ool0oooo02d0oooo0P00001O0?ooo`00S`3oool00`000000oooo0?ooo`0_0?ooo`800000G@3oool0
+08l0oooo00<000000?ooo`3oool0<@3oool00`000000oooo0?ooo`1J0?ooo`00S`3oool2000003<0
+oooo0P00001J0?ooo`00S`3oool00`000000oooo0?ooo`0d0?ooo`030000003oool0oooo05L0oooo
+002?0?ooo`030000003oool0oooo03D0oooo0P00001G0?ooo`00S`3oool00`000000oooo0?ooo`0g
+0?ooo`030000003oool0oooo05@0oooo002?0?ooo`030000003oool0oooo03P0oooo0P00001D0?oo
+o`00S`3oool00`000000oooo0?ooo`0j0?ooo`800000DP3oool006l0oooo100000030?ooo`030000
+003oool0oooo00<0oooo0P0000040?ooo`8000000`3oool3000000D0oooo00<000000?ooo`3oool0
+?03oool00`000000oooo0?ooo`1?0?ooo`00L@3oool00`000000oooo0?ooo`070?ooo`040000003o
+ool0oooo00000080oooo00@000000?ooo`3oool000001@3oool00`000000oooo0?ooo`020?ooo`03
+0000003oool0oooo03d0oooo0P00001?0?ooo`00L@3oool00`000000oooo0?ooo`070?ooo`040000
+003oool0oooo00000080oooo00@000000?ooo`3oool000001@3oool00`000000oooo0?ooo`020?oo
+o`<00000?`3oool00`000000oooo0?ooo`1<0?ooo`00L@3oool00`000000oooo0?ooo`070?ooo`04
+0000003oool0oooo00000080oooo00@000000?ooo`3oool000000P3oool3000000D0oooo00<00000
+0?ooo`3oool0@03oool2000004`0oooo001a0?ooo`030000003oool0oooo00L0oooo00@000000?oo
+o`3oool000000P3oool010000000oooo0?ooo`0000020?ooo`030000003oool0oooo00D0oooo00<0
+00000?ooo`3oool0@P3oool2000004X0oooo001_0?ooo`<000002@3oool010000000oooo0?ooo`00
+00020?ooo`040000003oool0oooo00000080oooo00<000000?ooo`3oool01@3oool00`000000oooo
+0?ooo`140?ooo`800000B03oool00740oooo00<000000?ooo`3oool0203oool2000000@0oooo0P00
+00030?ooo`@00000103oool00`000000oooo0?ooo`160?ooo`800000AP3oool008l0oooo00<00000
+0?ooo`3oool0B03oool2000004@0oooo002?0?ooo`030000003oool0oooo04X0oooo00<000000?oo
+o`3oool0@@3oool008l0oooo00<000000?ooo`3oool0B`3oool200000440oooo002?0?ooo`800000
+CP3oool00`000000oooo0?ooo`0n0?ooo`00S`3oool00`000000oooo0?ooo`1>0?ooo`800000?P3o
+ool008l0oooo00<000000?ooo`3oool0D03oool2000003`0oooo002?0?ooo`030000003oool0oooo
+0580oooo00<000000?ooo`3oool0>@3oool008l0oooo00<000000?ooo`3oool0D`3oool2000003T0
+oooo002?0?ooo`030000003oool0oooo05D0oooo00<000000?ooo`3oool0=P3oool008l0oooo00<0
+00000?ooo`3oool0EP3oool2000003H0oooo002?0?ooo`030000003oool0oooo05P0oooo00<00000
+0?ooo`3oool0<`3oool008l0oooo0P00001J0?ooo`800000<`3oool008l0oooo00<000000?ooo`3o
+ool0F`3oool200000340oooo002?0?ooo`030000003oool0oooo05d0oooo00<000000?ooo`3oool0
+;P3oool008l0oooo00<000000?ooo`3oool0GP3oool2000002h0oooo002?0?ooo`030000003oool0
+oooo0600oooo00<000000?ooo`3oool0:`3oool008l0oooo00<000000?ooo`3oool0H@3oool20000
+02/0oooo002?0?ooo`030000003oool0oooo06<0oooo00<000000?ooo`3oool0:03oool008l0oooo
+00<000000?ooo`3oool0I03oool2000002P0oooo002?0?ooo`800000I`3oool2000002H0oooo002?
+0?ooo`030000003oool0oooo06P0oooo00<000000?ooo`3oool08`3oool008l0oooo00<000000?oo
+o`3oool0J@3oool2000002<0oooo002?0?ooo`030000003oool0oooo06/0oooo00<000000?ooo`3o
+ool0803oool008l0oooo00<000000?ooo`3oool0K03oool200000200oooo002?0?ooo`030000003o
+ool0oooo06h0oooo00<000000?ooo`3oool07@3oool008l0oooo00<000000?ooo`3oool0K`3oool2
+000001d0oooo002?0?ooo`030000003oool0oooo0740oooo0P00000K0?ooo`00S`3oool2000007@0
+oooo00<000000?ooo`3oool0603oool008l0oooo00<000000?ooo`3oool0M03oool2000001P0oooo
+002?0?ooo`030000003oool0oooo07H0oooo00<000000?ooo`3oool05@3oool008l0oooo00<00000
+0?ooo`3oool0M`3oool2000001D0oooo002?0?ooo`030000003oool0oooo07T0oooo0P00000C0?oo
+o`00S`3oool00`000000oooo0?ooo`1k0?ooo`8000004@3oool007D0oooo100000030?ooo`030000
+003oool0oooo00<0oooo0P0000030?ooo`@00000103oool00`000000oooo0?ooo`1m0?ooo`800000
+3`3oool007L0oooo00<000000?ooo`3oool01`3oool010000000oooo0?ooo`0000040?ooo`030000
+003oool0oooo00<0oooo00<000000?ooo`3oool0O`3oool2000000d0oooo001g0?ooo`030000003o
+ool0oooo00L0oooo00@000000?ooo`3oool00000103oool00`000000oooo0?ooo`030?ooo`<00000
+P@3oool00`000000oooo0?ooo`0:0?ooo`00M`3oool00`000000oooo0?ooo`070?ooo`040000003o
+ool0oooo000000@0oooo00<000000?ooo`3oool00`3oool00`000000oooo0?ooo`2>0?ooo`00M`3o
+ool00`000000oooo0?ooo`070?ooo`040000003oool0oooo000000@0oooo00<000000?ooo`3oool0
+0`3oool00`000000oooo0?ooo`2>0?ooo`00M@3oool3000000T0oooo00@000000?ooo`3oool00000
+0P3oool3000000D0oooo00<000000?ooo`3oool0SP3oool007L0oooo00<000000?ooo`3oool0203o
+ool2000000D0oooo00<000000?ooo`3oool00`3oool00`000000oooo0?ooo`2>0?ooo`00o`3ooolQ
+0?ooo`00o`3ooolQ0?ooo`00o`3ooolQ0?ooo`00\
+\>"],
+  ImageRangeCache->{{{0, 287}, {176.938, 0}} -> {0.989087, 0.988955, \
+7.60462*^-5, 0.000124274}}],
+
+Cell[BoxData[
+    TagBox[\(\[SkeletonIndicator]  Graphics  \[SkeletonIndicator]\),
+      False,
+      Editable->False]], "Output"]
+}, Open  ]],
+
+Cell[BoxData[""], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[""], "Input"],
+
+Cell[BoxData[
+    RowBox[{\(f[r, t, 0]\), "+", 
+      FractionBox[
+        RowBox[{"dr", " ", \(Sin[dt - t]\), " ", 
+          RowBox[{
+            SuperscriptBox["f", 
+              TagBox[\((0, 1, 0)\),
+                Derivative],
+              MultilineFunction->None], "[", \(r, t, 0\), "]"}]}], "r"], "+", 
+      
+      RowBox[{"dr", " ", \(Cos[dt - t]\), " ", 
+        RowBox[{
+          SuperscriptBox["f", 
+            TagBox[\((1, 0, 0)\),
+              Derivative],
+            MultilineFunction->None], "[", \(r, t, 0\), "]"}]}]}]], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    RowBox[{\(blob[f_, r_, t_, dr_, dt_]\), ":=", 
+      RowBox[{\(f[r, t, 0]\), "+", 
+        FractionBox[
+          RowBox[{"dr", " ", \(Sin[dt - t]\), " ", 
+            RowBox[{
+              SuperscriptBox["f", 
+                TagBox[\((0, 1, 0)\),
+                  Derivative],
+                MultilineFunction->None], "[", \(r, t, 0\), "]"}]}], "r"], 
+        "+", 
+        RowBox[{"dr", " ", \(Cos[dt - t]\), " ", 
+          RowBox[{
+            SuperscriptBox["f", 
+              TagBox[\((1, 0, 0)\),
+                Derivative],
+              MultilineFunction->None], "[", \(r, t, 0\), 
+            "]"}]}]}]}]], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(blob[r, r, t, dr, dt]\)], "Input"],
+
+Cell[BoxData[
+    \(\@\(r\^2 + t\^2\) + \(dr\ r\ Cos[dt - t]\)\/\@\(r\^2 + t\^2\) + \(dr\ t\
+\ Sin[dt - t]\)\/\(r\ \@\(r\^2 + t\^2\)\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(fblob = \@\(r\^2 + t\^2\) + \(dr\ r\ Cos[dt - t]\)\/\@\(r\^2 + t\^2\) + \
+\(dr\ t\ Sin[dt - t]\)\/\(r\ \@\(r\^2 + t\^2\)\)\)], "Input"],
+
+Cell[BoxData[
+    \(General::"spell1" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(fblob\)\" is similar to \
+existing symbol \"\!\(blob\)\"."\)], "Message"],
+
+Cell[BoxData[
+    \(\@\(r\^2 + t\^2\) + \(dr\ r\ Cos[dt - t]\)\/\@\(r\^2 + t\^2\) + \(dr\ t\
+\ Sin[dt - t]\)\/\(r\ \@\(r\^2 + t\^2\)\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(fbloby[r_, t_, dr_, 
+        dt_] := \@\(r\^2 + t\^2\) + \(dr\ r\ Cos[dt - t]\)\/\@\(r\^2 + t\^2\) \
++ \(dr\ t\ Sin[dt - t]\)\/\(r\ \@\(r\^2 + t\^2\)\)\)], "Input"],
+
+Cell[BoxData[
+    \(General::"spell1" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(fbloby\)\" is similar \
+to existing symbol \"\!\(fblob\)\"."\)], "Message"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\(\(fbloby[1, 2,  .1,  .1]\)\(\[IndentingNewLine]\)\)\)], "Input"],
+
+Cell[BoxData[
+    \(2.136970375614002`\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    \(realbloby[r_, t_, dr_, dt_] := \((r + dr)\)\)], "Input"]
+},
+FrontEndVersion->"4.0 for X",
+ScreenRectangle->{{0, 1024}, {0, 768}},
+WindowSize->{1016, 732},
+WindowMargins->{{0, Automatic}, {Automatic, 4}}
+]
+
+
+(***********************************************************************
+Cached data follows.  If you edit this Notebook file directly, not using
+Mathematica, you must remove the line containing CacheID at the top of 
+the file.  The cache data will then be recreated when you save this file 
+from within Mathematica.
+***********************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[1739, 51, 76, 1, 27, "Input"],
+Cell[1818, 54, 74, 1, 27, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[1929, 60, 81, 1, 27, "Input"],
+Cell[2013, 63, 79, 1, 27, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[2129, 69, 62, 1, 27, "Input"],
+Cell[2194, 72, 58, 1, 27, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[2289, 78, 81, 1, 27, "Input"],
+Cell[2373, 81, 79, 1, 27, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[2489, 87, 76, 1, 27, "Input"],
+Cell[2568, 90, 74, 1, 27, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[2679, 96, 62, 1, 27, "Input"],
+Cell[2744, 99, 58, 1, 27, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[2839, 105, 53, 1, 27, "Input"],
+Cell[2895, 108, 46, 1, 27, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[2978, 114, 52, 1, 27, "Input"],
+Cell[3033, 117, 46, 1, 27, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[3116, 123, 57, 1, 27, "Input"],
+Cell[3176, 126, 181, 3, 27, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[3394, 134, 63, 1, 27, "Input"],
+Cell[3460, 137, 36, 1, 27, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[3533, 143, 63, 1, 27, "Input"],
+Cell[3599, 146, 187, 3, 23, "Message"],
+Cell[3789, 151, 36, 1, 27, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[3862, 157, 63, 1, 27, "Input"],
+Cell[3928, 160, 194, 3, 23, "Message"],
+Cell[4125, 165, 36, 1, 27, "Output"]
+}, Open  ]],
+Cell[4176, 169, 65, 1, 27, "Input"],
+Cell[4244, 172, 65, 1, 27, "Input"],
+Cell[4312, 175, 58, 1, 27, "Input"],
+Cell[4373, 178, 71, 1, 27, "Input"],
+Cell[4447, 181, 70, 1, 27, "Input"],
+Cell[4520, 184, 61, 1, 27, "Input"],
+Cell[4584, 187, 318, 6, 59, "Input"],
+
+Cell[CellGroupData[{
+Cell[4927, 197, 318, 6, 59, "Input"],
+Cell[5248, 205, 189, 3, 23, "Message"],
+Cell[5440, 210, 181, 3, 23, "Message"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[5658, 218, 318, 6, 59, "Input"],
+Cell[5979, 226, 197, 3, 23, "Message"],
+Cell[6179, 231, 185, 3, 23, "Message"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[6401, 239, 318, 6, 59, "Input"],
+Cell[6722, 247, 189, 3, 23, "Message"],
+Cell[6914, 252, 181, 3, 23, "Message"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[7132, 260, 318, 6, 59, "Input"],
+Cell[7453, 268, 197, 3, 23, "Message"],
+Cell[7653, 273, 185, 3, 23, "Message"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[7875, 281, 318, 6, 59, "Input"],
+Cell[8196, 289, 207, 3, 23, "Message"],
+Cell[8406, 294, 191, 3, 23, "Message"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[8634, 302, 318, 6, 59, "Input"],
+Cell[8955, 310, 197, 3, 23, "Message"],
+Cell[9155, 315, 185, 3, 23, "Message"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[9377, 323, 318, 6, 59, "Input"],
+Cell[9698, 331, 207, 3, 23, "Message"],
+Cell[9908, 336, 191, 3, 23, "Message"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[10136, 344, 318, 6, 59, "Input"],
+Cell[10457, 352, 219, 4, 39, "Message"],
+Cell[10679, 358, 197, 3, 23, "Message"]
+}, Open  ]],
+Cell[10891, 364, 92, 1, 27, "Input"],
+Cell[10986, 367, 240, 4, 43, "Input"],
+
+Cell[CellGroupData[{
+Cell[11251, 375, 128, 3, 27, "Input"],
+Cell[11382, 380, 2156, 47, 288, "Output"]
+}, Open  ]],
+Cell[13553, 430, 2303, 48, 339, "Input"],
+
+Cell[CellGroupData[{
+Cell[15881, 482, 139, 3, 27, "Input"],
+Cell[16023, 487, 3397, 66, 523, "Output"]
+}, Open  ]],
+Cell[19435, 556, 77, 1, 27, "Input"],
+
+Cell[CellGroupData[{
+Cell[19537, 561, 153, 3, 27, "Input"],
+Cell[19693, 566, 1477, 36, 81, "Output"]
+}, Open  ]],
+Cell[21185, 605, 128, 2, 27, "Input"],
+
+Cell[CellGroupData[{
+Cell[21338, 611, 1180, 22, 191, "Input"],
+Cell[22521, 635, 3842, 87, 177, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[26400, 727, 90, 1, 27, "Input"],
+Cell[26493, 730, 4162, 91, 168, "Output"]
+}, Open  ]],
+Cell[30670, 824, 26, 0, 27, "Input"],
+
+Cell[CellGroupData[{
+Cell[30721, 828, 1885, 42, 174, "Input"],
+Cell[32609, 872, 1735, 41, 99, "Output"]
+}, Open  ]],
+Cell[34359, 916, 26, 0, 27, "Input"],
+
+Cell[CellGroupData[{
+Cell[34410, 920, 348, 7, 107, "Input"],
+Cell[34761, 929, 4531, 111, 135, "Output"],
+Cell[39295, 1042, 35, 1, 27, "Output"],
+Cell[39333, 1045, 35, 1, 27, "Output"],
+Cell[39371, 1048, 35, 1, 27, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[39443, 1054, 61, 1, 27, "Input"],
+Cell[39507, 1057, 1003, 17, 221, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[40547, 1079, 1098, 18, 245, "Input"],
+Cell[41648, 1099, 1003, 17, 221, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[42688, 1121, 85, 1, 27, "Input"],
+Cell[42776, 1124, 510, 8, 110, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[43323, 1137, 55, 1, 27, "Input"],
+Cell[43381, 1140, 510, 8, 110, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[43928, 1153, 54, 1, 27, "Input"],
+Cell[43985, 1156, 144, 2, 61, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[44166, 1163, 54, 1, 27, "Input"],
+Cell[44223, 1166, 35, 1, 27, "Output"]
+}, Open  ]],
+Cell[44273, 1170, 74, 1, 27, "Input"],
+
+Cell[CellGroupData[{
+Cell[44372, 1175, 118, 3, 27, "Input"],
+Cell[44493, 1180, 17818, 407, 186, 3033, 220, "GraphicsData", "PostScript", \
+"Graphics"],
+Cell[62314, 1589, 130, 3, 27, "Output"]
+}, Open  ]],
+Cell[62459, 1595, 26, 0, 27, "Input"],
+
+Cell[CellGroupData[{
+Cell[62510, 1599, 26, 0, 27, "Input"],
+Cell[62539, 1601, 554, 15, 46, "Output"]
+}, Open  ]],
+Cell[63108, 1619, 649, 17, 46, "Input"],
+
+Cell[CellGroupData[{
+Cell[63782, 1640, 54, 1, 27, "Input"],
+Cell[63839, 1643, 148, 2, 54, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[64024, 1650, 155, 2, 49, "Input"],
+Cell[64182, 1654, 182, 3, 23, "Message"],
+Cell[64367, 1659, 148, 2, 54, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[64552, 1666, 184, 3, 49, "Input"],
+Cell[64739, 1671, 184, 3, 23, "Message"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[64960, 1679, 86, 1, 43, "Input"],
+Cell[65049, 1682, 52, 1, 27, "Output"]
+}, Open  ]],
+Cell[65116, 1686, 76, 1, 27, "Input"]
+}
+]
+*)
+
+
+
+
+(***********************************************************************
+End of Mathematica Notebook file.
+***********************************************************************)
+

@@ -1,0 +1,990 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 5.0'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     38279,        858]*)
+(*NotebookOutlinePosition[     38923,        880]*)
+(*  CellTagsIndexPosition[     38879,        876]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell[BoxData[
+    \(\(\( (*\ Uses\ grmhd - ksksp\ *) \)\(\[IndentingNewLine]\)\( (*\ 
+      everything\ here\ is\ for\ d/dt \[Rule] \(0\ d/dphi \[Rule] 
+            0\ and\ E . B\) = 0\ *) \)\)\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(u = {uu0[x, y], uu1[x, y], uu2[x, y], 
+        uu3[x, y]}\), "\[IndentingNewLine]", 
+    \(omega1 = \(-D[A0[x, y], x]\)/D[Ap[x, y], x]\), "\[IndentingNewLine]", 
+    \(omega2 = \(-D[A0[x, y], y]\)/D[Ap[x, y], y]\), "\[IndentingNewLine]", 
+    \(FullSimplify[\((D[omega2, x]/
+            D[omega1, y])\) //. {D[A0[x, y], x] \[Rule] 
+            D[A0[x, y], y]*D[Ap[x, y], x]/D[Ap[x, y], y]}]\)}], "Input"],
+
+Cell[BoxData[
+    \({uu0[x, y], uu1[x, y], uu2[x, y], uu3[x, y]}\)], "Output"],
+
+Cell[BoxData[
+    RowBox[{"-", 
+      FractionBox[
+        RowBox[{
+          SuperscriptBox["A0", 
+            TagBox[\((1, 0)\),
+              Derivative],
+            MultilineFunction->None], "[", \(x, y\), "]"}], 
+        RowBox[{
+          SuperscriptBox["Ap", 
+            TagBox[\((1, 0)\),
+              Derivative],
+            MultilineFunction->None], "[", \(x, y\), "]"}]]}]], "Output"],
+
+Cell[BoxData[
+    RowBox[{"-", 
+      FractionBox[
+        RowBox[{
+          SuperscriptBox["A0", 
+            TagBox[\((0, 1)\),
+              Derivative],
+            MultilineFunction->None], "[", \(x, y\), "]"}], 
+        RowBox[{
+          SuperscriptBox["Ap", 
+            TagBox[\((0, 1)\),
+              Derivative],
+            MultilineFunction->None], "[", \(x, y\), "]"}]]}]], "Output"],
+
+Cell[BoxData[
+    FractionBox[
+      RowBox[{
+        SuperscriptBox["Ap", 
+          TagBox[\((1, 0)\),
+            Derivative],
+          MultilineFunction->None], "[", \(x, y\), "]"}], 
+      RowBox[{
+        SuperscriptBox["Ap", 
+          TagBox[\((0, 1)\),
+            Derivative],
+          MultilineFunction->None], "[", \(x, y\), "]"}]]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(If[coordtype \[Equal] 1, 
+      mygcon = FullSimplify[
+          gcon //. {x \[Rule] Log[r - R0], 
+              Pi*y - 1/2*\((\(-1\) + hslope)\)*Sin[2*Pi*y] \[Rule] 
+                h}]; \[IndentingNewLine]mygcov = 
+        FullSimplify[
+          gcov //. {x \[Rule] Log[r - R0], 
+              Pi*y - 1/2*\((\(-1\) + hslope)\)*Sin[2*Pi*y] \[Rule] 
+                h}];\[IndentingNewLine]]\), "\[IndentingNewLine]", 
+    \(If[coordtype \[Equal] 0, \[IndentingNewLine]mygcon = 
+        FullSimplify[gcon]; \[IndentingNewLine]mygcov = 
+        FullSimplify[gcov];\[IndentingNewLine]]\)}], "Input"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell1"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(mygcov\\)\\\" is similar to existing symbol \
+\\\"\\!\\(mygcon\\)\\\". \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell1\\\"]\\)\"\>"}]], "Message"]
+}, Open  ]],
+
+Cell[BoxData[""], "Input"],
+
+Cell[BoxData[{\(list = {t, x, y, 
+        z}\), "\[IndentingNewLine]", \(Av = {A0[t, x, y, z], Ar[t, x, y, z], 
+        Ah[t, x, y, z], Ap[t, x, y, z]}\), "\n", 
+    RowBox[{\(\(Ffulldd = 
+        Table[D[Av[\([i2]\)], list[\([i1]\)]] - 
+            D[Av[\([i1]\)], list[\([i2]\)]], {i1, 1, 4}, {i2, 1, 4}]\)\(\n\)
+      \( (*{D[A0[x, y], y] \[Rule] 
+            D[A0[x, y], x]*D[Ap[x, y], y]/D[Ap[x, y], x]}*) \)\), 
+      "\[IndentingNewLine]", \( (*\ 
+        so\ first\ we\ assume\ no\ time\ derivative\ *) \)}], "\
+\[IndentingNewLine]", 
+    RowBox[{\(Av = {A0[x, y], Ar[x, y], Ah[x, y], Ap[x, y]}\), 
+      "\[IndentingNewLine]", \( (*\ 
+        the\ replacement\ there\ assumes\ E . B = 
+          0\ *) \)}], "\[IndentingNewLine]", 
+    RowBox[{"Fdd", "=", 
+      RowBox[{\(Table[
+            D[Av[\([i2]\)], list[\([i1]\)]] - 
+              D[Av[\([i1]\)], list[\([i2]\)]], {i1, 1, 4}, {i2, 1, 
+              4}] //. {D[A0[x, y], y] -> 
+              D[A0[x, y], x]*D[Ap[x, y], y]/D[Ap[x, y], x]}\), "//.", 
+        RowBox[{"{", 
+          
+          RowBox[{\(D[A0[x, y], x] \[Rule] \(-wf2[x, y]\)*D[Ap[x, y], x]\), 
+            ",", \(D[A0[x, y], y] \[Rule] \(-wf2[x, y]\)*D[Ap[x, y], y]\), 
+            ",", 
+            RowBox[{
+              RowBox[{
+                RowBox[{"-", 
+                  RowBox[{
+                    SuperscriptBox["Ar", 
+                      TagBox[\((0, 1)\),
+                        Derivative],
+                      MultilineFunction->None], "[", \(x, y\), "]"}]}], "+", 
+                RowBox[{
+                  SuperscriptBox["Ah", 
+                    TagBox[\((1, 0)\),
+                      Derivative],
+                    MultilineFunction->None], "[", \(x, y\), "]"}]}], 
+              "\[Rule]", \(gdet*Bp[x, y]\)}], ",", 
+            RowBox[{
+              RowBox[{
+                RowBox[{
+                  SuperscriptBox["Ar", 
+                    TagBox[\((0, 1)\),
+                      Derivative],
+                    MultilineFunction->None], "[", \(x, y\), "]"}], "-", 
+                RowBox[{
+                  SuperscriptBox["Ah", 
+                    TagBox[\((1, 0)\),
+                      Derivative],
+                    MultilineFunction->None], "[", \(x, y\), "]"}]}], 
+              "\[Rule]", \(\(-gdet\)*Bp[x, y]\)}]}], 
+          "}"}]}]}], "\[IndentingNewLine]", 
+    RowBox[{"Fdd2", "=", 
+      RowBox[{\(Table[
+            D[Av[\([i2]\)], list[\([i1]\)]] - 
+              D[Av[\([i1]\)], list[\([i2]\)]], {i1, 1, 4}, {i2, 1, 
+              4}] //. {D[A0[x, y], y] -> 
+              D[A0[x, y], x]*D[Ap[x, y], y]/D[Ap[x, y], x]}\), "//.", 
+        RowBox[{"{", 
+          
+          RowBox[{\(D[A0[x, y], x] \[Rule] \(-wf2[x, y]\)*D[Ap[x, y], x]\), 
+            ",", \(D[A0[x, y], y] \[Rule] \(-wf2[x, y]\)*D[Ap[x, y], y]\), 
+            ",", 
+            RowBox[{
+              RowBox[{
+                RowBox[{"-", 
+                  RowBox[{
+                    SuperscriptBox["Ar", 
+                      TagBox[\((0, 1)\),
+                        Derivative],
+                      MultilineFunction->None], "[", \(x, y\), "]"}]}], "+", 
+                RowBox[{
+                  SuperscriptBox["Ah", 
+                    TagBox[\((1, 0)\),
+                      Derivative],
+                    MultilineFunction->None], "[", \(x, y\), "]"}]}], 
+              "\[Rule]", \(Bp[x, y]\)}], ",", 
+            RowBox[{
+              RowBox[{
+                RowBox[{
+                  SuperscriptBox["Ar", 
+                    TagBox[\((0, 1)\),
+                      Derivative],
+                    MultilineFunction->None], "[", \(x, y\), "]"}], "-", 
+                RowBox[{
+                  SuperscriptBox["Ah", 
+                    TagBox[\((1, 0)\),
+                      Derivative],
+                    MultilineFunction->None], "[", \(x, y\), "]"}]}], 
+              "\[Rule]", \(-Bp[x, y]\)}]}], "}"}]}]}], "\[IndentingNewLine]", 
+  
+    RowBox[{\(Fdd3 = 
+        Fdd //. {D[Ap[x, y], x] \[Rule] \(-gdet\)*B2[x, y], 
+            D[Ap[x, y], y] \[Rule] gdet*B1[x, y], 
+            wf2[x, y] \[Rule] wf2[x, y], Bp[x, y] \[Rule] B3[x, y]}\), 
+      "\[IndentingNewLine]", \( (*Fdd = 
+          Table[D[Av[\([i2]\)], list[\([i1]\)]] - 
+              D[Av[\([i1]\)], list[\([i2]\)]], {i1, 1, 4}, {i2, 1, 
+              4}]*) \)}], "\[IndentingNewLine]", 
+    RowBox[{\(\(MatrixForm[Fdd]\)\(\[IndentingNewLine]\)\( (*\ 
+        assumes\ axi - symmetry\ and\ steady - 
+          state\ *) \)\(\[IndentingNewLine]\)
+      \( (*\[IndentingNewLine]Fdd = {{0, fdd01, fdd02, 0}, {\(-fdd01\), 0, 
+                fdd12, fdd13}, {\(-fdd02\), \(-fdd12\), 0, 
+                fdd23}, {0, \(-fdd13\), \(-fdd23\), 
+                0}}\[IndentingNewLine]MatrixForm[
+              Fdd]\[IndentingNewLine]*) \)\), 
+      "\[IndentingNewLine]", \( (*Fodd = {{0, \(-ex\), \(-ey\), \(-ez\)}, \
+{ex, 0, bz, \(-by\)}, {ey, \(-bz\), 0, bx}, {ez, by, \(-bx\), 
+              0}}*) \)}], "\[IndentingNewLine]", \(Fodd = {{0, \(-ex\), \(-ey\
+\), 0}, {ex, 0, bz, \(-by\)}, {ey, \(-bz\), 0, bx}, {0, by, \(-bx\), 
+            0}} //. {ey \[Rule] \(-bx\)*
+              ex/by}\), "\[IndentingNewLine]", \(MatrixForm[
+      Fodd]\), "\[IndentingNewLine]", \(ucon = {uu0[x, y], uu1[x, y], 
+          uu2[x, y], uu3[x, y]};\), "\[IndentingNewLine]", 
+    RowBox[{\(bcon = {bu0[x, y], bu1[x, y], bu2[x, y], bu3[x, y]};\), 
+      "\[IndentingNewLine]", \( (*\ HARM\ is\ already\ E . B = 0, \ 
+        just\ need\ time\ derivative\ 0\ replacement\ *) \)}], "\
+\[IndentingNewLine]", \(replacelist = {bu3[x, 
+                y]\ \((uu0[x, y] + uu1[x, y])\) - \((bu0[x, y] + 
+                  bu1[x, y])\)\ uu3[x, y] \[Rule] 
+          B3[x, y] - wf2[x, y]*B1[x, y], 
+        bu3[x, y]*uu1[x, y] - bu1[x, y]*uu3[x, y] \[Rule] \(-wf2[x, y]\)*
+            B1[x, y], \(-bu3[x, y]\)*uu1[x, y] + bu1[x, y]*uu3[x, y] \[Rule] 
+          wf2[x, y]*B1[x, y], 
+        bu1[x, y]*uu0[x, y] - bu0[x, y]*uu1[x, y] \[Rule] 
+          B1[x, y], \(-bu1[x, y]\)*uu0[x, y] + 
+            bu0[x, y]*uu1[x, y] \[Rule] \(-B1[x, y]\), 
+        bu3[x, y]*uu0[x, y] - bu0[x, y]*uu3[x, y] \[Rule] 
+          B3[x, y], \(-bu3[x, y]\)*uu0[x, y] + 
+            bu0[x, y]*uu3[x, y] \[Rule] \(-B3[x, y]\), 
+        bu2[x, y]*uu0[x, y] - bu0[x, y]*uu2[x, y] \[Rule] 
+          B2[x, y], \(-bu2[x, y]\)*uu0[x, y] + 
+            bu0[x, y]*uu2[x, y] \[Rule] \(-B2[x, 
+              y]\), \(-bu3[x, y]\)\ uu2[x, y] + bu2[x, y]\ uu3[x, y] \[Rule] 
+          E1[x, y], 
+        bu3[x, y]\ uu2[x, y] - bu2[x, y]\ uu3[x, y] \[Rule] \(-E1[x, y]\), 
+        bu2[x, y]*uu1[x, y] - 
+            bu1[x, y]*uu2[x, y] \[Rule] \(-E3[x, y]\), \(-bu2[x, y]\)*
+              uu1[x, y] + bu1[x, y]*uu2[x, y] \[Rule] 
+          E3[x, y], \(-bu3[x, y]\)*uu1[x, y] + bu1[x, y]*uu3[x, y] \[Rule] 
+          E2[x, y], 
+        bu3[x, y]*uu1[x, y] - 
+            bu1[x, y]*uu3[x, y] \[Rule] \(-E2[x, 
+              y]\)}\), "\[IndentingNewLine]", \(replacelistnowf = {bu1[x, y]*
+              uu0[x, y] - bu0[x, y]*uu1[x, y] \[Rule] 
+          B1[x, y], \(-bu1[x, y]\)*uu0[x, y] + 
+            bu0[x, y]*uu1[x, y] \[Rule] \(-B1[x, y]\), 
+        bu3[x, y]*uu0[x, y] - bu0[x, y]*uu3[x, y] \[Rule] 
+          B3[x, y], \(-bu3[x, y]\)*uu0[x, y] + 
+            bu0[x, y]*uu3[x, y] \[Rule] \(-B3[x, y]\), 
+        bu2[x, y]*uu0[x, y] - bu0[x, y]*uu2[x, y] \[Rule] 
+          B2[x, y], \(-bu2[x, y]\)*uu0[x, y] + 
+            bu0[x, y]*uu2[x, y] \[Rule] \(-B2[x, 
+              y]\), \(-bu3[x, y]\)\ uu2[x, y] + bu2[x, y]\ uu3[x, y] \[Rule] 
+          E1[x, y], 
+        bu3[x, y]\ uu2[x, y] - bu2[x, y]\ uu3[x, y] \[Rule] \(-E1[x, y]\), 
+        bu2[x, y]*uu1[x, y] - 
+            bu1[x, y]*uu2[x, y] \[Rule] \(-E3[x, y]\), \(-bu2[x, y]\)*
+              uu1[x, y] + bu1[x, y]*uu2[x, y] \[Rule] 
+          E3[x, y], \(-bu3[x, y]\)*uu1[x, y] + bu1[x, y]*uu3[x, y] \[Rule] 
+          E2[x, y], 
+        bu3[x, y]*uu1[x, y] - 
+            bu1[x, y]*uu3[x, y] \[Rule] \(-E2[x, 
+              y]\)}\), "\[IndentingNewLine]", \(Fgdd = 
+        FullSimplify[
+            Table[Sum[
+                  gdet*Signature[{m, n, k, l}]*ucon[\([k]\)]*
+                    bcon[\([l]\)], {k, 1, 4}, {l, 1, 4}], {m, 1, 4}, {n, 1, 
+                  4}] //. {bu2[x, y] \[Rule] 
+                  bu1[x, y]*uu2[x, y]/uu1[x, y]}, {sigma > 0}] //. 
+          replacelist;\), "\[IndentingNewLine]", \(Ffullgdd = 
+        FullSimplify[
+            Table[Sum[
+                gdet*Signature[{m, n, k, l}]*ucon[\([k]\)]*bcon[\([l]\)], {k, 
+                  1, 4}, {l, 1, 4}], {m, 1, 4}, {n, 1, 4}], {sigma > 0}] //. 
+          replacelistnowf;\), "\[IndentingNewLine]", \(MatrixForm[
+      Fgdd]\), "\[IndentingNewLine]", \(MatrixForm[
+      Ffullgdd]\), "\[IndentingNewLine]", 
+    RowBox[{\(etad = {\(-alpha\), 0, 0, 0};\), 
+      "\[IndentingNewLine]", \( (*\(etau = 
+            FullSimplify[
+              Table[Sum[
+                  mygcon[\([aa, aaa]\)]*etad[\([aaa]\)], {aaa, 1, 4}], {aa, 
+                  1, 4}]];\)*) \)}], "\[IndentingNewLine]", \(etau = 
+        1/alpha*{1, betau1, betau2, 
+            betau3};\), "\[IndentingNewLine]", \(Eu = {eu0, eu1, eu2, 
+            eu3} //. {eu0 \[Rule] 0};\), "\[IndentingNewLine]", 
+    RowBox[{\(Ed = {ed0, ed1, ed2, ed3};\), 
+      "\[IndentingNewLine]", \( (*\(Ed = 
+            FullSimplify[
+              Table[Sum[
+                  mygcov[\([aa, aaa]\)]*Eu[\([aaa]\)], {aaa, 1, 4}], {aa, 1, 
+                  4}]];\)*) \)}], "\[IndentingNewLine]", 
+    RowBox[{\(Bu = {bu0, bu1, bu2, bu3} //. {bu0 \[Rule] 0};\), 
+      "\[IndentingNewLine]", \( (*\(Bd = {bd0, bd1, bd2, 
+              bd3};\)*) \)}], "\[IndentingNewLine]", \(Bd = 
+        FullSimplify[
+          Table[Sum[mygcov[\([aa, aaa]\)]*Bu[\([aaa]\)], {aaa, 1, 4}], {aa, 
+              1, 4}]];\), "\[IndentingNewLine]", \(Fiandd = 
+        Table[etad[\([aa]\)]*Ed[\([bb]\)] - etad[\([bb]\)]*Ed[\([aa]\)] + 
+            Sum[etau[\([dd]\)]*Bu[\([cc]\)]*gdet*
+                Signature[{aa, bb, cc, dd}], {dd, 1, 4}, {cc, 1, 4}], {aa, 1, 
+            4}, {bb, 1, 4}];\), "\[IndentingNewLine]", \(Fianuu = 
+        Table[etau[\([aa]\)]*Eu[\([bb]\)] - etau[\([bb]\)]*Eu[\([aa]\)] + 
+            Sum[etad[\([dd]\)]*Bd[\([cc]\)]*\((\(-1\)/gdet)\)*
+                Signature[{aa, bb, cc, dd}], {dd, 1, 4}, {cc, 1, 4}], {aa, 1, 
+            4}, {bb, 1, 4}];\), "\[IndentingNewLine]", \(dualFianuu = 
+        Table[etau[\([aa]\)]*Bu[\([bb]\)] - etau[\([bb]\)]*Bu[\([aa]\)] - 
+            Sum[etad[\([dd]\)]*Ed[\([cc]\)]*\((\(-1\)/gdet)\)*
+                Signature[{aa, bb, cc, dd}], {dd, 1, 4}, {cc, 1, 4}], {aa, 1, 
+            4}, {bb, 1, 4}];\), "\[IndentingNewLine]", \(dualFiandd = 
+        Table[etad[\([aa]\)]*Bd[\([bb]\)] - etad[\([bb]\)]*Bu[\([aa]\)] - 
+            Sum[etau[\([dd]\)]*Eu[\([cc]\)]*\((gdet)\)*
+                Signature[{aa, bb, cc, dd}], {dd, 1, 4}, {cc, 1, 4}], {aa, 1, 
+            4}, {bb, 1, 4}];\), "\[IndentingNewLine]", 
+    RowBox[{\( (*\[IndentingNewLine]AA = gcov[\([1, 1]\)]; \n
+        BB = 2*Sum[mygcov[\([1, i]\)]*u[\([i]\)], {i, 2, 4}]; \n
+        CC = 1 + 
+            Sum[mygcov[\([i, j]\)]*u[\([i]\)]*u[\([j]\)], {i, 2, 4}, {j, 2, 
+                4}]; \ndisc = \((BB)\)^2 - 4*AA*CC; \n
+        myutp = \((\(-BB\) + Sqrt[disc])\)/\((2*
+                AA)\); \[IndentingNewLine]Bcon3 = {0, B1, B2, 
+            B3}; \[IndentingNewLine]fsb = 
+          FullSimplify[
+            Table[bcon[\([i]\)] \[Equal] \((Bcon3[\([i]\)] + 
+                      Sum[Bcon3[\([j]\)]*ucon[\([k]\)]*
+                            mygcov[\([j, k]\)], {j, 2, 4}, {k, 2, 4}]*
+                        ucon[\([i]\)])\)/myutp, {i, 2, 
+                4}]]; \[IndentingNewLine]ureplace = 
+          FullSimplify[
+            Solve[fsb, {uu1, uu2, uu3}], {sigma > 
+                0}]; \[IndentingNewLine]superreplace = 
+          FullSimplify[ureplace[\([1]\)]]; \[IndentingNewLine]Fcov = 
+          Fgdd //. superreplace\[IndentingNewLine]*) \), 
+      "\[IndentingNewLine]", \( (*\(Fcov = 
+            Fdd3;\)*) \)}], "\[IndentingNewLine]", \(Fcov = 
+      Fgdd\), "\[IndentingNewLine]", \(Fcov = 
+        FullSimplify[Fcov];\), "\[IndentingNewLine]", \(Fcon = 
+        Table[Sum[
+            Fcov[\([k, l]\)]\ mygcon[\([i, k]\)]\ mygcon[\([j, l]\)], {k, 
+              4}, {l, 4}], {i, 4}, {j, 4}];\), "\n", \(dualFcov = 
+        Table[1/2*gdet*
+            Sum[Signature[{i, j, k, l}]*Fcon[\([k, l]\)], {k, 1, 4}, {l, 1, 
+                4}], {i, 1, 4}, {j, 1, 
+            4}];\), "\[IndentingNewLine]", \(dualFcon = 
+        Table[1/2*\((\(-1\)/gdet)\)*
+            Sum[Signature[{i, j, k, l}]*Fcov[\([k, l]\)], {k, 1, 4}, {l, 1, 
+                4}], {i, 1, 4}, {j, 1, 4}];\), "\[IndentingNewLine]", 
+    RowBox[{\(god = 
+          Sum[dualFcov[\([i, j]\)]*Fcon[\([i, j]\)], {i, 1, 4}, {j, 1, 4}];\),
+       "\[IndentingNewLine]", \( (*\(Print["\<E.B = \>", \ 
+            god];\)*) \)}], "\[IndentingNewLine]", \(nFodd = 
+        Fodd //. {ex \[Rule] D[A0[x, y], x], bx \[Rule] D[Ap[x, y], y], 
+            by \[Rule] \(-D[Ap[x, y], x]\), 
+            bz \[Rule] \(-D[Ar[x, y], y]\) + 
+                D[Ah[x, y], x]};\), "\[IndentingNewLine]", 
+    RowBox[{\(\(nFodd - 
+        Fdd\)\(\[IndentingNewLine]\)\( (*zero1 = 
+          FullSimplify[
+            Table[0 == Sum[Fcov[\([i, j]\)]*u[\([j]\)], {j, 1, 4}], {i, 1, 
+                4}]]*) \)\), 
+      "\[IndentingNewLine]", \( (*\ 
+        let' s\ check\ to\ see\ whether\ we\ are\ violating\ the\ speed\ of\ \
+light\ *) \)}], "\[IndentingNewLine]", \(solcheck = 
+        Sum[Fcov[\([i, j]\)]*Fcon[\([i, j]\)], {i, 1, 4}, {j, 1, 
+            4}];\), "\[IndentingNewLine]", "Null"}], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\(Temuu = 
+        Table[Sum[
+              mygcon[\([mu, mup]\)]*mygcon[\([alpha, alphap]\)]*
+                mygcon[\([nu, nup]\)]*Fcov[\([mup, alphap]\)]*
+                Fcov[\([nup, alpha]\)], {mup, 1, 4}, {alphap, 1, 4}, {nup, 1, 
+                4}, {alpha, 1, 4}] - 
+            1/4*mygcon[\([mu, nu]\)]*
+              Sum[Fcov[\([alpha, beta]\)]^2*mygcon[\([alpha, alphap]\)]*
+                  mygcon[\([beta, betap]\)], {alphap, 1, 4}, {betap, 1, 
+                  4}, {alpha, 1, 4}, {beta, 1, 4}], {mu, 1, 4}, {nu, 1, 
+            4}];\)\)], "Input"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell1"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(alphap\\)\\\" is similar to existing symbol \
+\\\"\\!\\(alpha\\)\\\". \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell1\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell1"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(beta\\)\\\" is similar to existing symbol \\\
+\"\\!\\(Beta\\)\\\". \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell1\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell1"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(betap\\)\\\" is similar to existing symbol \
+\\\"\\!\\(beta\\)\\\". \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell1\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(General::"stop"\), \(\(:\)\(\ \)\), "\<\"Further output of \
+\\!\\(General :: \\\"spell1\\\"\\) will be suppressed during this \
+calculation. \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::stop\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(Part::"partd"\), \(\(:\)\(\ \)\), "\<\"Part specification \
+\\!\\(Fcov \[LeftDoubleBracket] \\(\\(1, 1\\)\\) \[RightDoubleBracket]\\) is \
+longer than depth of object. \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::partd\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(Part::"partd"\), \(\(:\)\(\ \)\), "\<\"Part specification \
+\\!\\(Fcov \[LeftDoubleBracket] \\(\\(1, 1\\)\\) \[RightDoubleBracket]\\) is \
+longer than depth of object. \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::partd\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(Part::"partd"\), \(\(:\)\(\ \)\), "\<\"Part specification \
+\\!\\(Fcov \[LeftDoubleBracket] \\(\\(1, 1\\)\\) \[RightDoubleBracket]\\) is \
+longer than depth of object. \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::partd\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(General::"stop"\), \(\(:\)\(\ \)\), "\<\"Further output of \
+\\!\\(Part :: \\\"partd\\\"\\) will be suppressed during this calculation. \
+\\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", ButtonStyle->\\\"RefGuideLinkText\
+\\\", ButtonFrame->None, ButtonData:>\\\"General::stop\\\"]\\)\"\>"}]], \
+"Message"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Simplify[
+      Table[Temuu[\([i, j]\)] - Temuu[\([j, i]\)], {i, 1, 4}, {j, 1, 
+          4}], {sigma > 0}]\)], "Input"],
+
+Cell[BoxData[
+    \({{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\(Temdd = 
+        Table[Sum[
+              mygcon[\([beta, alpha]\)]*Fcov[\([mu, alpha]\)]*
+                Fcov[\([nu, alpha]\)], {beta, 1, 4}, {alpha, 1, 4}] - 
+            1/4*mygcov[\([mu, nu]\)]*
+              Sum[mygcon[\([alpha, gamma]\)]*mygcon[\([beta, delta]\)]*
+                  Fcov[\([alpha, beta]\)]*Fcov[\([gamma, delta]\)], {alpha, 
+                  1, 4}, {gamma, 1, 4}, {beta, 1, 4}, {delta, 1, 4}], {mu, 1, 
+            4}, {nu, 1, 4}];\)\)], "Input"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell1"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(gamma\\)\\\" is similar to existing symbol \
+\\\"\\!\\(Gamma\\)\\\". \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell1\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(Part::"partd"\), \(\(:\)\(\ \)\), "\<\"Part specification \
+\\!\\(Fcov \[LeftDoubleBracket] \\(\\(1, 1\\)\\) \[RightDoubleBracket]\\) is \
+longer than depth of object. \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::partd\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(Part::"partd"\), \(\(:\)\(\ \)\), "\<\"Part specification \
+\\!\\(Fcov \[LeftDoubleBracket] \\(\\(1, 1\\)\\) \[RightDoubleBracket]\\) is \
+longer than depth of object. \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::partd\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(Part::"partd"\), \(\(:\)\(\ \)\), "\<\"Part specification \
+\\!\\(Fcov \[LeftDoubleBracket] \\(\\(1, 2\\)\\) \[RightDoubleBracket]\\) is \
+longer than depth of object. \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::partd\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(General::"stop"\), \(\(:\)\(\ \)\), "\<\"Further output of \
+\\!\\(Part :: \\\"partd\\\"\\) will be suppressed during this calculation. \
+\\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", ButtonStyle->\\\"RefGuideLinkText\
+\\\", ButtonFrame->None, ButtonData:>\\\"General::stop\\\"]\\)\"\>"}]], \
+"Message"]
+}, Open  ]],
+
+Cell[BoxData[""], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Table[
+      Temdd[\([i, j]\)] - Temdd[\([j, i]\)], {i, 1, 4}, {j, 1, 4}]\)], "Input"],
+
+Cell[BoxData[
+    \({{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{"Temud", "=", 
+        RowBox[{"Table", "[", 
+          RowBox[{
+            
+            RowBox[{\(Sum[
+                mygcon[\([mup, mu]\)]*mygcon[\([alpha, alphap]\)]*
+                  Fcov[\([mup, alphap]\)]*Fcov[\([nu, alpha]\)], {mup, 1, 
+                  4}, {alphap, 1, 4}, {alpha, 1, 4}]\), "-", 
+              RowBox[{\(1/4\), "*", 
+                StyleBox[\(KroneckerDelta[mu, nu]\),
+                  "MR"], 
+                StyleBox["*",
+                  "MR"], 
+                
+                StyleBox[\(Sum[
+                    Fcov[\([alpha, beta]\)]*mygcon[\([alpha, alphap]\)]*
+                      mygcon[\([beta, betap]\)]*
+                      Fcov[\([alphap, betap]\)], {alpha, 1, 4}, {beta, 1, 
+                      4}, {alphap, 1, 4}, {betap, 1, 4}]\),
+                  "MR"]}]}], ",", \({mu, 1, 4}\), ",", \({nu, 1, 4}\)}], 
+          "]"}]}], ";"}]], "Input"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(Temud\\)\\\" is similar to existing symbols \
+\\!\\({Temdd, Temuu}\\). \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(Part::"partd"\), \(\(:\)\(\ \)\), "\<\"Part specification \
+\\!\\(Fcov \[LeftDoubleBracket] \\(\\(1, 1\\)\\) \[RightDoubleBracket]\\) is \
+longer than depth of object. \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::partd\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(Part::"partd"\), \(\(:\)\(\ \)\), "\<\"Part specification \
+\\!\\(Fcov \[LeftDoubleBracket] \\(\\(1, 1\\)\\) \[RightDoubleBracket]\\) is \
+longer than depth of object. \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::partd\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(Part::"partd"\), \(\(:\)\(\ \)\), "\<\"Part specification \
+\\!\\(Fcov \[LeftDoubleBracket] \\(\\(1, 1\\)\\) \[RightDoubleBracket]\\) is \
+longer than depth of object. \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::partd\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(General::"stop"\), \(\(:\)\(\ \)\), "\<\"Further output of \
+\\!\\(Part :: \\\"partd\\\"\\) will be suppressed during this calculation. \
+\\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", ButtonStyle->\\\"RefGuideLinkText\
+\\\", ButtonFrame->None, ButtonData:>\\\"General::stop\\\"]\\)\"\>"}]], \
+"Message"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(efluxr = \(-FullSimplify[Temud[\([2, 1]\)], {sigma > 0}]\)\)], "Input"],
+
+Cell[BoxData[
+    \(\(-\(\(1\/\(2\ \((x\^2 + a\^2\ Cos[y]\^2)\)\^2\)\)\((Fcov\
+\[LeftDoubleBracket]1, 
+              1\[RightDoubleBracket]\ \((\((\(-a\^4\) - 2\ x\^4 - 
+                      a\^2\ x\ \((2\ M + 3\ x)\) - 
+                      a\^2\ \((a\^2 + x\ \((\(-2\)\ M + x)\))\)\ Cos[
+                          2\ y])\)\ Fcov\[LeftDoubleBracket]2, 
+                    1\[RightDoubleBracket] - 
+                4\ a\ M\ x\ Fcov\[LeftDoubleBracket]2, 
+                    4\[RightDoubleBracket])\) + 
+          2\ \((\((a\^2 - 2\ M\ x + 
+                      x\^2)\)\ \((\((a\^2 - 2\ M\ x + 
+                            x\^2)\)\ Fcov\[LeftDoubleBracket]1, 
+                          2\[RightDoubleBracket]\ Fcov\[LeftDoubleBracket]2, 
+                          2\[RightDoubleBracket] + 
+                      Fcov\[LeftDoubleBracket]1, 
+                          3\[RightDoubleBracket]\ Fcov\[LeftDoubleBracket]2, 
+                          3\[RightDoubleBracket])\) + 
+                Fcov\[LeftDoubleBracket]1, 
+                    4\[RightDoubleBracket]\ \((\((a\^2 - 2\ M\ x + 
+                            x\^2)\)\ Csc[y]\^2\ Fcov\[LeftDoubleBracket]2, 
+                          4\[RightDoubleBracket] - 
+                      a\ \((2\ M\ x\ Fcov\[LeftDoubleBracket]2, 
+                                1\[RightDoubleBracket] + 
+                            a\ Fcov\[LeftDoubleBracket]2, 
+                                4\[RightDoubleBracket])\))\))\))\)\)\)\)], \
+"Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(efluxh = \(-FullSimplify[Temud[\([3, 1]\)], {sigma > 0}]\)\)], "Input"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell1"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(efluxh\\)\\\" is similar to existing symbol \
+\\\"\\!\\(efluxr\\)\\\". \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell1\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    \(\(-\(\(Fcov\[LeftDoubleBracket]1, 
+                3\[RightDoubleBracket]\ Fcov\[LeftDoubleBracket]3, 
+                3\[RightDoubleBracket] + \(Fcov\[LeftDoubleBracket]1, 1\
+\[RightDoubleBracket]\ \((\((\(-a\^4\) - 2\ x\^4 - a\^2\ x\ \((2\ M + 3\ x)\) \
+- a\^2\ \((a\^2 + x\ \((\(-2\)\ M + x)\))\)\ Cos[2\ y])\)\ Fcov\
+\[LeftDoubleBracket]3, 1\[RightDoubleBracket] - 4\ a\ M\ x\ Fcov\
+\[LeftDoubleBracket]3, 4\[RightDoubleBracket])\) + 2\ \((\((a\^2 - 2\ M\ x + \
+x\^2)\)\^2\ Fcov\[LeftDoubleBracket]1, 2\[RightDoubleBracket]\ Fcov\
+\[LeftDoubleBracket]3, 2\[RightDoubleBracket] + Fcov\[LeftDoubleBracket]1, 4\
+\[RightDoubleBracket]\ \((\((a\^2 - 2\ M\ x + x\^2)\)\ Csc[y]\^2\ Fcov\
+\[LeftDoubleBracket]3, 4\[RightDoubleBracket] - a\ \((2\ M\ x\ Fcov\
+\[LeftDoubleBracket]3, 1\[RightDoubleBracket] + a\ Fcov\[LeftDoubleBracket]3, \
+4\[RightDoubleBracket])\))\))\)\)\/\(2\ \((a\^2 + x\ \((\(-2\)\ M + x)\))\)\)\
+\)\/\((x\^2 + a\^2\ Cos[y]\^2)\)\^2\)\)\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    RowBox[{"(*", 
+      RowBox[{"efluxr", "=", 
+        RowBox[{
+          RowBox[{\(FullSimplify[Temud[\([2, 1]\)]]\), "//.", 
+            RowBox[{"{", 
+              RowBox[{
+                RowBox[{
+                  RowBox[{"-", 
+                    RowBox[{
+                      SuperscriptBox["Ar", 
+                        TagBox[\((0, 1)\),
+                          Derivative],
+                        MultilineFunction->None], "[", \(x, y\), "]"}]}], "+",
+                   
+                  RowBox[{
+                    SuperscriptBox["Ah", 
+                      TagBox[\((1, 0)\),
+                        Derivative],
+                      MultilineFunction->None], "[", \(x, y\), "]"}]}], 
+                "\[Rule]", "Bp"}], "}"}]}], 
+          "//.", \({D[A0[x, y], y] \[Rule] \(-w\)*D[Ap[x, y], y]}\)}]}], 
+      "*)"}]], "Input"],
+
+Cell[BoxData[
+    \(\(einf = \(-Temud[\([1, 1]\)]\);\)\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(FortranForm[efluxr]\)], "Input"],
+
+Cell["\<\
+        -(Part(Fcov,1,1)*((-a**4 - 2*x**4 - a**2*x*(2*M + 3*x) - \
+a**2*(a**2 + x*(-2*M + x))*Cos(2*y))*Part(Fcov,2,1) - 4*a*M*x*Part(Fcov,2,4)) \
++ 
+     -     2*((a**2 - 2*M*x + x**2)*((a**2 - 2*M*x + \
+x**2)*Part(Fcov,1,2)*Part(Fcov,2,2) + Part(Fcov,1,3)*Part(Fcov,2,3)) + 
+     -        Part(Fcov,1,4)*((a**2 - 2*M*x + x**2)*Csc(y)**2*Part(Fcov,2,4) \
+- a*(2*M*x*Part(Fcov,2,1) + a*Part(Fcov,2,4)))))/(2.*(x**2 + \
+a**2*Cos(y)**2)**2)\
+\>", "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(omegaf1 = Fcov[\([1, 2]\)]/Fcov[\([2, 4]\)]\), "\[IndentingNewLine]", 
+    \(omegaf2 = Fcov[\([1, 3]\)]/Fcov[\([3, 4]\)]\)}], "Input"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell1"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(omegaf1\\)\\\" is similar to existing symbol \
+\\\"\\!\\(omega1\\)\\\". \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell1\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(Part::"partd"\), \(\(:\)\(\ \)\), "\<\"Part specification \
+\\!\\(Fcov \[LeftDoubleBracket] \\(\\(1, 2\\)\\) \[RightDoubleBracket]\\) is \
+longer than depth of object. \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::partd\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(Part::"partd"\), \(\(:\)\(\ \)\), "\<\"Part specification \
+\\!\\(Fcov \[LeftDoubleBracket] \\(\\(2, 4\\)\\) \[RightDoubleBracket]\\) is \
+longer than depth of object. \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::partd\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    \(Fcov\[LeftDoubleBracket]1, 2\[RightDoubleBracket]\/Fcov\
+\[LeftDoubleBracket]2, 4\[RightDoubleBracket]\)], "Output"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell1"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(omegaf2\\)\\\" is similar to existing symbol \
+\\\"\\!\\(omega2\\)\\\". \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell1\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(Part::"partd"\), \(\(:\)\(\ \)\), "\<\"Part specification \
+\\!\\(Fcov \[LeftDoubleBracket] \\(\\(1, 3\\)\\) \[RightDoubleBracket]\\) is \
+longer than depth of object. \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::partd\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(Part::"partd"\), \(\(:\)\(\ \)\), "\<\"Part specification \
+\\!\\(Fcov \[LeftDoubleBracket] \\(\\(3, 4\\)\\) \[RightDoubleBracket]\\) is \
+longer than depth of object. \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::partd\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    \(Fcov\[LeftDoubleBracket]1, 3\[RightDoubleBracket]\/Fcov\
+\[LeftDoubleBracket]3, 4\[RightDoubleBracket]\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[""], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(\(Jcon = 
+        Table[1/gdet*Sum[MyD[gdet*Fcon[\([mu, nu]\)], nu], {nu, 1, 4}], {mu, 
+            1, 4}];\)\), "\[IndentingNewLine]", 
+    \(\(Jcov = 
+        Table[Sum[gcov[\([aa, mu]\)]*Jcon[\([mu]\)], {mu, 1, 4}], {aa, 1, 
+            4}];\)\)}], "Input"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(Fcon\\)\\\" is similar to existing symbols \
+\\!\\({Fcov, Jcon}\\). \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(Part::"partd"\), \(\(:\)\(\ \)\), "\<\"Part specification \
+\\!\\(Fcon \[LeftDoubleBracket] \\(\\(1, 1\\)\\) \[RightDoubleBracket]\\) is \
+longer than depth of object. \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::partd\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(Part::"partd"\), \(\(:\)\(\ \)\), "\<\"Part specification \
+\\!\\(Fcon \[LeftDoubleBracket] \\(\\(1, 2\\)\\) \[RightDoubleBracket]\\) is \
+longer than depth of object. \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::partd\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(Part::"partd"\), \(\(:\)\(\ \)\), "\<\"Part specification \
+\\!\\(Fcon \[LeftDoubleBracket] \\(\\(1, 3\\)\\) \[RightDoubleBracket]\\) is \
+longer than depth of object. \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::partd\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(General::"stop"\), \(\(:\)\(\ \)\), "\<\"Further output of \
+\\!\\(Part :: \\\"partd\\\"\\) will be suppressed during this calculation. \
+\\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", ButtonStyle->\\\"RefGuideLinkText\
+\\\", ButtonFrame->None, ButtonData:>\\\"General::stop\\\"]\\)\"\>"}]], \
+"Message"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(Jcov\\)\\\" is similar to existing symbols \
+\\!\\({Fcov, Jcon}\\). \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell\\\"]\\)\"\>"}]], "Message"]
+}, Open  ]],
+
+Cell[BoxData[
+    \(\(\( (*Jcon = \(Simplify[
+          Table[1/gdet*
+              Sum[MyD[gdet*Fcon[\([mu, nu]\)], nu], {nu, 1, 4}], {mu, 1, 
+              4}], {x > 0, 0 \[LessEqual] y \[LessEqual] Pi, M > 0, 
+            Im[a] \[Equal] 0}]\[IndentingNewLine]
+        Jcov = \(Simplify[
+            Table[Sum[gcov[\([aa, mu]\)]*Jcon[\([mu]\)], {mu, 1, 4}], {aa, 1, 
+                4}], {x > 0, 0 \[LessEqual] y \[LessEqual] Pi, M > 0, 
+              Im[a] \[Equal] 0}]\[IndentingNewLine]
+          
+          FJ = \(Simplify[
+              Table[Sum[
+                  Fcov[\([mu, alpha]\)]*Jcon[\([alpha]\)], {alpha, 1, 
+                    4}], {mu, 1, 4}], {x > 0, 
+                0 \[LessEqual] y \[LessEqual] Pi, M > 0, 
+                Im[a] \[Equal] 0}]\[IndentingNewLine]
+            
+            dT = Simplify[
+                Table[Sum[MyD[Temud[\([nu, mu]\)], nu], {nu, 1, 4}], {mu, 1, 
+                    4}], {x > 0, 0 \[LessEqual] y \[LessEqual] Pi, M > 0, 
+                  Im[a] \[Equal] 
+                    0}]\)\)\)\[IndentingNewLine]*) \)\(\[IndentingNewLine]\)\)\
+\)], "Input"]
+},
+FrontEndVersion->"5.0 for Microsoft Windows",
+ScreenRectangle->{{0, 1400}, {0, 967}},
+WindowSize->{1392, 933},
+WindowMargins->{{0, Automatic}, {Automatic, 0}}
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1754, 51, 206, 3, 50, "Input"],
+
+Cell[CellGroupData[{
+Cell[1985, 58, 425, 7, 90, "Input"],
+Cell[2413, 67, 78, 1, 29, "Output"],
+Cell[2494, 70, 399, 12, 47, "Output"],
+Cell[2896, 84, 399, 12, 47, "Output"],
+Cell[3298, 98, 357, 11, 47, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[3692, 114, 618, 12, 150, "Input"],
+Cell[4313, 128, 360, 5, 22, "Message"]
+}, Open  ]],
+Cell[4688, 136, 26, 0, 30, "Input"],
+Cell[4717, 138, 13665, 268, 1592, "Input"],
+
+Cell[CellGroupData[{
+Cell[18407, 410, 583, 11, 50, "Input"],
+Cell[18993, 423, 359, 5, 22, "Message"],
+Cell[19355, 430, 356, 5, 22, "Message"],
+Cell[19714, 437, 357, 5, 22, "Message"],
+Cell[20074, 444, 333, 5, 22, "Message"],
+Cell[20410, 451, 360, 5, 22, "Message"],
+Cell[20773, 458, 360, 5, 22, "Message"],
+Cell[21136, 465, 360, 5, 22, "Message"],
+Cell[21499, 472, 329, 5, 22, "Message"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[21865, 482, 140, 3, 30, "Input"],
+Cell[22008, 487, 90, 1, 29, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[22135, 493, 493, 9, 70, "Input"],
+Cell[22631, 504, 358, 5, 22, "Message"],
+Cell[22992, 511, 360, 5, 22, "Message"],
+Cell[23355, 518, 360, 5, 22, "Message"],
+Cell[23718, 525, 360, 5, 22, "Message"],
+Cell[24081, 532, 329, 5, 22, "Message"]
+}, Open  ]],
+Cell[24425, 540, 26, 0, 30, "Input"],
+
+Cell[CellGroupData[{
+Cell[24476, 544, 106, 2, 30, "Input"],
+Cell[24585, 548, 90, 1, 29, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[24712, 554, 937, 22, 70, "Input"],
+Cell[25652, 578, 358, 5, 22, "Message"],
+Cell[26013, 585, 360, 5, 22, "Message"],
+Cell[26376, 592, 360, 5, 22, "Message"],
+Cell[26739, 599, 360, 5, 22, "Message"],
+Cell[27102, 606, 329, 5, 22, "Message"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[27468, 616, 91, 1, 30, "Input"],
+Cell[27562, 619, 1485, 26, 65, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[29084, 650, 91, 1, 30, "Input"],
+Cell[29178, 653, 360, 5, 22, "Message"],
+Cell[29541, 660, 986, 14, 64, "Output"]
+}, Open  ]],
+Cell[30542, 677, 865, 22, 30, "Input"],
+Cell[31410, 701, 67, 1, 30, "Input"],
+
+Cell[CellGroupData[{
+Cell[31502, 706, 52, 1, 30, "Input"],
+Cell[31557, 709, 464, 9, 77, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[32058, 723, 155, 2, 50, "Input"],
+Cell[32216, 727, 361, 5, 22, "Message"],
+Cell[32580, 734, 360, 5, 22, "Message"],
+Cell[32943, 741, 360, 5, 22, "Message"],
+Cell[33306, 748, 136, 2, 44, "Output"],
+Cell[33445, 752, 361, 5, 22, "Message"],
+Cell[33809, 759, 360, 5, 22, "Message"],
+Cell[34172, 766, 360, 5, 22, "Message"],
+Cell[34535, 773, 136, 2, 44, "Output"]
+}, Open  ]],
+Cell[34686, 778, 26, 0, 30, "Input"],
+
+Cell[CellGroupData[{
+Cell[34737, 782, 281, 6, 50, "Input"],
+Cell[35021, 790, 355, 5, 22, "Message"],
+Cell[35379, 797, 360, 5, 22, "Message"],
+Cell[35742, 804, 360, 5, 22, "Message"],
+Cell[36105, 811, 360, 5, 22, "Message"],
+Cell[36468, 818, 329, 5, 22, "Message"],
+Cell[36800, 825, 355, 5, 22, "Message"]
+}, Open  ]],
+Cell[37170, 833, 1105, 23, 130, "Input"]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

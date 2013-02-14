@@ -1,0 +1,511 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 5.1'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     11837,        385]*)
+(*NotebookOutlinePosition[     12501,        408]*)
+(*  CellTagsIndexPosition[     12457,        404]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+    \(D[ArcTan[R, z], z]\)], "Input"],
+
+Cell[BoxData[
+    \(R\/\(R\^2 + z\^2\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(D[Sqrt[R^2 + z^2], z]\)], "Input"],
+
+Cell[BoxData[
+    \(z\/\@\(R\^2 + z\^2\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(J = 
+      Transpose[{{1, 0, 0, 0}, {0, R/r, \(-z\)/r^2, 0}, {0, z/r, R/r^2, 
+            0}, {0, 0, 0, 1}}]\), "\[IndentingNewLine]", 
+    \(MatrixForm[J]\)}], "Input"],
+
+Cell[BoxData[
+    \({{1, 0, 0, 0}, {0, R\/r, z\/r, 0}, {0, \(-\(z\/r\^2\)\), R\/r\^2, 
+        0}, {0, 0, 0, 1}}\)], "Output"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {"1", "0", "0", "0"},
+            {"0", \(R\/r\), \(z\/r\), "0"},
+            {"0", \(-\(z\/r\^2\)\), \(R\/r\^2\), "0"},
+            {"0", "0", "0", "1"}
+            },
+          RowSpacings->1,
+          ColumnSpacings->1,
+          ColumnAlignments->{Left}], "\[NoBreak]", ")"}],
+      Function[ BoxForm`e$, 
+        MatrixForm[ BoxForm`e$]]]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(gcovbl = {{\(-1\) + \(2\ M\ x\)\/\(x\^2 + a\^2\ Cos[y]\^2\), 0, 
+          0, \(-\(\(2\ a\ M\ x\ Sin[y]\^2\)\/\(x\^2 + 
+                  a\^2\ Cos[y]\^2\)\)\)}, {0, \(x\^2 + a\^2\ Cos[y]\^2\)\/\(a\
+\^2 - 2\ M\ x + x\^2\), 0, 0}, {0, 0, x\^2 + a\^2\ Cos[y]\^2, 
+          0}, {\(-\(\(2\ a\ M\ x\ Sin[y]\^2\)\/\(x\^2 + 
+                  a\^2\ Cos[y]\^2\)\)\), 0, 
+          0, \(Sin[y]\^2\ \((\((a\^2 + x\^2)\)\^2 - a\^2\ \((a\^2 + x\ \
+\((\(-2\)\ M + x)\))\)\ Sin[y]\^2)\)\)\/\(x\^2 + a\^2\ Cos[y]\^2\)}}\)], \
+"Input"],
+
+Cell[BoxData[
+    \({{\(-1\) + \(2\ M\ x\)\/\(x\^2 + a\^2\ Cos[y]\^2\), 0, 
+        0, \(-\(\(2\ a\ M\ x\ Sin[y]\^2\)\/\(x\^2 + 
+                a\^2\ Cos[y]\^2\)\)\)}, {0, \(x\^2 + a\^2\ \
+Cos[y]\^2\)\/\(a\^2 - 2\ M\ x + x\^2\), 0, 0}, {0, 0, x\^2 + a\^2\ Cos[y]\^2, 
+        0}, {\(-\(\(2\ a\ M\ x\ Sin[y]\^2\)\/\(x\^2 + a\^2\ Cos[y]\^2\)\)\), 
+        0, 0, \(Sin[y]\^2\ \((\((a\^2 + x\^2)\)\^2 - a\^2\ \((a\^2 + x\ \
+\((\(-2\)\ M + x)\))\)\ Sin[y]\^2)\)\)\/\(x\^2 + a\^2\ Cos[y]\^2\)}}\)], \
+"Output"]
+}, Open  ]],
+
+Cell[BoxData[""], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(gcovspcweak = 
+      Normal[Series[
+            gcovbl //. {a \[Rule] 0}, {x, Infinity, 1}]] //. {2*
+              M/r \[Rule] \(-2\)*phi, x \[Rule] r, y \[Rule] th, 
+          r^2*Sin[th]^2 \[Rule] R^2}\)], "Input"],
+
+Cell[BoxData[
+    \({{\(-1\) - 2\ phi, 0, 0, 0}, {0, 1 - 2\ phi, 0, 0}, {0, 0, r\^2, 
+        0}, {0, 0, 0, R\^2}}\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[""], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(MatrixForm[
+      gcovspc = 
+        gcov //. {x \[Rule] r, y \[Rule] th, 
+            r^2*Sin[th]^2 \[Rule] R^2}]\)], "Input"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {\(-1\), "0", "0", "0"},
+            {"0", "1", "0", "0"},
+            {"0", "0", \(r\^2\), "0"},
+            {"0", "0", "0", \(R\^2\)}
+            },
+          RowSpacings->1,
+          ColumnSpacings->1,
+          ColumnAlignments->{Left}], "\[NoBreak]", ")"}],
+      Function[ BoxForm`e$, 
+        MatrixForm[ BoxForm`e$]]]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(gcovcyl = 
+      Table[Sum[
+          J[\([mup, mu]\)]*J[\([nup, nu]\)]*gcovspc[\([mup, nup]\)], {mup, 1, 
+            4}, {nup, 1, 4}], {mu, 1, 4}, {nu, 1, 4}]\)], "Input"],
+
+Cell[BoxData[
+    \({{\(-1\), 0, 0, 0}, {0, R\^2\/r\^2 + z\^2\/r\^2, 0, 0}, {0, 0, 
+        R\^2\/r\^2 + z\^2\/r\^2, 0}, {0, 0, 0, R\^2}}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(MatrixForm[gcovcyl //. {R^2/r^2 + z^2/r^2 \[Rule] 1}]\)], "Input"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {\(-1\), "0", "0", "0"},
+            {"0", "1", "0", "0"},
+            {"0", "0", "1", "0"},
+            {"0", "0", "0", \(R\^2\)}
+            },
+          RowSpacings->1,
+          ColumnSpacings->1,
+          ColumnAlignments->{Left}], "\[NoBreak]", ")"}],
+      Function[ BoxForm`e$, 
+        MatrixForm[ BoxForm`e$]]]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(J[\([2, 3]\)]\)], "Input"],
+
+Cell[BoxData[
+    \(\(-\(z\/r\^2\)\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(gcovcylweak = 
+      Table[Sum[
+          J[\([mup, mu]\)]*J[\([nup, nu]\)]*
+            gcovspcweak[\([mup, nup]\)], {mup, 1, 4}, {nup, 1, 4}], {mu, 1, 
+          4}, {nu, 1, 4}]\)], "Input"],
+
+Cell[BoxData[
+    \({{\(-1\) - 2\ phi, 0, 0, 
+        0}, {0, \(\((1 - 2\ phi)\)\ R\^2\)\/r\^2 + 
+          z\^2\/r\^2, \(-\(\(R\ z\)\/r\^2\)\) + \(\((1 - 2\ phi)\)\ R\ z\)\/r\
+\^2, 0}, {0, \(-\(\(R\ z\)\/r\^2\)\) + \(\((1 - 2\ phi)\)\ R\ z\)\/r\^2, 
+        R\^2\/r\^2 + \(\((1 - 2\ phi)\)\ z\^2\)\/r\^2, 0}, {0, 0, 0, 
+        R\^2}}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(gcovcylweak = 
+      Expand[FullSimplify[
+            gcovcylweak]] //. {\(-2\)\ phi + \(2\ phi\ z\^2\)\/r\^2 \[Rule] \
+\(-2\)*phi*R^2/r^2, r^2 - z^2 \[Rule] R^2}\), "\[IndentingNewLine]", 
+    \(MatrixForm[gcovcylweak]\)}], "Input"],
+
+Cell[BoxData[
+    \({{\(-1\) - 2\ phi, 0, 0, 0}, {0, 
+        1 - \(2\ phi\ R\^2\)\/r\^2, \(-\(\(2\ phi\ R\ z\)\/r\^2\)\), 
+        0}, {0, \(-\(\(2\ phi\ R\ z\)\/r\^2\)\), 1 - \(2\ phi\ z\^2\)\/r\^2, 
+        0}, {0, 0, 0, R\^2}}\)], "Output"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {\(\(-1\) - 2\ phi\), "0", "0", "0"},
+            {
+              "0", \(1 - \(2\ phi\ R\^2\)\/r\^2\), \(-\(\(2\ phi\ R\ \
+z\)\/r\^2\)\), "0"},
+            {
+              "0", \(-\(\(2\ phi\ R\ z\)\/r\^2\)\), \(1 - \(2\ phi\ z\^2\)\/r\
+\^2\), "0"},
+            {"0", "0", "0", \(R\^2\)}
+            },
+          RowSpacings->1,
+          ColumnSpacings->1,
+          ColumnAlignments->{Left}], "\[NoBreak]", ")"}],
+      Function[ BoxForm`e$, 
+        MatrixForm[ BoxForm`e$]]]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(1622484/30000. \)], "Input"],
+
+Cell[BoxData[
+    \(54.082800000000006`\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(K = Inverse[J]\)], "Input"],
+
+Cell[BoxData[
+    \({{1, 0, 0, 0}, {0, 
+        R\/\(r\^2\ \((R\^2\/r\^3 + z\^2\/r\^3)\)\), \(-\(z\/\(r\ \
+\((R\^2\/r\^3 + z\^2\/r\^3)\)\)\)\), 0}, {0, 
+        z\/\(r\^2\ \((R\^2\/r\^3 + z\^2\/r\^3)\)\), 
+        R\/\(r\ \((R\^2\/r\^3 + z\^2\/r\^3)\)\), 0}, {0, 0, 0, 
+        1}}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    RowBox[{"gcovcylweaker", "=", 
+      TagBox[
+        RowBox[{"(", "\[NoBreak]", GridBox[{
+              {\(\(-1\) + \(2\ M\)\/r\), "0", "0", "0"},
+              {"0", \(1 + \(2\ M\)\/r\), "0", "0"},
+              {"0", "0", "1", "0"},
+              {"0", "0", "0", \(r\^2 - z\^2\)}
+              },
+            RowSpacings->1,
+            ColumnSpacings->1,
+            ColumnAlignments->{Left}], "\[NoBreak]", ")"}],
+        Function[ BoxForm`e$, 
+          MatrixForm[ BoxForm`e$]]]}]], "Input"],
+
+Cell[BoxData[
+    \({{\(-1\) + \(2\ M\)\/r, 0, 0, 0}, {0, 1 + \(2\ M\)\/r, 0, 0}, {0, 0, 1, 
+        0}, {0, 0, 0, r\^2 - z\^2}}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(gcovspcweakback = 
+      Table[Sum[
+          K[\([mup, mu]\)]*K[\([nup, nu]\)]*
+            gcovcylweaker[\([mup, nup]\)], {mup, 1, 4}, {nup, 1, 4}], {mu, 1, 
+          4}, {nu, 1, 4}]\), "\[IndentingNewLine]", 
+    \(it = 
+      FullSimplify[
+          gcovspcweakback] //. {R^2 + z^2 \[Rule] 
+            r^2}\), "\[IndentingNewLine]", 
+    \(MatrixForm[it]\)}], "Input"],
+
+Cell[BoxData[
+    \({{\(-1\) + \(2\ M\)\/r, 0, 0, 
+        0}, {0, \(\((1 + \(2\ M\)\/r)\)\ R\^2\)\/\(r\^4\ \((R\^2\/r\^3 + z\^2\
+\/r\^3)\)\^2\) + 
+          z\^2\/\(r\^4\ \((R\^2\/r\^3 + z\^2\/r\^3)\)\^2\), \(R\ z\)\/\(r\^3\ \
+\((R\^2\/r\^3 + z\^2\/r\^3)\)\^2\) - \(\((1 + \(2\ M\)\/r)\)\ R\ z\)\/\(r\^3\ \
+\((R\^2\/r\^3 + z\^2\/r\^3)\)\^2\), 
+        0}, {0, \(R\ z\)\/\(r\^3\ \((R\^2\/r\^3 + z\^2\/r\^3)\)\^2\) - \(\((1 \
++ \(2\ M\)\/r)\)\ R\ z\)\/\(r\^3\ \((R\^2\/r\^3 + z\^2\/r\^3)\)\^2\), 
+        R\^2\/\(r\^2\ \((R\^2\/r\^3 + z\^2\/r\^3)\)\^2\) + \(\((1 + \(2\ \
+M\)\/r)\)\ z\^2\)\/\(r\^2\ \((R\^2\/r\^3 + z\^2\/r\^3)\)\^2\), 0}, {0, 0, 0, 
+        r\^2 - z\^2}}\)], "Output"],
+
+Cell[BoxData[
+    \({{\(-1\) + \(2\ M\)\/r, 0, 0, 
+        0}, {0, \(\((2\ M + r)\)\ R\^2 + r\ z\^2\)\/r\^3, \(-\(\(2\ M\ R\ z\)\
+\/r\^2\)\), 
+        0}, {0, \(-\(\(2\ M\ R\ z\)\/r\^2\)\), \(r\ R\^2 + \((2\ M + r)\)\ \
+z\^2\)\/r, 0}, {0, 0, 0, \((r - z)\)\ \((r + z)\)}}\)], "Output"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {\(\(-1\) + \(2\ M\)\/r\), "0", "0", "0"},
+            {
+              "0", \(\(\((2\ M + r)\)\ R\^2 + 
+                    r\ z\^2\)\/r\^3\), \(-\(\(2\ M\ R\ z\)\/r\^2\)\), "0"},
+            {
+              "0", \(-\(\(2\ M\ R\ z\)\/r\^2\)\), \(\(r\ R\^2 + \((2\ M + 
+                          r)\)\ z\^2\)\/r\), "0"},
+            {"0", "0", "0", \(\((r - z)\)\ \((r + z)\)\)}
+            },
+          RowSpacings->1,
+          ColumnSpacings->1,
+          ColumnAlignments->{Left}], "\[NoBreak]", ")"}],
+      Function[ BoxForm`e$, 
+        MatrixForm[ BoxForm`e$]]]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(MatrixForm[gcovspcweak]\)], "Input"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {\(\(-1\) + \(2\ M\)\/r\), "0", "0", "0"},
+            {"0", \(1 + \(2\ M\)\/r\), "0", "0"},
+            {"0", "0", \(r\^2\), "0"},
+            {"0", "0", "0", \(R\^2\)}
+            },
+          RowSpacings->1,
+          ColumnSpacings->1,
+          ColumnAlignments->{Left}], "\[NoBreak]", ")"}],
+      Function[ BoxForm`e$, 
+        MatrixForm[ BoxForm`e$]]]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(FullSimplify[\((r\^2\ R\^2 + R\^2\ z\^2 + z\^4)\) //. 
+        R \[Rule] Sqrt[r^2 - z^2]]\)], "Input"],
+
+Cell[BoxData[
+    \(r\^4\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[""], "Input"]
+},
+FrontEndVersion->"5.1 for Microsoft Windows",
+ScreenRectangle->{{0, 1400}, {0, 967}},
+WindowSize->{1392, 933},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+Magnification->1.5
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[1776, 53, 51, 1, 42, "Input"],
+Cell[1830, 56, 52, 1, 56, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[1919, 62, 54, 1, 42, "Input"],
+Cell[1976, 65, 54, 1, 61, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[2067, 71, 190, 4, 68, "Input"],
+Cell[2260, 77, 126, 2, 56, "Output"],
+Cell[2389, 81, 437, 12, 145, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[2863, 98, 540, 9, 140, "Input"],
+Cell[3406, 109, 505, 8, 124, "Output"]
+}, Open  ]],
+Cell[3926, 120, 26, 0, 42, "Input"],
+
+Cell[CellGroupData[{
+Cell[3977, 124, 236, 5, 68, "Input"],
+Cell[4216, 131, 128, 2, 43, "Output"]
+}, Open  ]],
+Cell[4359, 136, 26, 0, 42, "Input"],
+
+Cell[CellGroupData[{
+Cell[4410, 140, 147, 4, 42, "Input"],
+Cell[4560, 146, 419, 12, 112, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[5016, 163, 193, 4, 42, "Input"],
+Cell[5212, 169, 151, 2, 62, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[5400, 176, 86, 1, 42, "Input"],
+Cell[5489, 179, 414, 12, 106, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[5940, 196, 46, 1, 42, "Input"],
+Cell[5989, 199, 50, 1, 54, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[6076, 205, 212, 5, 68, "Input"],
+Cell[6291, 212, 349, 6, 112, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[6677, 223, 254, 5, 98, "Input"],
+Cell[6934, 230, 244, 4, 62, "Output"],
+Cell[7181, 236, 571, 16, 165, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[7789, 257, 48, 1, 42, "Input"],
+Cell[7840, 260, 53, 1, 41, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[7930, 266, 47, 1, 42, "Input"],
+Cell[7980, 269, 295, 6, 72, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[8312, 280, 515, 13, 139, "Input"],
+Cell[8830, 295, 142, 2, 57, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[9009, 302, 395, 10, 120, "Input"],
+Cell[9407, 314, 684, 11, 168, "Output"],
+Cell[10094, 327, 285, 5, 62, "Output"],
+Cell[10382, 334, 661, 16, 152, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[11080, 355, 56, 1, 42, "Input"],
+Cell[11139, 358, 453, 12, 138, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[11629, 375, 122, 2, 43, "Input"],
+Cell[11754, 379, 38, 1, 43, "Output"]
+}, Open  ]],
+Cell[11807, 383, 26, 0, 42, "Input"]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

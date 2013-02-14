@@ -1,0 +1,623 @@
+(* Content-type: application/mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 7.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       145,          7]
+NotebookDataLength[     20308,        613]
+NotebookOptionsPosition[     19105,        576]
+NotebookOutlinePosition[     19448,        591]
+CellTagsIndexPosition[     19405,        588]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "STOP", " ", "UNLESS", " ", "WANT", " ", "TO", " ", "ANALYZE", " ", 
+    "ITERATIVE", " ", "PROCEDURE"}], " ", "*)"}], "\[IndentingNewLine]", 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "STOP", " ", "UNLESS", " ", "WANT", " ", "TO", " ", "ANALYZE", " ", 
+    "ITERATIVE", " ", "PROCEDURE"}], " ", "*)"}]}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{"(*", " ", 
+  RowBox[{
+   RowBox[{"DampingFactor", "\[Rule]", "1000"}], ",", 
+   RowBox[{"MaxIterations", "\[Rule]", "1000"}], ","}], " ", "*)"}]], "Input"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"res", ",", 
+     RowBox[{"{", "evx", "}"}]}], "}"}], "=", 
+   RowBox[{"Reap", "[", 
+    RowBox[{"FindRoot", "[", 
+     RowBox[{"nummyeqns0", ",", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"d", ",", "olddelta"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"vx", ",", "vxold"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"rhoc", ",", "rhoold"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"iec", ",", "ieold"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"rhoout", ",", "rhoold"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"ieout", ",", "ieold"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"Bx", ",", "Bxold"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"vy", ",", "vaold"}], "}"}]}], "}"}], ",", 
+      RowBox[{"WorkingPrecision", "\[Rule]", "20"}], ",", 
+      RowBox[{"MaxIterations", "\[Rule]", "10000"}], ",", 
+      RowBox[{"DampingFactor", "\[Rule]", "0.1"}], ",", 
+      RowBox[{"EvaluationMonitor", "\[RuleDelayed]", 
+       RowBox[{"Sow", "[", 
+        RowBox[{"{", 
+         RowBox[{
+         "d", ",", "vx", ",", "rhoc", ",", "iec", ",", "rhoout", ",", "ieout",
+           ",", "Bx", ",", "vy"}], "}"}], "]"}]}]}], "]"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      RowBox[{"Clear", "[", 
+       RowBox[{"res", ",", "evx"}], "]"}], "\[IndentingNewLine]", 
+      RowBox[{"{", 
+       RowBox[{"res", ",", 
+        RowBox[{"{", "evx", "}"}]}], "}"}]}], "=", 
+     RowBox[{"Reap", "[", 
+      RowBox[{"FindRoot", "[", 
+       RowBox[{"nummyeqns0", ",", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"d", ",", "0.0001", ",", "0.1"}], "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"vx", ",", 
+            RowBox[{"-", ".99"}], ",", 
+            RowBox[{"-", ".0001"}]}], "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"rhoc", ",", ".01", ",", "200"}], "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"iec", ",", "0.001", ",", "100"}], "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"rhoout", ",", "0.01", ",", "200"}], "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"ieout", ",", "0.00001", ",", "100"}], "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"Bx", ",", "0.0001", ",", "0.3"}], "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"vy", ",", "0.01", ",", "0.999"}], "}"}]}], "}"}], ",", 
+        RowBox[{"MaxIterations", "\[Rule]", "1000"}], ",", 
+        RowBox[{"WorkingPrecision", "\[Rule]", "20"}], ",", 
+        RowBox[{"Method", "\[Rule]", "\"\<Secant\>\""}], ",", 
+        RowBox[{"EvaluationMonitor", "\[RuleDelayed]", 
+         RowBox[{"Sow", "[", 
+          RowBox[{"{", 
+           RowBox[{
+           "d", ",", "vx", ",", "rhoc", ",", "iec", ",", "rhoout", ",", 
+            "ieout", ",", "Bx", ",", "vy"}], "}"}], "]"}]}]}], "]"}], "]"}]}],
+     ";"}], "*)"}]}]}], "Input"],
+
+Cell[BoxData[{"res", "\[IndentingNewLine]", 
+ RowBox[{"result", "=", 
+  RowBox[{
+   RowBox[{"myeqns", "//.", "consts"}], "//.", 
+   "res"}]}], "\[IndentingNewLine]", 
+ RowBox[{"error", "=", 
+  RowBox[{"Sqrt", "[", 
+   RowBox[{"result", ".", "result"}], "]"}]}]}], "Input"],
+
+Cell[BoxData[{
+ RowBox[{"evx", "[", 
+  RowBox[{"[", "1", "]"}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"evx", "[", 
+  RowBox[{"[", "2", "]"}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"evx", "[", 
+  RowBox[{"[", "3", "]"}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"evx", "[", 
+  RowBox[{"[", "97", "]"}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"evx", "[", 
+  RowBox[{"[", "100", "]"}], "]"}]}], "Input"],
+
+Cell[BoxData[
+ RowBox[{"(*", " ", 
+  RowBox[{"CHECK", " ", "CONVERGENCE"}], " ", "*)"}]], "Input"],
+
+Cell[BoxData[{
+ RowBox[{"dim", "=", 
+  RowBox[{"Dimensions", "[", "evx", "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"which", "=", "1"}], ";", 
+  RowBox[{"mytable", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"evx", "[", 
+      RowBox[{"[", 
+       RowBox[{"i", ",", "which"}], "]"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "1", ",", 
+       RowBox[{"dim", "[", 
+        RowBox[{"[", "1", "]"}], "]"}]}], "}"}]}], "]"}]}], ";", 
+  RowBox[{"ListPlot", "[", "mytable", "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"which", "=", "2"}], ";", 
+  RowBox[{"mytable", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"evx", "[", 
+      RowBox[{"[", 
+       RowBox[{"i", ",", "which"}], "]"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "1", ",", 
+       RowBox[{"dim", "[", 
+        RowBox[{"[", "1", "]"}], "]"}]}], "}"}]}], "]"}]}], ";", 
+  RowBox[{"ListPlot", "[", "mytable", "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"which", "=", "3"}], ";", 
+  RowBox[{"mytable", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"evx", "[", 
+      RowBox[{"[", 
+       RowBox[{"i", ",", "which"}], "]"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "1", ",", 
+       RowBox[{"dim", "[", 
+        RowBox[{"[", "1", "]"}], "]"}]}], "}"}]}], "]"}]}], ";", 
+  RowBox[{"ListPlot", "[", "mytable", "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"which", "=", "4"}], ";", 
+  RowBox[{"mytable", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"evx", "[", 
+      RowBox[{"[", 
+       RowBox[{"i", ",", "which"}], "]"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "1", ",", 
+       RowBox[{"dim", "[", 
+        RowBox[{"[", "1", "]"}], "]"}]}], "}"}]}], "]"}]}], ";", 
+  RowBox[{"ListPlot", "[", "mytable", "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"which", "=", "5"}], ";", 
+  RowBox[{"mytable", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"evx", "[", 
+      RowBox[{"[", 
+       RowBox[{"i", ",", "which"}], "]"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "1", ",", 
+       RowBox[{"dim", "[", 
+        RowBox[{"[", "1", "]"}], "]"}]}], "}"}]}], "]"}]}], ";", 
+  RowBox[{"ListPlot", "[", "mytable", "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"which", "=", "6"}], ";", 
+  RowBox[{"mytable", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"evx", "[", 
+      RowBox[{"[", 
+       RowBox[{"i", ",", "which"}], "]"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "1", ",", 
+       RowBox[{"dim", "[", 
+        RowBox[{"[", "1", "]"}], "]"}]}], "}"}]}], "]"}]}], ";", 
+  RowBox[{"ListPlot", "[", "mytable", "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"which", "=", "7"}], ";", 
+  RowBox[{"mytable", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"evx", "[", 
+      RowBox[{"[", 
+       RowBox[{"i", ",", "which"}], "]"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "1", ",", 
+       RowBox[{"dim", "[", 
+        RowBox[{"[", "1", "]"}], "]"}]}], "}"}]}], "]"}]}], ";", 
+  RowBox[{"ListPlot", "[", "mytable", "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"which", "=", "8"}], ";", 
+  RowBox[{"mytable", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"evx", "[", 
+      RowBox[{"[", 
+       RowBox[{"i", ",", "which"}], "]"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "1", ",", 
+       RowBox[{"dim", "[", 
+        RowBox[{"[", "1", "]"}], "]"}]}], "}"}]}], "]"}]}], ";", 
+  RowBox[{
+  "ListPlot", "[", "mytable", "]"}]}], "\[IndentingNewLine]"}], "Input"],
+
+Cell[BoxData[
+ RowBox[{"(*", " ", 
+  RowBox[{
+   RowBox[{"http", ":"}], "//", 
+   RowBox[{
+    RowBox[{"www", ".", "scipy", ".", "org"}], "/"}]}], " ", "*)"}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{"(*", 
+  RowBox[{"fsols", "=", 
+   RowBox[{"FindRoot", "[", 
+    RowBox[{"eqns", ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"d", ",", "0.0001", ",", "1"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"vx", ",", 
+         RowBox[{"-", ".999"}], ",", "0"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"rhoc", ",", ".01", ",", "100"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"iec", ",", "0.001", ",", "100"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"rhoout", ",", "0.01", ",", "100"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"ieout", ",", "0.01", ",", "100"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"Bx", ",", "0.01", ",", "100"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"vy", ",", "0", ",", "0.999"}], "}"}]}], "}"}], ",", 
+     RowBox[{"MaxIterations", "\[Rule]", "10000"}], ",", 
+     RowBox[{"DampingFactor", "\[Rule]", "1.5"}], ",", 
+     RowBox[{"WorkingPrecision", "\[Rule]", "20"}], ",", 
+     RowBox[{"Method", "\[Rule]", "\"\<Secant\>\""}]}], "]"}]}], 
+  "*)"}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{"(*", 
+  RowBox[{"fsols", "=", 
+   RowBox[{"FindRoot", "[", 
+    RowBox[{"eqns", ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"d", ",", 
+         RowBox[{"0.001", "*", "olddelta"}], ",", "1"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"vx", ",", 
+         RowBox[{"-", "vextreme"}], ",", "vextreme"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"rhoc", ",", 
+         RowBox[{".1", "*", "rhoold"}], ",", 
+         RowBox[{"10", "*", "rhoold"}]}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"iec", ",", 
+         RowBox[{"0.1", "*", "ieold"}], ",", 
+         RowBox[{"10", "*", "ieold"}]}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"rhoout", ",", 
+         RowBox[{"0.1", "*", "rhoold"}], ",", 
+         RowBox[{"10", "*", "rhoold"}]}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"ieout", ",", 
+         RowBox[{"0.1", "*", "ieold"}], ",", 
+         RowBox[{"10", "*", "ieold"}]}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"Bx", ",", 
+         RowBox[{"0.01", "*", "Bxold"}], ",", 
+         RowBox[{"10", "*", "Bxold"}]}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"vy", ",", 
+         RowBox[{"-", "vextreme"}], ",", "vextreme"}], "}"}]}], "}"}], ",", 
+     RowBox[{"MaxIterations", "\[Rule]", "10000"}], ",", 
+     RowBox[{"DampingFactor", "\[Rule]", "1.5"}], ",", 
+     RowBox[{"WorkingPrecision", "\[Rule]", "20"}], ",", 
+     RowBox[{"Method", "\[Rule]", "\"\<Brent\>\""}]}], "]"}]}], 
+  "*)"}]], "Input",
+ CellChangeTimes->{3.476910362642264*^9}],
+
+Cell[BoxData[{
+ RowBox[{"vaold2", "=", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"c", "*", 
+     RowBox[{"By", "/", 
+      RowBox[{"Sqrt", "[", 
+       RowBox[{"1.0", "*", "4", "*", "Pi", "*", "rhoout", "*", 
+        RowBox[{"c", "^", "2"}]}], "]"}]}]}], "//.", "consts"}], "//.", 
+   "fsols"}]}], "\[IndentingNewLine]", 
+ RowBox[{"olddelta", "=", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"Sqrt", "[", 
+     RowBox[{"eta", "*", 
+      RowBox[{"L", "/", "vaold2"}]}], "]"}], "//.", "consts"}], "//.", 
+   "fsols"}]}], "\[IndentingNewLine]", 
+ RowBox[{"olddelta", "=", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"1.0", "*", 
+     RowBox[{"Sqrt", "[", 
+      RowBox[{"eta", "*", 
+       RowBox[{"L", "/", "vaold"}]}], "]"}]}], "//.", "consts"}], "//.", 
+   "fsols"}]}]}], "Input"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"gamx", "//.", "consts"}], "//.", "fsols"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"gamy", "//.", "consts"}], "//.", "fsols"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"(", 
+    RowBox[{"rhoc", "/", "rhoin"}], ")"}], "//.", "consts"}], "//.", 
+  "fsols"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"(", 
+    RowBox[{"rhoout", "/", "rhoc"}], ")"}], "//.", "consts"}], "//.", 
+  "fsols"}]}], "Input"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "Check", " ", "that", " ", "numerical", " ", "satisfies", " ", "original", 
+    " ", "equations"}], " ", "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"result", "=", 
+   RowBox[{
+    RowBox[{"eqns", "//.", "consts"}], "//.", "fsols"}]}]}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{"(*", " ", 
+  RowBox[{"DONE", "!"}], " ", "*)"}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{"(*", " ", 
+  RowBox[{
+   RowBox[{"DONE", "!"}], " ", "with", " ", "numerical", " ", "result"}], " ",
+   "*)"}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{"(*", " ", 
+  RowBox[{"ANALYTICAL", ":", " ", 
+   RowBox[{"try", " ", "to", " ", "get", " ", "analytic", " ", 
+    RowBox[{"solution", ":", " ", 
+     RowBox[{
+      RowBox[{
+      "Works", " ", "only", " ", "if", " ", "remove", " ", "extra", " ", 
+       "non"}], "-", 
+      RowBox[{"Dmitri", " ", "terms"}]}]}]}]}], " ", "*)"}]], "Input"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"eqns", "=", 
+   RowBox[{"{", 
+    RowBox[{
+    "eq1", ",", "eq2", ",", "eq3", ",", "eq4", ",", "eq5", ",", "eq6", ",", 
+     "eq7", ",", "eq8"}], "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"sols", "=", 
+   RowBox[{"Solve", "[", 
+    RowBox[{"eqns", ",", 
+     RowBox[{"{", 
+      RowBox[{
+      "d", ",", "vx", ",", "rhoc", ",", "iec", ",", "rhoout", ",", "ieout", 
+       ",", "Bx", ",", "vy"}], "}"}]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"eqnsother", "=", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+     "eq1", ",", "eq2", ",", "eq3", ",", "eq4", ",", "eq5", ",", "eq6", ",", 
+      "eq7", ",", "eq8"}], "}"}], "//.", 
+    RowBox[{"{", 
+     RowBox[{"iein", "\[Rule]", "0"}], "}"}]}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"solsother", "=", 
+   RowBox[{"Solve", "[", 
+    RowBox[{"eqnsother", ",", 
+     RowBox[{"{", 
+      RowBox[{
+      "d", ",", "vx", ",", "rhoc", ",", "iec", ",", "rhoout", ",", "ieout", 
+       ",", "Bx", ",", "vy"}], "}"}]}], "]"}]}], ";"}]}], "Input"],
+
+Cell[BoxData[{
+ RowBox[{"sols", "//.", "consts"}], "\[IndentingNewLine]", 
+ RowBox[{"solsother", "//.", "consts"}]}], "Input"],
+
+Cell[BoxData[
+ RowBox[{"(*", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"eqnsraw", "=", 
+    RowBox[{"{", 
+     RowBox[{
+     "eq1", ",", "eq2", ",", "eq3", ",", "eq4", ",", "eq5", ",", "eq6", ",", 
+      "eq7", ",", "eq8"}], "}"}]}], ";", "\[IndentingNewLine]", 
+   RowBox[{"array", "=", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"CoefficientArrays", "[", 
+       RowBox[{"eqnsraw", ",", 
+        RowBox[{"{", 
+         RowBox[{
+         "d", ",", "vx", ",", "rhoc", ",", "iec", ",", "rhoout", ",", "ieout",
+           ",", "Bx", ",", "vy"}], "}"}]}], "]"}], "\[IndentingNewLine]", 
+      "mymatrix"}], "=", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"Normal", "[", "array", "]"}], "[", 
+        RowBox[{"[", "2", "]"}], "]"}], "\[IndentingNewLine]", "myb"}], "==", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"Normal", "[", "array", "]"}], "[", 
+        RowBox[{"[", "1", "]"}], "]"}], "\[IndentingNewLine]", 
+       RowBox[{"Det", "[", "mymatrix", "]"}]}]}]}]}]}], "\[IndentingNewLine]",
+   "*)"}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{"(*", "\[IndentingNewLine]", 
+  RowBox[{"array", "=", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"CoefficientArrays", "[", 
+      RowBox[{"eqns", ",", 
+       RowBox[{"{", 
+        RowBox[{
+        "d", ",", "vx", ",", "rhoc", ",", "iec", ",", "rhoout", ",", "ieout", 
+         ",", "Bx", ",", "vy"}], "}"}]}], "]"}], "\[IndentingNewLine]", 
+     "mymatrix"}], "=", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{"Normal", "[", "array", "]"}], "[", 
+       RowBox[{"[", "2", "]"}], "]"}], "\[IndentingNewLine]", "myb"}], "==", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"Normal", "[", "array", "]"}], "[", 
+       RowBox[{"[", "1", "]"}], "]"}], "\[IndentingNewLine]", 
+      RowBox[{"Det", "[", "mymatrix", "]"}]}]}]}]}], "\[IndentingNewLine]", 
+  "*)"}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{"(*", 
+  RowBox[{"mymatrix", ".", 
+   RowBox[{"{", 
+    RowBox[{
+    "d", ",", "vx", ",", "rhoc", ",", "iec", ",", "rhoout", ",", "ieout", ",",
+      "Bx", ",", "vy"}], "}"}]}], "*)"}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{"(*", 
+  RowBox[{"NSolve", "[", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"mymatrix", ".", 
+      RowBox[{"{", 
+       RowBox[{
+       "d", ",", "vx", ",", "rhoc", ",", "iec", ",", "rhoout", ",", "ieout", 
+        ",", "Bx", ",", "vy"}], "}"}]}], "\[Equal]", "myb"}], ",", 
+    RowBox[{"{", 
+     RowBox[{
+     "d", ",", "vx", ",", "rhoc", ",", "iec", ",", "rhoout", ",", "ieout", 
+      ",", "Bx", ",", "vy"}], "}"}]}], "]"}], "*)"}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{"(*", 
+  RowBox[{"array", "=", 
+   RowBox[{
+    RowBox[{"CoefficientArrays", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+       "eq1", ",", "eq2", ",", "eq3", ",", "eq4", ",", "eq5", ",", "eq6", ",",
+         "eq7"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{
+       "vx", ",", "rhoc", ",", "iec", ",", "rhout", ",", "ieout", ",", "Bx", 
+        ",", "vy"}], "}"}]}], "]"}], "\[IndentingNewLine]", 
+    RowBox[{"Normal", "[", "array", "]"}]}]}], "*)"}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{"(*", "\[IndentingNewLine]", 
+  RowBox[{"eq1", "=", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"x", "*", "1"}], "\[Equal]", 
+     RowBox[{"2", "\[IndentingNewLine]", "eq2"}]}], "=", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"y", "*", "3"}], "\[Equal]", 
+      RowBox[{"5", "\[IndentingNewLine]", "eqns"}]}], "=", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"eq1", ",", "eq2"}], "}"}], "\[IndentingNewLine]", "array"}], 
+      "=", 
+      RowBox[{
+       RowBox[{"CoefficientArrays", "[", 
+        RowBox[{"eqns", ",", 
+         RowBox[{"{", 
+          RowBox[{"y", ",", "x"}], "}"}]}], "]"}], "\[IndentingNewLine]", 
+       RowBox[{"MatrixForm", "[", 
+        RowBox[{"Normal", "[", "array", "]"}], "]"}], "\[IndentingNewLine]", 
+       RowBox[{"N", "[", 
+        RowBox[{"Det", "[", 
+         RowBox[{"Normal", "[", "array", "]"}], "]"}], "]"}]}]}]}]}]}], 
+  "\[IndentingNewLine]", "*)"}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{"(*", "\[IndentingNewLine]", 
+  RowBox[{"mymatrix", "=", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"Normal", "[", "array", "]"}], "[", 
+     RowBox[{"[", "2", "]"}], "]"}], "\[IndentingNewLine]", 
+    RowBox[{"MatrixForm", "[", "mymatrix", "]"}], "\[IndentingNewLine]", 
+    RowBox[{"Det", "[", "mymatrix", "]"}]}]}], "\[IndentingNewLine]", 
+  "*)"}]], "Input"]
+},
+WindowSize->{616, 750},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+FrontEndVersion->"7.0 for Microsoft Windows (32-bit) (February 18, 2009)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[545, 20, 397, 10, 72, "Input"],
+Cell[945, 32, 179, 4, 31, "Input"],
+Cell[1127, 38, 3033, 79, 292, "Input"],
+Cell[4163, 119, 272, 7, 72, "Input"],
+Cell[4438, 128, 404, 10, 112, "Input"],
+Cell[4845, 140, 98, 2, 31, "Input"],
+Cell[4946, 144, 3590, 107, 372, "Input"],
+Cell[8539, 253, 169, 5, 31, "Input"],
+Cell[8711, 260, 1105, 28, 112, "Input"],
+Cell[9819, 290, 1562, 41, 152, "Input"],
+Cell[11384, 333, 759, 24, 72, "Input"],
+Cell[12146, 359, 470, 14, 92, "Input"],
+Cell[12619, 375, 306, 8, 52, "Input"],
+Cell[12928, 385, 82, 2, 31, "Input"],
+Cell[13013, 389, 145, 4, 31, "Input"],
+Cell[13161, 395, 364, 9, 72, "Input"],
+Cell[13528, 406, 1077, 32, 92, "Input"],
+Cell[14608, 440, 126, 2, 52, "Input"],
+Cell[14737, 444, 1037, 28, 152, "Input"],
+Cell[15777, 474, 798, 22, 132, "Input"],
+Cell[16578, 498, 218, 6, 31, "Input"],
+Cell[16799, 506, 465, 13, 52, "Input"],
+Cell[17267, 521, 505, 14, 92, "Input"],
+Cell[17775, 537, 942, 26, 172, "Input"],
+Cell[18720, 565, 381, 9, 112, "Input"]
+}
+]
+*)
+
+(* End of internal cache information *)
+

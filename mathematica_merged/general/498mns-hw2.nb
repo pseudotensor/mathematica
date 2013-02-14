@@ -1,0 +1,201 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 4.2'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[      4344,        138]*)
+(*NotebookOutlinePosition[      4975,        160]*)
+(*  CellTagsIndexPosition[      4931,        156]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell[BoxData[""], "Input"],
+
+Cell[BoxData[
+    \(fun[i_, j_] := If[i < j, 1 + ep*h[i, j], 1]\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(fun[2, 1]\)], "Input"],
+
+Cell[BoxData[
+    \(1\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(p = Table[fun[i, j], {i, 1, 4}, {j, 1, 4}]\), "\[IndentingNewLine]", 
+    \(MatrixForm[p]\)}], "Input"],
+
+Cell[BoxData[
+    \({{0, 1 + ep\ h[1, 2], 1 + ep\ h[1, 3], 1 + ep\ h[1, 4]}, {0, 0, 
+        1 + ep\ h[2, 3], 1 + ep\ h[2, 4]}, {0, 0, 0, 1 + ep\ h[3, 4]}, {0, 0, 
+        0, 0}}\)], "Output"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {
+              "0", \(1 + ep\ h[1, 2]\), \(1 + ep\ h[1, 3]\), \(1 + 
+                ep\ h[1, 4]\)},
+            {"0", "0", \(1 + ep\ h[2, 3]\), \(1 + ep\ h[2, 4]\)},
+            {"0", "0", "0", \(1 + ep\ h[3, 4]\)},
+            {"0", "0", "0", "0"}
+            }], "\[NoBreak]", ")"}],
+      Function[ BoxForm`e$, 
+        MatrixForm[ BoxForm`e$]]]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(p = Product[fun[i, j], {i, 1, 4}, {j, 1, 4}]\)], "Input"],
+
+Cell[BoxData[
+    \(\((1 + ep\ h[1, 2])\)\ \((1 + ep\ h[1, 3])\)\ \((1 + 
+          ep\ h[1, 4])\)\ \((1 + ep\ h[2, 3])\)\ \((1 + 
+          ep\ h[2, 4])\)\ \((1 + ep\ h[3, 4])\)\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[""], "Input"],
+
+Cell[BoxData[""], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Expand[
+      FullSimplify[\((Normal[Series[p, {ep, 0, 3}]] - 
+              Normal[Series[p, {ep, 0, 2}]])\)/ep^3]]\)], "Input"],
+
+Cell[BoxData[
+    \(h[1, 2]\ h[1, 3]\ h[1, 4] + h[1, 2]\ h[1, 3]\ h[2, 3] + 
+      h[1, 2]\ h[1, 4]\ h[2, 3] + h[1, 3]\ h[1, 4]\ h[2, 3] + 
+      h[1, 2]\ h[1, 3]\ h[2, 4] + h[1, 2]\ h[1, 4]\ h[2, 4] + 
+      h[1, 3]\ h[1, 4]\ h[2, 4] + h[1, 2]\ h[2, 3]\ h[2, 4] + 
+      h[1, 3]\ h[2, 3]\ h[2, 4] + h[1, 4]\ h[2, 3]\ h[2, 4] + 
+      h[1, 2]\ h[1, 3]\ h[3, 4] + h[1, 2]\ h[1, 4]\ h[3, 4] + 
+      h[1, 3]\ h[1, 4]\ h[3, 4] + h[1, 2]\ h[2, 3]\ h[3, 4] + 
+      h[1, 3]\ h[2, 3]\ h[3, 4] + h[1, 4]\ h[2, 3]\ h[3, 4] + 
+      h[1, 2]\ h[2, 4]\ h[3, 4] + h[1, 3]\ h[2, 4]\ h[3, 4] + 
+      h[1, 4]\ h[2, 4]\ h[3, 4] + h[2, 3]\ h[2, 4]\ h[3, 4]\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Series[1/\((1 + x)\), {x, 0, 3}]\)], "Input"],
+
+Cell[BoxData[
+    InterpretationBox[
+      RowBox[{"1", "-", "x", "+", \(x\^2\), "-", \(x\^3\), "+", 
+        InterpretationBox[\(O[x]\^4\),
+          SeriesData[ x, 0, {}, 0, 4, 1]]}],
+      SeriesData[ x, 0, {1, -1, 1, -1}, 0, 4, 1]]], "Output"]
+}, Open  ]]
+},
+FrontEndVersion->"4.2 for X",
+ScreenRectangle->{{0, 1600}, {0, 1200}},
+WindowSize->{1439, 956},
+WindowMargins->{{Automatic, -1}, {Automatic, 52}}
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1754, 51, 26, 0, 27, "Input"],
+Cell[1783, 53, 76, 1, 27, "Input"],
+
+Cell[CellGroupData[{
+Cell[1884, 58, 42, 1, 27, "Input"],
+Cell[1929, 61, 35, 1, 27, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[2001, 67, 124, 2, 43, "Input"],
+Cell[2128, 71, 192, 3, 27, "Output"],
+Cell[2323, 76, 443, 11, 94, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[2803, 92, 77, 1, 27, "Input"],
+Cell[2883, 95, 192, 3, 27, "Output"]
+}, Open  ]],
+Cell[3090, 101, 26, 0, 27, "Input"],
+Cell[3119, 103, 26, 0, 27, "Input"],
+
+Cell[CellGroupData[{
+Cell[3170, 107, 149, 3, 27, "Input"],
+Cell[3322, 112, 654, 10, 59, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[4013, 127, 65, 1, 27, "Input"],
+Cell[4081, 130, 247, 5, 29, "Output"]
+}, Open  ]]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

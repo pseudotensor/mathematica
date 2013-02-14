@@ -1,0 +1,289 @@
+(***********************************************************************
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used on any computer system with Mathematica 4.0,
+MathReader 4.0, or any compatible application. The data for the notebook 
+starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do one of 
+the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing the 
+word CacheID, otherwise Mathematica-compatible applications may try to 
+use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+***********************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[      8004,        215]*)
+(*NotebookOutlinePosition[      8643,        238]*)
+(*  CellTagsIndexPosition[      8599,        234]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell[BoxData[{
+    \(bx[i_, j_] := \(bx[i]\)[j]\), "\[IndentingNewLine]", 
+    \(by[i_, j_] := \(by[i]\)[j]\), "\[IndentingNewLine]", 
+    \(\(\(g[i_, j_]\)\(:=\)\(\(g[i]\)[
+        j]\)\(\[IndentingNewLine]\)\)\)}], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(bxa[i_, j_] := 
+      1/2*\((bx[i, j] + bx[i, j - 1])\)\), "\[IndentingNewLine]", 
+    \(bya[i_, j_] := 
+      1/2*\((by[i, j] + by[i - 1, j])\)\), "\[IndentingNewLine]", 
+    \(bxaa[i_, j_] := 
+      1/2*\((bxa[i, j + 1] + bxa[i, j])\)\), "\[IndentingNewLine]", 
+    \(byaa[i_, j_] := 
+      1/2*\((bya[i + 1, j] + bya[i, j])\)\), "\[IndentingNewLine]", 
+    \(bxaaa[i_, j_] := 
+      1/2*\((bxaa[i, j] + bxaa[i, j - 1])\)\), "\[IndentingNewLine]", 
+    \(byaaa[i_, 
+        j_] := \(\(1/
+          2\)\(*\)\((byaa[i, j] + 
+            byaa[i - 1, 
+              j])\)\(\[IndentingNewLine]\)\(\[IndentingNewLine]\)\(\
+\[IndentingNewLine]\)\)\)}], "Input"],
+
+Cell[BoxData[
+    \(General::"spell1" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(bxaaa\)\" is similar to \
+existing symbol \"\!\(bxaa\)\"."\)], "Message"],
+
+Cell[BoxData[
+    \(General::"spell" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(byaaa\)\" is similar to \
+existing symbols \!\({bxaaa, byaa}\)."\)], "Message"]
+}, Open  ]],
+
+Cell[BoxData[{
+    \(divbc[i_, 
+        j_] := \((\((bxa[i, j] - bxa[i - 1, j])\)/
+              dr + \((bya[i, j] - bya[i, j - 1])\)/dh)\)/
+        g[i, j]\), "\[IndentingNewLine]", 
+    \(divbc2[i_, 
+        j_] := \((\((bxaaa[i, j] - bxaaa[i - 1, j])\)/
+              dr + \((byaaa[i, j] - byaaa[i, j - 1])\)/dh)\)/
+        g[i, j]\)}], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(divbc[i, j]\)], "Input"],
+
+Cell[BoxData[
+    \(\(\(1\/2\ \((\(-\(bx[\(-1\) + i]\)[\(-1\) + j]\) - \(bx[\(-1\) + \
+i]\)[j])\) + 1\/2\ \((\(bx[i]\)[\(-1\) + j] + \(bx[i]\)[j])\)\)\/dr + \(1\/2\ \
+\((\(-\(by[\(-1\) + i]\)[\(-1\) + j]\) - \(by[i]\)[\(-1\) + j])\) + 1\/2\ \((\
+\(by[\(-1\) + i]\)[j] + \(by[i]\)[j])\)\)\/dh\)\/\(g[i]\)[j]\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Solve[divbc[i, j] \[Equal] 0, \(bx[i]\)[j]]\)], "Input"],
+
+Cell[BoxData[
+    \({{\(bx[i]\)[
+            j] \[Rule] \(-\(\(1\/dh\)\((\(-dh\)\ \(bx[\(-1\) + i]\)[\(-1\) + 
+                      j] - dh\ \(bx[\(-1\) + i]\)[j] + 
+                dh\ \(bx[i]\)[\(-1\) + j] - 
+                dr\ \(by[\(-1\) + i]\)[\(-1\) + j] + 
+                dr\ \(by[\(-1\) + i]\)[j] - dr\ \(by[i]\)[\(-1\) + j] + 
+                dr\ \(by[i]\)[j])\)\)\)}}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Solve[divbc[i, j] \[Equal] 0, \(bx[i - 1]\)[j - 1]]\)], "Input"],
+
+Cell[BoxData[
+    \({{\(bx[\(-1\) + i]\)[\(-1\) + 
+              j] \[Rule] \(-\(\(1\/dh\)\((dh\ \(bx[\(-1\) + i]\)[j] - 
+                dh\ \(bx[i]\)[\(-1\) + j] - dh\ \(bx[i]\)[j] + 
+                dr\ \(by[\(-1\) + i]\)[\(-1\) + j] - 
+                dr\ \(by[\(-1\) + i]\)[j] + dr\ \(by[i]\)[\(-1\) + j] - 
+                dr\ \(by[i]\)[j])\)\)\)}}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(new = FullSimplify[divbc2[i, j]]\)], "Input"],
+
+Cell[BoxData[
+    \(\(\(1\/\(8\ dh\ dr\ \(g[i]\)[
+            j]\)\)\((dh\ \((\(-\(bx[\(-1\) + i]\)[\(-2\) + j]\) - 
+              3\ \(bx[\(-1\) + i]\)[\(-1\) + j] - 
+              3\ \(bx[\(-1\) + i]\)[j] - \(bx[\(-1\) + i]\)[
+                1 + j] + \(bx[i]\)[\(-2\) + j] + 
+              3\ \((\(bx[i]\)[\(-1\) + j] + \(bx[i]\)[j])\) + \(bx[i]\)[
+                1 + j])\) + 
+        dr\ \((\(-\(by[\(-2\) + i]\)[\(-1\) + j]\) + \(by[\(-2\) + i]\)[j] - 
+              3\ \(by[\(-1\) + i]\)[\(-1\) + j] + 3\ \(by[\(-1\) + i]\)[j] - 
+              3\ \(by[i]\)[\(-1\) + j] + 
+              3\ \(by[i]\)[j] - \(by[1 + i]\)[\(-1\) + j] + \(by[1 + i]\)[
+                j])\))\)\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(new1 = 
+      FullSimplify[
+        new //. {\(bx[i]\)[
+                1 + j] \[Rule] \(-\(1\/dh\)\) \((\(-dh\)\ \(bx[\(-1\) + i]\)[
+                        j] - dh\ \(bx[\(-1\) + i]\)[1 + j] + 
+                    dh\ \(bx[i]\)[j] - dr\ \(by[\(-1\) + i]\)[j] + 
+                    dr\ \(by[\(-1\) + i]\)[1 + j] - dr\ \(by[i]\)[j] + 
+                    dr\ \(by[i]\)[1 + j])\)}]\)], "Input"],
+
+Cell[BoxData[
+    \(\(\(1\/\(8\ dh\ dr\ \(g[i]\)[
+            j]\)\)\((dh\ \((\(-\(bx[\(-1\) + i]\)[\(-2\) + j]\) - 
+              3\ \(bx[\(-1\) + i]\)[\(-1\) + j] - 
+              2\ \(bx[\(-1\) + i]\)[j] + \(bx[i]\)[\(-2\) + j] + 
+              3\ \(bx[i]\)[\(-1\) + j] + 2\ \(bx[i]\)[j])\) - 
+        dr\ \((\(by[\(-2\) + i]\)[\(-1\) + j] - \(by[\(-2\) + i]\)[j] + 
+              3\ \(by[\(-1\) + i]\)[\(-1\) + j] - 
+              4\ \(by[\(-1\) + i]\)[j] + \(by[\(-1\) + i]\)[1 + j] + 
+              3\ \(by[i]\)[\(-1\) + j] - 
+              4\ \(by[i]\)[j] + \(by[i]\)[
+                1 + j] + \(by[1 + i]\)[\(-1\) + j] - \(by[1 + i]\)[
+                j])\))\)\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(new2 = 
+      FullSimplify[
+        new1 //. {\(bx[\(-1\) + i]\)[\(-2\) + 
+                  j] \[Rule] \(-\(1\/dh\)\) \((dh\ \(bx[\(-1\) + 
+                            i]\)[\(-1\) + j] - dh\ \(bx[i]\)[\(-2\) + j] - 
+                    dh\ \(bx[i]\)[\(-1\) + j] + 
+                    dr\ \(by[\(-1\) + i]\)[\(-2\) + j] - 
+                    dr\ \(by[\(-1\) + i]\)[\(-1\) + j] + 
+                    dr\ \(by[i]\)[\(-2\) + j] - 
+                    dr\ \(by[i]\)[\(-1\) + j])\)}]\)], "Input"],
+
+Cell[BoxData[
+    \(\(\(1\/\(8\ dh\ dr\ \(g[i]\)[
+            j]\)\)\((2\ dh\ \((\(-\(bx[\(-1\) + i]\)[\(-1\) + 
+                    j]\) - \(bx[\(-1\) + i]\)[
+                j] + \(bx[i]\)[\(-1\) + j] + \(bx[i]\)[j])\) + 
+        dr\ \((\(-\(by[\(-2\) + i]\)[\(-1\) + j]\) + \(by[\(-2\) + i]\)[
+                j] + \(by[\(-1\) + i]\)[\(-2\) + j] - 
+              4\ \(by[\(-1\) + i]\)[\(-1\) + j] + 
+              4\ \(by[\(-1\) + i]\)[j] - \(by[\(-1\) + i]\)[
+                1 + j] + \(by[i]\)[\(-2\) + j] - 4\ \(by[i]\)[\(-1\) + j] + 
+              4\ \(by[i]\)[j] - \(by[i]\)[
+                1 + j] - \(by[1 + i]\)[\(-1\) + j] + \(by[1 + i]\)[
+                j])\))\)\)\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[""], "Input"]
+},
+FrontEndVersion->"4.0 for X",
+ScreenRectangle->{{0, 1600}, {0, 1200}},
+WindowSize->{866, 1078},
+WindowMargins->{{0, Automatic}, {Automatic, 4}}
+]
+
+
+(***********************************************************************
+Cached data follows.  If you edit this Notebook file directly, not using
+Mathematica, you must remove the line containing CacheID at the top of 
+the file.  The cache data will then be recreated when you save this file 
+from within Mathematica.
+***********************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1717, 49, 225, 4, 75, "Input"],
+
+Cell[CellGroupData[{
+Cell[1967, 57, 677, 16, 155, "Input"],
+Cell[2647, 75, 182, 3, 23, "Message"],
+Cell[2832, 80, 187, 3, 23, "Message"]
+}, Open  ]],
+Cell[3034, 86, 348, 8, 43, "Input"],
+
+Cell[CellGroupData[{
+Cell[3407, 98, 44, 1, 27, "Input"],
+Cell[3454, 101, 320, 4, 62, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[3811, 110, 76, 1, 27, "Input"],
+Cell[3890, 113, 394, 7, 70, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[4321, 125, 84, 1, 27, "Input"],
+Cell[4408, 128, 368, 6, 70, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[4813, 139, 65, 1, 27, "Input"],
+Cell[4881, 142, 694, 12, 97, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[5612, 159, 414, 8, 137, "Input"],
+Cell[6029, 169, 684, 12, 97, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[6750, 186, 514, 10, 137, "Input"],
+Cell[7267, 198, 692, 12, 81, "Output"]
+}, Open  ]],
+Cell[7974, 213, 26, 0, 27, "Input"]
+}
+]
+*)
+
+
+
+
+(***********************************************************************
+End of Mathematica Notebook file.
+***********************************************************************)
+

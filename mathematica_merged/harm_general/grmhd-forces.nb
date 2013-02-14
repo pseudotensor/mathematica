@@ -1,0 +1,746 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 4.2'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     36829,        683]*)
+(*NotebookOutlinePosition[     37459,        705]*)
+(*  CellTagsIndexPosition[     37415,        701]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell[BoxData[
+    \( (*gcov = \({{gv00, gv01, 0, gv03}, {gv10, gv11, 0, gv13}, {0, 0, gv22, 
+                0}, {gv30, gv31, 0, gv33}}\ gcon = {{gv00, gv01, 0, 
+              0}, {gv10, gv11, 0, gv13}, {0, 0, gv22, 0}, {0, gv31, 0, 
+              gv33}}\)*) \)], "Input"],
+
+Cell[BoxData[
+    \(\(Connection = Simplify[Connection];\)\)], "Input"],
+
+Cell[BoxData[""], "Input"],
+
+Cell[BoxData[""], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(p = \((gam - 1)\)*u[t, x, y]\), "\[IndentingNewLine]", 
+    \(urel = {ur0[t, x, y], ur1[t, x, y], ur2[t, x, y], 
+        ur3[t, x, y]}\[IndentingNewLine]\), "\[IndentingNewLine]", 
+    \(qsq = 
+      Sum[gcov[\([ii, jj]\)]*urel[\([ii]\)]*urel[\([jj]\)], {ii, 1, 4}, {jj, 
+          1, 4}]\), "\[IndentingNewLine]", 
+    \(gamfac = FullSimplify[Sqrt[1 + qsq]]\), "\[IndentingNewLine]", 
+    \(alpha = 
+      FullSimplify[1/Sqrt[\(-gcon[\([1, 1]\)]\)]]\), "\[IndentingNewLine]", 
+    \(beta = 
+      FullSimplify[{0, gcon[\([1, 2]\)]*alpha^2, gcon[\([1, 3]\)]*alpha^2, 
+          gcon[\([1, 4]\)]*alpha^2}]\), "\[IndentingNewLine]", 
+    \(gamfacoalpha = 
+      FullSimplify[
+        gamfac/alpha]\[IndentingNewLine]\), "\[IndentingNewLine]", 
+    \(uu0[t_, x_, y_] := gamfacoalpha\), "\[IndentingNewLine]", 
+    \(uu1[t_, x_, y_] := 
+      urel[\([2]\)] - gamfacoalpha*beta[\([2]\)]\), "\[IndentingNewLine]", 
+    \(uu2[t_, x_, y_] := 
+      urel[\([3]\)] - gamfacoalpha*beta[\([3]\)]\), "\[IndentingNewLine]", 
+    \(uu3[t_, x_, y_] := 
+      urel[\([4]\)] - gamfacoalpha*beta[\([4]\)]\[IndentingNewLine]\), "\n", 
+    \(Bcon = {0, B1[t, x, y], B2[t, x, y], B3[t, x, y]}\), "\n", 
+    \(bcon = {bu0[t, x, y], bu1[t, x, y], bu2[t, x, y], 
+        bu3[t, x, y]}\), "\n", 
+    \(ucon = {uu0[t, x, y], uu1[t, x, y], uu2[t, x, y], 
+        uu3[t, x, y]}\n\), "\[IndentingNewLine]", 
+    \(bu0[t_, x_, y_] := 
+      Sum[Bcon[\([ii]\)]*ucon[\([mu]\)]*gcov[\([ii, mu]\)], {ii, 1, 4}, {mu, 
+          1, 4}]\), "\n", 
+    \(bu1[t_, x_, y_] := \((Bcon[\([2]\)] + bu0[t, x, y]*ucon[\([2]\)])\)/
+        ucon[\([1]\)]\), "\n", 
+    \(bu2[t_, x_, y_] := \((Bcon[\([3]\)] + bu0[t, x, y]*ucon[\([3]\)])\)/
+        ucon[\([1]\)]\), "\n", 
+    \(bu3[t_, x_, y_] := \((Bcon[\([4]\)] + bu0[t, x, y]*ucon[\([4]\)])\)/
+        ucon[\([1]\)]\[IndentingNewLine]\), "\n", 
+    \(\(bcov = 
+        Simplify[
+          Table[Sum[bcon[\([ii]\)]*gcov[\([ii, jj]\)], {ii, 1, 4}], {jj, 1, 
+              4}]];\)\), "\[IndentingNewLine]", 
+    \(\(ucov = 
+        Simplify[
+          Table[Sum[ucon[\([ii]\)]*gcov[\([ii, jj]\)], {ii, 1, 4}], {jj, 1, 
+              4}]];\)\), "\[IndentingNewLine]", 
+    \(\(bsq = Sum[bcon[\([ii]\)]*bcov[\([ii]\)], {ii, 1, 4}];\)\n\n\), "\n", 
+    \(\)}], "Input"],
+
+Cell[BoxData[
+    \(\((\(-1\) + gam)\)\ u[t, x, y]\)], "Output"],
+
+Cell[BoxData[
+    \({ur0[t, x, y], ur1[t, x, y], ur2[t, x, y], ur3[t, x, y]}\)], "Output"],
+
+Cell[BoxData[
+    \(\((\(-1\) + \(2\ M\ x\)\/\(x\^2 + a\^2\ Cos[y]\^2\))\)\ ur0[t, x, y]\^2 \
++ \(4\ M\ x\ ur0[t, x, y]\ ur1[t, x, y]\)\/\(x\^2 + a\^2\ Cos[y]\^2\) + \((1 \
++ \(2\ M\ x\)\/\(x\^2 + a\^2\ Cos[y]\^2\))\)\ ur1[t, x, y]\^2 + \((x\^2 + 
+            a\^2\ Cos[y]\^2)\)\ ur2[t, x, y]\^2 - \(4\ a\ M\ x\ Sin[y]\^2\ \
+ur0[t, x, y]\ ur3[t, x, y]\)\/\(x\^2 + a\^2\ Cos[y]\^2\) - 
+      2\ a\ \((1 + \(2\ M\ x\)\/\(x\^2 + a\^2\ Cos[y]\^2\))\)\ Sin[y]\^2\ ur1[
+          t, x, y]\ ur3[t, x, y] + 
+      Sin[y]\^2\ \((x\^2 + a\^2\ Cos[y]\^2 + 
+            a\^2\ \((1 + \(2\ M\ x\)\/\(x\^2 + a\^2\ Cos[y]\^2\))\)\ \
+Sin[y]\^2)\)\ ur3[t, x, y]\^2\)], "Output"],
+
+Cell[BoxData[
+    \(\[Sqrt]\((\(1\/\(x\^2 + a\^2\ Cos[y]\^2\)\)\((x\^2 + 
+            a\^2\ Cos[y]\^2 + \((\((2\ M - x)\)\ x - 
+                  a\^2\ Cos[y]\^2)\)\ ur0[t, x, y]\^2 + \((x\ \((2\ M + 
+                        x)\) + 
+                  a\^2\ Cos[y]\^2)\)\ ur1[t, x, y]\^2 + \((x\^2 + a\^2\ \
+Cos[y]\^2)\)\^2\ ur2[t, x, y]\^2 - 
+            2\ a\ \((x\ \((2\ M + x)\) + a\^2\ Cos[y]\^2)\)\ Sin[y]\^2\ ur1[
+                t, x, y]\ ur3[t, x, y] + 
+            1\/2\ \((a\^4 + 2\ x\^4 + a\^2\ x\ \((2\ M + 3\ x)\) + 
+                  a\^2\ \((a\^2 + x\ \((\(-2\)\ M + x)\))\)\ Cos[
+                      2\ y])\)\ Sin[y]\^2\ ur3[t, x, y]\^2 + 
+            4\ M\ x\ ur0[t, x, 
+                y]\ \((ur1[t, x, y] - 
+                  a\ Sin[y]\^2\ ur3[t, x, y])\))\))\)\)], "Output"],
+
+Cell[BoxData[
+    \(1\/\@\(1 + \(2\ M\ x\)\/\(x\^2 + a\^2\ Cos[y]\^2\)\)\)], "Output"],
+
+Cell[BoxData[
+    \({0, \(2\ M\ x\)\/\(x\ \((2\ M + x)\) + a\^2\ Cos[y]\^2\), 0, 
+      0}\)], "Output"],
+
+Cell[BoxData[
+    \(\@\(1 + \(2\ M\ x\)\/\(x\^2 + a\^2\ Cos[y]\^2\)\)\ \
+\[Sqrt]\((\(1\/\(x\^2 + a\^2\ Cos[y]\^2\)\)\((x\^2 + 
+              a\^2\ Cos[y]\^2 + \((\((2\ M - x)\)\ x - 
+                    a\^2\ Cos[y]\^2)\)\ ur0[t, x, y]\^2 + \((x\ \((2\ M + 
+                          x)\) + 
+                    a\^2\ Cos[y]\^2)\)\ ur1[t, x, y]\^2 + \((x\^2 + a\^2\ \
+Cos[y]\^2)\)\^2\ ur2[t, x, y]\^2 - 
+              2\ a\ \((x\ \((2\ M + x)\) + a\^2\ Cos[y]\^2)\)\ Sin[y]\^2\ ur1[
+                  t, x, y]\ ur3[t, x, y] + 
+              1\/2\ \((a\^4 + 2\ x\^4 + a\^2\ x\ \((2\ M + 3\ x)\) + 
+                    a\^2\ \((a\^2 + x\ \((\(-2\)\ M + x)\))\)\ Cos[
+                        2\ y])\)\ Sin[y]\^2\ ur3[t, x, y]\^2 + 
+              4\ M\ x\ ur0[t, x, 
+                  y]\ \((ur1[t, x, y] - 
+                    a\ Sin[y]\^2\ ur3[t, x, y])\))\))\)\)], "Output"],
+
+Cell[BoxData[
+    \({0, B1[t, x, y], B2[t, x, y], B3[t, x, y]}\)], "Output"],
+
+Cell[BoxData[
+    \({B2[t, x, y]\ \((x\^2 + a\^2\ Cos[y]\^2)\)\ ur2[t, x, y] - 
+        a\ B1[t, x, 
+            y]\ \((1 + \(2\ M\ x\)\/\(x\^2 + a\^2\ Cos[y]\^2\))\)\ Sin[y]\^2\ \
+ur3[t, x, y] + 
+        B3[t, x, 
+            y]\ Sin[y]\^2\ \((x\^2 + a\^2\ Cos[y]\^2 + 
+              a\^2\ \((1 + \(2\ M\ x\)\/\(x\^2 + a\^2\ Cos[y]\^2\))\)\ Sin[y]\
+\^2)\)\ ur3[t, x, 
+            y] + \(\(1\/\(x\^2 + a\^2\ Cos[y]\^2\)\)\((2\ M\ x\ B1[t, x, 
+              y]\ \@\(1 + \(2\ M\ x\)\/\(x\^2 + a\^2\ Cos[y]\^2\)\)\ \
+\[Sqrt]\((\(1\/\(x\^2 + a\^2\ Cos[y]\^2\)\)\((x\^2 + 
+                    a\^2\ Cos[y]\^2 + \((\((2\ M - x)\)\ x - 
+                          a\^2\ Cos[y]\^2)\)\ ur0[t, x, y]\^2 + \((x\ \((2\ M \
++ x)\) + a\^2\ Cos[y]\^2)\)\ ur1[t, x, y]\^2 + \((x\^2 + a\^2\ \
+Cos[y]\^2)\)\^2\ ur2[t, x, y]\^2 - 
+                    2\ a\ \((x\ \((2\ M + x)\) + 
+                          a\^2\ Cos[y]\^2)\)\ Sin[y]\^2\ ur1[t, x, y]\ ur3[t, 
+                        x, y] + 
+                    1\/2\ \((a\^4 + 2\ x\^4 + a\^2\ x\ \((2\ M + 3\ x)\) + 
+                          a\^2\ \((a\^2 + x\ \((\(-2\)\ M + x)\))\)\ Cos[
+                              2\ y])\)\ Sin[y]\^2\ ur3[t, x, y]\^2 + 
+                    4\ M\ x\ ur0[t, x, 
+                        y]\ \((ur1[t, x, y] - 
+                          a\ Sin[y]\^2\ ur3[t, x, 
+                              y])\))\))\))\)\) - \(\(1\/\(x\^2 + 
+              a\^2\ Cos[y]\^2\)\)\((2\ a\ M\ x\ B3[t, x, 
+              y]\ \@\(1 + \(2\ M\ x\)\/\(x\^2 + a\^2\ Cos[y]\^2\)\)\ \
+Sin[y]\^2\ \[Sqrt]\((\(1\/\(x\^2 + a\^2\ Cos[y]\^2\)\)\((x\^2 + 
+                    a\^2\ Cos[y]\^2 + \((\((2\ M - x)\)\ x - 
+                          a\^2\ Cos[y]\^2)\)\ ur0[t, x, y]\^2 + \((x\ \((2\ M \
++ x)\) + a\^2\ Cos[y]\^2)\)\ ur1[t, x, y]\^2 + \((x\^2 + a\^2\ \
+Cos[y]\^2)\)\^2\ ur2[t, x, y]\^2 - 
+                    2\ a\ \((x\ \((2\ M + x)\) + 
+                          a\^2\ Cos[y]\^2)\)\ Sin[y]\^2\ ur1[t, x, y]\ ur3[t, 
+                        x, y] + 
+                    1\/2\ \((a\^4 + 2\ x\^4 + a\^2\ x\ \((2\ M + 3\ x)\) + 
+                          a\^2\ \((a\^2 + x\ \((\(-2\)\ M + x)\))\)\ Cos[
+                              2\ y])\)\ Sin[y]\^2\ ur3[t, x, y]\^2 + 
+                    4\ M\ x\ ur0[t, x, 
+                        y]\ \((ur1[t, x, y] - 
+                          a\ Sin[y]\^2\ ur3[t, x, y])\))\))\))\)\) + 
+        B1[t, x, 
+            y]\ \((1 + \(2\ M\ x\)\/\(x\^2 + a\^2\ Cos[y]\^2\))\)\ \((ur1[t, 
+                x, y] - \(\(1\/\(x\ \((2\ M + x)\) + 
+                    a\^2\ Cos[y]\^2\)\)\((2\ M\ x\ \@\(1 + \(2\ M\ \
+x\)\/\(x\^2 + a\^2\ Cos[y]\^2\)\)\ \[Sqrt]\((\(1\/\(x\^2 + 
+                            a\^2\ Cos[y]\^2\)\)\((x\^2 + 
+                          a\^2\ Cos[y]\^2 + \((\((2\ M - x)\)\ x - 
+                                a\^2\ Cos[y]\^2)\)\ ur0[t, x, y]\^2 + \((x\ \
+\((2\ M + x)\) + 
+                                a\^2\ Cos[y]\^2)\)\ ur1[t, x, y]\^2 + \((x\^2 \
++ a\^2\ Cos[y]\^2)\)\^2\ ur2[t, x, y]\^2 - 
+                          2\ a\ \((x\ \((2\ M + x)\) + 
+                                a\^2\ Cos[y]\^2)\)\ Sin[y]\^2\ ur1[t, x, 
+                              y]\ ur3[t, x, y] + 
+                          1\/2\ \((a\^4 + 2\ x\^4 + 
+                                a\^2\ x\ \((2\ M + 3\ x)\) + 
+                                a\^2\ \((a\^2 + 
+                                      x\ \((\(-2\)\ M + x)\))\)\ Cos[
+                                    2\ y])\)\ Sin[y]\^2\ ur3[t, x, y]\^2 + 
+                          4\ M\ x\ ur0[t, x, 
+                              y]\ \((ur1[t, x, y] - 
+                                a\ Sin[y]\^2\ ur3[t, x, y])\))\))\))\)\))\) - 
+        a\ B3[t, x, 
+            y]\ \((1 + \(2\ M\ x\)\/\(x\^2 + a\^2\ Cos[y]\^2\))\)\ Sin[y]\^2\ \
+\((ur1[t, x, y] - \(\(1\/\(x\ \((2\ M + x)\) + 
+                    a\^2\ Cos[y]\^2\)\)\((2\ M\ x\ \@\(1 + \(2\ M\ \
+x\)\/\(x\^2 + a\^2\ Cos[y]\^2\)\)\ \[Sqrt]\((\(1\/\(x\^2 + 
+                            a\^2\ Cos[y]\^2\)\)\((x\^2 + 
+                          a\^2\ Cos[y]\^2 + \((\((2\ M - x)\)\ x - 
+                                a\^2\ Cos[y]\^2)\)\ ur0[t, x, y]\^2 + \((x\ \
+\((2\ M + x)\) + 
+                                a\^2\ Cos[y]\^2)\)\ ur1[t, x, y]\^2 + \((x\^2 \
++ a\^2\ Cos[y]\^2)\)\^2\ ur2[t, x, y]\^2 - 
+                          2\ a\ \((x\ \((2\ M + x)\) + 
+                                a\^2\ Cos[y]\^2)\)\ Sin[y]\^2\ ur1[t, x, 
+                              y]\ ur3[t, x, y] + 
+                          1\/2\ \((a\^4 + 2\ x\^4 + 
+                                a\^2\ x\ \((2\ M + 3\ x)\) + 
+                                a\^2\ \((a\^2 + 
+                                      x\ \((\(-2\)\ M + x)\))\)\ Cos[
+                                    2\ y])\)\ Sin[y]\^2\ ur3[t, x, y]\^2 + 
+                          4\ M\ x\ ur0[t, x, 
+                              y]\ \((ur1[t, x, y] - 
+                                a\ Sin[y]\^2\ ur3[t, x, 
+                                    y])\))\))\))\)\))\), \((B1[t, x, 
+              y] + \((ur1[t, x, 
+                    y] - \(\(1\/\(x\ \((2\ M + x)\) + 
+                        a\^2\ Cos[y]\^2\)\)\((2\ M\ x\ \@\(1 + \(2\ M\ \
+x\)\/\(x\^2 + a\^2\ Cos[y]\^2\)\)\ \[Sqrt]\((\(1\/\(x\^2 + 
+                                a\^2\ Cos[y]\^2\)\)\((x\^2 + 
+                              a\^2\ Cos[y]\^2 + \((\((2\ M - x)\)\ x - 
+                                    a\^2\ Cos[y]\^2)\)\ ur0[t, x, y]\^2 + \
+\((x\ \((2\ M + x)\) + 
+                                    a\^2\ Cos[y]\^2)\)\ ur1[t, x, y]\^2 + \
+\((x\^2 + a\^2\ Cos[y]\^2)\)\^2\ ur2[t, x, y]\^2 - 
+                              2\ a\ \((x\ \((2\ M + x)\) + 
+                                    a\^2\ Cos[y]\^2)\)\ Sin[y]\^2\ ur1[t, x, 
+                                  y]\ ur3[t, x, y] + 
+                              1\/2\ \((a\^4 + 2\ x\^4 + 
+                                    a\^2\ x\ \((2\ M + 3\ x)\) + 
+                                    a\^2\ \((a\^2 + 
+                                        x\ \((\(-2\)\ M + x)\))\)\ Cos[
+                                        
+                                        2\ y])\)\ Sin[y]\^2\ ur3[t, x, y]\^2 \
++ 4\ M\ x\ ur0[t, x, y]\ \((ur1[t, x, y] - 
+                                    a\ Sin[y]\^2\ ur3[t, x, 
+                                        y])\))\))\))\)\))\)\ \((B2[t, x, 
+                      y]\ \((x\^2 + a\^2\ Cos[y]\^2)\)\ ur2[t, x, y] - 
+                  a\ B1[t, x, 
+                      y]\ \((1 + \(2\ M\ x\)\/\(x\^2 + a\^2\ Cos[y]\^2\))\)\ \
+Sin[y]\^2\ ur3[t, x, y] + 
+                  B3[t, x, 
+                      y]\ Sin[y]\^2\ \((x\^2 + a\^2\ Cos[y]\^2 + 
+                        a\^2\ \((1 + \(2\ M\ x\)\/\(x\^2 + a\^2\ Cos[y]\^2\))\
+\)\ Sin[y]\^2)\)\ ur3[t, x, 
+                      y] + \(\(1\/\(x\^2 + a\^2\ Cos[y]\^2\)\)\((2\ M\ x\ B1[
+                        t, x, y]\ \@\(1 + \(2\ M\ x\)\/\(x\^2 + a\^2\ \
+Cos[y]\^2\)\)\ \[Sqrt]\((\(1\/\(x\^2 + a\^2\ Cos[y]\^2\)\)\((x\^2 + 
+                              a\^2\ Cos[y]\^2 + \((\((2\ M - x)\)\ x - 
+                                    a\^2\ Cos[y]\^2)\)\ ur0[t, x, y]\^2 + \
+\((x\ \((2\ M + x)\) + 
+                                    a\^2\ Cos[y]\^2)\)\ ur1[t, x, y]\^2 + \
+\((x\^2 + a\^2\ Cos[y]\^2)\)\^2\ ur2[t, x, y]\^2 - 
+                              2\ a\ \((x\ \((2\ M + x)\) + 
+                                    a\^2\ Cos[y]\^2)\)\ Sin[y]\^2\ ur1[t, x, 
+                                  y]\ ur3[t, x, y] + 
+                              1\/2\ \((a\^4 + 2\ x\^4 + 
+                                    a\^2\ x\ \((2\ M + 3\ x)\) + 
+                                    a\^2\ \((a\^2 + 
+                                        x\ \((\(-2\)\ M + x)\))\)\ Cos[
+                                        2\ y])\)\ Sin[y]\^2\ ur3[t, x, y]\^2 \
++ 4\ M\ x\ ur0[t, x, y]\ \((ur1[t, x, y] - 
+                                    a\ Sin[y]\^2\ ur3[t, x, 
+                                        y])\))\))\))\)\) - \(\(1\/\(x\^2 + 
+                        a\^2\ Cos[y]\^2\)\)\((2\ a\ M\ x\ B3[t, x, 
+                        y]\ \@\(1 + \(2\ M\ x\)\/\(x\^2 + a\^2\ Cos[y]\^2\)\)\
+\ Sin[y]\^2\ \[Sqrt]\((\(1\/\(x\^2 + a\^2\ Cos[y]\^2\)\)\((x\^2 + 
+                              a\^2\ Cos[y]\^2 + \((\((2\ M - x)\)\ x - 
+                                    a\^2\ Cos[y]\^2)\)\ ur0[t, x, y]\^2 + \
+\((x\ \((2\ M + x)\) + 
+                                    a\^2\ Cos[y]\^2)\)\ ur1[t, x, y]\^2 + \
+\((x\^2 + a\^2\ Cos[y]\^2)\)\^2\ ur2[t, x, y]\^2 - 
+                              2\ a\ \((x\ \((2\ M + x)\) + 
+                                    a\^2\ Cos[y]\^2)\)\ Sin[y]\^2\ ur1[t, x, 
+                                  y]\ ur3[t, x, y] + 
+                              1\/2\ \((a\^4 + 2\ x\^4 + 
+                                    a\^2\ x\ \((2\ M + 3\ x)\) + 
+                                    a\^2\ \((a\^2 + 
+                                        x\ \((\(-2\)\ M + x)\))\)\ Cos[
+                                        2\ y])\)\ Sin[y]\^2\ ur3[t, x, y]\^2 \
++ 4\ M\ x\ ur0[t, x, y]\ \((ur1[t, x, y] - 
+                                    a\ Sin[y]\^2\ ur3[t, x, 
+                                        y])\))\))\))\)\) + 
+                  B1[t, x, 
+                      y]\ \((1 + \(2\ M\ x\)\/\(x\^2 + a\^2\ Cos[y]\^2\))\)\ \
+\((ur1[t, x, y] - \(\(1\/\(x\ \((2\ M + x)\) + 
+                              a\^2\ Cos[y]\^2\)\)\((2\ M\ x\ \@\(1 + \(2\ M\ \
+x\)\/\(x\^2 + a\^2\ Cos[y]\^2\)\)\ \[Sqrt]\((\(1\/\(x\^2 + 
+                                      a\^2\ Cos[y]\^2\)\)\((x\^2 + 
+                                    a\^2\ Cos[y]\^2 + \((\((2\ M - x)\)\ x - 
+                                        a\^2\ Cos[y]\^2)\)\ ur0[t, x, y]\^2 + \
+\((x\ \((2\ M + x)\) + 
+                                        a\^2\ Cos[y]\^2)\)\ ur1[t, x, y]\^2 + \
+\((x\^2 + a\^2\ Cos[y]\^2)\)\^2\ ur2[t, x, y]\^2 - 
+                                    2\ a\ \((x\ \((2\ M + x)\) + 
+                                        a\^2\ Cos[y]\^2)\)\ Sin[y]\^2\ ur1[t, 
+                                        x, y]\ ur3[t, x, y] + 
+                                    1\/2\ \((a\^4 + 2\ x\^4 + 
+                                        a\^2\ x\ \((2\ M + 3\ x)\) + 
+                                        a\^2\ \((a\^2 + 
+                                        x\ \((\(-2\)\ M + x)\))\)\ Cos[
+                                        2\ y])\)\ Sin[y]\^2\ ur3[t, x, y]\^2 \
++ 4\ M\ x\ ur0[t, x, y]\ \((ur1[t, x, y] - 
+                                        a\ Sin[y]\^2\ ur3[t, x, 
+                                        y])\))\))\))\)\))\) - 
+                  a\ B3[t, x, 
+                      y]\ \((1 + \(2\ M\ x\)\/\(x\^2 + a\^2\ Cos[y]\^2\))\)\ \
+Sin[y]\^2\ \((ur1[t, x, y] - \(\(1\/\(x\ \((2\ M + x)\) + 
+                              a\^2\ Cos[y]\^2\)\)\((2\ M\ x\ \@\(1 + \(2\ M\ \
+x\)\/\(x\^2 + a\^2\ Cos[y]\^2\)\)\ \[Sqrt]\((\(1\/\(x\^2 + 
+                                      a\^2\ Cos[y]\^2\)\)\((x\^2 + 
+                                    a\^2\ Cos[y]\^2 + \((\((2\ M - x)\)\ x - 
+                                        a\^2\ Cos[y]\^2)\)\ ur0[t, x, y]\^2 + \
+\((x\ \((2\ M + x)\) + 
+                                        a\^2\ Cos[y]\^2)\)\ ur1[t, x, y]\^2 + \
+\((x\^2 + a\^2\ Cos[y]\^2)\)\^2\ ur2[t, x, y]\^2 - 
+                                    2\ a\ \((x\ \((2\ M + x)\) + 
+                                        a\^2\ Cos[y]\^2)\)\ Sin[y]\^2\ ur1[t, 
+                                        x, y]\ ur3[t, x, y] + 
+                                    1\/2\ \((a\^4 + 2\ x\^4 + 
+                                        a\^2\ x\ \((2\ M + 3\ x)\) + 
+                                        a\^2\ \((a\^2 + 
+                                        x\ \((\(-2\)\ M + x)\))\)\ Cos[
+                                        2\ y])\)\ Sin[y]\^2\ ur3[t, x, y]\^2 \
++ 4\ M\ x\ ur0[t, x, y]\ \((ur1[t, x, y] - 
+                                        a\ Sin[y]\^2\ ur3[t, x, 
+                                        y])\))\))\))\)\))\))\))\)/\((\@\(1 + \
+\(2\ M\ x\)\/\(x\^2 + a\^2\ Cos[y]\^2\)\)\ \[Sqrt]\((\(1\/\(x\^2 + 
+                      a\^2\ Cos[y]\^2\)\)\((x\^2 + 
+                    a\^2\ Cos[y]\^2 + \((\((2\ M - x)\)\ x - 
+                          a\^2\ Cos[y]\^2)\)\ ur0[t, x, y]\^2 + \((x\ \((2\ M \
++ x)\) + a\^2\ Cos[y]\^2)\)\ ur1[t, x, y]\^2 + \((x\^2 + a\^2\ \
+Cos[y]\^2)\)\^2\ ur2[t, x, y]\^2 - 
+                    2\ a\ \((x\ \((2\ M + x)\) + 
+                          a\^2\ Cos[y]\^2)\)\ Sin[y]\^2\ ur1[t, x, y]\ ur3[t, 
+                        x, y] + 
+                    1\/2\ \((a\^4 + 2\ x\^4 + a\^2\ x\ \((2\ M + 3\ x)\) + 
+                          a\^2\ \((a\^2 + x\ \((\(-2\)\ M + x)\))\)\ Cos[
+                              2\ y])\)\ Sin[y]\^2\ ur3[t, x, y]\^2 + 
+                    4\ M\ x\ ur0[t, x, 
+                        y]\ \((ur1[t, x, y] - 
+                          a\ Sin[y]\^2\ ur3[t, x, y])\))\))\))\), \((B2[t, x, 
+              y] + ur2[t, x, 
+                y]\ \((B2[t, x, y]\ \((x\^2 + a\^2\ Cos[y]\^2)\)\ ur2[t, x, 
+                      y] - a\ B1[t, x, 
+                      y]\ \((1 + \(2\ M\ x\)\/\(x\^2 + a\^2\ Cos[y]\^2\))\)\ \
+Sin[y]\^2\ ur3[t, x, y] + 
+                  B3[t, x, 
+                      y]\ Sin[y]\^2\ \((x\^2 + a\^2\ Cos[y]\^2 + 
+                        a\^2\ \((1 + \(2\ M\ x\)\/\(x\^2 + a\^2\ Cos[y]\^2\))\
+\)\ Sin[y]\^2)\)\ ur3[t, x, 
+                      y] + \(\(1\/\(x\^2 + a\^2\ Cos[y]\^2\)\)\((2\ M\ x\ B1[
+                        t, x, y]\ \@\(1 + \(2\ M\ x\)\/\(x\^2 + a\^2\ \
+Cos[y]\^2\)\)\ \[Sqrt]\((\(1\/\(x\^2 + a\^2\ Cos[y]\^2\)\)\((x\^2 + 
+                              a\^2\ Cos[y]\^2 + \((\((2\ M - x)\)\ x - 
+                                    a\^2\ Cos[y]\^2)\)\ ur0[t, x, y]\^2 + \
+\((x\ \((2\ M + x)\) + 
+                                    a\^2\ Cos[y]\^2)\)\ ur1[t, x, y]\^2 + \
+\((x\^2 + a\^2\ Cos[y]\^2)\)\^2\ ur2[t, x, y]\^2 - 
+                              2\ a\ \((x\ \((2\ M + x)\) + 
+                                    a\^2\ Cos[y]\^2)\)\ Sin[y]\^2\ ur1[t, x, 
+                                  y]\ ur3[t, x, y] + 
+                              1\/2\ \((a\^4 + 2\ x\^4 + 
+                                    a\^2\ x\ \((2\ M + 3\ x)\) + 
+                                    a\^2\ \((a\^2 + 
+                                        x\ \((\(-2\)\ M + x)\))\)\ Cos[
+                                        2\ y])\)\ Sin[y]\^2\ ur3[t, x, y]\^2 \
++ 4\ M\ x\ ur0[t, x, y]\ \((ur1[t, x, y] - 
+                                    a\ Sin[y]\^2\ ur3[t, x, 
+                                        y])\))\))\))\)\) - \(\(1\/\(x\^2 + 
+                        a\^2\ Cos[y]\^2\)\)\((2\ a\ M\ x\ B3[t, x, 
+                        y]\ \@\(1 + \(2\ M\ x\)\/\(x\^2 + a\^2\ Cos[y]\^2\)\)\
+\ Sin[y]\^2\ \[Sqrt]\((\(1\/\(x\^2 + a\^2\ Cos[y]\^2\)\)\((x\^2 + 
+                              a\^2\ Cos[y]\^2 + \((\((2\ M - x)\)\ x - 
+                                    a\^2\ Cos[y]\^2)\)\ ur0[t, x, y]\^2 + \
+\((x\ \((2\ M + x)\) + 
+                                    a\^2\ Cos[y]\^2)\)\ ur1[t, x, y]\^2 + \
+\((x\^2 + a\^2\ Cos[y]\^2)\)\^2\ ur2[t, x, y]\^2 - 
+                              2\ a\ \((x\ \((2\ M + x)\) + 
+                                    a\^2\ Cos[y]\^2)\)\ Sin[y]\^2\ ur1[t, x, 
+                                  y]\ ur3[t, x, y] + 
+                              1\/2\ \((a\^4 + 2\ x\^4 + 
+                                    a\^2\ x\ \((2\ M + 3\ x)\) + 
+                                    a\^2\ \((a\^2 + 
+                                        x\ \((\(-2\)\ M + x)\))\)\ Cos[
+                                        2\ y])\)\ Sin[y]\^2\ ur3[t, x, y]\^2 \
++ 4\ M\ x\ ur0[t, x, y]\ \((ur1[t, x, y] - 
+                                    a\ Sin[y]\^2\ ur3[t, x, 
+                                        y])\))\))\))\)\) + 
+                  B1[t, x, 
+                      y]\ \((1 + \(2\ M\ x\)\/\(x\^2 + a\^2\ Cos[y]\^2\))\)\ \
+\((ur1[t, x, y] - \(\(1\/\(x\ \((2\ M + x)\) + 
+                              a\^2\ Cos[y]\^2\)\)\((2\ M\ x\ \@\(1 + \(2\ M\ \
+x\)\/\(x\^2 + a\^2\ Cos[y]\^2\)\)\ \[Sqrt]\((\(1\/\(x\^2 + 
+                                      a\^2\ Cos[y]\^2\)\)\((x\^2 + 
+                                    a\^2\ Cos[y]\^2 + \((\((2\ M - x)\)\ x - 
+                                        a\^2\ Cos[y]\^2)\)\ ur0[t, x, y]\^2 + \
+\((x\ \((2\ M + x)\) + 
+                                        a\^2\ Cos[y]\^2)\)\ ur1[t, x, y]\^2 + \
+\((x\^2 + a\^2\ Cos[y]\^2)\)\^2\ ur2[t, x, y]\^2 - 
+                                    2\ a\ \((x\ \((2\ M + x)\) + 
+                                        a\^2\ Cos[y]\^2)\)\ Sin[y]\^2\ ur1[t, 
+                                        x, y]\ ur3[t, x, y] + 
+                                    1\/2\ \((a\^4 + 2\ x\^4 + 
+                                        a\^2\ x\ \((2\ M + 3\ x)\) + 
+                                        a\^2\ \((a\^2 + 
+                                        x\ \((\(-2\)\ M + x)\))\)\ Cos[
+                                        2\ y])\)\ Sin[y]\^2\ ur3[t, x, y]\^2 \
++ 4\ M\ x\ ur0[t, x, y]\ \((ur1[t, x, y] - 
+                                        a\ Sin[y]\^2\ ur3[t, x, 
+                                        y])\))\))\))\)\))\) - 
+                  a\ B3[t, x, 
+                      y]\ \((1 + \(2\ M\ x\)\/\(x\^2 + a\^2\ Cos[y]\^2\))\)\ \
+Sin[y]\^2\ \((ur1[t, x, y] - \(\(1\/\(x\ \((2\ M + x)\) + 
+                              a\^2\ Cos[y]\^2\)\)\((2\ M\ x\ \@\(1 + \(2\ M\ \
+x\)\/\(x\^2 + a\^2\ Cos[y]\^2\)\)\ \[Sqrt]\((\(1\/\(x\^2 + 
+                                      a\^2\ Cos[y]\^2\)\)\((x\^2 + 
+                                    a\^2\ Cos[y]\^2 + \((\((2\ M - x)\)\ x - 
+                                        a\^2\ Cos[y]\^2)\)\ ur0[t, x, y]\^2 + \
+\((x\ \((2\ M + x)\) + 
+                                        a\^2\ Cos[y]\^2)\)\ ur1[t, x, y]\^2 + \
+\((x\^2 + a\^2\ Cos[y]\^2)\)\^2\ ur2[t, x, y]\^2 - 
+                                    2\ a\ \((x\ \((2\ M + x)\) + 
+                                        a\^2\ Cos[y]\^2)\)\ Sin[y]\^2\ ur1[t, 
+                                        x, y]\ ur3[t, x, y] + 
+                                    1\/2\ \((a\^4 + 2\ x\^4 + 
+                                        a\^2\ x\ \((2\ M + 3\ x)\) + 
+                                        a\^2\ \((a\^2 + 
+                                        x\ \((\(-2\)\ M + x)\))\)\ Cos[
+                                        2\ y])\)\ Sin[y]\^2\ ur3[t, x, y]\^2 \
++ 4\ M\ x\ ur0[t, x, y]\ \((ur1[t, x, y] - 
+                                        a\ Sin[y]\^2\ ur3[t, x, 
+                                        y])\))\))\))\)\))\))\))\)/\((\@\(1 + \
+\(2\ M\ x\)\/\(x\^2 + a\^2\ Cos[y]\^2\)\)\ \[Sqrt]\((\(1\/\(x\^2 + 
+                      a\^2\ Cos[y]\^2\)\)\((x\^2 + 
+                    a\^2\ Cos[y]\^2 + \((\((2\ M - x)\)\ x - 
+                          a\^2\ Cos[y]\^2)\)\ ur0[t, x, y]\^2 + \((x\ \((2\ M \
++ x)\) + a\^2\ Cos[y]\^2)\)\ ur1[t, x, y]\^2 + \((x\^2 + a\^2\ \
+Cos[y]\^2)\)\^2\ ur2[t, x, y]\^2 - 
+                    2\ a\ \((x\ \((2\ M + x)\) + 
+                          a\^2\ Cos[y]\^2)\)\ Sin[y]\^2\ ur1[t, x, y]\ ur3[t, 
+                        x, y] + 
+                    1\/2\ \((a\^4 + 2\ x\^4 + a\^2\ x\ \((2\ M + 3\ x)\) + 
+                          a\^2\ \((a\^2 + x\ \((\(-2\)\ M + x)\))\)\ Cos[
+                              2\ y])\)\ Sin[y]\^2\ ur3[t, x, y]\^2 + 
+                    4\ M\ x\ ur0[t, x, 
+                        y]\ \((ur1[t, x, y] - 
+                          a\ Sin[y]\^2\ ur3[t, x, y])\))\))\))\), \((B3[t, x, 
+              y] + ur3[t, x, 
+                y]\ \((B2[t, x, y]\ \((x\^2 + a\^2\ Cos[y]\^2)\)\ ur2[t, x, 
+                      y] - a\ B1[t, x, 
+                      y]\ \((1 + \(2\ M\ x\)\/\(x\^2 + a\^2\ Cos[y]\^2\))\)\ \
+Sin[y]\^2\ ur3[t, x, y] + 
+                  B3[t, x, 
+                      y]\ Sin[y]\^2\ \((x\^2 + a\^2\ Cos[y]\^2 + 
+                        a\^2\ \((1 + \(2\ M\ x\)\/\(x\^2 + a\^2\ Cos[y]\^2\))\
+\)\ Sin[y]\^2)\)\ ur3[t, x, 
+                      y] + \(\(1\/\(x\^2 + a\^2\ Cos[y]\^2\)\)\((2\ M\ x\ B1[
+                        t, x, y]\ \@\(1 + \(2\ M\ x\)\/\(x\^2 + a\^2\ \
+Cos[y]\^2\)\)\ \[Sqrt]\((\(1\/\(x\^2 + a\^2\ Cos[y]\^2\)\)\((x\^2 + 
+                              a\^2\ Cos[y]\^2 + \((\((2\ M - x)\)\ x - 
+                                    a\^2\ Cos[y]\^2)\)\ ur0[t, x, y]\^2 + \
+\((x\ \((2\ M + x)\) + 
+                                    a\^2\ Cos[y]\^2)\)\ ur1[t, x, y]\^2 + \
+\((x\^2 + a\^2\ Cos[y]\^2)\)\^2\ ur2[t, x, y]\^2 - 
+                              2\ a\ \((x\ \((2\ M + x)\) + 
+                                    a\^2\ Cos[y]\^2)\)\ Sin[y]\^2\ ur1[t, x, 
+                                  y]\ ur3[t, x, y] + 
+                              1\/2\ \((a\^4 + 2\ x\^4 + 
+                                    a\^2\ x\ \((2\ M + 3\ x)\) + 
+                                    a\^2\ \((a\^2 + 
+                                        x\ \((\(-2\)\ M + x)\))\)\ Cos[
+                                        2\ y])\)\ Sin[y]\^2\ ur3[t, x, y]\^2 \
++ 4\ M\ x\ ur0[t, x, y]\ \((ur1[t, x, y] - 
+                                    a\ Sin[y]\^2\ ur3[t, x, 
+                                        y])\))\))\))\)\) - \(\(1\/\(x\^2 + 
+                        a\^2\ Cos[y]\^2\)\)\((2\ a\ M\ x\ B3[t, x, 
+                        y]\ \@\(1 + \(2\ M\ x\)\/\(x\^2 + a\^2\ Cos[y]\^2\)\)\
+\ Sin[y]\^2\ \[Sqrt]\((\(1\/\(x\^2 + a\^2\ Cos[y]\^2\)\)\((x\^2 + 
+                              a\^2\ Cos[y]\^2 + \((\((2\ M - x)\)\ x - 
+                                    a\^2\ Cos[y]\^2)\)\ ur0[t, x, y]\^2 + \
+\((x\ \((2\ M + x)\) + 
+                                    a\^2\ Cos[y]\^2)\)\ ur1[t, x, y]\^2 + \
+\((x\^2 + a\^2\ Cos[y]\^2)\)\^2\ ur2[t, x, y]\^2 - 
+                              2\ a\ \((x\ \((2\ M + x)\) + 
+                                    a\^2\ Cos[y]\^2)\)\ Sin[y]\^2\ ur1[t, x, 
+                                  y]\ ur3[t, x, y] + 
+                              1\/2\ \((a\^4 + 2\ x\^4 + 
+                                    a\^2\ x\ \((2\ M + 3\ x)\) + 
+                                    a\^2\ \((a\^2 + 
+                                        x\ \((\(-2\)\ M + x)\))\)\ Cos[
+                                        2\ y])\)\ Sin[y]\^2\ ur3[t, x, y]\^2 \
++ 4\ M\ x\ ur0[t, x, y]\ \((ur1[t, x, y] - 
+                                    a\ Sin[y]\^2\ ur3[t, x, 
+                                        y])\))\))\))\)\) + 
+                  B1[t, x, 
+                      y]\ \((1 + \(2\ M\ x\)\/\(x\^2 + a\^2\ Cos[y]\^2\))\)\ \
+\((ur1[t, x, y] - \(\(1\/\(x\ \((2\ M + x)\) + 
+                              a\^2\ Cos[y]\^2\)\)\((2\ M\ x\ \@\(1 + \(2\ M\ \
+x\)\/\(x\^2 + a\^2\ Cos[y]\^2\)\)\ \[Sqrt]\((\(1\/\(x\^2 + 
+                                      a\^2\ Cos[y]\^2\)\)\((x\^2 + 
+                                    a\^2\ Cos[y]\^2 + \((\((2\ M - x)\)\ x - 
+                                        a\^2\ Cos[y]\^2)\)\ ur0[t, x, y]\^2 + \
+\((x\ \((2\ M + x)\) + 
+                                        a\^2\ Cos[y]\^2)\)\ ur1[t, x, y]\^2 + \
+\((x\^2 + a\^2\ Cos[y]\^2)\)\^2\ ur2[t, x, y]\^2 - 
+                                    2\ a\ \((x\ \((2\ M + x)\) + 
+                                        a\^2\ Cos[y]\^2)\)\ Sin[y]\^2\ ur1[t, 
+                                        x, y]\ ur3[t, x, y] + 
+                                    1\/2\ \((a\^4 + 2\ x\^4 + 
+                                        a\^2\ x\ \((2\ M + 3\ x)\) + 
+                                        a\^2\ \((a\^2 + 
+                                        x\ \((\(-2\)\ M + x)\))\)\ Cos[
+                                        2\ y])\)\ Sin[y]\^2\ ur3[t, x, y]\^2 \
++ 4\ M\ x\ ur0[t, x, y]\ \((ur1[t, x, y] - 
+                                        a\ Sin[y]\^2\ ur3[t, x, 
+                                        y])\))\))\))\)\))\) - 
+                  a\ B3[t, x, 
+                      y]\ \((1 + \(2\ M\ x\)\/\(x\^2 + a\^2\ Cos[y]\^2\))\)\ \
+Sin[y]\^2\ \((ur1[t, x, y] - \(\(1\/\(x\ \((2\ M + x)\) + 
+                              a\^2\ Cos[y]\^2\)\)\((2\ M\ x\ \@\(1 + \(2\ M\ \
+x\)\/\(x\^2 + a\^2\ Cos[y]\^2\)\)\ \[Sqrt]\((\(1\/\(x\^2 + 
+                                      a\^2\ Cos[y]\^2\)\)\((x\^2 + 
+                                    a\^2\ Cos[y]\^2 + \((\((2\ M - x)\)\ x - 
+                                        a\^2\ Cos[y]\^2)\)\ ur0[t, x, y]\^2 + \
+\((x\ \((2\ M + x)\) + 
+                                        a\^2\ Cos[y]\^2)\)\ ur1[t, x, y]\^2 + \
+\((x\^2 + a\^2\ Cos[y]\^2)\)\^2\ ur2[t, x, y]\^2 - 
+                                    2\ a\ \((x\ \((2\ M + x)\) + 
+                                        a\^2\ Cos[y]\^2)\)\ Sin[y]\^2\ ur1[t, 
+                                        x, y]\ ur3[t, x, y] + 
+                                    1\/2\ \((a\^4 + 2\ x\^4 + 
+                                        a\^2\ x\ \((2\ M + 3\ x)\) + 
+                                        a\^2\ \((a\^2 + 
+                                        x\ \((\(-2\)\ M + x)\))\)\ Cos[
+                                        2\ y])\)\ Sin[y]\^2\ ur3[t, x, y]\^2 \
++ 4\ M\ x\ ur0[t, x, y]\ \((ur1[t, x, y] - 
+                                        a\ Sin[y]\^2\ ur3[t, x, 
+                                        y])\))\))\))\)\))\))\))\)/\((\@\(1 + \
+\(2\ M\ x\)\/\(x\^2 + a\^2\ Cos[y]\^2\)\)\ \[Sqrt]\((\(1\/\(x\^2 + 
+                      a\^2\ Cos[y]\^2\)\)\((x\^2 + 
+                    a\^2\ Cos[y]\^2 + \((\((2\ M - x)\)\ x - 
+                          a\^2\ Cos[y]\^2)\)\ ur0[t, x, y]\^2 + \((x\ \((2\ M \
++ x)\) + a\^2\ Cos[y]\^2)\)\ ur1[t, x, y]\^2 + \((x\^2 + a\^2\ \
+Cos[y]\^2)\)\^2\ ur2[t, x, y]\^2 - 
+                    2\ a\ \((x\ \((2\ M + x)\) + 
+                          a\^2\ Cos[y]\^2)\)\ Sin[y]\^2\ ur1[t, x, y]\ ur3[t, 
+                        x, y] + 
+                    1\/2\ \((a\^4 + 2\ x\^4 + a\^2\ x\ \((2\ M + 3\ x)\) + 
+                          a\^2\ \((a\^2 + x\ \((\(-2\)\ M + x)\))\)\ Cos[
+                              2\ y])\)\ Sin[y]\^2\ ur3[t, x, y]\^2 + 
+                    4\ M\ x\ ur0[t, x, 
+                        y]\ \((ur1[t, x, y] - 
+                          a\ Sin[y]\^2\ ur3[t, x, y])\))\))\))\)}\)], "Output"],
+
+Cell[BoxData[
+    \({\@\(1 + \(2\ M\ x\)\/\(x\^2 + a\^2\ Cos[y]\^2\)\)\ \
+\[Sqrt]\((\(1\/\(x\^2 + a\^2\ Cos[y]\^2\)\)\((x\^2 + 
+                a\^2\ Cos[y]\^2 + \((\((2\ M - x)\)\ x - 
+                      a\^2\ Cos[y]\^2)\)\ ur0[t, x, y]\^2 + \((x\ \((2\ M + 
+                            x)\) + 
+                      a\^2\ Cos[y]\^2)\)\ ur1[t, x, y]\^2 + \((x\^2 + a\^2\ \
+Cos[y]\^2)\)\^2\ ur2[t, x, y]\^2 - 
+                2\ a\ \((x\ \((2\ M + x)\) + 
+                      a\^2\ Cos[y]\^2)\)\ Sin[y]\^2\ ur1[t, x, y]\ ur3[t, x, 
+                    y] + 1\/2\ \((a\^4 + 2\ x\^4 + 
+                      a\^2\ x\ \((2\ M + 3\ x)\) + 
+                      a\^2\ \((a\^2 + x\ \((\(-2\)\ M + x)\))\)\ Cos[
+                          2\ y])\)\ Sin[y]\^2\ ur3[t, x, y]\^2 + 
+                4\ M\ x\ ur0[t, x, 
+                    y]\ \((ur1[t, x, y] - 
+                      a\ Sin[y]\^2\ ur3[t, x, y])\))\))\), 
+      ur1[t, x, 
+          y] - \(\(1\/\(x\ \((2\ M + x)\) + 
+              a\^2\ Cos[y]\^2\)\)\((2\ M\ x\ \@\(1 + \(2\ M\ x\)\/\(x\^2 + \
+a\^2\ Cos[y]\^2\)\)\ \[Sqrt]\((\(1\/\(x\^2 + a\^2\ Cos[y]\^2\)\)\((x\^2 + 
+                    a\^2\ Cos[y]\^2 + \((\((2\ M - x)\)\ x - 
+                          a\^2\ Cos[y]\^2)\)\ ur0[t, x, y]\^2 + \((x\ \((2\ M \
++ x)\) + a\^2\ Cos[y]\^2)\)\ ur1[t, x, y]\^2 + \((x\^2 + a\^2\ \
+Cos[y]\^2)\)\^2\ ur2[t, x, y]\^2 - 
+                    2\ a\ \((x\ \((2\ M + x)\) + 
+                          a\^2\ Cos[y]\^2)\)\ Sin[y]\^2\ ur1[t, x, y]\ ur3[t, 
+                        x, y] + 
+                    1\/2\ \((a\^4 + 2\ x\^4 + a\^2\ x\ \((2\ M + 3\ x)\) + 
+                          a\^2\ \((a\^2 + x\ \((\(-2\)\ M + x)\))\)\ Cos[
+                              2\ y])\)\ Sin[y]\^2\ ur3[t, x, y]\^2 + 
+                    4\ M\ x\ ur0[t, x, 
+                        y]\ \((ur1[t, x, y] - 
+                          a\ Sin[y]\^2\ ur3[t, x, y])\))\))\))\)\), 
+      ur2[t, x, y], ur3[t, x, y]}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\(\(Tuu = 
+        Simplify[
+          Table[\((rho[t, x, y] + u[t, x, y] + p + bsq)\)*ucon[\([jj]\)]*
+                ucon[\([kk]\)] + \((p + 1/2*bsq)\)*KroneckerDelta[jj, kk] - 
+              bcon[\([jj]\)]*bcon[\([kk]\)], {jj, 1, 4}, {kk, 1, 
+              4}]];\)\(\[IndentingNewLine]\)
+    \)\)], "Input"],
+
+Cell[BoxData[
+    \(Simplify::"time" \(\(:\)\(\ \)\) 
+      "Time spent on a transformation exceeded \!\(300\) seconds, and the \
+transformation was aborted. Increasing the value of TimeConstraint option may \
+improve the result of simplification."\)], "Message"],
+
+Cell[BoxData[
+    \(Simplify::"time" \(\(:\)\(\ \)\) 
+      "Time spent on a transformation exceeded \!\(300\) seconds, and the \
+transformation was aborted. Increasing the value of TimeConstraint option may \
+improve the result of simplification."\)], "Message"],
+
+Cell[BoxData[
+    \(Hold[Abort[], Abort[]]\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\(eqns = 
+        Simplify[
+          Table[MyD[Tuu[\([1, ii]\)], 
+                1] \[Equal] \(-1\)/gdet*
+                  Sum[MyD[gdet*Tuu[\([pp, 1]\)], pp], {pp, 1, 4}] + 
+                Sum[gcon[\([ii, jj]\)]*gcov[\([lam, lamp]\)]*
+                    Tuu[\([kk, lamp]\)]*Connection[\([lam, jj, kk]\)], {jj, 
+                    1, 4}, {lamp, 1, 4}, {lam, 1, 4}, {kk, 1, 4}], {ii, 1, 
+              4}]];\)\)], "Input"],
+
+Cell[BoxData[
+    \(Hold[Abort[], Abort[]]\)], "Output"]
+}, Open  ]]
+},
+FrontEndVersion->"4.2 for X",
+ScreenRectangle->{{0, 1600}, {0, 1200}},
+WindowSize->{1532, 1063},
+WindowMargins->{{Automatic, 1}, {Automatic, 0}}
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1754, 51, 272, 4, 27, "Input"],
+Cell[2029, 57, 71, 1, 27, "Input"],
+Cell[2103, 60, 26, 0, 27, "Input"],
+Cell[2132, 62, 26, 0, 27, "Input"],
+
+Cell[CellGroupData[{
+Cell[2183, 66, 2288, 46, 475, "Input"],
+Cell[4474, 114, 64, 1, 27, "Output"],
+Cell[4541, 117, 90, 1, 27, "Output"],
+Cell[4634, 120, 660, 10, 89, "Output"],
+Cell[5297, 132, 796, 14, 84, "Output"],
+Cell[6096, 148, 86, 1, 70, "Output"],
+Cell[6185, 151, 104, 2, 47, "Output"],
+Cell[6292, 155, 873, 15, 142, "Output"],
+Cell[7168, 172, 76, 1, 27, "Output"],
+Cell[7247, 175, 26105, 425, 2860, "Output"],
+Cell[33355, 602, 1958, 34, 267, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[35350, 641, 330, 7, 43, "Input"],
+Cell[35683, 650, 263, 4, 23, "Message"],
+Cell[35949, 656, 263, 4, 23, "Message"],
+Cell[36215, 662, 56, 1, 27, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[36308, 668, 446, 9, 75, "Input"],
+Cell[36757, 679, 56, 1, 27, "Output"]
+}, Open  ]]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

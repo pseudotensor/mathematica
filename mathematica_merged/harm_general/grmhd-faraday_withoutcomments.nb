@@ -1,0 +1,1592 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 5.1'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     60173,       1445]*)
+(*NotebookOutlinePosition[     60816,       1467]*)
+(*  CellTagsIndexPosition[     60772,       1463]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell[BoxData[
+    \(\(\( (*\ Uses\ grmhd - ksksp\ *) \)\(\[IndentingNewLine]\)\( (*\ 
+      everything\ here\ is\ for\ d/dt \[Rule] \(0\ d/dphi \[Rule] 
+            0\ and\ E . B\) = 0\ *) \)\)\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(u = {uu0[x, y], uu1[x, y], uu2[x, y], 
+        uu3[x, y]}\), "\[IndentingNewLine]", 
+    \(omega1 = \(-D[A0[x, y], x]\)/D[Ap[x, y], x]\), "\[IndentingNewLine]", 
+    \(omega2 = \(-D[A0[x, y], y]\)/D[Ap[x, y], y]\), "\[IndentingNewLine]", 
+    \(FullSimplify[\((D[omega2, x]/
+            D[omega1, y])\) //. {D[A0[x, y], x] \[Rule] 
+            D[A0[x, y], y]*D[Ap[x, y], x]/D[Ap[x, y], y]}]\)}], "Input"],
+
+Cell[BoxData[
+    \({uu0[x, y], uu1[x, y], uu2[x, y], uu3[x, y]}\)], "Output"],
+
+Cell[BoxData[
+    RowBox[{"-", 
+      FractionBox[
+        RowBox[{
+          SuperscriptBox["A0", 
+            TagBox[\((1, 0)\),
+              Derivative],
+            MultilineFunction->None], "[", \(x, y\), "]"}], 
+        RowBox[{
+          SuperscriptBox["Ap", 
+            TagBox[\((1, 0)\),
+              Derivative],
+            MultilineFunction->None], "[", \(x, y\), "]"}]]}]], "Output"],
+
+Cell[BoxData[
+    RowBox[{"-", 
+      FractionBox[
+        RowBox[{
+          SuperscriptBox["A0", 
+            TagBox[\((0, 1)\),
+              Derivative],
+            MultilineFunction->None], "[", \(x, y\), "]"}], 
+        RowBox[{
+          SuperscriptBox["Ap", 
+            TagBox[\((0, 1)\),
+              Derivative],
+            MultilineFunction->None], "[", \(x, y\), "]"}]]}]], "Output"],
+
+Cell[BoxData[
+    FractionBox[
+      RowBox[{
+        SuperscriptBox["Ap", 
+          TagBox[\((1, 0)\),
+            Derivative],
+          MultilineFunction->None], "[", \(x, y\), "]"}], 
+      RowBox[{
+        SuperscriptBox["Ap", 
+          TagBox[\((0, 1)\),
+            Derivative],
+          MultilineFunction->None], "[", \(x, y\), "]"}]]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(If[coordtype \[Equal] 1, 
+      mygcon = FullSimplify[
+          gcon //. {x \[Rule] Log[r - R0], 
+              Pi*y - 1/2*\((\(-1\) + hslope)\)*Sin[2*Pi*y] \[Rule] 
+                h}]; \[IndentingNewLine]mygcov = 
+        FullSimplify[
+          gcov //. {x \[Rule] Log[r - R0], 
+              Pi*y - 1/2*\((\(-1\) + hslope)\)*Sin[2*Pi*y] \[Rule] 
+                h}];\[IndentingNewLine]]\), "\[IndentingNewLine]", 
+    \(If[coordtype \[Equal] 0, \[IndentingNewLine]mygcon = 
+        FullSimplify[gcon]; \[IndentingNewLine]mygcov = 
+        FullSimplify[gcov];\[IndentingNewLine]]\)}], "Input"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell1"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(mygcov\\)\\\" is similar to existing symbol \
+\\\"\\!\\(mygcon\\)\\\". \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell1\\\"]\\)\"\>"}]], "Message"]
+}, Open  ]],
+
+Cell[BoxData[""], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{\(list = {t, x, y, 
+        z}\), "\[IndentingNewLine]", \(Av = {A0[t, x, y, z], Ar[t, x, y, z], 
+        Ah[t, x, y, z], Ap[t, x, y, z]}\), "\n", \(Ffulldd = 
+      Table[D[Av[\([i2]\)], list[\([i1]\)]] - 
+          D[Av[\([i1]\)], list[\([i2]\)]], {i1, 1, 4}, {i2, 1, 
+          4}]\), "\[IndentingNewLine]", \(Av = {A0[x, y], Ar[x, y], Ah[x, y], 
+        Ap[x, y]}\), "\[IndentingNewLine]", 
+    RowBox[{"Fdd", "=", 
+      RowBox[{\(Table[
+            D[Av[\([i2]\)], list[\([i1]\)]] - 
+              D[Av[\([i1]\)], list[\([i2]\)]], {i1, 1, 4}, {i2, 1, 
+              4}] //. {D[A0[x, y], y] -> 
+              D[A0[x, y], x]*D[Ap[x, y], y]/D[Ap[x, y], x]}\), "//.", 
+        RowBox[{"{", 
+          
+          RowBox[{\(D[A0[x, y], x] \[Rule] \(-wf2[x, y]\)*D[Ap[x, y], x]\), 
+            ",", \(D[A0[x, y], y] \[Rule] \(-wf2[x, y]\)*D[Ap[x, y], y]\), 
+            ",", 
+            RowBox[{
+              RowBox[{
+                RowBox[{"-", 
+                  RowBox[{
+                    SuperscriptBox["Ar", 
+                      TagBox[\((0, 1)\),
+                        Derivative],
+                      MultilineFunction->None], "[", \(x, y\), "]"}]}], "+", 
+                RowBox[{
+                  SuperscriptBox["Ah", 
+                    TagBox[\((1, 0)\),
+                      Derivative],
+                    MultilineFunction->None], "[", \(x, y\), "]"}]}], 
+              "\[Rule]", \(gdet*Bp[x, y]\)}], ",", 
+            RowBox[{
+              RowBox[{
+                RowBox[{
+                  SuperscriptBox["Ar", 
+                    TagBox[\((0, 1)\),
+                      Derivative],
+                    MultilineFunction->None], "[", \(x, y\), "]"}], "-", 
+                RowBox[{
+                  SuperscriptBox["Ah", 
+                    TagBox[\((1, 0)\),
+                      Derivative],
+                    MultilineFunction->None], "[", \(x, y\), "]"}]}], 
+              "\[Rule]", \(\(-gdet\)*Bp[x, y]\)}]}], 
+          "}"}]}]}], "\[IndentingNewLine]", 
+    RowBox[{"Fdd2", "=", 
+      RowBox[{\(Table[
+            D[Av[\([i2]\)], list[\([i1]\)]] - 
+              D[Av[\([i1]\)], list[\([i2]\)]], {i1, 1, 4}, {i2, 1, 
+              4}] //. {D[A0[x, y], y] -> 
+              D[A0[x, y], x]*D[Ap[x, y], y]/D[Ap[x, y], x]}\), "//.", 
+        RowBox[{"{", 
+          
+          RowBox[{\(D[A0[x, y], x] \[Rule] \(-wf2[x, y]\)*D[Ap[x, y], x]\), 
+            ",", \(D[A0[x, y], y] \[Rule] \(-wf2[x, y]\)*D[Ap[x, y], y]\), 
+            ",", 
+            RowBox[{
+              RowBox[{
+                RowBox[{"-", 
+                  RowBox[{
+                    SuperscriptBox["Ar", 
+                      TagBox[\((0, 1)\),
+                        Derivative],
+                      MultilineFunction->None], "[", \(x, y\), "]"}]}], "+", 
+                RowBox[{
+                  SuperscriptBox["Ah", 
+                    TagBox[\((1, 0)\),
+                      Derivative],
+                    MultilineFunction->None], "[", \(x, y\), "]"}]}], 
+              "\[Rule]", \(Bp[x, y]\)}], ",", 
+            RowBox[{
+              RowBox[{
+                RowBox[{
+                  SuperscriptBox["Ar", 
+                    TagBox[\((0, 1)\),
+                      Derivative],
+                    MultilineFunction->None], "[", \(x, y\), "]"}], "-", 
+                RowBox[{
+                  SuperscriptBox["Ah", 
+                    TagBox[\((1, 0)\),
+                      Derivative],
+                    MultilineFunction->None], "[", \(x, y\), "]"}]}], 
+              "\[Rule]", \(-Bp[x, y]\)}]}], 
+          "}"}]}]}], "\[IndentingNewLine]", \(Fdd3 = 
+      Fdd //. {D[Ap[x, y], x] \[Rule] \(-gdet\)*B2[x, y], 
+          D[Ap[x, y], y] \[Rule] gdet*B1[x, y], wf2[x, y] \[Rule] wf2[x, y], 
+          Bp[x, y] \[Rule] B3[x, y]}\), "\[IndentingNewLine]", \(MatrixForm[
+      Fdd]\), "\[IndentingNewLine]", \(Fodd = {{0, \(-ex\), \(-ey\), 0}, {ex, 
+            0, bz, \(-by\)}, {ey, \(-bz\), 0, bx}, {0, by, \(-bx\), 
+            0}} //. {ey \[Rule] \(-bx\)*
+              ex/by}\), "\[IndentingNewLine]", \(MatrixForm[
+      Fodd]\), "\[IndentingNewLine]", \(ucon = {uu0[x, y], uu1[x, y], 
+          uu2[x, y], 
+          uu3[x, y]};\), "\[IndentingNewLine]", \(bcon = {bu0[x, y], 
+          bu1[x, y], bu2[x, y], 
+          bu3[x, y]};\), "\[IndentingNewLine]", \(replacelist = {bu3[x, 
+                y]\ \((uu0[x, y] + uu1[x, y])\) - \((bu0[x, y] + 
+                  bu1[x, y])\)\ uu3[x, y] \[Rule] 
+          B3[x, y] - wf2[x, y]*B1[x, y], 
+        bu3[x, y]*uu1[x, y] - bu1[x, y]*uu3[x, y] \[Rule] \(-wf2[x, y]\)*
+            B1[x, y], \(-bu3[x, y]\)*uu1[x, y] + bu1[x, y]*uu3[x, y] \[Rule] 
+          wf2[x, y]*B1[x, y], 
+        bu1[x, y]*uu0[x, y] - bu0[x, y]*uu1[x, y] \[Rule] 
+          B1[x, y], \(-bu1[x, y]\)*uu0[x, y] + 
+            bu0[x, y]*uu1[x, y] \[Rule] \(-B1[x, y]\), 
+        bu3[x, y]*uu0[x, y] - bu0[x, y]*uu3[x, y] \[Rule] 
+          B3[x, y], \(-bu3[x, y]\)*uu0[x, y] + 
+            bu0[x, y]*uu3[x, y] \[Rule] \(-B3[x, y]\), 
+        bu2[x, y]*uu0[x, y] - bu0[x, y]*uu2[x, y] \[Rule] 
+          B2[x, y], \(-bu2[x, y]\)*uu0[x, y] + 
+            bu0[x, y]*uu2[x, y] \[Rule] \(-B2[x, 
+              y]\), \(-bu3[x, y]\)\ uu2[x, y] + bu2[x, y]\ uu3[x, y] \[Rule] 
+          E1[x, y], 
+        bu3[x, y]\ uu2[x, y] - bu2[x, y]\ uu3[x, y] \[Rule] \(-E1[x, y]\), 
+        bu2[x, y]*uu1[x, y] - 
+            bu1[x, y]*uu2[x, y] \[Rule] \(-E3[x, y]\), \(-bu2[x, y]\)*
+              uu1[x, y] + bu1[x, y]*uu2[x, y] \[Rule] 
+          E3[x, y], \(-bu3[x, y]\)*uu1[x, y] + bu1[x, y]*uu3[x, y] \[Rule] 
+          E2[x, y], 
+        bu3[x, y]*uu1[x, y] - 
+            bu1[x, y]*uu3[x, y] \[Rule] \(-E2[x, 
+              y]\)}\), "\[IndentingNewLine]", \(replacelistnowf = {bu1[x, y]*
+              uu0[x, y] - bu0[x, y]*uu1[x, y] \[Rule] 
+          B1[x, y], \(-bu1[x, y]\)*uu0[x, y] + 
+            bu0[x, y]*uu1[x, y] \[Rule] \(-B1[x, y]\), 
+        bu3[x, y]*uu0[x, y] - bu0[x, y]*uu3[x, y] \[Rule] 
+          B3[x, y], \(-bu3[x, y]\)*uu0[x, y] + 
+            bu0[x, y]*uu3[x, y] \[Rule] \(-B3[x, y]\), 
+        bu2[x, y]*uu0[x, y] - bu0[x, y]*uu2[x, y] \[Rule] 
+          B2[x, y], \(-bu2[x, y]\)*uu0[x, y] + 
+            bu0[x, y]*uu2[x, y] \[Rule] \(-B2[x, 
+              y]\), \(-bu3[x, y]\)\ uu2[x, y] + bu2[x, y]\ uu3[x, y] \[Rule] 
+          E1[x, y], 
+        bu3[x, y]\ uu2[x, y] - bu2[x, y]\ uu3[x, y] \[Rule] \(-E1[x, y]\), 
+        bu2[x, y]*uu1[x, y] - 
+            bu1[x, y]*uu2[x, y] \[Rule] \(-E3[x, y]\), \(-bu2[x, y]\)*
+              uu1[x, y] + bu1[x, y]*uu2[x, y] \[Rule] 
+          E3[x, y], \(-bu3[x, y]\)*uu1[x, y] + bu1[x, y]*uu3[x, y] \[Rule] 
+          E2[x, y], 
+        bu3[x, y]*uu1[x, y] - 
+            bu1[x, y]*uu3[x, y] \[Rule] \(-E2[x, 
+              y]\)}\), "\[IndentingNewLine]", \(Fjondd = 
+      gdet*{{0, \(-wf2[x, y]\)*B2[x, y], wf2[x, y]*B1[x, y], 
+            0}, {wf2[x, y]*B2[x, y], 0, 
+            B3[x, y], \(-B2[x, y]\)}, {\(-wf2[x, y]\)*
+              B1[x, y], \(-B3[x, y]\), 0, B1[x, y]}, {0, 
+            B2[x, y], \(-B1[x, y]\), 0}}\), "\[IndentingNewLine]", \(Fgdd = 
+        FullSimplify[
+            Table[Sum[
+                  gdet*Signature[{m, n, k, l}]*ucon[\([k]\)]*
+                    bcon[\([l]\)], {k, 1, 4}, {l, 1, 4}], {m, 1, 4}, {n, 1, 
+                  4}] //. {bu2[x, y] \[Rule] 
+                  bu1[x, y]*uu2[x, y]/uu1[x, y]}, {sigma > 0}] //. 
+          replacelist;\), "\[IndentingNewLine]", \(Ffullgdd = 
+        FullSimplify[
+            Table[Sum[
+                gdet*Signature[{m, n, k, l}]*ucon[\([k]\)]*bcon[\([l]\)], {k, 
+                  1, 4}, {l, 1, 4}], {m, 1, 4}, {n, 1, 4}], {sigma > 0}] //. 
+          replacelistnowf;\), "\[IndentingNewLine]", \(MatrixForm[
+      Fgdd]\), "\[IndentingNewLine]", \(MatrixForm[
+      Ffullgdd]\), "\[IndentingNewLine]", \(etad = {\(-alpha\), 0, 0, 
+          0};\), "\[IndentingNewLine]", \(etau = 
+        1/alpha*{1, betau1, betau2, 
+            betau3};\), "\[IndentingNewLine]", \(Eu = {eu0, eu1, eu2, 
+            eu3} //. {eu0 \[Rule] 0};\), "\[IndentingNewLine]", \(Ed = {ed0, 
+          ed1, ed2, 
+          ed3};\), "\[IndentingNewLine]", \(Bu = {bu0, bu1, bu2, 
+            bu3} //. {bu0 \[Rule] 0};\), "\[IndentingNewLine]", \(Bd = 
+        FullSimplify[
+          Table[Sum[mygcov[\([aa, aaa]\)]*Bu[\([aaa]\)], {aaa, 1, 4}], {aa, 
+              1, 4}]];\), "\[IndentingNewLine]", \(Fiandd = 
+        Table[etad[\([aa]\)]*Ed[\([bb]\)] - etad[\([bb]\)]*Ed[\([aa]\)] + 
+            Sum[etau[\([dd]\)]*Bu[\([cc]\)]*gdet*
+                Signature[{aa, bb, cc, dd}], {dd, 1, 4}, {cc, 1, 4}], {aa, 1, 
+            4}, {bb, 1, 4}];\), "\[IndentingNewLine]", \(Fianuu = 
+        Table[etau[\([aa]\)]*Eu[\([bb]\)] - etau[\([bb]\)]*Eu[\([aa]\)] + 
+            Sum[etad[\([dd]\)]*Bd[\([cc]\)]*\((\(-1\)/gdet)\)*
+                Signature[{aa, bb, cc, dd}], {dd, 1, 4}, {cc, 1, 4}], {aa, 1, 
+            4}, {bb, 1, 4}];\), "\[IndentingNewLine]", \(dualFianuu = 
+        Table[
+          etau[\([aa]\)]*Bu[\([bb]\)] - etau[\([bb]\)]*Bu[\([aa]\)] - 
+            Sum[etad[\([dd]\)]*Ed[\([cc]\)]*\((\(-1\)/gdet)\)*
+                Signature[{aa, bb, cc, dd}], {dd, 1, 4}, {cc, 1, 4}], {aa, 1, 
+            4}, {bb, 1, 4}];\), "\[IndentingNewLine]", \(dualFiandd = 
+        Table[etad[\([aa]\)]*Bd[\([bb]\)] - etad[\([bb]\)]*Bu[\([aa]\)] - 
+            Sum[etau[\([dd]\)]*Eu[\([cc]\)]*\((gdet)\)*
+                Signature[{aa, bb, cc, dd}], {dd, 1, 4}, {cc, 1, 4}], {aa, 1, 
+            4}, {bb, 1, 
+            4}];\), "\[IndentingNewLine]", \(Fcovother = \(Fcovother = 
+        gdet*{{0, \(-Ed1\), \(-Ed2\), \(-Ed3\)}, {Ed1, 0, 
+              Bu3, \(-Bu2\)}, {Ed2, \(-Bu3\), 0, Bu1}, {Ed3, Bu2, \(-Bu1\), 
+              0}}\)\), "\[IndentingNewLine]", "Null"}], "Input"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell1"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(list\\)\\\" is similar to existing symbol \\\
+\"\\!\\(List\\)\\\". \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell1\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    \({t, x, y, z}\)], "Output"],
+
+Cell[BoxData[
+    \({A0[t, x, y, z], Ar[t, x, y, z], Ah[t, x, y, z], 
+      Ap[t, x, y, z]}\)], "Output"],
+
+Cell[BoxData[
+    RowBox[{"{", 
+      RowBox[{
+        RowBox[{"{", 
+          RowBox[{"0", ",", 
+            RowBox[{
+              RowBox[{"-", 
+                RowBox[{
+                  SuperscriptBox["A0", 
+                    TagBox[\((0, 1, 0, 0)\),
+                      Derivative],
+                    MultilineFunction->None], "[", \(t, x, y, z\), "]"}]}], 
+              "+", 
+              RowBox[{
+                SuperscriptBox["Ar", 
+                  TagBox[\((1, 0, 0, 0)\),
+                    Derivative],
+                  MultilineFunction->None], "[", \(t, x, y, z\), "]"}]}], ",",
+             
+            RowBox[{
+              RowBox[{"-", 
+                RowBox[{
+                  SuperscriptBox["A0", 
+                    TagBox[\((0, 0, 1, 0)\),
+                      Derivative],
+                    MultilineFunction->None], "[", \(t, x, y, z\), "]"}]}], 
+              "+", 
+              RowBox[{
+                SuperscriptBox["Ah", 
+                  TagBox[\((1, 0, 0, 0)\),
+                    Derivative],
+                  MultilineFunction->None], "[", \(t, x, y, z\), "]"}]}], ",",
+             
+            RowBox[{
+              RowBox[{"-", 
+                RowBox[{
+                  SuperscriptBox["A0", 
+                    TagBox[\((0, 0, 0, 1)\),
+                      Derivative],
+                    MultilineFunction->None], "[", \(t, x, y, z\), "]"}]}], 
+              "+", 
+              RowBox[{
+                SuperscriptBox["Ap", 
+                  TagBox[\((1, 0, 0, 0)\),
+                    Derivative],
+                  MultilineFunction->None], "[", \(t, x, y, z\), "]"}]}]}], 
+          "}"}], ",", 
+        RowBox[{"{", 
+          RowBox[{
+            RowBox[{
+              RowBox[{
+                SuperscriptBox["A0", 
+                  TagBox[\((0, 1, 0, 0)\),
+                    Derivative],
+                  MultilineFunction->None], "[", \(t, x, y, z\), "]"}], "-", 
+              RowBox[{
+                SuperscriptBox["Ar", 
+                  TagBox[\((1, 0, 0, 0)\),
+                    Derivative],
+                  MultilineFunction->None], "[", \(t, x, y, z\), "]"}]}], ",",
+             "0", ",", 
+            RowBox[{
+              RowBox[{"-", 
+                RowBox[{
+                  SuperscriptBox["Ar", 
+                    TagBox[\((0, 0, 1, 0)\),
+                      Derivative],
+                    MultilineFunction->None], "[", \(t, x, y, z\), "]"}]}], 
+              "+", 
+              RowBox[{
+                SuperscriptBox["Ah", 
+                  TagBox[\((0, 1, 0, 0)\),
+                    Derivative],
+                  MultilineFunction->None], "[", \(t, x, y, z\), "]"}]}], ",",
+             
+            RowBox[{
+              RowBox[{"-", 
+                RowBox[{
+                  SuperscriptBox["Ar", 
+                    TagBox[\((0, 0, 0, 1)\),
+                      Derivative],
+                    MultilineFunction->None], "[", \(t, x, y, z\), "]"}]}], 
+              "+", 
+              RowBox[{
+                SuperscriptBox["Ap", 
+                  TagBox[\((0, 1, 0, 0)\),
+                    Derivative],
+                  MultilineFunction->None], "[", \(t, x, y, z\), "]"}]}]}], 
+          "}"}], ",", 
+        RowBox[{"{", 
+          RowBox[{
+            RowBox[{
+              RowBox[{
+                SuperscriptBox["A0", 
+                  TagBox[\((0, 0, 1, 0)\),
+                    Derivative],
+                  MultilineFunction->None], "[", \(t, x, y, z\), "]"}], "-", 
+              RowBox[{
+                SuperscriptBox["Ah", 
+                  TagBox[\((1, 0, 0, 0)\),
+                    Derivative],
+                  MultilineFunction->None], "[", \(t, x, y, z\), "]"}]}], ",",
+             
+            RowBox[{
+              RowBox[{
+                SuperscriptBox["Ar", 
+                  TagBox[\((0, 0, 1, 0)\),
+                    Derivative],
+                  MultilineFunction->None], "[", \(t, x, y, z\), "]"}], "-", 
+              RowBox[{
+                SuperscriptBox["Ah", 
+                  TagBox[\((0, 1, 0, 0)\),
+                    Derivative],
+                  MultilineFunction->None], "[", \(t, x, y, z\), "]"}]}], ",",
+             "0", ",", 
+            RowBox[{
+              RowBox[{"-", 
+                RowBox[{
+                  SuperscriptBox["Ah", 
+                    TagBox[\((0, 0, 0, 1)\),
+                      Derivative],
+                    MultilineFunction->None], "[", \(t, x, y, z\), "]"}]}], 
+              "+", 
+              RowBox[{
+                SuperscriptBox["Ap", 
+                  TagBox[\((0, 0, 1, 0)\),
+                    Derivative],
+                  MultilineFunction->None], "[", \(t, x, y, z\), "]"}]}]}], 
+          "}"}], ",", 
+        RowBox[{"{", 
+          RowBox[{
+            RowBox[{
+              RowBox[{
+                SuperscriptBox["A0", 
+                  TagBox[\((0, 0, 0, 1)\),
+                    Derivative],
+                  MultilineFunction->None], "[", \(t, x, y, z\), "]"}], "-", 
+              RowBox[{
+                SuperscriptBox["Ap", 
+                  TagBox[\((1, 0, 0, 0)\),
+                    Derivative],
+                  MultilineFunction->None], "[", \(t, x, y, z\), "]"}]}], ",",
+             
+            RowBox[{
+              RowBox[{
+                SuperscriptBox["Ar", 
+                  TagBox[\((0, 0, 0, 1)\),
+                    Derivative],
+                  MultilineFunction->None], "[", \(t, x, y, z\), "]"}], "-", 
+              RowBox[{
+                SuperscriptBox["Ap", 
+                  TagBox[\((0, 1, 0, 0)\),
+                    Derivative],
+                  MultilineFunction->None], "[", \(t, x, y, z\), "]"}]}], ",",
+             
+            RowBox[{
+              RowBox[{
+                SuperscriptBox["Ah", 
+                  TagBox[\((0, 0, 0, 1)\),
+                    Derivative],
+                  MultilineFunction->None], "[", \(t, x, y, z\), "]"}], "-", 
+              RowBox[{
+                SuperscriptBox["Ap", 
+                  TagBox[\((0, 0, 1, 0)\),
+                    Derivative],
+                  MultilineFunction->None], "[", \(t, x, y, z\), "]"}]}], ",",
+             "0"}], "}"}]}], "}"}]], "Output"],
+
+Cell[BoxData[
+    \({A0[x, y], Ar[x, y], Ah[x, y], Ap[x, y]}\)], "Output"],
+
+Cell[BoxData[
+    RowBox[{"{", 
+      RowBox[{
+        RowBox[{"{", 
+          RowBox[{"0", ",", 
+            RowBox[{\(wf2[x, y]\), " ", 
+              RowBox[{
+                SuperscriptBox["Ap", 
+                  TagBox[\((1, 0)\),
+                    Derivative],
+                  MultilineFunction->None], "[", \(x, y\), "]"}]}], ",", 
+            RowBox[{\(wf2[x, y]\), " ", 
+              RowBox[{
+                SuperscriptBox["Ap", 
+                  TagBox[\((0, 1)\),
+                    Derivative],
+                  MultilineFunction->None], "[", \(x, y\), "]"}]}], ",", 
+            "0"}], "}"}], ",", 
+        RowBox[{"{", 
+          RowBox[{
+            RowBox[{\(-wf2[x, y]\), " ", 
+              RowBox[{
+                SuperscriptBox["Ap", 
+                  TagBox[\((1, 0)\),
+                    Derivative],
+                  MultilineFunction->None], "[", \(x, y\), "]"}]}], ",", "0", 
+            ",", \(1\/2\ Bp[x, 
+                y]\ \((a\^2 + 2\ x\^2 + a\^2\ Cos[2\ y])\)\ Sin[y]\), ",", 
+            RowBox[{
+              SuperscriptBox["Ap", 
+                TagBox[\((1, 0)\),
+                  Derivative],
+                MultilineFunction->None], "[", \(x, y\), "]"}]}], "}"}], ",", 
+        
+        RowBox[{"{", 
+          RowBox[{
+            RowBox[{\(-wf2[x, y]\), " ", 
+              RowBox[{
+                SuperscriptBox["Ap", 
+                  TagBox[\((0, 1)\),
+                    Derivative],
+                  MultilineFunction->None], "[", \(x, y\), "]"}]}], 
+            ",", \(\(-\(1\/2\)\)\ Bp[x, 
+                y]\ \((a\^2 + 2\ x\^2 + a\^2\ Cos[2\ y])\)\ Sin[y]\), ",", 
+            "0", ",", 
+            RowBox[{
+              SuperscriptBox["Ap", 
+                TagBox[\((0, 1)\),
+                  Derivative],
+                MultilineFunction->None], "[", \(x, y\), "]"}]}], "}"}], ",", 
+        
+        RowBox[{"{", 
+          RowBox[{"0", ",", 
+            RowBox[{"-", 
+              RowBox[{
+                SuperscriptBox["Ap", 
+                  TagBox[\((1, 0)\),
+                    Derivative],
+                  MultilineFunction->None], "[", \(x, y\), "]"}]}], ",", 
+            RowBox[{"-", 
+              RowBox[{
+                SuperscriptBox["Ap", 
+                  TagBox[\((0, 1)\),
+                    Derivative],
+                  MultilineFunction->None], "[", \(x, y\), "]"}]}], ",", 
+            "0"}], "}"}]}], "}"}]], "Output"],
+
+Cell[BoxData[
+    RowBox[{"{", 
+      RowBox[{
+        RowBox[{"{", 
+          RowBox[{"0", ",", 
+            RowBox[{\(wf2[x, y]\), " ", 
+              RowBox[{
+                SuperscriptBox["Ap", 
+                  TagBox[\((1, 0)\),
+                    Derivative],
+                  MultilineFunction->None], "[", \(x, y\), "]"}]}], ",", 
+            RowBox[{\(wf2[x, y]\), " ", 
+              RowBox[{
+                SuperscriptBox["Ap", 
+                  TagBox[\((0, 1)\),
+                    Derivative],
+                  MultilineFunction->None], "[", \(x, y\), "]"}]}], ",", 
+            "0"}], "}"}], ",", 
+        RowBox[{"{", 
+          RowBox[{
+            RowBox[{\(-wf2[x, y]\), " ", 
+              RowBox[{
+                SuperscriptBox["Ap", 
+                  TagBox[\((1, 0)\),
+                    Derivative],
+                  MultilineFunction->None], "[", \(x, y\), "]"}]}], ",", "0", 
+            ",", \(Bp[x, y]\), ",", 
+            RowBox[{
+              SuperscriptBox["Ap", 
+                TagBox[\((1, 0)\),
+                  Derivative],
+                MultilineFunction->None], "[", \(x, y\), "]"}]}], "}"}], ",", 
+        
+        RowBox[{"{", 
+          RowBox[{
+            RowBox[{\(-wf2[x, y]\), " ", 
+              RowBox[{
+                SuperscriptBox["Ap", 
+                  TagBox[\((0, 1)\),
+                    Derivative],
+                  MultilineFunction->None], "[", \(x, y\), "]"}]}], 
+            ",", \(-Bp[x, y]\), ",", "0", ",", 
+            RowBox[{
+              SuperscriptBox["Ap", 
+                TagBox[\((0, 1)\),
+                  Derivative],
+                MultilineFunction->None], "[", \(x, y\), "]"}]}], "}"}], ",", 
+        
+        RowBox[{"{", 
+          RowBox[{"0", ",", 
+            RowBox[{"-", 
+              RowBox[{
+                SuperscriptBox["Ap", 
+                  TagBox[\((1, 0)\),
+                    Derivative],
+                  MultilineFunction->None], "[", \(x, y\), "]"}]}], ",", 
+            RowBox[{"-", 
+              RowBox[{
+                SuperscriptBox["Ap", 
+                  TagBox[\((0, 1)\),
+                    Derivative],
+                  MultilineFunction->None], "[", \(x, y\), "]"}]}], ",", 
+            "0"}], "}"}]}], "}"}]], "Output"],
+
+Cell[BoxData[
+    \({{0, \(-\(1\/2\)\)\ B2[x, 
+            y]\ \((a\^2 + 2\ x\^2 + a\^2\ Cos[2\ y])\)\ Sin[y]\ wf2[x, y], 
+        1\/2\ B1[x, y]\ \((a\^2 + 2\ x\^2 + a\^2\ Cos[2\ y])\)\ Sin[y]\ wf2[
+            x, y], 0}, {1\/2\ B2[x, 
+            y]\ \((a\^2 + 2\ x\^2 + a\^2\ Cos[2\ y])\)\ Sin[y]\ wf2[x, y], 0, 
+        1\/2\ B3[x, y]\ \((a\^2 + 2\ x\^2 + a\^2\ Cos[2\ y])\)\ Sin[
+            y], \(-\(1\/2\)\)\ B2[x, 
+            y]\ \((a\^2 + 2\ x\^2 + a\^2\ Cos[2\ y])\)\ Sin[
+            y]}, {\(-\(1\/2\)\)\ B1[x, 
+            y]\ \((a\^2 + 2\ x\^2 + a\^2\ Cos[2\ y])\)\ Sin[y]\ wf2[x, 
+            y], \(-\(1\/2\)\)\ B3[x, 
+            y]\ \((a\^2 + 2\ x\^2 + a\^2\ Cos[2\ y])\)\ Sin[y], 0, 
+        1\/2\ B1[x, y]\ \((a\^2 + 2\ x\^2 + a\^2\ Cos[2\ y])\)\ Sin[y]}, {0, 
+        1\/2\ B2[x, y]\ \((a\^2 + 2\ x\^2 + a\^2\ Cos[2\ y])\)\ Sin[
+            y], \(-\(1\/2\)\)\ B1[x, 
+            y]\ \((a\^2 + 2\ x\^2 + a\^2\ Cos[2\ y])\)\ Sin[y], 
+        0}}\)], "Output"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {"0", 
+              RowBox[{\(wf2[x, y]\), " ", 
+                RowBox[{
+                  SuperscriptBox["Ap", 
+                    TagBox[\((1, 0)\),
+                      Derivative],
+                    MultilineFunction->None], "[", \(x, y\), "]"}]}], 
+              RowBox[{\(wf2[x, y]\), " ", 
+                RowBox[{
+                  SuperscriptBox["Ap", 
+                    TagBox[\((0, 1)\),
+                      Derivative],
+                    MultilineFunction->None], "[", \(x, y\), "]"}]}], "0"},
+            {
+              RowBox[{\(-wf2[x, y]\), " ", 
+                RowBox[{
+                  SuperscriptBox["Ap", 
+                    TagBox[\((1, 0)\),
+                      Derivative],
+                    MultilineFunction->None], "[", \(x, y\), "]"}]}], 
+              "0", \(1\/2\ Bp[x, 
+                  y]\ \((a\^2 + 2\ x\^2 + a\^2\ Cos[2\ y])\)\ Sin[y]\), 
+              RowBox[{
+                SuperscriptBox["Ap", 
+                  TagBox[\((1, 0)\),
+                    Derivative],
+                  MultilineFunction->None], "[", \(x, y\), "]"}]},
+            {
+              RowBox[{\(-wf2[x, y]\), " ", 
+                RowBox[{
+                  SuperscriptBox["Ap", 
+                    TagBox[\((0, 1)\),
+                      Derivative],
+                    MultilineFunction->None], "[", \(x, y\), 
+                  "]"}]}], \(\(-\(1\/2\)\)\ Bp[x, 
+                  y]\ \((a\^2 + 2\ x\^2 + a\^2\ Cos[2\ y])\)\ Sin[y]\), "0", 
+              RowBox[{
+                SuperscriptBox["Ap", 
+                  TagBox[\((0, 1)\),
+                    Derivative],
+                  MultilineFunction->None], "[", \(x, y\), "]"}]},
+            {"0", 
+              RowBox[{"-", 
+                RowBox[{
+                  SuperscriptBox["Ap", 
+                    TagBox[\((1, 0)\),
+                      Derivative],
+                    MultilineFunction->None], "[", \(x, y\), "]"}]}], 
+              RowBox[{"-", 
+                RowBox[{
+                  SuperscriptBox["Ap", 
+                    TagBox[\((0, 1)\),
+                      Derivative],
+                    MultilineFunction->None], "[", \(x, y\), "]"}]}], "0"}
+            },
+          RowSpacings->1,
+          ColumnSpacings->1,
+          ColumnAlignments->{Left}], "\[NoBreak]", ")"}],
+      Function[ BoxForm`e$, 
+        MatrixForm[ BoxForm`e$]]]], "Output"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(Fodd\\)\\\" is similar to existing symbols \
+\\!\\({Fdd, Fold}\\). \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    \({{0, \(-ex\), \(bx\ ex\)\/by, 0}, {ex, 0, 
+        bz, \(-by\)}, {\(-\(\(bx\ ex\)\/by\)\), \(-bz\), 0, bx}, {0, 
+        by, \(-bx\), 0}}\)], "Output"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {"0", \(-ex\), \(\(bx\ ex\)\/by\), "0"},
+            {"ex", "0", "bz", \(-by\)},
+            {\(-\(\(bx\ ex\)\/by\)\), \(-bz\), "0", "bx"},
+            {"0", "by", \(-bx\), "0"}
+            },
+          RowSpacings->1,
+          ColumnSpacings->1,
+          ColumnAlignments->{Left}], "\[NoBreak]", ")"}],
+      Function[ BoxForm`e$, 
+        MatrixForm[ BoxForm`e$]]]], "Output"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell1"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(ucon\\)\\\" is similar to existing symbol \\\
+\"\\!\\(gcon\\)\\\". \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell1\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(bcon\\)\\\" is similar to existing symbols \
+\\!\\({gcon, ucon}\\). \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell1"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(bu1\\)\\\" is similar to existing symbol \
+\\\"\\!\\(Bu1\\)\\\". \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell1\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell1"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(bu2\\)\\\" is similar to existing symbol \
+\\\"\\!\\(Bu2\\)\\\". \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell1\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell1"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(bu3\\)\\\" is similar to existing symbol \
+\\\"\\!\\(Bu3\\)\\\". \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell1\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(General::"stop"\), \(\(:\)\(\ \)\), "\<\"Further output of \
+\\!\\(General :: \\\"spell1\\\"\\) will be suppressed during this \
+calculation. \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::stop\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    \({bu3[x, 
+              y]\ \((uu0[x, y] + uu1[x, y])\) - \((bu0[x, y] + 
+                bu1[x, y])\)\ uu3[x, y] \[Rule] 
+        B3[x, y] - B1[x, y]\ wf2[x, y], 
+      bu3[x, y]\ uu1[x, y] - 
+          bu1[x, y]\ uu3[x, y] \[Rule] \(-B1[x, y]\)\ wf2[x, 
+            y], \(-bu3[x, y]\)\ uu1[x, y] + bu1[x, y]\ uu3[x, y] \[Rule] 
+        B1[x, y]\ wf2[x, y], 
+      bu1[x, y]\ uu0[x, y] - bu0[x, y]\ uu1[x, y] \[Rule] 
+        B1[x, y], \(-bu1[x, y]\)\ uu0[x, y] + 
+          bu0[x, y]\ uu1[x, y] \[Rule] \(-B1[x, y]\), 
+      bu3[x, y]\ uu0[x, y] - bu0[x, y]\ uu3[x, y] \[Rule] 
+        B3[x, y], \(-bu3[x, y]\)\ uu0[x, y] + 
+          bu0[x, y]\ uu3[x, y] \[Rule] \(-B3[x, y]\), 
+      bu2[x, y]\ uu0[x, y] - bu0[x, y]\ uu2[x, y] \[Rule] 
+        B2[x, y], \(-bu2[x, y]\)\ uu0[x, y] + 
+          bu0[x, y]\ uu2[x, y] \[Rule] \(-B2[x, 
+            y]\), \(-bu3[x, y]\)\ uu2[x, y] + bu2[x, y]\ uu3[x, y] \[Rule] 
+        E1[x, y], 
+      bu3[x, y]\ uu2[x, y] - bu2[x, y]\ uu3[x, y] \[Rule] \(-E1[x, y]\), 
+      bu2[x, y]\ uu1[x, y] - 
+          bu1[x, y]\ uu2[x, y] \[Rule] \(-E3[x, 
+            y]\), \(-bu2[x, y]\)\ uu1[x, y] + bu1[x, y]\ uu2[x, y] \[Rule] 
+        E3[x, y], \(-bu3[x, y]\)\ uu1[x, y] + bu1[x, y]\ uu3[x, y] \[Rule] 
+        E2[x, y], 
+      bu3[x, y]\ uu1[x, y] - 
+          bu1[x, y]\ uu3[x, y] \[Rule] \(-E2[x, y]\)}\)], "Output"],
+
+Cell[BoxData[
+    \({bu1[x, y]\ uu0[x, y] - bu0[x, y]\ uu1[x, y] \[Rule] 
+        B1[x, y], \(-bu1[x, y]\)\ uu0[x, y] + 
+          bu0[x, y]\ uu1[x, y] \[Rule] \(-B1[x, y]\), 
+      bu3[x, y]\ uu0[x, y] - bu0[x, y]\ uu3[x, y] \[Rule] 
+        B3[x, y], \(-bu3[x, y]\)\ uu0[x, y] + 
+          bu0[x, y]\ uu3[x, y] \[Rule] \(-B3[x, y]\), 
+      bu2[x, y]\ uu0[x, y] - bu0[x, y]\ uu2[x, y] \[Rule] 
+        B2[x, y], \(-bu2[x, y]\)\ uu0[x, y] + 
+          bu0[x, y]\ uu2[x, y] \[Rule] \(-B2[x, 
+            y]\), \(-bu3[x, y]\)\ uu2[x, y] + bu2[x, y]\ uu3[x, y] \[Rule] 
+        E1[x, y], 
+      bu3[x, y]\ uu2[x, y] - bu2[x, y]\ uu3[x, y] \[Rule] \(-E1[x, y]\), 
+      bu2[x, y]\ uu1[x, y] - 
+          bu1[x, y]\ uu2[x, y] \[Rule] \(-E3[x, 
+            y]\), \(-bu2[x, y]\)\ uu1[x, y] + bu1[x, y]\ uu2[x, y] \[Rule] 
+        E3[x, y], \(-bu3[x, y]\)\ uu1[x, y] + bu1[x, y]\ uu3[x, y] \[Rule] 
+        E2[x, y], 
+      bu3[x, y]\ uu1[x, y] - 
+          bu1[x, y]\ uu3[x, y] \[Rule] \(-E2[x, y]\)}\)], "Output"],
+
+Cell[BoxData[
+    \({{0, \(-\(1\/2\)\)\ B2[x, 
+            y]\ \((a\^2 + 2\ x\^2 + a\^2\ Cos[2\ y])\)\ Sin[y]\ wf2[x, y], 
+        1\/2\ B1[x, y]\ \((a\^2 + 2\ x\^2 + a\^2\ Cos[2\ y])\)\ Sin[y]\ wf2[
+            x, y], 0}, {1\/2\ B2[x, 
+            y]\ \((a\^2 + 2\ x\^2 + a\^2\ Cos[2\ y])\)\ Sin[y]\ wf2[x, y], 0, 
+        1\/2\ B3[x, y]\ \((a\^2 + 2\ x\^2 + a\^2\ Cos[2\ y])\)\ Sin[
+            y], \(-\(1\/2\)\)\ B2[x, 
+            y]\ \((a\^2 + 2\ x\^2 + a\^2\ Cos[2\ y])\)\ Sin[
+            y]}, {\(-\(1\/2\)\)\ B1[x, 
+            y]\ \((a\^2 + 2\ x\^2 + a\^2\ Cos[2\ y])\)\ Sin[y]\ wf2[x, 
+            y], \(-\(1\/2\)\)\ B3[x, 
+            y]\ \((a\^2 + 2\ x\^2 + a\^2\ Cos[2\ y])\)\ Sin[y], 0, 
+        1\/2\ B1[x, y]\ \((a\^2 + 2\ x\^2 + a\^2\ Cos[2\ y])\)\ Sin[y]}, {0, 
+        1\/2\ B2[x, y]\ \((a\^2 + 2\ x\^2 + a\^2\ Cos[2\ y])\)\ Sin[
+            y], \(-\(1\/2\)\)\ B1[x, 
+            y]\ \((a\^2 + 2\ x\^2 + a\^2\ Cos[2\ y])\)\ Sin[y], 
+        0}}\)], "Output"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(Fgdd\\)\\\" is similar to existing symbols \
+\\!\\({Fdd, Fodd}\\). \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell1"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(Ffullgdd\\)\\\" is similar to existing \
+symbol \\\"\\!\\(Ffulldd\\)\\\". \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell1\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {
+              "0", \(-\(\(B1[x, 
+                        y]\ \((a\^2 + 2\ x\^2 + a\^2\ Cos[2\ y])\)\ Sin[
+                        y]\ uu2[x, y]\ wf2[x, y]\)\/\(2\ uu1[x, 
+                        y]\)\)\), \(1\/2\ B1[x, 
+                  y]\ \((a\^2 + 2\ x\^2 + a\^2\ Cos[2\ y])\)\ Sin[y]\ wf2[x, 
+                  y]\), "0"},
+            {\(\(B1[x, y]\ \((a\^2 + 2\ x\^2 + a\^2\ Cos[2\ y])\)\ Sin[
+                      y]\ uu2[x, y]\ wf2[x, y]\)\/\(2\ uu1[x, y]\)\), 
+              "0", \(1\/2\ B3[x, 
+                  y]\ \((a\^2 + 2\ x\^2 + a\^2\ Cos[2\ y])\)\ Sin[
+                  y]\), \(-\(\(B1[x, 
+                        y]\ \((a\^2 + 2\ x\^2 + a\^2\ Cos[2\ y])\)\ Sin[
+                        y]\ uu2[x, y]\)\/\(2\ uu1[x, y]\)\)\)},
+            {\(\(-\(1\/2\)\)\ B1[x, 
+                  y]\ \((a\^2 + 2\ x\^2 + a\^2\ Cos[2\ y])\)\ Sin[y]\ wf2[x, 
+                  y]\), \(\(-\(1\/2\)\)\ B3[x, 
+                  y]\ \((a\^2 + 2\ x\^2 + a\^2\ Cos[2\ y])\)\ Sin[y]\), 
+              "0", \(1\/2\ B1[x, 
+                  y]\ \((a\^2 + 2\ x\^2 + a\^2\ Cos[2\ y])\)\ Sin[y]\)},
+            {
+              "0", \(\(B1[x, y]\ \((a\^2 + 2\ x\^2 + a\^2\ Cos[2\ y])\)\ Sin[
+                      y]\ uu2[x, y]\)\/\(2\ uu1[x, 
+                      y]\)\), \(\(-\(1\/2\)\)\ B1[x, 
+                  y]\ \((a\^2 + 2\ x\^2 + a\^2\ Cos[2\ y])\)\ Sin[y]\), "0"}
+            },
+          RowSpacings->1,
+          ColumnSpacings->1,
+          ColumnAlignments->{Left}], "\[NoBreak]", ")"}],
+      Function[ BoxForm`e$, 
+        MatrixForm[ BoxForm`e$]]]], "Output"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {
+              "0", \(\(-\(1\/2\)\)\ \((a\^2 + 2\ x\^2 + 
+                    a\^2\ Cos[2\ y])\)\ E1[x, y]\ Sin[
+                  y]\), \(1\/2\ \((a\^2 + 2\ x\^2 + a\^2\ Cos[2\ y])\)\ E2[x, 
+                  y]\ Sin[
+                  y]\), \(\(-\(1\/2\)\)\ \((a\^2 + 2\ x\^2 + 
+                    a\^2\ Cos[2\ y])\)\ E3[x, y]\ Sin[y]\)},
+            {\(1\/2\ \((a\^2 + 2\ x\^2 + a\^2\ Cos[2\ y])\)\ E1[x, y]\ Sin[
+                  y]\), "0", \(1\/2\ B3[x, 
+                  y]\ \((a\^2 + 2\ x\^2 + a\^2\ Cos[2\ y])\)\ Sin[
+                  y]\), \(\(-\(1\/2\)\)\ B2[x, 
+                  y]\ \((a\^2 + 2\ x\^2 + a\^2\ Cos[2\ y])\)\ Sin[y]\)},
+            {\(\(-\(1\/2\)\)\ \((a\^2 + 2\ x\^2 + a\^2\ Cos[2\ y])\)\ E2[x, 
+                  y]\ Sin[y]\), \(\(-\(1\/2\)\)\ B3[x, 
+                  y]\ \((a\^2 + 2\ x\^2 + a\^2\ Cos[2\ y])\)\ Sin[y]\), 
+              "0", \(1\/2\ B1[x, 
+                  y]\ \((a\^2 + 2\ x\^2 + a\^2\ Cos[2\ y])\)\ Sin[y]\)},
+            {\(1\/2\ \((a\^2 + 2\ x\^2 + a\^2\ Cos[2\ y])\)\ E3[x, y]\ Sin[
+                  y]\), \(1\/2\ B2[x, 
+                  y]\ \((a\^2 + 2\ x\^2 + a\^2\ Cos[2\ y])\)\ Sin[
+                  y]\), \(\(-\(1\/2\)\)\ B1[x, 
+                  y]\ \((a\^2 + 2\ x\^2 + a\^2\ Cos[2\ y])\)\ Sin[y]\), "0"}
+            },
+          RowSpacings->1,
+          ColumnSpacings->1,
+          ColumnAlignments->{Left}], "\[NoBreak]", ")"}],
+      Function[ BoxForm`e$, 
+        MatrixForm[ BoxForm`e$]]]], "Output"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell1"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(etau\\)\\\" is similar to existing symbol \\\
+\"\\!\\(etad\\)\\\". \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell1\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell1"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(ed1\\)\\\" is similar to existing symbol \
+\\\"\\!\\(Ed1\\)\\\". \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell1\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell1"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(ed2\\)\\\" is similar to existing symbol \
+\\\"\\!\\(Ed2\\)\\\". \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell1\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell1"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(ed3\\)\\\" is similar to existing symbol \
+\\\"\\!\\(Ed3\\)\\\". \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell1\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(General::"stop"\), \(\(:\)\(\ \)\), "\<\"Further output of \
+\\!\\(General :: \\\"spell1\\\"\\) will be suppressed during this \
+calculation. \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::stop\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    \({{0, \(-\(1\/2\)\)\ Ed1\ \((a\^2 + 2\ x\^2 + a\^2\ Cos[2\ y])\)\ Sin[
+            y], \(-\(1\/2\)\)\ Ed2\ \((a\^2 + 2\ x\^2 + 
+              a\^2\ Cos[2\ y])\)\ Sin[
+            y], \(-\(1\/2\)\)\ Ed3\ \((a\^2 + 2\ x\^2 + 
+              a\^2\ Cos[2\ y])\)\ Sin[
+            y]}, {1\/2\ Ed1\ \((a\^2 + 2\ x\^2 + a\^2\ Cos[2\ y])\)\ Sin[y], 
+        0, 1\/2\ Bu3\ \((a\^2 + 2\ x\^2 + a\^2\ Cos[2\ y])\)\ Sin[
+            y], \(-\(1\/2\)\)\ Bu2\ \((a\^2 + 2\ x\^2 + 
+              a\^2\ Cos[2\ y])\)\ Sin[
+            y]}, {1\/2\ Ed2\ \((a\^2 + 2\ x\^2 + a\^2\ Cos[2\ y])\)\ Sin[
+            y], \(-\(1\/2\)\)\ Bu3\ \((a\^2 + 2\ x\^2 + 
+              a\^2\ Cos[2\ y])\)\ Sin[y], 0, 
+        1\/2\ Bu1\ \((a\^2 + 2\ x\^2 + a\^2\ Cos[2\ y])\)\ Sin[
+            y]}, {1\/2\ Ed3\ \((a\^2 + 2\ x\^2 + a\^2\ Cos[2\ y])\)\ Sin[y], 
+        1\/2\ Bu2\ \((a\^2 + 2\ x\^2 + a\^2\ Cos[2\ y])\)\ Sin[
+            y], \(-\(1\/2\)\)\ Bu1\ \((a\^2 + 2\ x\^2 + 
+              a\^2\ Cos[2\ y])\)\ Sin[y], 0}}\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    \( (*\ 
+      below\ Fcov\ is\ where\ form\ of\ Fcov\ is\ chosen\ for\ rest\ of\ \
+calculations\ *) \)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(\(Fcov = Fcovother;\)\), "\[IndentingNewLine]", 
+    \(\(Fcov = FullSimplify[Fcov];\)\), "\[IndentingNewLine]", 
+    \(\(Fcon = 
+        Table[Sum[
+            Fcov[\([k, l]\)]\ mygcon[\([i, k]\)]\ mygcon[\([j, l]\)], {k, 
+              4}, {l, 4}], {i, 4}, {j, 4}];\)\), "\n", 
+    \(\(dualFcov = 
+        Table[1/2*gdet*
+            Sum[Signature[{i, j, k, l}]*Fcon[\([k, l]\)], {k, 1, 4}, {l, 1, 
+                4}], {i, 1, 4}, {j, 1, 4}];\)\), "\[IndentingNewLine]", 
+    \(\(dualFcon = 
+        Table[1/2*\((\(-1\)/gdet)\)*
+            Sum[Signature[{i, j, k, l}]*Fcov[\([k, l]\)], {k, 1, 4}, {l, 1, 
+                4}], {i, 1, 4}, {j, 1, 4}];\)\), "\[IndentingNewLine]", 
+    \(\(god = 
+        Sum[dualFcov[\([i, j]\)]*Fcon[\([i, j]\)], {i, 1, 4}, {j, 1, 
+            4}];\)\), "\[IndentingNewLine]", 
+    \(\(nFodd = 
+        Fodd //. {ex \[Rule] D[A0[x, y], x], bx \[Rule] D[Ap[x, y], y], 
+            by \[Rule] \(-D[Ap[x, y], x]\), 
+            bz \[Rule] \(-D[Ar[x, y], y]\) + 
+                D[Ah[x, y], x]};\)\), "\[IndentingNewLine]", 
+    \(nFodd - Fdd\), "\[IndentingNewLine]", 
+    \(\(solcheck = 
+        Sum[Fcov[\([i, j]\)]*Fcon[\([i, j]\)], {i, 1, 4}, {j, 1, 
+            4}];\)\), "\[IndentingNewLine]", 
+    \(\)}], "Input"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell1"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(Fcon\\)\\\" is similar to existing symbol \\\
+\"\\!\\(Fcov\\)\\\". \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell1\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell1"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(dualFcon\\)\\\" is similar to existing \
+symbol \\\"\\!\\(dualFcov\\)\\\". \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell1\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell1"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(nFodd\\)\\\" is similar to existing symbol \
+\\\"\\!\\(Fodd\\)\\\". \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell1\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{"{", 
+      RowBox[{
+        RowBox[{"{", 
+          RowBox[{"0", ",", 
+            RowBox[{
+              RowBox[{"-", 
+                RowBox[{
+                  SuperscriptBox["A0", 
+                    TagBox[\((1, 0)\),
+                      Derivative],
+                    MultilineFunction->None], "[", \(x, y\), "]"}]}], "-", 
+              RowBox[{\(wf2[x, y]\), " ", 
+                RowBox[{
+                  SuperscriptBox["Ap", 
+                    TagBox[\((1, 0)\),
+                      Derivative],
+                    MultilineFunction->None], "[", \(x, y\), "]"}]}]}], ",", 
+            RowBox[{
+              RowBox[{\(-wf2[x, y]\), " ", 
+                RowBox[{
+                  SuperscriptBox["Ap", 
+                    TagBox[\((0, 1)\),
+                      Derivative],
+                    MultilineFunction->None], "[", \(x, y\), "]"}]}], "-", 
+              FractionBox[
+                RowBox[{
+                  RowBox[{
+                    SuperscriptBox["Ap", 
+                      TagBox[\((0, 1)\),
+                        Derivative],
+                      MultilineFunction->None], "[", \(x, y\), "]"}], " ", 
+                  RowBox[{
+                    SuperscriptBox["A0", 
+                      TagBox[\((1, 0)\),
+                        Derivative],
+                      MultilineFunction->None], "[", \(x, y\), "]"}]}], 
+                RowBox[{
+                  SuperscriptBox["Ap", 
+                    TagBox[\((1, 0)\),
+                      Derivative],
+                    MultilineFunction->None], "[", \(x, y\), "]"}]]}], ",", 
+            "0"}], "}"}], ",", 
+        RowBox[{"{", 
+          RowBox[{
+            RowBox[{
+              RowBox[{
+                SuperscriptBox["A0", 
+                  TagBox[\((1, 0)\),
+                    Derivative],
+                  MultilineFunction->None], "[", \(x, y\), "]"}], "+", 
+              RowBox[{\(wf2[x, y]\), " ", 
+                RowBox[{
+                  SuperscriptBox["Ap", 
+                    TagBox[\((1, 0)\),
+                      Derivative],
+                    MultilineFunction->None], "[", \(x, y\), "]"}]}]}], ",", 
+            "0", ",", 
+            
+            RowBox[{\(\(-\(1\/2\)\)\ Bp[x, 
+                  y]\ \((a\^2 + 2\ x\^2 + a\^2\ Cos[2\ y])\)\ Sin[y]\), "-", 
+              RowBox[{
+                SuperscriptBox["Ar", 
+                  TagBox[\((0, 1)\),
+                    Derivative],
+                  MultilineFunction->None], "[", \(x, y\), "]"}], "+", 
+              RowBox[{
+                SuperscriptBox["Ah", 
+                  TagBox[\((1, 0)\),
+                    Derivative],
+                  MultilineFunction->None], "[", \(x, y\), "]"}]}], ",", 
+            "0"}], "}"}], ",", 
+        RowBox[{"{", 
+          RowBox[{
+            RowBox[{
+              RowBox[{\(wf2[x, y]\), " ", 
+                RowBox[{
+                  SuperscriptBox["Ap", 
+                    TagBox[\((0, 1)\),
+                      Derivative],
+                    MultilineFunction->None], "[", \(x, y\), "]"}]}], "+", 
+              FractionBox[
+                RowBox[{
+                  RowBox[{
+                    SuperscriptBox["Ap", 
+                      TagBox[\((0, 1)\),
+                        Derivative],
+                      MultilineFunction->None], "[", \(x, y\), "]"}], " ", 
+                  RowBox[{
+                    SuperscriptBox["A0", 
+                      TagBox[\((1, 0)\),
+                        Derivative],
+                      MultilineFunction->None], "[", \(x, y\), "]"}]}], 
+                RowBox[{
+                  SuperscriptBox["Ap", 
+                    TagBox[\((1, 0)\),
+                      Derivative],
+                    MultilineFunction->None], "[", \(x, y\), "]"}]]}], ",", 
+            
+            RowBox[{\(1\/2\ Bp[x, 
+                  y]\ \((a\^2 + 2\ x\^2 + a\^2\ Cos[2\ y])\)\ Sin[y]\), "+", 
+              RowBox[{
+                SuperscriptBox["Ar", 
+                  TagBox[\((0, 1)\),
+                    Derivative],
+                  MultilineFunction->None], "[", \(x, y\), "]"}], "-", 
+              RowBox[{
+                SuperscriptBox["Ah", 
+                  TagBox[\((1, 0)\),
+                    Derivative],
+                  MultilineFunction->None], "[", \(x, y\), "]"}]}], ",", "0", 
+            ",", "0"}], "}"}], ",", \({0, 0, 0, 0}\)}], "}"}]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\(Temuu = 
+        Table[Sum[
+              mygcon[\([mu, mup]\)]*mygcon[\([alpha, alphap]\)]*
+                mygcon[\([nu, nup]\)]*Fcov[\([mup, alphap]\)]*
+                Fcov[\([nup, alpha]\)], {mup, 1, 4}, {alphap, 1, 4}, {nup, 1, 
+                4}, {alpha, 1, 4}] - 
+            1/4*mygcon[\([mu, nu]\)]*
+              Sum[Fcov[\([alpha, beta]\)]^2*mygcon[\([alpha, alphap]\)]*
+                  mygcon[\([beta, betap]\)], {alphap, 1, 4}, {betap, 1, 
+                  4}, {alpha, 1, 4}, {beta, 1, 4}], {mu, 1, 4}, {nu, 1, 
+            4}];\)\)], "Input"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell1"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(alphap\\)\\\" is similar to existing symbol \
+\\\"\\!\\(alpha\\)\\\". \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell1\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell1"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(beta\\)\\\" is similar to existing symbol \\\
+\"\\!\\(Beta\\)\\\". \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell1\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell1"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(betap\\)\\\" is similar to existing symbol \
+\\\"\\!\\(beta\\)\\\". \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell1\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(General::"stop"\), \(\(:\)\(\ \)\), "\<\"Further output of \
+\\!\\(General :: \\\"spell1\\\"\\) will be suppressed during this \
+calculation. \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::stop\\\"]\\)\"\>"}]], "Message"]
+}, Open  ]],
+
+Cell[BoxData[
+    \(\(Simplify[
+        Table[Temuu[\([i, j]\)] - Temuu[\([j, i]\)], {i, 1, 4}, {j, 1, 
+            4}], {sigma > 0}];\)\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\(Temdd = 
+        Table[Sum[
+              mygcon[\([beta, alpha]\)]*Fcov[\([mu, alpha]\)]*
+                Fcov[\([nu, alpha]\)], {beta, 1, 4}, {alpha, 1, 4}] - 
+            1/4*mygcov[\([mu, nu]\)]*
+              Sum[mygcon[\([alpha, gamma]\)]*mygcon[\([beta, delta]\)]*
+                  Fcov[\([alpha, beta]\)]*Fcov[\([gamma, delta]\)], {alpha, 
+                  1, 4}, {gamma, 1, 4}, {beta, 1, 4}, {delta, 1, 4}], {mu, 1, 
+            4}, {nu, 1, 4}];\)\)], "Input"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell1"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(gamma\\)\\\" is similar to existing symbol \
+\\\"\\!\\(Gamma\\)\\\". \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell1\\\"]\\)\"\>"}]], "Message"]
+}, Open  ]],
+
+Cell[BoxData[""], "Input"],
+
+Cell[BoxData[
+    \(\(Table[
+        Temdd[\([i, j]\)] - Temdd[\([j, i]\)], {i, 1, 4}, {j, 1, 
+          4}];\)\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{"Temud", "=", 
+        RowBox[{"Table", "[", 
+          RowBox[{
+            
+            RowBox[{\(Sum[
+                mygcon[\([mup, mu]\)]*mygcon[\([alpha, alphap]\)]*
+                  Fcov[\([mup, alphap]\)]*Fcov[\([nu, alpha]\)], {mup, 1, 
+                  4}, {alphap, 1, 4}, {alpha, 1, 4}]\), "-", 
+              RowBox[{\(1/4\), "*", 
+                StyleBox[\(KroneckerDelta[mu, nu]\),
+                  "MR"], 
+                StyleBox["*",
+                  "MR"], 
+                
+                StyleBox[\(Sum[
+                    Fcov[\([alpha, beta]\)]*mygcon[\([alpha, alphap]\)]*
+                      mygcon[\([beta, betap]\)]*
+                      Fcov[\([alphap, betap]\)], {alpha, 1, 4}, {beta, 1, 
+                      4}, {alphap, 1, 4}, {betap, 1, 4}]\),
+                  "MR"]}]}], ",", \({mu, 1, 4}\), ",", \({nu, 1, 4}\)}], 
+          "]"}]}], ";"}]], "Input"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(Temud\\)\\\" is similar to existing symbols \
+\\!\\({Temdd, Temuu}\\). \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell\\\"]\\)\"\>"}]], "Message"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(efluxr = \(-FullSimplify[Temud[\([2, 1]\)], {sigma > 0}]\)\)], "Input"],
+
+Cell[BoxData[
+    \(\(-\(\(1\/\(4\ \((x\^2 + a\^2\ Cos[y]\^2)\)\^2\)\)\((\((a\^2 + 2\ x\^2 \
++ a\^2\ Cos[2\ y])\)\^2\ \((Ed3\ \((a\^2\ Bu2 + 
+                    x\ \((2\ Ed3\ M + 
+                          Bu2\ \((\(-2\)\ M + 
+                                x)\))\))\) - \((a\ \((\(-Bu1\)\ Ed2 + 
+                          a\ Bu3\ Ed2 + a\ Bu2\ Ed3)\) - 
+                    2\ \((Ed2\ \((Bu3 + Ed2)\) + a\ Ed1\ Ed3)\)\ M\ x + 
+                    Bu3\ Ed2\ x\^2)\)\ Sin[y]\^2)\))\)\)\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(efluxh = \(-FullSimplify[Temud[\([3, 1]\)], {sigma > 0}]\)\)], "Input"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell1"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(efluxh\\)\\\" is similar to existing symbol \
+\\\"\\!\\(efluxr\\)\\\". \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell1\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    \(\(-\(\(\((a\^2 + 2\ x\^2 + a\^2\ Cos[2\ y])\)\^2\ \((\(-Bu1\)\ Ed3 + \
+\((a\ \((\(-Bu1\)\ Ed1 + Bu3\ \((a\ Ed1 + Ed3)\))\) - 
+                      2\ Ed1\ \((Bu3 + Ed2)\)\ M\ x + 
+                      Bu3\ Ed1\ x\^2)\)\ Sin[y]\^2)\)\)\/\(4\ \((x\^2 + a\^2\ \
+Cos[y]\^2)\)\^2\)\)\)\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    RowBox[{"(*", 
+      RowBox[{"efluxr", "=", 
+        RowBox[{
+          RowBox[{\(FullSimplify[Temud[\([2, 1]\)]]\), "//.", 
+            RowBox[{"{", 
+              RowBox[{
+                RowBox[{
+                  RowBox[{"-", 
+                    RowBox[{
+                      SuperscriptBox["Ar", 
+                        TagBox[\((0, 1)\),
+                          Derivative],
+                        MultilineFunction->None], "[", \(x, y\), "]"}]}], "+",
+                   
+                  RowBox[{
+                    SuperscriptBox["Ah", 
+                      TagBox[\((1, 0)\),
+                        Derivative],
+                      MultilineFunction->None], "[", \(x, y\), "]"}]}], 
+                "\[Rule]", "Bp"}], "}"}]}], 
+          "//.", \({D[A0[x, y], y] \[Rule] \(-w\)*D[Ap[x, y], y]}\)}]}], 
+      "*)"}]], "Input"],
+
+Cell[BoxData[
+    \(\(einf = \(-Temud[\([1, 1]\)]\);\)\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(FortranForm[efluxr]\)], "Input"],
+
+Cell["\<\
+        -((a**2 + 2*x**2 + a**2*Cos(2*y))**2*
+     -     (Ed3*(a**2*Bu2 + x*(2*Ed3*M + Bu2*(-2*M + x))) - 
+     -       (a*(-(Bu1*Ed2) + a*Bu3*Ed2 + a*Bu2*Ed3) - 2*(Ed2*(Bu3 + Ed2) + \
+a*Ed1*Ed3)*M*x + 
+     -          Bu3*Ed2*x**2)*Sin(y)**2))/(4.*(x**2 + \
+a**2*Cos(y)**2)**2)\
+\>", "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(omegaf1 = Fcov[\([1, 2]\)]/Fcov[\([2, 4]\)]\), "\[IndentingNewLine]", 
+    \(omegaf2 = Fcov[\([1, 3]\)]/Fcov[\([3, 4]\)]\)}], "Input"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell1"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(omegaf1\\)\\\" is similar to existing symbol \
+\\\"\\!\\(omega1\\)\\\". \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell1\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    \(Ed1\/Bu2\)], "Output"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell1"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(omegaf2\\)\\\" is similar to existing symbol \
+\\\"\\!\\(omega2\\)\\\". \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell1\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    \(\(-\(Ed2\/Bu1\)\)\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[""], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(\(Jcon = 
+        Table[1/gdet*Sum[MyD[gdet*Fcon[\([mu, nu]\)], nu], {nu, 1, 4}], {mu, 
+            1, 4}];\)\), "\[IndentingNewLine]", 
+    \(\(Jcov = 
+        Table[Sum[gcov[\([aa, mu]\)]*Jcon[\([mu]\)], {mu, 1, 4}], {aa, 1, 
+            4}];\)\)}], "Input"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell1"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(Jcon\\)\\\" is similar to existing symbol \\\
+\"\\!\\(Fcon\\)\\\". \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell1\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(Jcov\\)\\\" is similar to existing symbols \
+\\!\\({Fcov, Jcon}\\). \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell\\\"]\\)\"\>"}]], "Message"]
+}, Open  ]],
+
+Cell[BoxData[
+    \(\(\( (*Jcon = \(Simplify[
+          Table[1/gdet*
+              Sum[MyD[gdet*Fcon[\([mu, nu]\)], nu], {nu, 1, 4}], {mu, 1, 
+              4}], {x > 0, 0 \[LessEqual] y \[LessEqual] Pi, M > 0, 
+            Im[a] \[Equal] 0}]\[IndentingNewLine]
+        Jcov = \(Simplify[
+            Table[Sum[gcov[\([aa, mu]\)]*Jcon[\([mu]\)], {mu, 1, 4}], {aa, 1, 
+                4}], {x > 0, 0 \[LessEqual] y \[LessEqual] Pi, M > 0, 
+              Im[a] \[Equal] 0}]\[IndentingNewLine]
+          
+          FJ = \(Simplify[
+              Table[Sum[
+                  Fcov[\([mu, alpha]\)]*Jcon[\([alpha]\)], {alpha, 1, 
+                    4}], {mu, 1, 4}], {x > 0, 
+                0 \[LessEqual] y \[LessEqual] Pi, M > 0, 
+                Im[a] \[Equal] 0}]\[IndentingNewLine]
+            
+            dT = Simplify[
+                Table[Sum[MyD[Temud[\([nu, mu]\)], nu], {nu, 1, 4}], {mu, 1, 
+                    4}], {x > 0, 0 \[LessEqual] y \[LessEqual] Pi, M > 0, 
+                  Im[a] \[Equal] 
+                    0}]\)\)\)\[IndentingNewLine]*) \)\(\[IndentingNewLine]\)\)\
+\)], "Input"]
+},
+FrontEndVersion->"5.1 for Microsoft Windows",
+ScreenRectangle->{{0, 1400}, {0, 967}},
+WindowSize->{851, 903},
+WindowMargins->{{Automatic, 6}, {Automatic, 0}}
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1754, 51, 206, 3, 50, "Input"],
+
+Cell[CellGroupData[{
+Cell[1985, 58, 425, 7, 110, "Input"],
+Cell[2413, 67, 78, 1, 29, "Output"],
+Cell[2494, 70, 399, 12, 47, "Output"],
+Cell[2896, 84, 399, 12, 47, "Output"],
+Cell[3298, 98, 357, 11, 47, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[3692, 114, 618, 12, 170, "Input"],
+Cell[4313, 128, 360, 5, 22, "Message"]
+}, Open  ]],
+Cell[4688, 136, 26, 0, 30, "Input"],
+
+Cell[CellGroupData[{
+Cell[4739, 140, 9778, 192, 1474, "Input"],
+Cell[14520, 334, 356, 5, 22, "Message"],
+Cell[14879, 341, 46, 1, 29, "Output"],
+Cell[14928, 344, 105, 2, 29, "Output"],
+Cell[15036, 348, 6216, 166, 124, "Output"],
+Cell[21255, 516, 74, 1, 29, "Output"],
+Cell[21332, 519, 2426, 65, 126, "Output"],
+Cell[23761, 586, 2263, 62, 48, "Output"],
+Cell[26027, 650, 977, 17, 178, "Output"],
+Cell[27007, 669, 2459, 62, 111, "Output"],
+Cell[29469, 733, 354, 5, 22, "Message"],
+Cell[29826, 740, 171, 3, 44, "Output"],
+Cell[30000, 745, 461, 12, 109, "Output"],
+Cell[30464, 759, 356, 5, 22, "Message"],
+Cell[30823, 766, 355, 5, 22, "Message"],
+Cell[31181, 773, 354, 5, 22, "Message"],
+Cell[31538, 780, 354, 5, 22, "Message"],
+Cell[31895, 787, 354, 5, 22, "Message"],
+Cell[32252, 794, 333, 5, 22, "Message"],
+Cell[32588, 801, 1372, 27, 181, "Output"],
+Cell[33963, 830, 1008, 19, 124, "Output"],
+Cell[34974, 851, 977, 17, 178, "Output"],
+Cell[35954, 870, 354, 5, 22, "Message"],
+Cell[36311, 877, 363, 5, 22, "Message"],
+Cell[36677, 884, 1650, 33, 143, "Output"],
+Cell[38330, 919, 1554, 30, 123, "Output"],
+Cell[39887, 951, 356, 5, 22, "Message"],
+Cell[40246, 958, 354, 5, 22, "Message"],
+Cell[40603, 965, 354, 5, 22, "Message"],
+Cell[40960, 972, 354, 5, 22, "Message"],
+Cell[41317, 979, 333, 5, 22, "Message"],
+Cell[41653, 986, 1022, 17, 212, "Output"]
+}, Open  ]],
+Cell[42690, 1006, 131, 3, 30, "Input"],
+
+Cell[CellGroupData[{
+Cell[42846, 1013, 1272, 27, 270, "Input"],
+Cell[44121, 1042, 356, 5, 22, "Message"],
+Cell[44480, 1049, 364, 5, 22, "Message"],
+Cell[44847, 1056, 357, 5, 22, "Message"],
+Cell[45207, 1063, 4411, 111, 154, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[49655, 1179, 583, 11, 130, "Input"],
+Cell[50241, 1192, 359, 5, 22, "Message"],
+Cell[50603, 1199, 356, 5, 22, "Message"],
+Cell[50962, 1206, 357, 5, 22, "Message"],
+Cell[51322, 1213, 333, 5, 22, "Message"]
+}, Open  ]],
+Cell[51670, 1221, 149, 3, 30, "Input"],
+
+Cell[CellGroupData[{
+Cell[51844, 1228, 493, 9, 90, "Input"],
+Cell[52340, 1239, 358, 5, 22, "Message"]
+}, Open  ]],
+Cell[52713, 1247, 26, 0, 30, "Input"],
+Cell[52742, 1249, 124, 3, 30, "Input"],
+
+Cell[CellGroupData[{
+Cell[52891, 1256, 937, 22, 130, "Input"],
+Cell[53831, 1280, 358, 5, 22, "Message"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[54226, 1290, 91, 1, 30, "Input"],
+Cell[54320, 1293, 502, 8, 67, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[54859, 1306, 91, 1, 30, "Input"],
+Cell[54953, 1309, 360, 5, 22, "Message"],
+Cell[55316, 1316, 316, 5, 49, "Output"]
+}, Open  ]],
+Cell[55647, 1324, 865, 22, 50, "Input"],
+Cell[56515, 1348, 67, 1, 30, "Input"],
+
+Cell[CellGroupData[{
+Cell[56607, 1353, 52, 1, 30, "Input"],
+Cell[56662, 1356, 304, 7, 94, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[57003, 1368, 155, 2, 50, "Input"],
+Cell[57161, 1372, 361, 5, 22, "Message"],
+Cell[57525, 1379, 42, 1, 42, "Output"],
+Cell[57570, 1382, 361, 5, 22, "Message"],
+Cell[57934, 1389, 51, 1, 42, "Output"]
+}, Open  ]],
+Cell[58000, 1393, 26, 0, 30, "Input"],
+
+Cell[CellGroupData[{
+Cell[58051, 1397, 281, 6, 50, "Input"],
+Cell[58335, 1405, 356, 5, 22, "Message"],
+Cell[58694, 1412, 355, 5, 22, "Message"]
+}, Open  ]],
+Cell[59064, 1420, 1105, 23, 190, "Input"]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

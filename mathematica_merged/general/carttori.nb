@@ -1,0 +1,419 @@
+(***********************************************************************
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used on any computer system with Mathematica 4.0,
+MathReader 4.0, or any compatible application. The data for the notebook 
+starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do one of 
+the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing the 
+word CacheID, otherwise Mathematica-compatible applications may try to 
+use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+***********************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[      8100,        284]*)
+(*NotebookOutlinePosition[      8742,        307]*)
+(*  CellTagsIndexPosition[      8698,        303]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[{
+    \(r = Sqrt[x^2 + y^2 + z^2]\), "\[IndentingNewLine]", 
+    \(theta = ArcTan[Sqrt[x^2 + y^2]/z]\), "\[IndentingNewLine]", 
+    \(phi = ArcTan[y/x]\)}], "Input"],
+
+Cell[BoxData[
+    \(\@\(x\^2 + y\^2 + z\^2\)\)], "Output"],
+
+Cell[BoxData[
+    \(ArcTan[\@\(x\^2 + y\^2\)\/z]\)], "Output"],
+
+Cell[BoxData[
+    \(ArcTan[y\/x]\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(integrand = r^2*Sin[theta]*D[r, x]*D[theta, z]*D[phi, y]\)], "Input"],
+
+Cell[BoxData[
+    \(\(-\(\(\((x\^2 + y\^2)\)\ \@\(x\^2 + y\^2 + z\^2\)\)\/\(\((1 + 
+                y\^2\/x\^2)\)\ \((1 + \(x\^2 + y\^2\)\/z\^2)\)\^\(3/2\)\ z\^3\
+\)\)\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Integrate[
+      Integrate[Sin[phi]*Sin[2*phi], {x, \(-2\), 2}], {y, \(-2\), 
+        2}]\)], "Input"],
+
+Cell[BoxData[
+    \(\(-8\)\ \((\(-1\) + \@2 - ArcSinh[1])\) + 
+      8\ \((1 - \@2 + ArcSinh[1])\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(N[%]\)], "Input"],
+
+Cell[BoxData[
+    \(7.474560394343166`\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Integrate[Sin[x]*Sin[2*x], {x, 0, 2*Pi}]\)], "Input"],
+
+Cell[BoxData[
+    \(0\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(matrix = {{D[r, x], D[theta, x], D[phi, x]}, {D[r, y], D[theta, y], 
+          D[phi, y]}, {D[r, z], D[theta, z], D[phi, z]}}\)], "Input"],
+
+Cell[BoxData[
+    \({{x\/\@\(x\^2 + y\^2 + z\^2\), 
+        x\/\(\@\(x\^2 + y\^2\)\ \((1 + \(x\^2 + y\^2\)\/z\^2)\)\ z\), \
+\(-\(y\/\(x\^2\ \((1 + y\^2\/x\^2)\)\)\)\)}, {y\/\@\(x\^2 + y\^2 + z\^2\), 
+        y\/\(\@\(x\^2 + y\^2\)\ \((1 + \(x\^2 + y\^2\)\/z\^2)\)\ z\), 
+        1\/\(x\ \((1 + y\^2\/x\^2)\)\)}, {z\/\@\(x\^2 + y\^2 + z\^2\), \
+\(-\(\@\(x\^2 + y\^2\)\/\(\((1 + \(x\^2 + y\^2\)\/z\^2)\)\ z\^2\)\)\), 
+        0}}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Det[matrix]\)], "Input"],
+
+Cell[BoxData[
+    \(1\/\(\@\(x\^2 + y\^2\)\ \((1 + y\^2\/x\^2)\)\ \((1 + \(x\^2 + y\^2\)\/z\
+\^2)\)\ \@\(x\^2 + y\^2 + z\^2\)\) + 
+      y\^2\/\(x\^2\ \@\(x\^2 + y\^2\)\ \((1 + y\^2\/x\^2)\)\ \((1 + \(x\^2 + \
+y\^2\)\/z\^2)\)\ \@\(x\^2 + y\^2 + z\^2\)\) + \@\(x\^2 + y\^2\)\/\(\((1 + \
+y\^2\/x\^2)\)\ \((1 + \(x\^2 + y\^2\)\/z\^2)\)\ z\^2\ \@\(x\^2 + y\^2 + \
+z\^2\)\) + \(y\^2\ \@\(x\^2 + y\^2\)\)\/\(x\^2\ \((1 + y\^2\/x\^2)\)\ \((1 + \
+\(x\^2 + y\^2\)\/z\^2)\)\ z\^2\ \@\(x\^2 + y\^2 + z\^2\)\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(it = FullSimplify[%]\)], "Input"],
+
+Cell[BoxData[
+    \(1\/\(\@\(x\^2 + y\^2\)\ \@\(x\^2 + y\^2 + z\^2\)\)\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[{
+    \(x = r*Sin[theta]*Cos[phi]\), "\[IndentingNewLine]", 
+    \(y = r*Sin[theta]*Sin[phi]\), "\[IndentingNewLine]", 
+    \(z = r*Cos[theta]\)}], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(1\/\(\@\(x\^2 + y\^2\)\ \@\(x\^2 + y\^2 + z\^2\)\)\)], "Input"],
+
+Cell[BoxData[
+    \(1/\((\@\(r\^2\ Cos[phi]\^2\ Sin[theta]\^2 + r\^2\ Sin[phi]\^2\ \
+Sin[theta]\^2\)\ \[Sqrt]\((r\^2\ Cos[theta]\^2 + 
+                r\^2\ Cos[phi]\^2\ Sin[theta]\^2 + 
+                r\^2\ Sin[phi]\^2\ Sin[theta]\^2)\))\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(FullSimplify[%]\)], "Input"],
+
+Cell[BoxData[
+    \(1\/\(\@r\^2\ \@\(r\^2\ Sin[theta]\^2\)\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(matrix = {{D[x, r], D[y, r], D[z, r]}, {D[x, theta], D[y, theta], 
+          D[z, theta]}, {D[x, phi], D[y, phi], D[z, phi]}}\)], "Input"],
+
+Cell[BoxData[
+    \({{Cos[phi]\ Sin[theta], Sin[phi]\ Sin[theta], 
+        Cos[theta]}, {r\ Cos[phi]\ Cos[theta], 
+        r\ Cos[theta]\ Sin[phi], \(-r\)\ Sin[theta]}, {\(-r\)\ Sin[phi]\ Sin[
+            theta], r\ Cos[phi]\ Sin[theta], 0}}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Det[matrix]\)], "Input"],
+
+Cell[BoxData[
+    \(r\^2\ Cos[phi]\^2\ Cos[theta]\^2\ Sin[theta] + 
+      r\^2\ Cos[theta]\^2\ Sin[phi]\^2\ Sin[theta] + 
+      r\^2\ Cos[phi]\^2\ Sin[theta]\^3 + 
+      r\^2\ Sin[phi]\^2\ Sin[theta]\^3\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(FullSimplify[%]\)], "Input"],
+
+Cell[BoxData[
+    \(r\^2\ Sin[theta]\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(fun = r*Sin[phi]*Sin[theta]\)], "Input"],
+
+Cell[BoxData[
+    \(\(y\ \@\(x\^2 + y\^2\)\ \@\(x\^2 + y\^2 + z\^2\)\)\/\(x\ \@\(1 + \
+y\^2\/x\^2\)\ \@\(1 + \(x\^2 + y\^2\)\/z\^2\)\ z\)\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    \(god[r_, theta_, phi_] := r*Sin[phi]*Sin[theta]\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(god[r, theta, phi]\)], "Input"],
+
+Cell[BoxData[
+    \(\(y\ \@\(x\^2 + y\^2\)\ \@\(x\^2 + y\^2 + z\^2\)\)\/\(x\ \@\(1 + \
+y\^2\/x\^2\)\ \@\(1 + \(x\^2 + y\^2\)\/z\^2\)\ z\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(fun = 
+      If[r <= r0, \(y\ \@\(x\^2 + y\^2\)\ \@\(x\^2 + y\^2 + z\^2\)\)\/\(x\ \@\
+\(1 + y\^2\/x\^2\)\ \@\(1 + \(x\^2 + y\^2\)\/z\^2\)\ z\), 0]\)], "Input"],
+
+Cell[BoxData[
+    \(If[\@\(x\^2 + y\^2 + z\^2\) \[LessEqual] 
+        r0, \(y\ \@\(x\^2 + y\^2\)\ \@\(x\^2 + y\^2 + z\^2\)\)\/\(x\ \@\(1 + \
+y\^2\/x\^2\)\ \@\(1 + \(x\^2 + y\^2\)\/z\^2\)\ z\), 0]\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(mode = Sin[phi]\)], "Input"],
+
+Cell[BoxData[
+    \(y\/\(x\ \@\(1 + y\^2\/x\^2\)\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Integrate[
+      Integrate[
+        Integrate[fun*mode*r^2*Sin[theta], {r, 0, r0}], {theta, 0, 
+          Pi}], {phi, 0, 2*Pi}]\)], "Input"],
+
+Cell[BoxData[
+    \(\(\[Pi]\^2\ r0\^4\)\/8\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Integrate[
+      Integrate[
+        Integrate[fun*mode, {x, \(-r0\), r0}], {y, \(-r0\), 
+          r0}], {z, \(-r0\), r0}]\)], "Input"],
+
+Cell[BoxData[
+    \(\[Integral]\_\(-r0\)\%r0\((\[Integral]\_\(-r0\)\%r0\( 
+                y\ \(\[Integral]\_\(-r0\)\%r0\( 
+                          If[\@\(x\^2 + y\^2 + z\^2\) \[LessEqual] 
+                            r0, \(y\ \@\(x\^2 + y\^2\)\ \@\(x\^2 + y\^2 + \
+z\^2\)\)\/\(x\ \@\(1 + y\^2\/x\^2\)\ \@\(1 + \(x\^2 + y\^2\)\/z\^2\)\ z\), 
+                          0]\/\(x\ \@\(1 + y\^2\/x\^2\)\)\) \[DifferentialD]x\
+\)\) \[DifferentialD]y)\) \[DifferentialD]z\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[""], "Input"]
+},
+FrontEndVersion->"4.0 for X",
+ScreenRectangle->{{0, 1600}, {0, 1200}},
+WindowSize->{564, 899},
+WindowMargins->{{194, Automatic}, {Automatic, 102}}
+]
+
+
+(***********************************************************************
+Cached data follows.  If you edit this Notebook file directly, not using
+Mathematica, you must remove the line containing CacheID at the top of 
+the file.  The cache data will then be recreated when you save this file 
+from within Mathematica.
+***********************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[1739, 51, 178, 3, 59, "Input"],
+Cell[1920, 56, 58, 1, 35, "Output"],
+Cell[1981, 59, 62, 1, 52, "Output"],
+Cell[2046, 62, 46, 1, 41, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[2129, 68, 89, 1, 27, "Input"],
+Cell[2221, 71, 183, 3, 66, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[2441, 79, 122, 3, 43, "Input"],
+Cell[2566, 84, 112, 2, 37, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[2715, 91, 37, 1, 27, "Input"],
+Cell[2755, 94, 52, 1, 27, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[2844, 100, 73, 1, 27, "Input"],
+Cell[2920, 103, 35, 1, 27, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[2992, 109, 158, 2, 59, "Input"],
+Cell[3153, 113, 441, 7, 169, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[3631, 125, 44, 1, 27, "Input"],
+Cell[3678, 128, 511, 7, 240, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[4226, 140, 53, 1, 27, "Input"],
+Cell[4282, 143, 84, 1, 54, "Output"]
+}, Open  ]],
+Cell[4381, 147, 169, 3, 59, "Input"],
+
+Cell[CellGroupData[{
+Cell[4575, 154, 83, 1, 51, "Input"],
+Cell[4661, 157, 255, 4, 83, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[4953, 166, 48, 1, 27, "Input"],
+Cell[5004, 169, 74, 1, 55, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[5115, 175, 158, 2, 59, "Input"],
+Cell[5276, 179, 255, 4, 59, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[5568, 188, 44, 1, 27, "Input"],
+Cell[5615, 191, 216, 4, 65, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[5868, 200, 48, 1, 27, "Input"],
+Cell[5919, 203, 50, 1, 29, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[6006, 209, 60, 1, 27, "Input"],
+Cell[6069, 212, 151, 2, 78, "Output"]
+}, Open  ]],
+Cell[6235, 217, 79, 1, 27, "Input"],
+
+Cell[CellGroupData[{
+Cell[6339, 222, 51, 1, 27, "Input"],
+Cell[6393, 225, 151, 2, 78, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[6581, 232, 179, 3, 74, "Input"],
+Cell[6763, 237, 209, 3, 78, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[7009, 245, 48, 1, 27, "Input"],
+Cell[7060, 248, 64, 1, 67, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[7161, 254, 160, 4, 59, "Input"],
+Cell[7324, 260, 56, 1, 46, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[7417, 266, 155, 4, 43, "Input"],
+Cell[7575, 272, 480, 7, 138, "Output"]
+}, Open  ]],
+Cell[8070, 282, 26, 0, 27, "Input"]
+}
+]
+*)
+
+
+
+
+(***********************************************************************
+End of Mathematica Notebook file.
+***********************************************************************)
+

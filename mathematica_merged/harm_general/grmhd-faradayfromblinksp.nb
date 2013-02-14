@@ -1,0 +1,255 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 4.2'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[      5982,        181]*)
+(*NotebookOutlinePosition[      6650,        204]*)
+(*  CellTagsIndexPosition[      6606,        200]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell[BoxData[
+    \( (*\ uses\ grmhd - bzjon . nb\ *) \)], "Input"],
+
+Cell[BoxData[
+    \( (*\ then\ find\ F_\ in\ ksp\ *) \)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(FullSimplify[Fcovks[\([4, 1]\)] //. consts]\), "\[IndentingNewLine]", 
+    \( (*\ so\ ok, \ still\ time - independent\ *) \)}], "Input"],
+
+Cell[BoxData[
+    \(0\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(\(fsFcovks = 
+        FullSimplify[Fcovks //. consts];\)\), "\[IndentingNewLine]", 
+    \(MatrixForm[fsFcovks]\), "\[IndentingNewLine]", 
+    \(MatrixForm[Fcov]\)}], "Input"],
+
+Cell[BoxData[
+    \(General::"spell1" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(fsFcovks\)\" is similar \
+to existing symbol \"\!\(fsFconks\)\"."\)], "Message"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {"0", \(Apr\ w\), \(Aph\ w\), "0"},
+            {\(\(-Apr\)\ w\), 
+              "0", \(\(2\ Aph\ \((a - 2\ M\ w\ x)\) + 
+                    Bt\ \((a\^2 + 2\ x\^2 + a\^2\ Cos[2\ y])\)\ Csc[
+                        y]\)\/\(2\ \((a\^2 + x\ \((\(-2\)\ M + x)\))\)\)\), 
+              "Apr"},
+            {\(\(-Aph\)\ w\), \(-\(\(2\ Aph\ \((a - 2\ M\ w\ x)\) + 
+                      Bt\ \((a\^2 + 2\ x\^2 + a\^2\ Cos[2\ y])\)\ Csc[
+                          y]\)\/\(2\ \((a\^2 + 
+                          x\ \((\(-2\)\ M + x)\))\)\)\)\), "0", "Aph"},
+            {"0", \(-Apr\), \(-Aph\), "0"}
+            }], "\[NoBreak]", ")"}],
+      Function[ BoxForm`e$, 
+        MatrixForm[ BoxForm`e$]]]], "Output"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {"0", \(Apr\ w\), \(Aph\ w\), "0"},
+            {\(\(-Apr\)\ w\), "0", \(\(Bt\ sigma\ Csc[y]\)\/delta\), "Apr"},
+            {\(\(-Aph\)\ w\), \(-\(\(Bt\ sigma\ Csc[y]\)\/delta\)\), "0", 
+              "Aph"},
+            {"0", \(-Apr\), \(-Aph\), "0"}
+            }], "\[NoBreak]", ")"}],
+      Function[ BoxForm`e$, 
+        MatrixForm[ BoxForm`e$]]]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(term = fsFcovks[\([2, 3]\)]\)], "Input"],
+
+Cell[BoxData[
+    \(\(2\ Aph\ \((a - 2\ M\ w\ x)\) + Bt\ \((a\^2 + 2\ x\^2 + a\^2\ Cos[2\ \
+y])\)\ Csc[y]\)\/\(2\ \((a\^2 + x\ \((\(-2\)\ M + x)\))\)\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(sup = 
+      Simplify[FullSimplify[
+            TrigExpand[
+              term //. {a^2 + \((\(-2\)*M + x)\)*x \[Rule] delta}]] //. {Sin[
+                3*y] \[Rule] TrigExpand[Sin[3*y]], 
+            Cos[2*y] \[Rule] TrigExpand[Cos[2*y]]}, 
+        Trig \[Rule] False]\)], "Input"],
+
+Cell[BoxData[
+    \(\(2\ Aph\ \((a - 2\ M\ w\ x)\) + Bt\ Csc[y]\ \((a\^2 + 2\ x\^2 + a\^2\ \
+\((Cos[y]\^2 - Sin[y]\^2)\))\)\)\/\(2\ delta\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(btbl = \(\(\(Solve[sup \[Equal] Bp, 
+              Bt]\)[\([1]\)]\)[\([1]\)]\)[\([2]\)]\)], "Input"],
+
+Cell[BoxData[
+    \(\(2\ delta\ \((Bp - \(Aph\ \((a - 2\ M\ w\ x)\)\)\/delta)\)\ Sin[y]\)\/\
+\(a\^2 + 2\ x\^2 + a\^2\ \((Cos[y]\^2 - Sin[y]\^2)\)\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(finalbtusingfcov = \(finalbt = 
+        Simplify[
+          Limit[btbl //. consts, 
+              x \[Rule] M + Sqrt[M^2 - a^2]] //. {Cos[2*y] \[Rule] 
+                TrigExpand[Cos[2*y]]}, Trig \[Rule] False]\)\)], "Input"],
+
+Cell[BoxData[
+    \(General::"spell1" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(finalbtusingfcov\)\" is \
+similar to existing symbol \"\!\(finalbtusingcov\)\"."\)], "Message"],
+
+Cell[BoxData[
+    \(\(-\(\(2\ Aph\ \((a - 2\ M\ \((M + \@\(\(-a\^2\) + M\^2\))\)\ w)\)\ Sin[
+              y]\)\/\(\(-a\^2\) + 4\ M\ \((M + \@\(\(-a\^2\) + M\^2\))\) + 
+            a\^2\ \((Cos[y]\^2 - Sin[y]\^2)\)\)\)\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(finalbtusingfcov //. {a \[Rule] 1/2}\)], "Input"],
+
+Cell[BoxData[
+    \(\(-\(\(2\ Aph\ \((1\/2 - 
+                2\ M\ \((M + \@\(\(-\(1\/4\)\) + M\^2\))\)\ w)\)\ Sin[
+              y]\)\/\(\(-\(1\/4\)\) + 
+            4\ M\ \((M + \@\(\(-\(1\/4\)\) + M\^2\))\) + 
+            1\/4\ \((Cos[y]\^2 - Sin[y]\^2)\)\)\)\)\)], "Output"]
+}, Open  ]]
+},
+FrontEndVersion->"4.2 for Microsoft Windows",
+ScreenRectangle->{{0, 1600}, {0, 1117}},
+WindowSize->{1132, 948},
+WindowMargins->{{Automatic, 16}, {Automatic, 37}},
+Magnification->1.25
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1754, 51, 67, 1, 35, "Input"],
+Cell[1824, 54, 66, 1, 35, "Input"],
+
+Cell[CellGroupData[{
+Cell[1915, 59, 157, 2, 56, "Input"],
+Cell[2075, 63, 35, 1, 35, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[2147, 69, 195, 4, 77, "Input"],
+Cell[2345, 75, 189, 3, 30, "Message"],
+Cell[2537, 80, 785, 16, 138, "Output"],
+Cell[3325, 98, 445, 10, 122, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[3807, 113, 60, 1, 35, "Input"],
+Cell[3870, 116, 165, 2, 55, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[4072, 123, 303, 7, 56, "Input"],
+Cell[4378, 132, 153, 2, 53, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[4568, 139, 120, 2, 35, "Input"],
+Cell[4691, 143, 161, 2, 62, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[4889, 150, 245, 5, 56, "Input"],
+Cell[5137, 157, 204, 3, 30, "Message"],
+Cell[5344, 162, 234, 3, 69, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[5615, 170, 69, 1, 35, "Input"],
+Cell[5687, 173, 279, 5, 75, "Output"]
+}, Open  ]]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

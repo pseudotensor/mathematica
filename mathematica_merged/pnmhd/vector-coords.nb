@@ -1,0 +1,1557 @@
+(***********************************************************************
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used on any computer system with Mathematica 4.0,
+MathReader 4.0, or any compatible application. The data for the notebook 
+starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do one of 
+the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing the 
+word CacheID, otherwise Mathematica-compatible applications may try to 
+use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+***********************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     46396,       1369]*)
+(*NotebookOutlinePosition[     47034,       1392]*)
+(*  CellTagsIndexPosition[     46990,       1388]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell[BoxData[
+    \( (*below\ commented\ until\ want\ to\ try\ out\ a\ specific\ vector\ \
+field*) \)], "Input"],
+
+Cell[BoxData[
+    \( (*vr[r_, t_, 
+          p_] := \(1/r^2\[IndentingNewLine]vt[r_, t_, 
+              p_] := \(Sin[t]\[IndentingNewLine]vp[r_, t_, p_] := 
+            0\)\)*) \)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(v = 
+      vr[r, t, p]*{Sin[t]*Cos[p], Sin[t]*Sin[p], Cos[t]} + 
+        vt[r, t, p]*{Cos[t]*Cos[p], Cos[t]*Sin[p], \(-Sin[t]\)} + 
+        vp[r, t, p]*{\(-Sin[p]\), Cos[p], 0}\)], "Input"],
+
+Cell[BoxData[
+    \({\(Cos[p]\ Sin[t]\)\/r\^2 + 
+        Cos[p]\ Cos[t]\ Sin[t], \(Sin[p]\ Sin[t]\)\/r\^2 + 
+        Cos[t]\ Sin[p]\ Sin[t], Cos[t]\/r\^2 - Sin[t]\^2}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(A1 = v . {1, 0, 0}\)], "Input"],
+
+Cell[BoxData[
+    \(\(Cos[p]\ Sin[t]\)\/r\^2 + Cos[p]\ Cos[t]\ Sin[t]\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(A2 = v . {0, 1, 0}\)], "Input"],
+
+Cell[BoxData[
+    \(\(Sin[p]\ Sin[t]\)\/r\^2 + Cos[t]\ Sin[p]\ Sin[t]\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(A3 = v . {0, 0, 1}\)], "Input"],
+
+Cell[BoxData[
+    \(Cos[t]\/r\^2 - Sin[t]\^2\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[{
+    \(rc := Sqrt[x^2 + y^2 + z^2]\), "\[IndentingNewLine]", 
+    \(tc := ArcCos[z/rc]\), "\[IndentingNewLine]", 
+    \(pc := ArcTan[y/x]\)}], "Input"],
+
+Cell[BoxData[{
+    \(xc := r*Sin[t]*Cos[p]\), "\[IndentingNewLine]", 
+    \(yc := r*Sin[t]*Sin[p]\), "\[IndentingNewLine]", 
+    \(zc := r*Cos[t]\), "\[IndentingNewLine]", 
+    \(x0 := 
+      xc //. {r \[Rule] r0, t \[Rule] t0, 
+          p \[Rule] p0}\), "\[IndentingNewLine]", 
+    \(y0 := 
+      yc //. {r \[Rule] r0, t \[Rule] t0, 
+          p \[Rule] p0}\), "\[IndentingNewLine]", 
+    \(z0 := zc //. {r \[Rule] r0, t \[Rule] t0, p \[Rule] p0}\)}], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(drdx = 
+      FullSimplify[
+        Simplify[
+          D[rc, x] //. {x \[Rule] xc, y \[Rule] yc, z \[Rule] zc}, {r > 
+              0}]]\), "\[IndentingNewLine]", 
+    \(drdy = 
+      FullSimplify[
+        Simplify[
+          D[rc, y] //. {x \[Rule] xc, y \[Rule] yc, z \[Rule] zc}, {r > 
+              0}]]\), "\[IndentingNewLine]", 
+    \(drdz = 
+      FullSimplify[
+        Simplify[
+          D[rc, z] //. {x \[Rule] xc, y \[Rule] yc, z \[Rule] zc}, {r > 
+              0}]]\), "\[IndentingNewLine]", 
+    \(dtdx = 
+      FullSimplify[
+        Simplify[
+          D[tc, x] //. {x \[Rule] xc, y \[Rule] yc, z \[Rule] zc}, {r > 0, 
+            t > 0, t < Pi/2}]]\), "\[IndentingNewLine]", 
+    \(dtdy = 
+      FullSimplify[
+        Simplify[
+          D[tc, y] //. {x \[Rule] xc, y \[Rule] yc, z \[Rule] zc}, {r > 0, 
+            t > 0, t < Pi/2}]]\), "\[IndentingNewLine]", 
+    \(dtdz = 
+      FullSimplify[
+        Simplify[
+          D[tc, z] //. {x \[Rule] xc, y \[Rule] yc, z \[Rule] zc}, {r > 0, 
+            t > 0, t < Pi/2}]]\), "\[IndentingNewLine]", 
+    \(dpdx = 
+      FullSimplify[
+        Simplify[
+          D[pc, x] //. {x \[Rule] xc, y \[Rule] yc, z \[Rule] zc}, {r > 
+              0}]]\), "\[IndentingNewLine]", 
+    \(dpdy = 
+      FullSimplify[
+        Simplify[
+          D[pc, y] //. {x \[Rule] xc, y \[Rule] yc, z \[Rule] zc}, {r > 
+              0}]]\), "\[IndentingNewLine]", 
+    \(\(\(dpdz\)\(=\)\(FullSimplify[
+        Simplify[
+          D[pc, z] //. {x \[Rule] xc, y \[Rule] yc, z \[Rule] zc}, {r > 
+              0}]]\)\(\[IndentingNewLine]\)\)\)}], "Input"],
+
+Cell[BoxData[
+    \(Cos[p]\ Sin[t]\)], "Output"],
+
+Cell[BoxData[
+    \(General::"spell1" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(drdy\)\" is similar to \
+existing symbol \"\!\(drdx\)\"."\)], "Message"],
+
+Cell[BoxData[
+    \(Sin[p]\ Sin[t]\)], "Output"],
+
+Cell[BoxData[
+    \(General::"spell" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(drdz\)\" is similar to \
+existing symbols \!\({drdx, drdy}\)."\)], "Message"],
+
+Cell[BoxData[
+    \(Cos[t]\)], "Output"],
+
+Cell[BoxData[
+    \(General::"spell1" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(dtdx\)\" is similar to \
+existing symbol \"\!\(drdx\)\"."\)], "Message"],
+
+Cell[BoxData[
+    \(\(Cos[p]\ Cos[t]\)\/r\)], "Output"],
+
+Cell[BoxData[
+    \(General::"spell" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(dtdy\)\" is similar to \
+existing symbols \!\({drdy, dtdx}\)."\)], "Message"],
+
+Cell[BoxData[
+    \(\(Cos[t]\ Sin[p]\)\/r\)], "Output"],
+
+Cell[BoxData[
+    \(General::"spell" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(dtdz\)\" is similar to \
+existing symbols \!\({drdz, dtdx, dtdy}\)."\)], "Message"],
+
+Cell[BoxData[
+    \(\(-\(Sin[t]\/r\)\)\)], "Output"],
+
+Cell[BoxData[
+    \(General::"spell" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(dpdx\)\" is similar to \
+existing symbols \!\({drdx, dtdx}\)."\)], "Message"],
+
+Cell[BoxData[
+    \(\(-\(\(Csc[t]\ Sin[p]\)\/r\)\)\)], "Output"],
+
+Cell[BoxData[
+    \(General::"spell" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(dpdy\)\" is similar to \
+existing symbols \!\({dpdx, drdy, dtdy}\)."\)], "Message"],
+
+Cell[BoxData[
+    \(\(Cos[p]\ Csc[t]\)\/r\)], "Output"],
+
+Cell[BoxData[
+    \(General::"spell" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(dpdz\)\" is similar to \
+existing symbols \!\({dpdx, dpdy, drdz, dtdz}\)."\)], "Message"],
+
+Cell[BoxData[
+    \(0\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(vi = \((A1 //. \ {r \[Rule] r0, t \[Rule] t0, 
+              p \[Rule] p0})\) + \((xc - 
+              x0)\)*\((\((D[A1, r]*drdx + D[A1, t]*dtdx + 
+                  D[A1, p]*dpdx)\) //. {r \[Rule] r0, t \[Rule] t0, 
+                p \[Rule] p0})\)\), "\[IndentingNewLine]", 
+    \(vj = \((A2 //. \ {r \[Rule] r0, t \[Rule] t0, 
+              p \[Rule] p0})\) + \((yc - 
+              y0)\)*\((\((D[A2, r]*drdy + D[A2, t]*dtdy + 
+                  D[A2, p]*dpdy)\) //. {r \[Rule] r0, t \[Rule] t0, 
+                p \[Rule] p0})\)\), "\[IndentingNewLine]", 
+    \(vk = \((A3 //. \ {r \[Rule] r0, t \[Rule] t0, 
+              p \[Rule] p0})\) + \((zc - 
+              z0)\)*\((\((D[A3, r]*drdz + D[A3, t]*dtdz + 
+                  D[A3, p]*dpdz)\) //. {r \[Rule] r0, t \[Rule] t0, 
+                p \[Rule] p0})\)\)}], "Input"],
+
+Cell[BoxData[
+    \(\(Cos[p0]\ Sin[t0]\)\/r0\^2 + 
+      Cos[p0]\ Cos[t0]\ Sin[
+          t0] + \((r\ Cos[p]\ Sin[t] - 
+            r0\ Cos[p0]\ Sin[
+                t0])\)\ \((\(-\(\(2\ Cos[p0]\^2\ Sin[t0]\^2\)\/r0\^3\)\) - \
+\(Csc[t0]\ Sin[p0]\ \((\(-\(\(Sin[p0]\ Sin[t0]\)\/r0\^2\)\) - Cos[t0]\ \
+Sin[p0]\ Sin[t0])\)\)\/r0 + \(Cos[p0]\ Cos[t0]\ \((\(Cos[p0]\ \
+Cos[t0]\)\/r0\^2 + Cos[p0]\ Cos[t0]\^2 - Cos[p0]\ Sin[t0]\^2)\)\)\/r0)\)\)], \
+"Output"],
+
+Cell[BoxData[
+    \(\(Sin[p0]\ Sin[t0]\)\/r0\^2 + 
+      Cos[t0]\ Sin[p0]\ Sin[
+          t0] + \((r\ Sin[p]\ Sin[t] - 
+            r0\ Sin[p0]\ Sin[
+                t0])\)\ \((\(-\(\(2\ Sin[p0]\^2\ Sin[t0]\^2\)\/r0\^3\)\) + \
+\(Cos[p0]\ Csc[t0]\ \((\(Cos[p0]\ Sin[t0]\)\/r0\^2 + Cos[p0]\ Cos[t0]\ \
+Sin[t0])\)\)\/r0 + \(Cos[t0]\ Sin[p0]\ \((\(Cos[t0]\ Sin[p0]\)\/r0\^2 + \
+Cos[t0]\^2\ Sin[p0] - Sin[p0]\ Sin[t0]\^2)\)\)\/r0)\)\)], "Output"],
+
+Cell[BoxData[
+    \(Cos[t0]\/r0\^2 - 
+      Sin[t0]\^2 + \((r\ Cos[t] - 
+            r0\ Cos[t0])\)\ \((\(-\(\(2\ Cos[t0]\^2\)\/r0\^3\)\) - \(Sin[t0]\ \
+\((\(-\(Sin[t0]\/r0\^2\)\) - 2\ Cos[t0]\ Sin[t0])\)\)\/r0)\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(vapp = {vi, vj, 
+          vk} . {{Sin[t]*Cos[p], Cos[t]*Cos[p], \(-Sin[p]\)}, {Sin[t]*Sin[p], 
+            Cos[t]*Sin[p], Cos[p]}, {Cos[t], \(-Sin[t]\), 0}}\)], "Input"],
+
+Cell[BoxData[
+    \({Cos[
+            t]\ \((Cos[t0]\/r0\^2 - 
+              Sin[t0]\^2 + \((r\ Cos[t] - 
+                    r0\ Cos[
+                        t0])\)\ \((\(-\(\(2\ Cos[t0]\^2\)\/r0\^3\)\) - \
+\(Sin[t0]\ \((\(-\(Sin[t0]\/r0\^2\)\) - 2\ Cos[t0]\ Sin[t0])\)\)\/r0)\))\) + 
+        Cos[p]\ Sin[
+            t]\ \((\(Cos[p0]\ Sin[t0]\)\/r0\^2 + 
+              Cos[p0]\ Cos[t0]\ Sin[
+                  t0] + \((r\ Cos[p]\ Sin[t] - 
+                    r0\ Cos[p0]\ Sin[
+                        t0])\)\ \((\(-\(\(2\ Cos[p0]\^2\ \
+Sin[t0]\^2\)\/r0\^3\)\) - \(Csc[t0]\ Sin[p0]\ \((\(-\(\(Sin[p0]\ \
+Sin[t0]\)\/r0\^2\)\) - Cos[t0]\ Sin[p0]\ Sin[t0])\)\)\/r0 + \(Cos[p0]\ \
+Cos[t0]\ \((\(Cos[p0]\ Cos[t0]\)\/r0\^2 + Cos[p0]\ Cos[t0]\^2 - Cos[p0]\ \
+Sin[t0]\^2)\)\)\/r0)\))\) + 
+        Sin[p]\ Sin[
+            t]\ \((\(Sin[p0]\ Sin[t0]\)\/r0\^2 + 
+              Cos[t0]\ Sin[p0]\ Sin[
+                  t0] + \((r\ Sin[p]\ Sin[t] - 
+                    r0\ Sin[p0]\ Sin[
+                        t0])\)\ \((\(-\(\(2\ Sin[p0]\^2\ \
+Sin[t0]\^2\)\/r0\^3\)\) + \(Cos[p0]\ Csc[t0]\ \((\(Cos[p0]\ Sin[t0]\)\/r0\^2 \
++ Cos[p0]\ Cos[t0]\ Sin[t0])\)\)\/r0 + \(Cos[t0]\ Sin[p0]\ \((\(Cos[t0]\ \
+Sin[p0]\)\/r0\^2 + Cos[t0]\^2\ Sin[p0] - Sin[p0]\ Sin[t0]\^2)\)\)\/r0)\))\), \
+\(-Sin[t]\)\ \((Cos[t0]\/r0\^2 - 
+              Sin[t0]\^2 + \((r\ Cos[t] - 
+                    r0\ Cos[
+                        t0])\)\ \((\(-\(\(2\ Cos[t0]\^2\)\/r0\^3\)\) - \
+\(Sin[t0]\ \((\(-\(Sin[t0]\/r0\^2\)\) - 2\ Cos[t0]\ Sin[t0])\)\)\/r0)\))\) + 
+        Cos[p]\ Cos[
+            t]\ \((\(Cos[p0]\ Sin[t0]\)\/r0\^2 + 
+              Cos[p0]\ Cos[t0]\ Sin[
+                  t0] + \((r\ Cos[p]\ Sin[t] - 
+                    r0\ Cos[p0]\ Sin[
+                        t0])\)\ \((\(-\(\(2\ Cos[p0]\^2\ \
+Sin[t0]\^2\)\/r0\^3\)\) - \(Csc[t0]\ Sin[p0]\ \((\(-\(\(Sin[p0]\ \
+Sin[t0]\)\/r0\^2\)\) - Cos[t0]\ Sin[p0]\ Sin[t0])\)\)\/r0 + \(Cos[p0]\ \
+Cos[t0]\ \((\(Cos[p0]\ Cos[t0]\)\/r0\^2 + Cos[p0]\ Cos[t0]\^2 - Cos[p0]\ \
+Sin[t0]\^2)\)\)\/r0)\))\) + 
+        Cos[t]\ Sin[
+            p]\ \((\(Sin[p0]\ Sin[t0]\)\/r0\^2 + 
+              Cos[t0]\ Sin[p0]\ Sin[
+                  t0] + \((r\ Sin[p]\ Sin[t] - 
+                    r0\ Sin[p0]\ Sin[
+                        t0])\)\ \((\(-\(\(2\ Sin[p0]\^2\ \
+Sin[t0]\^2\)\/r0\^3\)\) + \(Cos[p0]\ Csc[t0]\ \((\(Cos[p0]\ Sin[t0]\)\/r0\^2 \
++ Cos[p0]\ Cos[t0]\ Sin[t0])\)\)\/r0 + \(Cos[t0]\ Sin[p0]\ \((\(Cos[t0]\ \
+Sin[p0]\)\/r0\^2 + Cos[t0]\^2\ Sin[p0] - Sin[p0]\ Sin[t0]\^2)\)\)\/r0)\))\), \
+\(-Sin[p]\)\ \((\(Cos[p0]\ Sin[t0]\)\/r0\^2 + 
+              Cos[p0]\ Cos[t0]\ Sin[
+                  t0] + \((r\ Cos[p]\ Sin[t] - 
+                    r0\ Cos[p0]\ Sin[
+                        t0])\)\ \((\(-\(\(2\ Cos[p0]\^2\ \
+Sin[t0]\^2\)\/r0\^3\)\) - \(Csc[t0]\ Sin[p0]\ \((\(-\(\(Sin[p0]\ \
+Sin[t0]\)\/r0\^2\)\) - Cos[t0]\ Sin[p0]\ Sin[t0])\)\)\/r0 + \(Cos[p0]\ \
+Cos[t0]\ \((\(Cos[p0]\ Cos[t0]\)\/r0\^2 + Cos[p0]\ Cos[t0]\^2 - Cos[p0]\ \
+Sin[t0]\^2)\)\)\/r0)\))\) + 
+        Cos[p]\ \((\(Sin[p0]\ Sin[t0]\)\/r0\^2 + 
+              Cos[t0]\ Sin[p0]\ Sin[
+                  t0] + \((r\ Sin[p]\ Sin[t] - 
+                    r0\ Sin[p0]\ Sin[
+                        t0])\)\ \((\(-\(\(2\ Sin[p0]\^2\ \
+Sin[t0]\^2\)\/r0\^3\)\) + \(Cos[p0]\ Csc[t0]\ \((\(Cos[p0]\ Sin[t0]\)\/r0\^2 \
++ Cos[p0]\ Cos[t0]\ Sin[t0])\)\)\/r0 + \(Cos[t0]\ Sin[p0]\ \((\(Cos[t0]\ \
+Sin[p0]\)\/r0\^2 + Cos[t0]\^2\ Sin[p0] - Sin[p0]\ \
+Sin[t0]\^2)\)\)\/r0)\))\)}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \({p1, p2, 
+        p3} . {{a11, a21, a31}, {a12, a22, a32}, {a13, a23, a33}}\)], "Input"],
+
+Cell[BoxData[
+    \({a11\ p1 + a12\ p2 + a13\ p3, a21\ p1 + a22\ p2 + a23\ p3, 
+      a31\ p1 + a32\ p2 + a33\ p3}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(X = \((\((vapp . {1, 0, 0})\) //. {r \[Rule] r0 + dr, 
+              t \[Rule] t0 + dt, p \[Rule] p0 + dp})\) //. {p \[Rule] 0, 
+          p0 \[Rule] 0, dp \[Rule] 0}\), "\[IndentingNewLine]", 
+    \(Y = \((\((vapp . {0, 1, 0})\) //. {r \[Rule] r0 + dr, 
+              t \[Rule] t0 + dt, p \[Rule] p0 + dp})\) //. {p \[Rule] 0, 
+          p0 \[Rule] 0, dp \[Rule] 0}\), "\[IndentingNewLine]", 
+    \(Z = \(\((\((vapp . {0, 0, 1})\) //. {r \[Rule] r0 + dr, 
+              t \[Rule] t0 + dt, p \[Rule] p0 + dp})\)\(//.\)\({p \[Rule] 0, 
+          p0 \[Rule] 0, dp \[Rule] 0}\)\(\[IndentingNewLine]\)\)\)}], "Input"],
+
+Cell[BoxData[
+    \(Cos[
+          dt + t0]\ \((Cos[t0]\/r0\^2 - 
+            Sin[t0]\^2 + \((\(-r0\)\ Cos[t0] + \((dr + r0)\)\ Cos[
+                      dt + t0])\)\ \((\(-\(\(2\ Cos[t0]\^2\)\/r0\^3\)\) - \
+\(Sin[t0]\ \((\(-\(Sin[t0]\/r0\^2\)\) - 2\ Cos[t0]\ Sin[t0])\)\)\/r0)\))\) + 
+      Sin[dt + t0]\ \((Sin[t0]\/r0\^2 + 
+            Cos[t0]\ Sin[
+                t0] + \((\(-\(\(2\ Sin[t0]\^2\)\/r0\^3\)\) + \(Cos[t0]\ \
+\((Cos[t0]\/r0\^2 + Cos[t0]\^2 - Sin[t0]\^2)\)\)\/r0)\)\ \((\(-r0\)\ Sin[
+                      t0] + \((dr + r0)\)\ Sin[dt + t0])\))\)\)], "Output"],
+
+Cell[BoxData[
+    \(\(-\((Cos[t0]\/r0\^2 - 
+              Sin[t0]\^2 + \((\(-r0\)\ Cos[t0] + \((dr + r0)\)\ Cos[
+                        dt + t0])\)\ \((\(-\(\(2\ Cos[t0]\^2\)\/r0\^3\)\) - \
+\(Sin[t0]\ \((\(-\(Sin[t0]\/r0\^2\)\) - 2\ Cos[t0]\ Sin[t0])\)\)\/r0)\))\)\)\ \
+Sin[dt + t0] + 
+      Cos[dt + t0]\ \((Sin[t0]\/r0\^2 + 
+            Cos[t0]\ Sin[
+                t0] + \((\(-\(\(2\ Sin[t0]\^2\)\/r0\^3\)\) + \(Cos[t0]\ \
+\((Cos[t0]\/r0\^2 + Cos[t0]\^2 - Sin[t0]\^2)\)\)\/r0)\)\ \((\(-r0\)\ Sin[
+                      t0] + \((dr + r0)\)\ Sin[dt + t0])\))\)\)], "Output"],
+
+Cell[BoxData[
+    \(0\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(SX = 
+      Series[X, {dr, 0, 1}, {dt, 0, 1}, {dp, 0, 
+          1}]\), "\[IndentingNewLine]", 
+    \(SY = 
+      Series[Y, {dr, 0, 1}, {dt, 0, 1}, {dp, 0, 
+          1}]\), "\[IndentingNewLine]", 
+    \(SZ = Series[Z, {dr, 0, 1}, {dt, 0, 1}, {dp, 0, 1}]\)}], "Input"],
+
+Cell[BoxData[
+    InterpretationBox[
+      RowBox[{
+        RowBox[{"(", 
+          InterpretationBox[
+            
+            RowBox[{\((Sin[t0]\ \((Sin[t0]\/r0\^2 + Cos[t0]\ Sin[t0])\) + 
+                  Cos[t0]\ \((Cos[t0]\/r0\^2 - Sin[t0]\^2)\))\), 
+              "+", \(\((Cos[t0]\ \((Sin[t0]\/r0\^2 + Cos[t0]\ Sin[t0])\) - 
+                    Sin[t0]\ \((Cos[t0]\/r0\^2 - Sin[t0]\^2)\) - 
+                    r0\ Cos[t0]\ Sin[
+                        t0]\ \((\(-\(\(2\ Cos[t0]\^2\)\/r0\^3\)\) - \(Sin[t0]\
+\ \((\(-\(Sin[t0]\/r0\^2\)\) - 2\ Cos[t0]\ Sin[t0])\)\)\/r0)\) + 
+                    r0\ Cos[t0]\ Sin[
+                        t0]\ \((\(-\(\(2\ Sin[t0]\^2\)\/r0\^3\)\) + \(Cos[t0]\
+\ \((Cos[t0]\/r0\^2 + Cos[t0]\^2 - Sin[t0]\^2)\)\)\/r0)\))\)\ dt\), "+", 
+              InterpretationBox[\(O[dt]\^2\),
+                SeriesData[ dt, 0, {}, 0, 2, 1]]}],
+            SeriesData[ dt, 0, {
+              Plus[ 
+                Times[ 
+                  Sin[ t0], 
+                  Plus[ 
+                    Times[ 
+                      Power[ r0, -2], 
+                      Sin[ t0]], 
+                    Times[ 
+                      Cos[ t0], 
+                      Sin[ t0]]]], 
+                Times[ 
+                  Cos[ t0], 
+                  Plus[ 
+                    Times[ 
+                      Power[ r0, -2], 
+                      Cos[ t0]], 
+                    Times[ -1, 
+                      Power[ 
+                        Sin[ t0], 2]]]]], 
+              Plus[ 
+                Times[ 
+                  Cos[ t0], 
+                  Plus[ 
+                    Times[ 
+                      Power[ r0, -2], 
+                      Sin[ t0]], 
+                    Times[ 
+                      Cos[ t0], 
+                      Sin[ t0]]]], 
+                Times[ -1, 
+                  Sin[ t0], 
+                  Plus[ 
+                    Times[ 
+                      Power[ r0, -2], 
+                      Cos[ t0]], 
+                    Times[ -1, 
+                      Power[ 
+                        Sin[ t0], 2]]]], 
+                Times[ -1, r0, 
+                  Cos[ t0], 
+                  Sin[ t0], 
+                  Plus[ 
+                    Times[ -2, 
+                      Power[ r0, -3], 
+                      Power[ 
+                        Cos[ t0], 2]], 
+                    Times[ -1, 
+                      Power[ r0, -1], 
+                      Sin[ t0], 
+                      Plus[ 
+                        Times[ -1, 
+                          Power[ r0, -2], 
+                          Sin[ t0]], 
+                        Times[ -2, 
+                          Cos[ t0], 
+                          Sin[ t0]]]]]], 
+                Times[ r0, 
+                  Cos[ t0], 
+                  Sin[ t0], 
+                  Plus[ 
+                    Times[ -2, 
+                      Power[ r0, -3], 
+                      Power[ 
+                        Sin[ t0], 2]], 
+                    Times[ 
+                      Power[ r0, -1], 
+                      Cos[ t0], 
+                      Plus[ 
+                        Times[ 
+                          Power[ r0, -2], 
+                          Cos[ t0]], 
+                        Power[ 
+                          Cos[ t0], 2], 
+                        Times[ -1, 
+                          Power[ 
+                            Sin[ t0], 2]]]]]]]}, 0, 2, 1]], ")"}], "+", 
+        RowBox[{
+          RowBox[{"(", 
+            InterpretationBox[
+              
+              RowBox[{\((Cos[t0]\^2\ \((\(-\(\(2\ Cos[t0]\^2\)\/r0\^3\)\) - \
+\(Sin[t0]\ \((\(-\(Sin[t0]\/r0\^2\)\) - 2\ Cos[t0]\ Sin[t0])\)\)\/r0)\) + 
+                    Sin[t0]\^2\ \((\(-\(\(2\ Sin[t0]\^2\)\/r0\^3\)\) + \
+\(Cos[t0]\ \((Cos[t0]\/r0\^2 + Cos[t0]\^2 - Sin[t0]\^2)\)\)\/r0)\))\), 
+                "+", \(\((\(-2\)\ Cos[t0]\ Sin[
+                          t0]\ \((\(-\(\(2\ Cos[t0]\^2\)\/r0\^3\)\) - \
+\(Sin[t0]\ \((\(-\(Sin[t0]\/r0\^2\)\) - 2\ Cos[t0]\ Sin[t0])\)\)\/r0)\) + 
+                      2\ Cos[t0]\ Sin[
+                          
+                          t0]\ \((\(-\(\(2\ Sin[t0]\^2\)\/r0\^3\)\) + \
+\(Cos[t0]\ \((Cos[t0]\/r0\^2 + Cos[t0]\^2 - Sin[t0]\^2)\)\)\/r0)\))\)\ dt\), 
+                "+", 
+                InterpretationBox[\(O[dt]\^2\),
+                  SeriesData[ dt, 0, {}, 0, 2, 1]]}],
+              SeriesData[ dt, 0, {
+                Plus[ 
+                  Times[ 
+                    Power[ 
+                      Cos[ t0], 2], 
+                    Plus[ 
+                      Times[ -2, 
+                        Power[ r0, -3], 
+                        Power[ 
+                          Cos[ t0], 2]], 
+                      Times[ -1, 
+                        Power[ r0, -1], 
+                        Sin[ t0], 
+                        Plus[ 
+                          Times[ -1, 
+                            Power[ r0, -2], 
+                            Sin[ t0]], 
+                          Times[ -2, 
+                            Cos[ t0], 
+                            Sin[ t0]]]]]], 
+                  Times[ 
+                    Power[ 
+                      Sin[ t0], 2], 
+                    Plus[ 
+                      Times[ -2, 
+                        Power[ r0, -3], 
+                        Power[ 
+                          Sin[ t0], 2]], 
+                      Times[ 
+                        Power[ r0, -1], 
+                        Cos[ t0], 
+                        Plus[ 
+                          Times[ 
+                            Power[ r0, -2], 
+                            Cos[ t0]], 
+                          Power[ 
+                            Cos[ t0], 2], 
+                          Times[ -1, 
+                            Power[ 
+                              Sin[ t0], 2]]]]]]], 
+                Plus[ 
+                  Times[ -2, 
+                    Cos[ t0], 
+                    Sin[ t0], 
+                    Plus[ 
+                      Times[ -2, 
+                        Power[ r0, -3], 
+                        Power[ 
+                          Cos[ t0], 2]], 
+                      Times[ -1, 
+                        Power[ r0, -1], 
+                        Sin[ t0], 
+                        Plus[ 
+                          Times[ -1, 
+                            Power[ r0, -2], 
+                            Sin[ t0]], 
+                          Times[ -2, 
+                            Cos[ t0], 
+                            Sin[ t0]]]]]], 
+                  Times[ 2, 
+                    Cos[ t0], 
+                    Sin[ t0], 
+                    Plus[ 
+                      Times[ -2, 
+                        Power[ r0, -3], 
+                        Power[ 
+                          Sin[ t0], 2]], 
+                      Times[ 
+                        Power[ r0, -1], 
+                        Cos[ t0], 
+                        Plus[ 
+                          Times[ 
+                            Power[ r0, -2], 
+                            Cos[ t0]], 
+                          Power[ 
+                            Cos[ t0], 2], 
+                          Times[ -1, 
+                            Power[ 
+                              Sin[ t0], 2]]]]]]]}, 0, 2, 1]], ")"}], " ", 
+          "dr"}], "+", 
+        InterpretationBox[\(O[dr]\^2\),
+          SeriesData[ dr, 0, {}, 0, 2, 1]]}],
+      SeriesData[ dr, 0, {
+        SeriesData[ dt, 0, {
+          Plus[ 
+            Times[ 
+              Sin[ t0], 
+              Plus[ 
+                Times[ 
+                  Power[ r0, -2], 
+                  Sin[ t0]], 
+                Times[ 
+                  Cos[ t0], 
+                  Sin[ t0]]]], 
+            Times[ 
+              Cos[ t0], 
+              Plus[ 
+                Times[ 
+                  Power[ r0, -2], 
+                  Cos[ t0]], 
+                Times[ -1, 
+                  Power[ 
+                    Sin[ t0], 2]]]]], 
+          Plus[ 
+            Times[ 
+              Cos[ t0], 
+              Plus[ 
+                Times[ 
+                  Power[ r0, -2], 
+                  Sin[ t0]], 
+                Times[ 
+                  Cos[ t0], 
+                  Sin[ t0]]]], 
+            Times[ -1, 
+              Sin[ t0], 
+              Plus[ 
+                Times[ 
+                  Power[ r0, -2], 
+                  Cos[ t0]], 
+                Times[ -1, 
+                  Power[ 
+                    Sin[ t0], 2]]]], 
+            Times[ -1, r0, 
+              Cos[ t0], 
+              Sin[ t0], 
+              Plus[ 
+                Times[ -2, 
+                  Power[ r0, -3], 
+                  Power[ 
+                    Cos[ t0], 2]], 
+                Times[ -1, 
+                  Power[ r0, -1], 
+                  Sin[ t0], 
+                  Plus[ 
+                    Times[ -1, 
+                      Power[ r0, -2], 
+                      Sin[ t0]], 
+                    Times[ -2, 
+                      Cos[ t0], 
+                      Sin[ t0]]]]]], 
+            Times[ r0, 
+              Cos[ t0], 
+              Sin[ t0], 
+              Plus[ 
+                Times[ -2, 
+                  Power[ r0, -3], 
+                  Power[ 
+                    Sin[ t0], 2]], 
+                Times[ 
+                  Power[ r0, -1], 
+                  Cos[ t0], 
+                  Plus[ 
+                    Times[ 
+                      Power[ r0, -2], 
+                      Cos[ t0]], 
+                    Power[ 
+                      Cos[ t0], 2], 
+                    Times[ -1, 
+                      Power[ 
+                        Sin[ t0], 2]]]]]]]}, 0, 2, 1], 
+        SeriesData[ dt, 0, {
+          Plus[ 
+            Times[ 
+              Power[ 
+                Cos[ t0], 2], 
+              Plus[ 
+                Times[ -2, 
+                  Power[ r0, -3], 
+                  Power[ 
+                    Cos[ t0], 2]], 
+                Times[ -1, 
+                  Power[ r0, -1], 
+                  Sin[ t0], 
+                  Plus[ 
+                    Times[ -1, 
+                      Power[ r0, -2], 
+                      Sin[ t0]], 
+                    Times[ -2, 
+                      Cos[ t0], 
+                      Sin[ t0]]]]]], 
+            Times[ 
+              Power[ 
+                Sin[ t0], 2], 
+              Plus[ 
+                Times[ -2, 
+                  Power[ r0, -3], 
+                  Power[ 
+                    Sin[ t0], 2]], 
+                Times[ 
+                  Power[ r0, -1], 
+                  Cos[ t0], 
+                  Plus[ 
+                    Times[ 
+                      Power[ r0, -2], 
+                      Cos[ t0]], 
+                    Power[ 
+                      Cos[ t0], 2], 
+                    Times[ -1, 
+                      Power[ 
+                        Sin[ t0], 2]]]]]]], 
+          Plus[ 
+            Times[ -2, 
+              Cos[ t0], 
+              Sin[ t0], 
+              Plus[ 
+                Times[ -2, 
+                  Power[ r0, -3], 
+                  Power[ 
+                    Cos[ t0], 2]], 
+                Times[ -1, 
+                  Power[ r0, -1], 
+                  Sin[ t0], 
+                  Plus[ 
+                    Times[ -1, 
+                      Power[ r0, -2], 
+                      Sin[ t0]], 
+                    Times[ -2, 
+                      Cos[ t0], 
+                      Sin[ t0]]]]]], 
+            Times[ 2, 
+              Cos[ t0], 
+              Sin[ t0], 
+              Plus[ 
+                Times[ -2, 
+                  Power[ r0, -3], 
+                  Power[ 
+                    Sin[ t0], 2]], 
+                Times[ 
+                  Power[ r0, -1], 
+                  Cos[ t0], 
+                  Plus[ 
+                    Times[ 
+                      Power[ r0, -2], 
+                      Cos[ t0]], 
+                    Power[ 
+                      Cos[ t0], 2], 
+                    Times[ -1, 
+                      Power[ 
+                        Sin[ t0], 2]]]]]]]}, 0, 2, 1]}, 0, 2, 1]]], "Output"],
+
+Cell[BoxData[
+    InterpretationBox[
+      RowBox[{
+        RowBox[{"(", 
+          InterpretationBox[
+            
+            RowBox[{\((Cos[t0]\ \((Sin[t0]\/r0\^2 + Cos[t0]\ Sin[t0])\) + 
+                  Sin[t0]\ \((\(-\(Cos[t0]\/r0\^2\)\) + Sin[t0]\^2)\))\), 
+              "+", \(\((\(-Sin[t0]\)\ \((Sin[t0]\/r0\^2 + 
+                          Cos[t0]\ Sin[t0])\) + 
+                    Cos[t0]\ \((\(-\(Cos[t0]\/r0\^2\)\) + Sin[t0]\^2)\) + 
+                    r0\ Sin[t0]\^2\ \((\(-\(\(2\ Cos[t0]\^2\)\/r0\^3\)\) - \
+\(Sin[t0]\ \((\(-\(Sin[t0]\/r0\^2\)\) - 2\ Cos[t0]\ Sin[t0])\)\)\/r0)\) + 
+                    r0\ Cos[t0]\^2\ \((\(-\(\(2\ Sin[t0]\^2\)\/r0\^3\)\) + \
+\(Cos[t0]\ \((Cos[t0]\/r0\^2 + Cos[t0]\^2 - Sin[t0]\^2)\)\)\/r0)\))\)\ dt\), 
+              "+", 
+              InterpretationBox[\(O[dt]\^2\),
+                SeriesData[ dt, 0, {}, 0, 2, 1]]}],
+            SeriesData[ dt, 0, {
+              Plus[ 
+                Times[ 
+                  Cos[ t0], 
+                  Plus[ 
+                    Times[ 
+                      Power[ r0, -2], 
+                      Sin[ t0]], 
+                    Times[ 
+                      Cos[ t0], 
+                      Sin[ t0]]]], 
+                Times[ 
+                  Sin[ t0], 
+                  Plus[ 
+                    Times[ -1, 
+                      Power[ r0, -2], 
+                      Cos[ t0]], 
+                    Power[ 
+                      Sin[ t0], 2]]]], 
+              Plus[ 
+                Times[ -1, 
+                  Sin[ t0], 
+                  Plus[ 
+                    Times[ 
+                      Power[ r0, -2], 
+                      Sin[ t0]], 
+                    Times[ 
+                      Cos[ t0], 
+                      Sin[ t0]]]], 
+                Times[ 
+                  Cos[ t0], 
+                  Plus[ 
+                    Times[ -1, 
+                      Power[ r0, -2], 
+                      Cos[ t0]], 
+                    Power[ 
+                      Sin[ t0], 2]]], 
+                Times[ r0, 
+                  Power[ 
+                    Sin[ t0], 2], 
+                  Plus[ 
+                    Times[ -2, 
+                      Power[ r0, -3], 
+                      Power[ 
+                        Cos[ t0], 2]], 
+                    Times[ -1, 
+                      Power[ r0, -1], 
+                      Sin[ t0], 
+                      Plus[ 
+                        Times[ -1, 
+                          Power[ r0, -2], 
+                          Sin[ t0]], 
+                        Times[ -2, 
+                          Cos[ t0], 
+                          Sin[ t0]]]]]], 
+                Times[ r0, 
+                  Power[ 
+                    Cos[ t0], 2], 
+                  Plus[ 
+                    Times[ -2, 
+                      Power[ r0, -3], 
+                      Power[ 
+                        Sin[ t0], 2]], 
+                    Times[ 
+                      Power[ r0, -1], 
+                      Cos[ t0], 
+                      Plus[ 
+                        Times[ 
+                          Power[ r0, -2], 
+                          Cos[ t0]], 
+                        Power[ 
+                          Cos[ t0], 2], 
+                        Times[ -1, 
+                          Power[ 
+                            Sin[ t0], 2]]]]]]]}, 0, 2, 1]], ")"}], "+", 
+        RowBox[{
+          RowBox[{"(", 
+            InterpretationBox[
+              
+              RowBox[{\((\(-Cos[t0]\)\ Sin[
+                        t0]\ \((\(-\(\(2\ Cos[t0]\^2\)\/r0\^3\)\) - \(Sin[t0]\
+\ \((\(-\(Sin[t0]\/r0\^2\)\) - 2\ Cos[t0]\ Sin[t0])\)\)\/r0)\) + 
+                    Cos[t0]\ Sin[
+                        t0]\ \((\(-\(\(2\ Sin[t0]\^2\)\/r0\^3\)\) + \(Cos[t0]\
+\ \((Cos[t0]\/r0\^2 + Cos[t0]\^2 - Sin[t0]\^2)\)\)\/r0)\))\), 
+                "+", \(\((\((\(-Cos[t0]\^2\) + 
+                            Sin[t0]\^2)\)\ \((\(-\(\(2\ Cos[t0]\^2\)\/r0\^3\)\
+\) - \(Sin[t0]\ \((\(-\(Sin[t0]\/r0\^2\)\) - 2\ Cos[t0]\ Sin[t0])\)\)\/r0)\) \
++ \((Cos[t0]\^2 - 
+                            Sin[t0]\^2)\)\ \((\(-\(\(2\ Sin[t0]\^2\)\/r0\^3\)\
+\) + \(Cos[t0]\ \((Cos[t0]\/r0\^2 + Cos[t0]\^2 - Sin[t0]\^2)\)\)\/r0)\))\)\ \
+dt\), "+", 
+                InterpretationBox[\(O[dt]\^2\),
+                  SeriesData[ dt, 0, {}, 0, 2, 1]]}],
+              SeriesData[ dt, 0, {
+                Plus[ 
+                  Times[ -1, 
+                    Cos[ t0], 
+                    Sin[ t0], 
+                    Plus[ 
+                      Times[ -2, 
+                        Power[ r0, -3], 
+                        Power[ 
+                          Cos[ t0], 2]], 
+                      Times[ -1, 
+                        Power[ r0, -1], 
+                        Sin[ t0], 
+                        Plus[ 
+                          Times[ -1, 
+                            Power[ r0, -2], 
+                            Sin[ t0]], 
+                          Times[ -2, 
+                            Cos[ t0], 
+                            Sin[ t0]]]]]], 
+                  Times[ 
+                    Cos[ t0], 
+                    Sin[ t0], 
+                    Plus[ 
+                      Times[ -2, 
+                        Power[ r0, -3], 
+                        Power[ 
+                          Sin[ t0], 2]], 
+                      Times[ 
+                        Power[ r0, -1], 
+                        Cos[ t0], 
+                        Plus[ 
+                          Times[ 
+                            Power[ r0, -2], 
+                            Cos[ t0]], 
+                          Power[ 
+                            Cos[ t0], 2], 
+                          Times[ -1, 
+                            Power[ 
+                              Sin[ t0], 2]]]]]]], 
+                Plus[ 
+                  Times[ 
+                    Plus[ 
+                      Times[ -1, 
+                        Power[ 
+                          Cos[ t0], 2]], 
+                      Power[ 
+                        Sin[ t0], 2]], 
+                    Plus[ 
+                      Times[ -2, 
+                        Power[ r0, -3], 
+                        Power[ 
+                          Cos[ t0], 2]], 
+                      Times[ -1, 
+                        Power[ r0, -1], 
+                        Sin[ t0], 
+                        Plus[ 
+                          Times[ -1, 
+                            Power[ r0, -2], 
+                            Sin[ t0]], 
+                          Times[ -2, 
+                            Cos[ t0], 
+                            Sin[ t0]]]]]], 
+                  Times[ 
+                    Plus[ 
+                      Power[ 
+                        Cos[ t0], 2], 
+                      Times[ -1, 
+                        Power[ 
+                          Sin[ t0], 2]]], 
+                    Plus[ 
+                      Times[ -2, 
+                        Power[ r0, -3], 
+                        Power[ 
+                          Sin[ t0], 2]], 
+                      Times[ 
+                        Power[ r0, -1], 
+                        Cos[ t0], 
+                        Plus[ 
+                          Times[ 
+                            Power[ r0, -2], 
+                            Cos[ t0]], 
+                          Power[ 
+                            Cos[ t0], 2], 
+                          Times[ -1, 
+                            Power[ 
+                              Sin[ t0], 2]]]]]]]}, 0, 2, 1]], ")"}], " ", 
+          "dr"}], "+", 
+        InterpretationBox[\(O[dr]\^2\),
+          SeriesData[ dr, 0, {}, 0, 2, 1]]}],
+      SeriesData[ dr, 0, {
+        SeriesData[ dt, 0, {
+          Plus[ 
+            Times[ 
+              Cos[ t0], 
+              Plus[ 
+                Times[ 
+                  Power[ r0, -2], 
+                  Sin[ t0]], 
+                Times[ 
+                  Cos[ t0], 
+                  Sin[ t0]]]], 
+            Times[ 
+              Sin[ t0], 
+              Plus[ 
+                Times[ -1, 
+                  Power[ r0, -2], 
+                  Cos[ t0]], 
+                Power[ 
+                  Sin[ t0], 2]]]], 
+          Plus[ 
+            Times[ -1, 
+              Sin[ t0], 
+              Plus[ 
+                Times[ 
+                  Power[ r0, -2], 
+                  Sin[ t0]], 
+                Times[ 
+                  Cos[ t0], 
+                  Sin[ t0]]]], 
+            Times[ 
+              Cos[ t0], 
+              Plus[ 
+                Times[ -1, 
+                  Power[ r0, -2], 
+                  Cos[ t0]], 
+                Power[ 
+                  Sin[ t0], 2]]], 
+            Times[ r0, 
+              Power[ 
+                Sin[ t0], 2], 
+              Plus[ 
+                Times[ -2, 
+                  Power[ r0, -3], 
+                  Power[ 
+                    Cos[ t0], 2]], 
+                Times[ -1, 
+                  Power[ r0, -1], 
+                  Sin[ t0], 
+                  Plus[ 
+                    Times[ -1, 
+                      Power[ r0, -2], 
+                      Sin[ t0]], 
+                    Times[ -2, 
+                      Cos[ t0], 
+                      Sin[ t0]]]]]], 
+            Times[ r0, 
+              Power[ 
+                Cos[ t0], 2], 
+              Plus[ 
+                Times[ -2, 
+                  Power[ r0, -3], 
+                  Power[ 
+                    Sin[ t0], 2]], 
+                Times[ 
+                  Power[ r0, -1], 
+                  Cos[ t0], 
+                  Plus[ 
+                    Times[ 
+                      Power[ r0, -2], 
+                      Cos[ t0]], 
+                    Power[ 
+                      Cos[ t0], 2], 
+                    Times[ -1, 
+                      Power[ 
+                        Sin[ t0], 2]]]]]]]}, 0, 2, 1], 
+        SeriesData[ dt, 0, {
+          Plus[ 
+            Times[ -1, 
+              Cos[ t0], 
+              Sin[ t0], 
+              Plus[ 
+                Times[ -2, 
+                  Power[ r0, -3], 
+                  Power[ 
+                    Cos[ t0], 2]], 
+                Times[ -1, 
+                  Power[ r0, -1], 
+                  Sin[ t0], 
+                  Plus[ 
+                    Times[ -1, 
+                      Power[ r0, -2], 
+                      Sin[ t0]], 
+                    Times[ -2, 
+                      Cos[ t0], 
+                      Sin[ t0]]]]]], 
+            Times[ 
+              Cos[ t0], 
+              Sin[ t0], 
+              Plus[ 
+                Times[ -2, 
+                  Power[ r0, -3], 
+                  Power[ 
+                    Sin[ t0], 2]], 
+                Times[ 
+                  Power[ r0, -1], 
+                  Cos[ t0], 
+                  Plus[ 
+                    Times[ 
+                      Power[ r0, -2], 
+                      Cos[ t0]], 
+                    Power[ 
+                      Cos[ t0], 2], 
+                    Times[ -1, 
+                      Power[ 
+                        Sin[ t0], 2]]]]]]], 
+          Plus[ 
+            Times[ 
+              Plus[ 
+                Times[ -1, 
+                  Power[ 
+                    Cos[ t0], 2]], 
+                Power[ 
+                  Sin[ t0], 2]], 
+              Plus[ 
+                Times[ -2, 
+                  Power[ r0, -3], 
+                  Power[ 
+                    Cos[ t0], 2]], 
+                Times[ -1, 
+                  Power[ r0, -1], 
+                  Sin[ t0], 
+                  Plus[ 
+                    Times[ -1, 
+                      Power[ r0, -2], 
+                      Sin[ t0]], 
+                    Times[ -2, 
+                      Cos[ t0], 
+                      Sin[ t0]]]]]], 
+            Times[ 
+              Plus[ 
+                Power[ 
+                  Cos[ t0], 2], 
+                Times[ -1, 
+                  Power[ 
+                    Sin[ t0], 2]]], 
+              Plus[ 
+                Times[ -2, 
+                  Power[ r0, -3], 
+                  Power[ 
+                    Sin[ t0], 2]], 
+                Times[ 
+                  Power[ r0, -1], 
+                  Cos[ t0], 
+                  Plus[ 
+                    Times[ 
+                      Power[ r0, -2], 
+                      Cos[ t0]], 
+                    Power[ 
+                      Cos[ t0], 2], 
+                    Times[ -1, 
+                      Power[ 
+                        Sin[ t0], 2]]]]]]]}, 0, 2, 1]}, 0, 2, 1]]], "Output"],
+
+Cell[BoxData[
+    \(0\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(vr000 = 
+      Simplify[SeriesCoefficient[SX, {0, 0}]]\), "\[IndentingNewLine]", 
+    \(vt000 = 
+      Simplify[SeriesCoefficient[SY, {0, 0}]]\), "\[IndentingNewLine]", 
+    \(vp000 = SZ\)}], "Input"],
+
+Cell[BoxData[
+    \(1\/r0\^2\)], "Output"],
+
+Cell[BoxData[
+    \(General::"spell1" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(vt000\)\" is similar to \
+existing symbol \"\!\(vr000\)\"."\)], "Message"],
+
+Cell[BoxData[
+    \(Sin[t0]\)], "Output"],
+
+Cell[BoxData[
+    \(General::"spell" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(vp000\)\" is similar to \
+existing symbols \!\({vr000, vt000}\)."\)], "Message"],
+
+Cell[BoxData[
+    \(0\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(vr100 = 
+      Simplify[SeriesCoefficient[SX, {1, 0}]]\), "\[IndentingNewLine]", 
+    \(vt100 = 
+      Simplify[SeriesCoefficient[SY, {1, 0}]]\[IndentingNewLine] (*vp010 = 
+        Simplify[SeriesCoefficient[SZ, {1, 0, 0}]]*) \)}], "Input"],
+
+Cell[BoxData[
+    \(\(-\(\(5 - r0\^2\ Cos[t0] + 3\ Cos[4\ t0] + 
+            r0\^2\ Cos[5\ t0]\)\/\(4\ r0\^3\)\)\)\)], "Output"],
+
+Cell[BoxData[
+    \(General::"spell1" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(vt100\)\" is similar to \
+existing symbol \"\!\(vr100\)\"."\)], "Message"],
+
+Cell[BoxData[
+    \(\(\((3\ Cos[2\ t0] + r0\^2\ Cos[3\ t0])\)\ Sin[2\ t0]\)\/\(2\ \
+r0\^3\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(vr010 = 
+      Simplify[SeriesCoefficient[SX, {0, 1}]]\), "\[IndentingNewLine]", 
+    \(\(\(vt010\)\(=\)\(Simplify[
+        SeriesCoefficient[SY, {0, 1}]]\)\(\[IndentingNewLine]\)\( (*vp100 = 
+          Simplify[SeriesCoefficient[SZ, {0, 1, 0}]]*) \)\)\)}], "Input"],
+
+Cell[BoxData[
+    \(General::"spell1" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(vr010\)\" is similar to \
+existing symbol \"\!\(vr100\)\"."\)], "Message"],
+
+Cell[BoxData[
+    \(\(\((2\ r0\^2 + 3\ Cos[t0] + r0\^2\ Cos[2\ t0] + 3\ Cos[3\ t0] + r0\^2\ \
+Cos[4\ t0])\)\ Sin[t0]\)\/\(2\ r0\^2\)\)], "Output"],
+
+Cell[BoxData[
+    \(General::"spell" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(vt010\)\" is similar to \
+existing symbols \!\({vr010, vt100}\)."\)], "Message"],
+
+Cell[BoxData[
+    \(\(Cos[t0]\ \((2\ r0\^2 - 3\ Cos[t0] - r0\^2\ Cos[2\ t0] + 3\ Cos[3\ t0] \
++ r0\^2\ Cos[4\ t0])\)\)\/\(2\ r0\^2\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(vr0 = FullSimplify[vr000]\), "\[IndentingNewLine]", 
+    \(vt0 = FullSimplify[vt000]\), "\[IndentingNewLine]", 
+    \(vp0 = FullSimplify[vp000]\)}], "Input"],
+
+Cell[BoxData[
+    \(1\/r0\^2\)], "Output"],
+
+Cell[BoxData[
+    \(Sin[t0]\)], "Output"],
+
+Cell[BoxData[
+    \(0\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(vr1a = FullSimplify[vr100]\), "\[IndentingNewLine]", 
+    \(\(\(vt1a\)\(=\)\(FullSimplify[
+        vt100]\)\(\[IndentingNewLine]\)\( (*FullSimplify[
+          vp100]*) \)\)\)}], "Input"],
+
+Cell[BoxData[
+    \(\(\(-5\) - 3\ Cos[4\ t0] + r0\^2\ \((Cos[t0] - Cos[5\ t0])\)\)\/\(4\ r0\
+\^3\)\)], "Output"],
+
+Cell[BoxData[
+    \(General::"spell1" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(vt1a\)\" is similar to \
+existing symbol \"\!\(vr1a\)\"."\)], "Message"],
+
+Cell[BoxData[
+    \(\(\((3\ Cos[2\ t0] + r0\^2\ Cos[3\ t0])\)\ Sin[2\ t0]\)\/\(2\ \
+r0\^3\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(vr1b = FullSimplify[vr010]\), "\[IndentingNewLine]", 
+    \(\(\(vt1b\)\(=\)\(FullSimplify[
+        vt010]\)\(\[IndentingNewLine]\)\( (*FullSimplify[
+          vp010]*) \)\)\)}], "Input"],
+
+Cell[BoxData[
+    \(General::"spell1" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(vr1b\)\" is similar to \
+existing symbol \"\!\(vr1a\)\"."\)], "Message"],
+
+Cell[BoxData[
+    \(1\/4\ \((3\ Sin[t0] + \(3\ Sin[4\ t0]\)\/r0\^2 + 
+          Sin[5\ t0])\)\)], "Output"],
+
+Cell[BoxData[
+    \(General::"spell" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(vt1b\)\" is similar to \
+existing symbols \!\({vr1b, vt1a}\)."\)], "Message"],
+
+Cell[BoxData[
+    \(1\/4\ \((3\ Cos[t0] + 
+          Cos[5\ t0] - \(6\ Sin[2\ t0]\^2\)\/r0\^2)\)\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[""], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\(\(test[r0_, t0_, dr_, dt_]\)\(=\)\({vr0 + vr1a*dr + vr1b*dt, 
+        vt0 + vt1a*dr + vt1b*dt, vp0}\)\(\[IndentingNewLine]\)\)\)], "Input"],
+
+Cell[BoxData[
+    \({1\/r0\^2 + \(dr\ \((\(-5\) - 3\ Cos[4\ t0] + r0\^2\ \((Cos[t0] - Cos[5\
+\ t0])\))\)\)\/\(4\ r0\^3\) + 
+        1\/4\ dt\ \((3\ Sin[t0] + \(3\ Sin[4\ t0]\)\/r0\^2 + Sin[5\ t0])\), 
+      Sin[t0] + \(dr\ \((3\ Cos[2\ t0] + r0\^2\ Cos[3\ t0])\)\ Sin[2\ t0]\)\/\
+\(2\ r0\^3\) + 
+        1\/4\ dt\ \((3\ Cos[t0] + 
+              Cos[5\ t0] - \(6\ Sin[2\ t0]\^2\)\/r0\^2)\), 0}\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[""], "Input"],
+
+Cell[BoxData[""], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(FullSimplify[test[r0, t0, dr, dt]]\)], "Input"],
+
+Cell[BoxData[
+    \({1\/r0\^2 - \(dr\ \((5 + 3\ Cos[4\ t0] + r0\^2\ \((\(-Cos[t0]\) + Cos[5\
+\ t0])\))\)\)\/\(4\ r0\^3\) + 
+        1\/4\ dt\ \((3\ Sin[t0] + \(3\ Sin[4\ t0]\)\/r0\^2 + Sin[5\ t0])\), 
+      Sin[t0] + \(dr\ \((3\ Cos[2\ t0] + r0\^2\ Cos[3\ t0])\)\ Sin[2\ t0]\)\/\
+\(2\ r0\^3\) + 
+        1\/4\ dt\ \((3\ Cos[t0] + 
+              Cos[5\ t0] - \(6\ Sin[2\ t0]\^2\)\/r0\^2)\), 0}\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    \(b[r_, t_, p_] := {vr[r, t, p], vt[r, t, p], vp[r, t, p]}\)], "Input"],
+
+Cell[BoxData[
+    \(bapp[r_, t_, p_, dr_, dt_, 
+        dp_] := \(({vr[r, t, p] + dr*D[vr[r1, t1, p1], r1] + 
+              dt*D[vr[r1, t1, p1], t1] + dp*D[vr[r1, t1, p1], p1], 
+            vt[r, t, p] + dr*D[vt[r1, t1, p1], r1] + 
+              dt*D[vt[r1, t1, p1], t1] + dp*D[vt[r1, t1, p1], p1], 
+            vp[r, t, p] + dr*D[vp[r1, t1, p1], r1] + 
+              dt*D[vp[r1, t1, p1], t1] + 
+              dp*D[vp[r1, t1, p1], p1]})\) //. {r1 \[Rule] r, t1 \[Rule] t, 
+          p1 \[Rule] p}\)], "Input"],
+
+Cell[BoxData[""], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(b[5 +  .1, 1 +  .1, 0]\)], "Input"],
+
+Cell[BoxData[
+    \({0.03844675124951942`, 0.8912073600614354`, 0}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(bapp[5, 1, 0,  .1,  .1, 0]\)], "Input"],
+
+Cell[BoxData[
+    \({0.038400000000000004`, 0.8955012153947105`, 0}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(test[5, 1,  .1,  .1]\)], "Input"],
+
+Cell[BoxData[
+    \({0.07754219628263272`, 0.8746682237274569`, 0}\)], "Output"]
+}, Open  ]]
+},
+FrontEndVersion->"4.0 for X",
+ScreenRectangle->{{0, 1024}, {0, 768}},
+WindowSize->{1016, 732},
+WindowMargins->{{0, Automatic}, {Automatic, 4}}
+]
+
+
+(***********************************************************************
+Cached data follows.  If you edit this Notebook file directly, not using
+Mathematica, you must remove the line containing CacheID at the top of 
+the file.  The cache data will then be recreated when you save this file 
+from within Mathematica.
+***********************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1717, 49, 112, 2, 27, "Input"],
+Cell[1832, 53, 190, 4, 59, "Input"],
+
+Cell[CellGroupData[{
+Cell[2047, 61, 209, 4, 43, "Input"],
+Cell[2259, 67, 180, 3, 44, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[2476, 75, 51, 1, 27, "Input"],
+Cell[2530, 78, 83, 1, 44, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[2650, 84, 51, 1, 27, "Input"],
+Cell[2704, 87, 83, 1, 44, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[2824, 93, 51, 1, 27, "Input"],
+Cell[2878, 96, 58, 1, 43, "Output"]
+}, Open  ]],
+Cell[2951, 100, 165, 3, 59, "Input"],
+Cell[3119, 105, 462, 10, 107, "Input"],
+
+Cell[CellGroupData[{
+Cell[3606, 119, 1615, 44, 171, "Input"],
+Cell[5224, 165, 48, 1, 27, "Output"],
+Cell[5275, 168, 181, 3, 23, "Message"],
+Cell[5459, 173, 48, 1, 27, "Output"],
+Cell[5510, 176, 185, 3, 23, "Message"],
+Cell[5698, 181, 40, 1, 27, "Output"],
+Cell[5741, 184, 181, 3, 23, "Message"],
+Cell[5925, 189, 55, 1, 43, "Output"],
+Cell[5983, 192, 185, 3, 23, "Message"],
+Cell[6171, 197, 55, 1, 44, "Output"],
+Cell[6229, 200, 191, 3, 23, "Message"],
+Cell[6423, 205, 52, 1, 44, "Output"],
+Cell[6478, 208, 185, 3, 23, "Message"],
+Cell[6666, 213, 64, 1, 44, "Output"],
+Cell[6733, 216, 191, 3, 23, "Message"],
+Cell[6927, 221, 55, 1, 43, "Output"],
+Cell[6985, 224, 197, 3, 23, "Message"],
+Cell[7185, 229, 35, 1, 27, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[7257, 235, 850, 15, 59, "Input"],
+Cell[8110, 252, 452, 9, 151, "Output"],
+Cell[8565, 263, 441, 8, 151, "Output"],
+Cell[9009, 273, 227, 4, 58, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[9273, 282, 190, 3, 27, "Input"],
+Cell[9466, 287, 3460, 67, 1072, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[12963, 359, 108, 2, 27, "Input"],
+Cell[13074, 363, 128, 2, 27, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[13239, 370, 634, 9, 75, "Input"],
+Cell[13876, 381, 577, 10, 112, "Output"],
+Cell[14456, 393, 577, 10, 112, "Output"],
+Cell[15036, 405, 35, 1, 27, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[15108, 411, 289, 7, 59, "Input"],
+Cell[15400, 420, 11919, 351, 325, "Output"],
+Cell[27322, 773, 12336, 364, 376, "Output"],
+Cell[39661, 1139, 35, 1, 27, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[39733, 1145, 221, 5, 59, "Input"],
+Cell[39957, 1152, 42, 1, 45, "Output"],
+Cell[40002, 1155, 183, 3, 23, "Message"],
+Cell[40188, 1160, 41, 1, 27, "Output"],
+Cell[40232, 1163, 188, 3, 23, "Message"],
+Cell[40423, 1168, 35, 1, 27, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[40495, 1174, 261, 5, 59, "Input"],
+Cell[40759, 1181, 128, 2, 47, "Output"],
+Cell[40890, 1185, 183, 3, 23, "Message"],
+Cell[41076, 1190, 105, 2, 47, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[41218, 1197, 287, 5, 59, "Input"],
+Cell[41508, 1204, 183, 3, 23, "Message"],
+Cell[41694, 1209, 146, 2, 47, "Output"],
+Cell[41843, 1213, 188, 3, 23, "Message"],
+Cell[42034, 1218, 146, 2, 47, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[42217, 1225, 178, 3, 59, "Input"],
+Cell[42398, 1230, 42, 1, 45, "Output"],
+Cell[42443, 1233, 41, 1, 27, "Output"],
+Cell[42487, 1236, 35, 1, 27, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[42559, 1242, 207, 4, 59, "Input"],
+Cell[42769, 1248, 112, 2, 47, "Output"],
+Cell[42884, 1252, 181, 3, 23, "Message"],
+Cell[43068, 1257, 105, 2, 47, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[43210, 1264, 207, 4, 59, "Input"],
+Cell[43420, 1270, 181, 3, 23, "Message"],
+Cell[43604, 1275, 107, 2, 45, "Output"],
+Cell[43714, 1279, 185, 3, 23, "Message"],
+Cell[43902, 1284, 110, 2, 51, "Output"]
+}, Open  ]],
+Cell[44027, 1289, 26, 0, 27, "Input"],
+
+Cell[CellGroupData[{
+Cell[44078, 1293, 161, 2, 43, "Input"],
+Cell[44242, 1297, 406, 7, 91, "Output"]
+}, Open  ]],
+Cell[44663, 1307, 26, 0, 27, "Input"],
+Cell[44692, 1309, 26, 0, 27, "Input"],
+
+Cell[CellGroupData[{
+Cell[44743, 1313, 67, 1, 27, "Input"],
+Cell[44813, 1316, 406, 7, 91, "Output"]
+}, Open  ]],
+Cell[45234, 1326, 89, 1, 27, "Input"],
+Cell[45326, 1329, 509, 9, 75, "Input"],
+Cell[45838, 1340, 26, 0, 27, "Input"],
+
+Cell[CellGroupData[{
+Cell[45889, 1344, 55, 1, 27, "Input"],
+Cell[45947, 1347, 80, 1, 27, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[46064, 1353, 59, 1, 27, "Input"],
+Cell[46126, 1356, 81, 1, 27, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[46244, 1362, 53, 1, 27, "Input"],
+Cell[46300, 1365, 80, 1, 27, "Output"]
+}, Open  ]]
+}
+]
+*)
+
+
+
+
+(***********************************************************************
+End of Mathematica Notebook file.
+***********************************************************************)
+
