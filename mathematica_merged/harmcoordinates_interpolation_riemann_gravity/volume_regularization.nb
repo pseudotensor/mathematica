@@ -1,0 +1,231 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 5.0'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[      4909,        159]*)
+(*NotebookOutlinePosition[      5554,        181]*)
+(*  CellTagsIndexPosition[      5510,        177]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+    \(gcov2\)], "Input"],
+
+Cell[BoxData[
+    \({{\(-1\) + \(2\ M\ r\)\/\(r\^2 + a\^2\ Cos[h]\^2\), \(2\ drdx1\ M\ \
+r\)\/\(r\^2 + a\^2\ Cos[h]\^2\), 
+        0, \(-\(\(2\ a\ M\ r\ Sin[h]\^2\)\/\(r\^2 + 
+                a\^2\ Cos[h]\^2\)\)\)}, {\(2\ drdx1\ M\ r\)\/\(r\^2 + a\^2\ \
+Cos[h]\^2\), drdx1\^2\ \((1 + \(2\ M\ r\)\/\(r\^2 + a\^2\ Cos[h]\^2\))\), 
+        0, \(-\(\(a\ drdx1\ \((r\ \((2\ M + r)\) + 
+                    a\^2\ Cos[h]\^2)\)\ Sin[h]\^2\)\/\(r\^2 + 
+                a\^2\ Cos[h]\^2\)\)\)}, {0, 0, 
+        dhdx2\^2\ \((r\^2 + a\^2\ Cos[h]\^2)\), 
+        0}, {\(-\(\(2\ a\ M\ r\ Sin[h]\^2\)\/\(r\^2 + 
+                a\^2\ Cos[h]\^2\)\)\), \(-\(\(a\ drdx1\ \((r\ \((2\ M + 
+                          r)\) + a\^2\ Cos[h]\^2)\)\ Sin[h]\^2\)\/\(r\^2 + 
+                a\^2\ Cos[h]\^2\)\)\), 
+        0, \((\((a\^4 + 2\ r\^4 + a\^2\ r\ \((2\ M + 3\ r)\) + 
+                  a\^2\ \((a\^2 + r\ \((\(-2\)\ M + r)\))\)\ Cos[
+                      2\ h])\)\ Sin[h]\^2)\)/\((2\ \((r\^2 + 
+                  a\^2\ Cos[h]\^2)\))\)}}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(gdet2\)], "Input"],
+
+Cell[BoxData[
+    \(drdx1\ Abs[dhdx2]\ Abs[
+        Sin[h]]\ \((r\^2 + a\^2\ Cos[h]\^2)\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(gdet\)], "Input"],
+
+Cell[BoxData[
+    \(\@\[ExponentialE]\^\(2\ x\)\ \[Pi]\ Abs[\(-1\) + \((\(-1\) + 
+                hslope)\)\ Cos[2\ \[Pi]\ y]]\ Abs[
+        Sin[\[Pi]\ y - 
+            1\/2\ \((\(-1\) + hslope)\)\ Sin[
+                2\ \[Pi]\ y]]]\ \((\((\[ExponentialE]\^x + R0)\)\^2 + 
+          a\^2\ Cos[\[Pi]\ y - 1\/2\ \((\(-1\) + hslope)\)\ Sin[2\ \[Pi]\ y]]\
+\^2)\)\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    \(\(myconverthere = {x \[Rule] Log[r - R0], 
+          Sin[2*Pi*
+                y] \[Rule] \((h - 
+                  Pi*y)\)/\((1/2*\((1 - hslope)\))\)};\)\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(mygdet = 
+      FullSimplify[
+        gdet //. myconverthere, {r > 0, y > 0, \((r - R0)\) > 0}]\)], "Input"],
+
+Cell[BoxData[
+    \(\[Pi]\ \((r - 
+          R0)\)\ Abs[\(-1\) + \((\(-1\) + hslope)\)\ Cos[2\ \[Pi]\ y]]\ Abs[
+        Sin[h]]\ \((r\^2 + a\^2\ Cos[h]\^2)\)\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[""], "Input"],
+
+Cell[BoxData[""], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\(\(rpart = 
+      mygdet/Simplify[Integrate[mygdet, {r, rl, rr}], 
+          Assumptions \[Rule] {rl > 0, rr > 0, h > 0, 
+              y > 0}]\)\(\[IndentingNewLine]\)
+    \)\)], "Input"],
+
+Cell[BoxData[
+    \(\(12\ \((r - R0)\)\ \((r\^2 + a\^2\ Cos[h]\^2)\)\)\/\(\(-3\)\ rl\^4 + 3\
+\ rr\^4 + 4\ R0\ \((rl\^3 - rr\^3)\) + 6\ a\^2\ \((2\ R0 - rl - rr)\)\ \((rl \
+- rr)\)\ Cos[h]\^2\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(rpart //. {a \[Rule] 0, R0 \[Rule] 0}\)], "Input"],
+
+Cell[BoxData[
+    \(\(12\ r\^3\)\/\(\(-3\)\ rl\^4 + 3\ rr\^4\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(hpart = gdet/Integrate[gdet, {y, yl, yr}]\)], "Input"],
+
+Cell[BoxData[
+    \($Aborted\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[""], "Input"]
+},
+FrontEndVersion->"5.0 for Microsoft Windows",
+ScreenRectangle->{{0, 1400}, {0, 967}},
+WindowSize->{849, 740},
+WindowMargins->{{24, Automatic}, {Automatic, 30}}
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[1776, 53, 38, 1, 30, "Input"],
+Cell[1817, 56, 1032, 17, 153, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[2886, 78, 38, 1, 30, "Input"],
+Cell[2927, 81, 103, 2, 29, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[3067, 88, 37, 1, 30, "Input"],
+Cell[3107, 91, 373, 7, 70, "Output"]
+}, Open  ]],
+Cell[3495, 101, 187, 4, 30, "Input"],
+
+Cell[CellGroupData[{
+Cell[3707, 109, 128, 3, 30, "Input"],
+Cell[3838, 114, 171, 3, 29, "Output"]
+}, Open  ]],
+Cell[4024, 120, 26, 0, 30, "Input"],
+Cell[4053, 122, 26, 0, 30, "Input"],
+
+Cell[CellGroupData[{
+Cell[4104, 126, 209, 5, 50, "Input"],
+Cell[4316, 133, 206, 3, 47, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[4559, 141, 70, 1, 30, "Input"],
+Cell[4632, 144, 76, 1, 46, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[4745, 150, 74, 1, 30, "Input"],
+Cell[4822, 153, 42, 1, 29, "Output"]
+}, Open  ]],
+Cell[4879, 157, 26, 0, 30, "Input"]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

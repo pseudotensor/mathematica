@@ -1,0 +1,401 @@
+In[159]:= udotB[r_,th_]:=uphi[r,th]*Bphi[r,th]+up[r,th]*Bp[r,th]
+Bsq[r_,th_]:=Bphi[r,th]^2+Bp[r,th]^2
+bsq[r_,th_]:=(Bsq[r,th]+udotB[r,th]^2)/mygammafinal[r,th]^2
+(* bsq/2 not bsq/(8*Pi) since all quantities converted to HL units already *)
+(*Pm[r_,th_]:=bsq[r,th]/2*)
+v3p[r_,th_]:=up[r,th]/mygammafinal[r,th]
+In[163]:= 
+In[164]:= 
+In[165]:= (* Cabibbo angle *)
+s=1
+g=1
+cm=1
+thetac=13.04*Pi/180
+costhetac=Cos[thetac]
+AU=149597870.691*10^2
+msun=1.989*10^(33)
+lsun=3.89*10^(33)
+rsun=695500*10^3*100
+G=6.672*10^(-8) 
+c=2.99792458*10^(10) 
+ergPmev=1.60217649*10^(-6)
+h=4.13566733*10^(-15)*10^(-6)*ergPmev
+hbar=h/(2*Pi)
+mn=1.674927211*10^(-24)
+mp=1.672621637*10^(-24)
+QE=(mn-mp)*c^2
+me=9.10938215*10^(-31)*1000
+mealso=0.510998910*ergPmev/c^2
+(*mb=(mn+mp)/2*)
+avo=6.0221367*10^(23)
+amu=1/avo
+mu=amu
+mb=mu
+kb=1.380658*10^(-16) (* erg/K *)
+Print["arad"];
+arad=8*Pi^5*kb^4/(15*c^3*h^3)
+arad=Pi^2*kb^4/(15*(hbar*c)^3)
+sigmasb=arad*c/4
+q=4.8029*10^(-10)
+secPyr=(60*60*24*365.25)
+Ry=1.09678*10^5
+RyE=me*q^4/(2*hbar^2)
+fsc=q^2/(hbar*c)
+radiuse=q^2/(me*c^2)
+radiusp=q^2/(mp*c^2)
+alpha=q^2/(hbar*c)
+km=10^3*100
+pc=3.086*10^18
+Mpc=10^6*pc
+rgalaxies=3*Mpc
+ly=1/3.261*pc
+h0=71*km/s/Mpc
+sigmatdiff=radiuse^2
+sigmat=(8*Pi/3)*(alpha*hbar/(me*c))^2
+sigmat2=(8*Pi/3)*(q^4/(me^2*c^4))
+sigmakn=(2*Pi*q^4)/(me^2*c^4)*((1+alphakn)/(alphakn^2)*(2*(1+alphakn)/(1+2*alphakn)-1/alphakn*Log[1+2*alphakn])+1/(2*alphakn)*Log[1+2*alphakn]-(1+3*alphakn)/(1+2*alphakn)^2)//.{alphakn->(h*freqgamma)/(me*c^2)}
+sigmat-Limit[sigmakn,freqgamma->0]
+Out[165]= 1
+Out[166]= 1
+Out[167]= 1
+Out[168]= 0.227591
+Out[169]= 0.974213
+Out[170]= 1.49598*10^10
+Out[171]= 1.989*10^33
+Out[172]= 3.89*10^33
+Out[173]= 69550000000
+Out[174]= 6.672*10^-8
+Out[175]= 2.99792*10^10
+Out[176]= 1.60218*10^-6
+Out[177]= 6.62607*10^-27
+Out[178]= 1.05457*10^-27
+Out[179]= 1.67493*10^-24
+Out[180]= 1.67262*10^-24
+Out[181]= 2.07215*10^-6
+Out[182]= 9.10938*10^-28
+Out[183]= 9.10938*10^-28
+Out[184]= 6.02214*10^23
+Out[185]= 1.66054*10^-24
+Out[186]= 1.66054*10^-24
+Out[187]= 1.66054*10^-24
+Out[188]= 1.38066*10^-16
+During evaluation of In[165]:= arad
+Out[190]= 7.56593*10^-15
+Out[191]= 7.56593*10^-15
+Out[192]= 0.0000567053
+Out[193]= 4.8029*10^-10
+Out[194]= 3.15576*10^7
+Out[195]= 109678.
+Out[196]= 2.17932*10^-11
+Out[197]= 0.00729643
+Out[198]= 2.81758*10^-13
+Out[199]= 1.5345*10^-16
+Out[200]= 0.00729643
+Out[201]= 100000
+Out[202]= 3.086*10^18
+Out[203]= 3.086*10^24
+Out[204]= 9.258*10^24
+Out[205]= 9.46335*10^17
+Out[206]= 2.30071*10^-18
+Out[207]= 7.93878*10^-26
+Out[208]= 6.65077*10^-25
+Out[209]= 6.65077*10^-25
+Out[210]= 4.98808*10^-25 (-((1+2.42799*10^-20 freqgamma)/(1+1.61866*10^-20 freqgamma)^2)+(6.17795*10^19 Log[1+1.61866*10^-20 freqgamma])/freqgamma+(1/(freqgamma^2))1.52668*10^40 (1+8.0933*10^-21 freqgamma) ((2 (1+8.0933*10^-21 freqgamma))/(1+1.61866*10^-20 freqgamma)-(1.23559*10^20 Log[1+1.61866*10^-20 freqgamma])/freqgamma))
+Out[211]= 9.18355*10^-41
+In[212]:= M=3*msun
+rl=G*M/c^2
+tl=rl/c
+Ljet=10^(14)
+
+(* normal bsq, rhobvalue, Lp *)
+thfp=Pi/2
+thetajet=thofr[Ljet,thfp]//.consts
+gammavalue=mygammafinal[Ljet,thetajet]//.consts
+rhobvalue=rho0[Ljet,thetajet]//.consts
+bsqvalue=bsq[Ljet,thetajet]//.consts
+Lp=Ljet*thetajet
+gammavalue*thetajet
+(* prelim bsq and rhob and Lp *)
+(*
+thetajet=0.04
+sigma=3*10^4
+gammavalue=sigma/2
+rhobvalue=10^(10)/(Ljet/rl)^2
+bsqvalue=sigma*rhob*c^2*gamma
+Lp=Ljet*thetajet
+*)
+Out[212]= 5.967*10^33
+Out[213]= 442966.
+Out[214]= 0.0000147758
+Out[215]= 100000000000000
+Out[216]= \[Pi]/2
+Out[217]= 0.0218269
+Out[218]= 199.992
+Out[219]= 8.43665*10^-12
+Out[220]= 6.69772*10^22
+Out[221]= 2.18269*10^12
+Out[222]= 4.3652
+In[223]:= nb=rhobvalue/mb
+Pm=bsqvalue/2
+(* equipartition assumed *)
+Pg=Pm
+Out[223]= 5.08067*10^12
+Out[224]= 3.34886*10^22
+Out[225]= 3.34886*10^22
+In[226]:= (* get temperature *)
+Pbaryon=rhobvalue*T*kb/mb
+Pe=Pbaryon
+np=nb
+nn=nb
+ne=np
+(* see if radiation is trapped over Lp to see what is heating gas *)
+Print["taurad"];
+(* Need Klein-Nishina? *)
+(* http://www.irs.inms.nrc.ca/EGSnrc/pirs701/node33.html *)
+(* http://www.springerlink.com/content/013232u344rl7397/ *)
+taurad=ne*sigmat*Lp
+urad=arad*T^4*Exp[-1/taurad]
+Prad=urad/3
+(* below is approximation *)
+Ppairs=arad*T^4*7/12*Exp[-me*c^2/(kb*T)]*Exp[-1/taurad]
+Upairs=Ppairs/(4/3-1)
+npairs=Upairs/(kb*T)
+(* See if pairs should be included as charge carriers *)
+(* Compare annihilation time to plasma time to see if pairs included as charge carriers for plasma frequency *)
+ndentottemp=ne+npairs
+Tann=1/(ndentottemp*sigmat*c)
+omegap=Sqrt[4*Pi*ndentottemp*q^2/me]
+Tpl=2*Pi/omegap
+netot=ne + npairs*Exp[-Tpl/Tann]
+(* get total pressure and internal energy *)
+Pg=Prad+Ppairs+Pbaryon+Pe
+Ug=(Ppairs+Prad)/(4/3-1)+(Pe+Pbaryon)/(5/3-1)
+Out[226]= 0.000701466 T
+Out[227]= 0.000701466 T
+Out[228]= 5.08067*10^12
+Out[229]= 5.08067*10^12
+Out[230]= 5.08067*10^12
+During evaluation of In[226]:= taurad
+Out[232]= 7.3754
+Out[233]= 6.60661*10^-15 T^4
+Out[234]= 2.2022*10^-15 T^4
+Out[235]= 3.85385*10^-15 E^(-5.92986*10^9/T) T^4
+Out[236]= 1.15616*10^-14 E^(-5.92986*10^9/T) T^4
+Out[237]= 83.7395 E^(-5.92986*10^9/T) T^3
+Out[238]= 5.08067*10^12+83.7395 E^(-5.92986*10^9/T) T^3
+Out[239]= 5.01542*10^13/(5.08067*10^12+83.7395 E^(-5.92986*10^9/T) T^3)
+Out[240]= 56411. Sqrt[5.08067*10^12+83.7395 E^(-5.92986*10^9/T) T^3]
+Out[241]= 0.000111382/Sqrt[5.08067*10^12+83.7395 E^(-5.92986*10^9/T) T^3]
+Out[242]= 5.08067*10^12+83.7395 E^(-(5.92986*10^9/T)-2.2208*10^-18 Sqrt[5.08067*10^12+83.7395 E^(-5.92986*10^9/T) T^3]) T^3
+Out[243]= 0.00140293 T+2.2022*10^-15 T^4+3.85385*10^-15 E^(-5.92986*10^9/T) T^4
+Out[244]= 0.0021044 T+3 (2.2022*10^-15 T^4+3.85385*10^-15 E^(-5.92986*10^9/T) T^4)
+In[245]:= 
+In[246]:= solsT=FindRoot[Pg==Pm,{T,10^(10)}]
+kb*T/ergPmev//.solsT[[1]]
+During evaluation of In[246]:= FindRoot::lstol: The line search decreased the step size to within tolerance specified by AccuracyGoal and PrecisionGoal but was unable to find a sufficient decrease in the merit function. You may need more than MachinePrecision digits of working precision to meet these tolerances. >>
+Out[246]= {T->1.93628*10^9}
+Out[247]= 0.166857
+In[248]:= rhofake=rhobvalue/(rc/Ljet)^2
+nbfake=rhofake/mb
+(* below has no hot pairs included, but should if layer heats up *)
+nefake=nbfake
+taualongjet=Integrate[nefake*sigmat/(2*gammavalue),{rc,Ljet,Infinity}]
+(* below uses all electrons+positrons -- assuming layer heated up *)
+nefake=(netot//.solsT[[1]])/(rc/Ljet)^2
+taualongjet=Integrate[nefake*sigmat/(2*gammavalue),{rc,Ljet,Infinity}]
+Out[248]= 8.43665*10^16/rc^2
+Out[249]= 5.08067*10^40/rc^2
+Out[250]= 5.08067*10^40/rc^2
+Out[251]= 0.844795
+Out[252]= 2.84214*10^56/rc^2
+Out[253]= 4.72581*10^15
+In[254]:= (* Check because Solve got WRONG answer! *)
+Pg//.solsT[[1]]
+Pm//.solsT[[1]]
+Print["P components"];
+Pbaryon//.solsT[[1]]
+Prad//.solsT[[1]]
+Ppairs//.solsT[[1]]
+Print["Tann"];
+Tann//.solsT[[1]]
+Tpl//.solsT[[1]]
+taurad//.solsT[[1]]
+Out[254]= 3.34886*10^22
+Out[255]= 3.34886*10^22
+During evaluation of In[254]:= P components
+Out[257]= 1.35824*10^6
+Out[258]= 3.0955*10^22
+Out[259]= 2.53362*10^21
+During evaluation of In[254]:= Tann
+Out[261]= 1.764*10^-15
+Out[262]= 6.60559*10^-19
+Out[263]= 7.3754
+In[264]:= Exp[-1/taurad]//.solsT[[1]]
+Out[264]= 0.873204
+In[265]:= (* below assumes bsqvalue in HL units *)
+va=c*Sqrt[bsqvalue/(rhobvalue*c^2+bsqvalue+Ug+Pg)]//.solsT[[1]]
+omegape=Sqrt[4*Pi*netot*q^2/me]//.solsT[[1]]
+omegapp=Sqrt[4*Pi*np*q^2/mp]//.solsT[[1]]
+Tpe=2*Pi/omegape//.solsT[[1]]
+Tpe=2*Pi/omegapp//.solsT[[1]]
+Deltapete=c/omegape//.solsT[[1]]
+Deltapetp=c/omegapp//.solsT[[1]]
+j1=c*Sqrt[bsqvalue]/(4*Pi*c)*omegape//.solsT[[1]]
+j2=q*netot*vd//.solsT[[1]]
+vdprime=(Sqrt[bsqvalue]/c/Lp)/(q*netot)//.solsT[[1]]
+vdprime/c//.solsT[[1]]
+Out[265]= 1.73085*10^10
+Out[266]= 9.51014*10^18
+Out[267]= 2.96736*10^9
+Out[268]= 6.60682*10^-19
+Out[269]= 2.11743*10^-9
+Out[270]= 3.15234*10^-9
+Out[271]= 10.103
+Out[272]= 1.95858*10^29
+Out[273]= 1.36505*10^19 vd
+Out[274]= 2.89735*10^-31
+Out[275]= 9.6645*10^-42
+In[276]:= (* Check Larmor radius in comoving frame *)
+Ee=3/2*kb*T//.solsT[[1]]
+ve=Sqrt[Ee*2/me]//.solsT[[1]]
+wge=q*(Sqrt[bsqvalue])/(me*c)//.solsT[[1]]
+Rl=ve/wge//.solsT[[1]]
+Rl/Lp//.solsT[[1]]
+Deltapete/Lp//.solsT[[1]]
+Deltapetp/Lp//.solsT[[1]]
+
+Out[276]= 4.01001*10^-7
+Out[277]= 2.96718*10^10
+Out[278]= 4.55153*10^18
+Out[279]= 6.51908*10^-9
+Out[280]= 2.98671*10^-21
+Out[281]= 1.44425*10^-21
+Out[282]= 4.62869*10^-12
+In[283]:= (* etac[units] = L^2*(M*L^2/S^2/L^3*L^2)/(M*L/S) = L^2/S *)
+etac=(4/3)*(c/omegape)^2*(urad*sigmat)/(me*c)//.solsT[[1]]
+LogL=20
+thetae=(kb*T)/(me*c^2)//.solsT[[1]]
+(* etas[units] = (L/S)*L *)
+etas=c*radiuse*(thetae)^(-3/2)*LogL//.solsT[[1]]
+Tev=kb*T/ergPmev*10^6//.solsT[[1]]
+etaprimebook=10^(-14)*LogL*(Tev)^(-3/2)//.solsT[[1]]
+etabook=etaprimebook*c^2/(4*Pi)//.solsT[[1]]
+Lundquistc=Lp*va/etac//.solsT[[1]]
+Lundquists=Lp*va/etas//.solsT[[1]]
+Lundquistb=Lp*va/etabook//.solsT[[1]]
+Deltaspc=Sqrt[Lp*etac/va]//.solsT[[1]]
+Deltasps=Sqrt[Lp*etas/va]//.solsT[[1]]
+Deltaspb=Sqrt[Lp*etabook/va]//.solsT[[1]]
+Out[283]= 0.0299654
+Out[284]= 20
+Out[285]= 0.326531
+Out[286]= 0.905402
+Out[287]= 166857.
+Out[288]= 2.93436*10^-21
+Out[289]= 0.209868
+Out[290]= 1.26076*10^24
+Out[291]= 4.17264*10^22
+Out[292]= 1.80014*10^23
+Out[293]= 1.94391
+Out[294]= 10.6853
+Out[295]= 5.14445
+(* timescales *)
+Trsp=0
+In[296]:= (* electron/positrons dominate resistivity in Petschek regime *)
+conditionec=FullSimplify[(Deltapete/Deltaspc)//.solsT[[1]],{bsqvalue>0,rhobvalue>0}]
+conditiones=FullSimplify[(Deltapete/Deltasps)//.solsT[[1]],{bsqvalue>0,rhobvalue>0}]
+conditioneb=FullSimplify[(Deltapete/Deltaspb)//.solsT[[1]],{bsqvalue>0,rhobvalue>0}]
+Out[296]= 1.62165*10^-9
+Out[297]= 2.95017*10^-10
+Out[298]= 6.12766*10^-10
+In[299]:= (* protons dominate resistivity in Petschek regime -- normal! *)
+conditionpc=FullSimplify[(Deltapetp/Deltaspc)//.solsT[[1]],{bsqvalue>0,rhobvalue>0}]
+conditionps=FullSimplify[(Deltapetp/Deltasps)//.solsT[[1]],{bsqvalue>0,rhobvalue>0}]
+conditionpb=FullSimplify[(Deltapetp/Deltaspb)//.solsT[[1]],{bsqvalue>0,rhobvalue>0}]
+Out[299]= 5.19726
+Out[300]= 0.945505
+Out[301]= 1.96387
+In[302]:= (* Size of Pet layer compared to Lp *)
+(* so perhaps every GRB fred is a reconnection event and number of freds related to number of polarity flips *)
+Deltapetp/Lp//.solsT[[1]]
+Out[302]= 4.62869*10^-12
+In[373]:= (* observed energy in MeV *)
+T//.solsT[[1]]
+Eco=(1/ergPmev)*(kb*T)//.solsT[[1]]
+gammavalue
+Eobs=(1/ergPmev)*gammavalue*(kb*T)//.solsT[[1]]
+gammae=(kb*T)/(me*c^2)//.solsT[[1]]
+bsqvaluegauss=bsqvalue*(4*Pi)
+Esynobs=(1.7*10^(-8)/10^6*ergPmev*gammavalue*Sqrt[bsqvaluegauss]*gammae^2//.solsT[[1]])
+Esynobskev=Esynobs/ergPmev*1000
+Eobsickev=Esynobskev*gammae^2
+Out[373]= 1.93628*10^9
+Out[374]= 0.166857
+Out[375]= 199.992
+Out[376]= 33.37
+Out[377]= 0.326531
+Out[378]= 8.4166*10^23
+Out[379]= 5.32828*10^-7
+Out[380]= 332.565
+Out[381]= 35.4589
+In[306]:= 
+(* Get pair density for critical field *)
+Tann=1/(ndentottemp2*sigmat*c)
+omegap=Sqrt[4*Pi*ndentottemp2*q^2/me]
+Tpl=2*Pi/omegap
+Print["myn"];
+myn=Solve[Tann==Tpl,ndentottemp2][[1,1,2]]
+myn*me*mp/me
+paireden=myn*me*c^2
+(* Obtain classical critical field strength *)
+Solve[paireden==Bit^2/(8*Pi),Bit]
+(* estimate quantum correction *)
+2*10^15/137.
+(* Compare number density with classical electron density *)
+1/(4*Pi/3*radiuse^3)
+
+Out[306]= 5.01542*10^13/ndentottemp2
+Out[307]= 56411. Sqrt[ndentottemp2]
+Out[308]= 0.000111382/Sqrt[ndentottemp2]
+During evaluation of In[306]:= myn
+Out[310]= 2.0276*10^35
+Out[311]= 3.39141*10^11
+Out[312]= 1.66002*10^29
+Out[313]= {{Bit->-2.04257*10^15},{Bit->2.04257*10^15}}
+Out[314]= 1.45985*10^13
+Out[315]= 1.06729*10^37
+In[316]:= (* Sweet Parker optical depth across layer and along layer *)
+tauspc=sigmat*netot*Deltaspc//.solsT[[1]]
+tausps=sigmat*netot*Deltasps//.solsT[[1]]
+tauL=sigmat*netot*Lp//.solsT[[1]]
+(* compute optical depth to electron scattering within Petschek layer *)
+taupete=sigmat*netot*Deltapete//.solsT[[1]]
+taupetp=sigmat*netot*Deltapetp/.solsT[[1]]
+Out[316]= 36744.7
+Out[317]= 201979.
+Out[318]= 4.12583*10^16
+Out[319]= 0.000059587
+Out[320]= 190972.
+In[321]:= (* Compare photon diffusion time across layer and transit time along layer *)
+TdiffacrossSPc = tauspc*Deltaspc/c//.solsT[[1]]
+TdiffacrossSPs = tausps*Deltasps/c//.solsT[[1]]
+Tdiffalong= tauL*Lp/c//.solsT[[1]]
+Ttransit=(Lp/va)//.solsT[[1]]
+(* So photons leak out and cool layer before transiting fluid is heated *)
+Out[321]= 2.38259*10^-6
+Out[322]= 0.0000719899
+Out[323]= 3.00388*10^18
+Out[324]= 126.105
+In[325]:= (* Compute optical depth to baryon-electron scattering *)
+sigmac=sigmat/(kb*T/(me*c^2))^2//.solsT[[1]]
+tau=Lp*np*sigmac//.solsT[[1]]
+(* So for any reasonable temperature baryons and electrons are significantly coupled due to high density still *)
+Out[325]= 6.23769*10^-24
+Out[326]= 69.1731
+In[337]:= (* observed reconnection time scale *)
+(*dtobs=Ttransit/(2*gammavalue^2) -- no, not a photon catching up with shock *)
+dtobs=Ttransit/(gammavalue)
+(* rfast is location where fast reconnection occurs *)
+rr=rfast + dtobs*c
+Out[337]= 0.630552
+Out[338]= 1.89035*10^10+rfast

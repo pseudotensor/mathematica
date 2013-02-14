@@ -1,0 +1,1866 @@
+(***********************************************************************
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used on any computer system with Mathematica 4.0,
+MathReader 4.0, or any compatible application. The data for the notebook 
+starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do one of 
+the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing the 
+word CacheID, otherwise Mathematica-compatible applications may try to 
+use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+***********************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     55692,       1483]*)
+(*NotebookOutlinePosition[     56332,       1506]*)
+(*  CellTagsIndexPosition[     56288,       1502]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell[BoxData[
+    \(<< LinearAlgebra`Orthogonalization`\)], "Input"],
+
+Cell[BoxData[
+    \(<< Calculus`VectorAnalysis`\)], "Input"],
+
+Cell[BoxData[
+    \(<< LinearAlgebra`MatrixManipulation`\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(SetCoordinates[Cartesian[x, y, z]]\)], "Input"],
+
+Cell[BoxData[
+    \(Cartesian[x, y, z]\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(k = {kx, ky, kz}\), "\[IndentingNewLine]", 
+    \(r = {x, y, z}\), "\[IndentingNewLine]", 
+    \(v0 = {v0x, v0y, v0z}\), "\[IndentingNewLine]", 
+    \(B0 = {B0x, B0y, B0z}\)}], "Input"],
+
+Cell[BoxData[
+    \({kx, ky, kz}\)], "Output"],
+
+Cell[BoxData[
+    \({x, y, z}\)], "Output"],
+
+Cell[BoxData[
+    \({v0x, v0y, v0z}\)], "Output"],
+
+Cell[BoxData[
+    \({B0x, B0y, B0z}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(drho[t_, x_, y_, z_] := 
+      drho0*Exp[I*DotProduct[k, r] - I*omega*t]\), "\[IndentingNewLine]", 
+    \(den[t_, x_, y_, z_] := 
+      den0*Exp[I*DotProduct[k, r] - I*omega*t]\), "\[IndentingNewLine]", 
+    \(dv[t_, x_, y_, z_] := {dvx0, dvy0, dvz0}*
+        Exp[I*DotProduct[k, r] - I*omega*t]\), "\[IndentingNewLine]", 
+    \(dB[t_, x_, y_, z_] := {dBx0, dBy0, dBz0}*
+        Exp[I*DotProduct[k, r] - I*omega*t]\)}], "Input"],
+
+Cell[BoxData[
+    \(General::"spell1" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(dvy0\)\" is similar to \
+existing symbol \"\!\(dvx0\)\"."\)], "Message"],
+
+Cell[BoxData[
+    \(General::"spell" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(dvz0\)\" is similar to \
+existing symbols \!\({dvx0, dvy0}\)."\)], "Message"],
+
+Cell[BoxData[
+    \(General::"spell1" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(dBy0\)\" is similar to \
+existing symbol \"\!\(dBx0\)\"."\)], "Message"],
+
+Cell[BoxData[
+    \(General::"spell" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(dBz0\)\" is similar to \
+existing symbols \!\({dBx0, dBy0}\)."\)], "Message"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(v = v0 + dv[t, x, y, z]\)], "Input"],
+
+Cell[BoxData[
+    \({dvx0\ \[ExponentialE]\^\(\(-\[ImaginaryI]\)\ omega\ t + \[ImaginaryI]\ \
+\((kx\ x + ky\ y + kz\ z)\)\) + v0x, 
+      dvy0\ \[ExponentialE]\^\(\(-\[ImaginaryI]\)\ omega\ t + \[ImaginaryI]\ \
+\((kx\ x + ky\ y + kz\ z)\)\) + v0y, 
+      dvz0\ \[ExponentialE]\^\(\(-\[ImaginaryI]\)\ omega\ t + \[ImaginaryI]\ \
+\((kx\ x + ky\ y + kz\ z)\)\) + v0z}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(B = B0 + dB[t, x, y, z]\)], "Input"],
+
+Cell[BoxData[
+    \({B0x + 
+        dBx0\ \[ExponentialE]\^\(\(-\[ImaginaryI]\)\ omega\ t + \[ImaginaryI]\
+\ \((kx\ x + ky\ y + kz\ z)\)\), 
+      B0y + dBy0\ \[ExponentialE]\^\(\(-\[ImaginaryI]\)\ omega\ t + \
+\[ImaginaryI]\ \((kx\ x + ky\ y + kz\ z)\)\), 
+      B0z + dBz0\ \[ExponentialE]\^\(\(-\[ImaginaryI]\)\ omega\ t + \
+\[ImaginaryI]\ \((kx\ x + ky\ y + kz\ z)\)\)}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(rho = rho0 + drho[t, x, y, z]\)], "Input"],
+
+Cell[BoxData[
+    \(General::"spell1" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(rho0\)\" is similar to \
+existing symbol \"\!\(drho0\)\"."\)], "Message"],
+
+Cell[BoxData[
+    \(drho0\ \[ExponentialE]\^\(\(-\[ImaginaryI]\)\ omega\ t + \[ImaginaryI]\ \
+\((kx\ x + ky\ y + kz\ z)\)\) + rho0\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(en = en0 + den[t, x, y, z]\)], "Input"],
+
+Cell[BoxData[
+    \(den0\ \[ExponentialE]\^\(\(-\[ImaginaryI]\)\ omega\ t + \[ImaginaryI]\ \
+\((kx\ x + ky\ y + kz\ z)\)\) + en0\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(eq1 = 
+      D[dv[t, x, y, z], t] + 
+          v0 . Grad[dv[t, x, y, z]] \[Equal] \(-cs^2\)/rho0*
+            Grad[drho[t, x, y, z]] - 
+          1/rho0*CrossProduct[B0, Curl[dB[t, x, y, z]]]\)], "Input"],
+
+Cell[BoxData[
+    \({\(-\[ImaginaryI]\)\ dvx0\ \[ExponentialE]\^\(\(-\[ImaginaryI]\)\ omega\
+\ t + \[ImaginaryI]\ \((kx\ x + ky\ y + kz\ z)\)\)\ omega + \[ImaginaryI]\ \
+dvx0\ \[ExponentialE]\^\(\(-\[ImaginaryI]\)\ omega\ t + \[ImaginaryI]\ \((kx\ \
+x + ky\ y + kz\ z)\)\)\ kx\ v0x + \[ImaginaryI]\ dvy0\ \[ExponentialE]\^\(\(-\
+\[ImaginaryI]\)\ omega\ t + \[ImaginaryI]\ \((kx\ x + ky\ y + kz\ z)\)\)\ kx\ \
+v0y + \[ImaginaryI]\ dvz0\ \[ExponentialE]\^\(\(-\[ImaginaryI]\)\ omega\ t + \
+\[ImaginaryI]\ \((kx\ x + ky\ y + kz\ z)\)\)\ kx\ v0z, \(-\[ImaginaryI]\)\ \
+dvy0\ \[ExponentialE]\^\(\(-\[ImaginaryI]\)\ omega\ t + \[ImaginaryI]\ \((kx\ \
+x + ky\ y + kz\ z)\)\)\ omega + \[ImaginaryI]\ dvx0\ \[ExponentialE]\^\(\(-\
+\[ImaginaryI]\)\ omega\ t + \[ImaginaryI]\ \((kx\ x + ky\ y + kz\ z)\)\)\ ky\ \
+v0x + \[ImaginaryI]\ dvy0\ \[ExponentialE]\^\(\(-\[ImaginaryI]\)\ omega\ t + \
+\[ImaginaryI]\ \((kx\ x + ky\ y + kz\ z)\)\)\ ky\ v0y + \[ImaginaryI]\ dvz0\ \
+\[ExponentialE]\^\(\(-\[ImaginaryI]\)\ omega\ t + \[ImaginaryI]\ \((kx\ x + \
+ky\ y + kz\ z)\)\)\ ky\ v0z, \(-\[ImaginaryI]\)\ dvz0\ \[ExponentialE]\^\(\(-\
+\[ImaginaryI]\)\ omega\ t + \[ImaginaryI]\ \((kx\ x + ky\ y + kz\ z)\)\)\ \
+omega + \[ImaginaryI]\ dvx0\ \[ExponentialE]\^\(\(-\[ImaginaryI]\)\ omega\ t \
++ \[ImaginaryI]\ \((kx\ x + ky\ y + kz\ z)\)\)\ kz\ v0x + \[ImaginaryI]\ dvy0\
+\ \[ExponentialE]\^\(\(-\[ImaginaryI]\)\ omega\ t + \[ImaginaryI]\ \((kx\ x + \
+ky\ y + kz\ z)\)\)\ kz\ v0y + \[ImaginaryI]\ dvz0\ \[ExponentialE]\^\(\(-\
+\[ImaginaryI]\)\ omega\ t + \[ImaginaryI]\ \((kx\ x + ky\ y + kz\ z)\)\)\ kz\ \
+v0z} == {\(-\(\(\[ImaginaryI]\ cs\^2\ drho0\ \[ExponentialE]\^\(\(-\
+\[ImaginaryI]\)\ omega\ t + \[ImaginaryI]\ \((kx\ x + ky\ y + kz\ z)\)\)\ \
+kx\)\/rho0\)\) - \(\[ImaginaryI]\ B0y\ dBy0\ \[ExponentialE]\^\(\(-\
+\[ImaginaryI]\)\ omega\ t + \[ImaginaryI]\ \((kx\ x + ky\ y + kz\ z)\)\)\ kx \
++ \[ImaginaryI]\ B0z\ dBz0\ \[ExponentialE]\^\(\(-\[ImaginaryI]\)\ omega\ t + \
+\[ImaginaryI]\ \((kx\ x + ky\ y + kz\ z)\)\)\ kx - \[ImaginaryI]\ B0y\ dBx0\ \
+\[ExponentialE]\^\(\(-\[ImaginaryI]\)\ omega\ t + \[ImaginaryI]\ \((kx\ x + \
+ky\ y + kz\ z)\)\)\ ky - \[ImaginaryI]\ B0z\ dBx0\ \[ExponentialE]\^\(\(-\
+\[ImaginaryI]\)\ omega\ t + \[ImaginaryI]\ \((kx\ x + ky\ y + kz\ z)\)\)\ \
+kz\)\/rho0, \(-\(\(\[ImaginaryI]\ cs\^2\ drho0\ \[ExponentialE]\^\(\(-\
+\[ImaginaryI]\)\ omega\ t + \[ImaginaryI]\ \((kx\ x + ky\ y + kz\ z)\)\)\ \
+ky\)\/rho0\)\) - \(\(-\[ImaginaryI]\)\ B0x\ dBy0\ \[ExponentialE]\^\(\(-\
+\[ImaginaryI]\)\ omega\ t + \[ImaginaryI]\ \((kx\ x + ky\ y + kz\ z)\)\)\ kx \
++ \[ImaginaryI]\ B0x\ dBx0\ \[ExponentialE]\^\(\(-\[ImaginaryI]\)\ omega\ t + \
+\[ImaginaryI]\ \((kx\ x + ky\ y + kz\ z)\)\)\ ky + \[ImaginaryI]\ B0z\ dBz0\ \
+\[ExponentialE]\^\(\(-\[ImaginaryI]\)\ omega\ t + \[ImaginaryI]\ \((kx\ x + \
+ky\ y + kz\ z)\)\)\ ky - \[ImaginaryI]\ B0z\ dBy0\ \[ExponentialE]\^\(\(-\
+\[ImaginaryI]\)\ omega\ t + \[ImaginaryI]\ \((kx\ x + ky\ y + kz\ z)\)\)\ \
+kz\)\/rho0, \(-\(\(\[ImaginaryI]\ cs\^2\ drho0\ \[ExponentialE]\^\(\(-\
+\[ImaginaryI]\)\ omega\ t + \[ImaginaryI]\ \((kx\ x + ky\ y + kz\ z)\)\)\ \
+kz\)\/rho0\)\) - \(\(-\[ImaginaryI]\)\ B0x\ dBz0\ \[ExponentialE]\^\(\(-\
+\[ImaginaryI]\)\ omega\ t + \[ImaginaryI]\ \((kx\ x + ky\ y + kz\ z)\)\)\ kx \
+- \[ImaginaryI]\ B0y\ dBz0\ \[ExponentialE]\^\(\(-\[ImaginaryI]\)\ omega\ t + \
+\[ImaginaryI]\ \((kx\ x + ky\ y + kz\ z)\)\)\ ky + \[ImaginaryI]\ B0x\ dBx0\ \
+\[ExponentialE]\^\(\(-\[ImaginaryI]\)\ omega\ t + \[ImaginaryI]\ \((kx\ x + \
+ky\ y + kz\ z)\)\)\ kz + \[ImaginaryI]\ B0y\ dBy0\ \[ExponentialE]\^\(\(-\
+\[ImaginaryI]\)\ omega\ t + \[ImaginaryI]\ \((kx\ x + ky\ y + kz\ z)\)\)\ \
+kz\)\/rho0}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(eq1 = 
+      FullSimplify[eq1] //. {x \[Rule] 0, y \[Rule] 0, z \[Rule] 0, 
+          t \[Rule] 0}\)], "Input"],
+
+Cell[BoxData[
+    \({\(\[ImaginaryI]\ \((B0y\ dBy0\ kx + B0z\ dBz0\ kx + cs\^2\ drho0\ kx - \
+B0y\ dBx0\ ky - B0z\ dBx0\ kz - dvx0\ omega\ rho0 + dvx0\ kx\ rho0\ v0x + \
+dvy0\ kx\ rho0\ v0y + dvz0\ kx\ rho0\ v0z)\)\)\/rho0, \(\[ImaginaryI]\ \
+\((\(-B0x\)\ dBy0\ kx + B0x\ dBx0\ ky + B0z\ dBz0\ ky + cs\^2\ drho0\ ky - \
+B0z\ dBy0\ kz - dvy0\ omega\ rho0 + dvx0\ ky\ rho0\ v0x + dvy0\ ky\ rho0\ v0y \
++ dvz0\ ky\ rho0\ v0z)\)\)\/rho0, \(\[ImaginaryI]\ \((\(-B0x\)\ dBz0\ kx - \
+B0y\ dBz0\ ky + B0x\ dBx0\ kz + B0y\ dBy0\ kz + cs\^2\ drho0\ kz - dvz0\ \
+omega\ rho0 + dvx0\ kz\ rho0\ v0x + dvy0\ kz\ rho0\ v0y + dvz0\ kz\ rho0\ \
+v0z)\)\)\/rho0} == {0, 0, 0}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(eq2 = 
+      D[dB[t, x, y, z], t] \[Equal] 
+        Curl[CrossProduct[dv[t, x, y, z], B0] + 
+            CrossProduct[v0, dB[t, x, y, z]]]\)], "Input"],
+
+Cell[BoxData[
+    \({\(-\[ImaginaryI]\)\ dBx0\ \[ExponentialE]\^\(\(-\[ImaginaryI]\)\ omega\
+\ t + \[ImaginaryI]\ \((kx\ x + ky\ y + kz\ z)\)\)\ omega, \(-\[ImaginaryI]\)\
+\ dBy0\ \[ExponentialE]\^\(\(-\[ImaginaryI]\)\ omega\ t + \[ImaginaryI]\ \
+\((kx\ x + ky\ y + kz\ z)\)\)\ omega, \(-\[ImaginaryI]\)\ dBz0\ \
+\[ExponentialE]\^\(\(-\[ImaginaryI]\)\ omega\ t + \[ImaginaryI]\ \((kx\ x + \
+ky\ y + kz\ z)\)\)\ omega} == {\[ImaginaryI]\ B0y\ dvx0\ \
+\[ExponentialE]\^\(\(-\[ImaginaryI]\)\ omega\ t + \[ImaginaryI]\ \((kx\ x + \
+ky\ y + kz\ z)\)\)\ ky - \[ImaginaryI]\ B0x\ dvy0\ \[ExponentialE]\^\(\(-\
+\[ImaginaryI]\)\ omega\ t + \[ImaginaryI]\ \((kx\ x + ky\ y + kz\ z)\)\)\ ky \
++ \[ImaginaryI]\ B0z\ dvx0\ \[ExponentialE]\^\(\(-\[ImaginaryI]\)\ omega\ t + \
+\[ImaginaryI]\ \((kx\ x + ky\ y + kz\ z)\)\)\ kz - \[ImaginaryI]\ B0x\ dvz0\ \
+\[ExponentialE]\^\(\(-\[ImaginaryI]\)\ omega\ t + \[ImaginaryI]\ \((kx\ x + \
+ky\ y + kz\ z)\)\)\ kz + \[ImaginaryI]\ dBy0\ \[ExponentialE]\^\(\(-\
+\[ImaginaryI]\)\ omega\ t + \[ImaginaryI]\ \((kx\ x + ky\ y + kz\ z)\)\)\ ky\ \
+v0x + \[ImaginaryI]\ dBz0\ \[ExponentialE]\^\(\(-\[ImaginaryI]\)\ omega\ t + \
+\[ImaginaryI]\ \((kx\ x + ky\ y + kz\ z)\)\)\ kz\ v0x - \[ImaginaryI]\ dBx0\ \
+\[ExponentialE]\^\(\(-\[ImaginaryI]\)\ omega\ t + \[ImaginaryI]\ \((kx\ x + \
+ky\ y + kz\ z)\)\)\ ky\ v0y - \[ImaginaryI]\ dBx0\ \[ExponentialE]\^\(\(-\
+\[ImaginaryI]\)\ omega\ t + \[ImaginaryI]\ \((kx\ x + ky\ y + kz\ z)\)\)\ kz\ \
+v0z, \(-\[ImaginaryI]\)\ B0y\ dvx0\ \[ExponentialE]\^\(\(-\[ImaginaryI]\)\ \
+omega\ t + \[ImaginaryI]\ \((kx\ x + ky\ y + kz\ z)\)\)\ kx + \[ImaginaryI]\ \
+B0x\ dvy0\ \[ExponentialE]\^\(\(-\[ImaginaryI]\)\ omega\ t + \[ImaginaryI]\ \
+\((kx\ x + ky\ y + kz\ z)\)\)\ kx + \[ImaginaryI]\ B0z\ dvy0\ \[ExponentialE]\
+\^\(\(-\[ImaginaryI]\)\ omega\ t + \[ImaginaryI]\ \((kx\ x + ky\ y + kz\ z)\)\
+\)\ kz - \[ImaginaryI]\ B0y\ dvz0\ \[ExponentialE]\^\(\(-\[ImaginaryI]\)\ \
+omega\ t + \[ImaginaryI]\ \((kx\ x + ky\ y + kz\ z)\)\)\ kz - \[ImaginaryI]\ \
+dBy0\ \[ExponentialE]\^\(\(-\[ImaginaryI]\)\ omega\ t + \[ImaginaryI]\ \((kx\ \
+x + ky\ y + kz\ z)\)\)\ kx\ v0x + \[ImaginaryI]\ dBx0\ \[ExponentialE]\^\(\(-\
+\[ImaginaryI]\)\ omega\ t + \[ImaginaryI]\ \((kx\ x + ky\ y + kz\ z)\)\)\ kx\ \
+v0y + \[ImaginaryI]\ dBz0\ \[ExponentialE]\^\(\(-\[ImaginaryI]\)\ omega\ t + \
+\[ImaginaryI]\ \((kx\ x + ky\ y + kz\ z)\)\)\ kz\ v0y - \[ImaginaryI]\ dBy0\ \
+\[ExponentialE]\^\(\(-\[ImaginaryI]\)\ omega\ t + \[ImaginaryI]\ \((kx\ x + \
+ky\ y + kz\ z)\)\)\ kz\ v0z, \(-\[ImaginaryI]\)\ B0z\ dvx0\ \[ExponentialE]\^\
+\(\(-\[ImaginaryI]\)\ omega\ t + \[ImaginaryI]\ \((kx\ x + ky\ y + kz\ z)\)\)\
+\ kx + \[ImaginaryI]\ B0x\ dvz0\ \[ExponentialE]\^\(\(-\[ImaginaryI]\)\ omega\
+\ t + \[ImaginaryI]\ \((kx\ x + ky\ y + kz\ z)\)\)\ kx - \[ImaginaryI]\ B0z\ \
+dvy0\ \[ExponentialE]\^\(\(-\[ImaginaryI]\)\ omega\ t + \[ImaginaryI]\ \((kx\ \
+x + ky\ y + kz\ z)\)\)\ ky + \[ImaginaryI]\ B0y\ dvz0\ \[ExponentialE]\^\(\(-\
+\[ImaginaryI]\)\ omega\ t + \[ImaginaryI]\ \((kx\ x + ky\ y + kz\ z)\)\)\ ky \
+- \[ImaginaryI]\ dBz0\ \[ExponentialE]\^\(\(-\[ImaginaryI]\)\ omega\ t + \
+\[ImaginaryI]\ \((kx\ x + ky\ y + kz\ z)\)\)\ kx\ v0x - \[ImaginaryI]\ dBz0\ \
+\[ExponentialE]\^\(\(-\[ImaginaryI]\)\ omega\ t + \[ImaginaryI]\ \((kx\ x + \
+ky\ y + kz\ z)\)\)\ ky\ v0y + \[ImaginaryI]\ dBx0\ \[ExponentialE]\^\(\(-\
+\[ImaginaryI]\)\ omega\ t + \[ImaginaryI]\ \((kx\ x + ky\ y + kz\ z)\)\)\ kx\ \
+v0z + \[ImaginaryI]\ dBy0\ \[ExponentialE]\^\(\(-\[ImaginaryI]\)\ omega\ t + \
+\[ImaginaryI]\ \((kx\ x + ky\ y + kz\ z)\)\)\ ky\ v0z}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(eq2 = 
+      FullSimplify[eq2] //. {x \[Rule] 0, y \[Rule] 0, z \[Rule] 0, 
+          t \[Rule] 0}\)], "Input"],
+
+Cell[BoxData[
+    \({\(-\[ImaginaryI]\)\ \((B0y\ dvx0\ ky + B0z\ dvx0\ kz - 
+              B0x\ \((dvy0\ ky + dvz0\ kz)\) + dBx0\ omega + dBy0\ ky\ v0x + 
+              dBz0\ kz\ v0x - dBx0\ ky\ v0y - 
+              dBx0\ kz\ v0z)\), \(-\[ImaginaryI]\)\ \((B0x\ dvy0\ kx + 
+              B0z\ dvy0\ kz - B0y\ \((dvx0\ kx + dvz0\ kz)\) + dBy0\ omega - 
+              dBy0\ kx\ v0x + dBx0\ kx\ v0y + dBz0\ kz\ v0y - 
+              dBy0\ kz\ v0z)\), \(-\[ImaginaryI]\)\ \((B0x\ dvz0\ kx + 
+              B0y\ dvz0\ ky - B0z\ \((dvx0\ kx + dvy0\ ky)\) + dBz0\ omega - 
+              dBz0\ kx\ v0x - dBz0\ ky\ v0y + dBx0\ kx\ v0z + 
+              dBy0\ ky\ v0z)\)} == {0, 0, 0}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(eq3 = 
+      D[drho[t, x, y, z], t] + v0 . Grad[drho[t, x, y, z]] \[Equal] \(-rho0\)*
+          Div[dv[t, x, y, z]]\)], "Input"],
+
+Cell[BoxData[
+    \(\(-\[ImaginaryI]\)\ drho0\ \[ExponentialE]\^\(\(-\[ImaginaryI]\)\ omega\
+\ t + \[ImaginaryI]\ \((kx\ x + ky\ y + kz\ z)\)\)\ omega + \[ImaginaryI]\ \
+drho0\ \[ExponentialE]\^\(\(-\[ImaginaryI]\)\ omega\ t + \[ImaginaryI]\ \((kx\
+\ x + ky\ y + kz\ z)\)\)\ kx\ v0x + \[ImaginaryI]\ drho0\ \[ExponentialE]\^\(\
+\(-\[ImaginaryI]\)\ omega\ t + \[ImaginaryI]\ \((kx\ x + ky\ y + kz\ z)\)\)\ \
+ky\ v0y + \[ImaginaryI]\ drho0\ \[ExponentialE]\^\(\(-\[ImaginaryI]\)\ omega\ \
+t + \[ImaginaryI]\ \((kx\ x + ky\ y + kz\ z)\)\)\ kz\ v0z == \(-\((\
+\[ImaginaryI]\ dvx0\ \[ExponentialE]\^\(\(-\[ImaginaryI]\)\ omega\ t + \
+\[ImaginaryI]\ \((kx\ x + ky\ y + kz\ z)\)\)\ kx + \[ImaginaryI]\ dvy0\ \
+\[ExponentialE]\^\(\(-\[ImaginaryI]\)\ omega\ t + \[ImaginaryI]\ \((kx\ x + \
+ky\ y + kz\ z)\)\)\ ky + \[ImaginaryI]\ dvz0\ \[ExponentialE]\^\(\(-\
+\[ImaginaryI]\)\ omega\ t + \[ImaginaryI]\ \((kx\ x + ky\ y + kz\ z)\)\)\ kz)\
+\)\)\ rho0\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(eq3 = 
+      FullSimplify[eq3] //. {x \[Rule] 0, y \[Rule] 0, z \[Rule] 0, 
+          t \[Rule] 0}\)], "Input"],
+
+Cell[BoxData[
+    \(\[ImaginaryI]\ \((\((dvx0\ kx + dvy0\ ky + dvz0\ kz)\)\ rho0 + 
+            drho0\ \((\(-omega\) + kx\ v0x + ky\ v0y + kz\ v0z)\))\) == 
+      0\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(eq4 = 
+      D[den[t, x, y, z], t] + 
+          v0 . Grad[den[t, x, y, z]] \[Equal] \(-\((gam*en0)\)\)*
+          Div[dv[t, x, y, z]]\)], "Input"],
+
+Cell[BoxData[
+    \(\(-\[ImaginaryI]\)\ den0\ \[ExponentialE]\^\(\(-\[ImaginaryI]\)\ omega\ \
+t + \[ImaginaryI]\ \((kx\ x + ky\ y + kz\ z)\)\)\ omega + \[ImaginaryI]\ den0\
+\ \[ExponentialE]\^\(\(-\[ImaginaryI]\)\ omega\ t + \[ImaginaryI]\ \((kx\ x + \
+ky\ y + kz\ z)\)\)\ kx\ v0x + \[ImaginaryI]\ den0\ \[ExponentialE]\^\(\(-\
+\[ImaginaryI]\)\ omega\ t + \[ImaginaryI]\ \((kx\ x + ky\ y + kz\ z)\)\)\ ky\ \
+v0y + \[ImaginaryI]\ den0\ \[ExponentialE]\^\(\(-\[ImaginaryI]\)\ omega\ t + \
+\[ImaginaryI]\ \((kx\ x + ky\ y + kz\ z)\)\)\ kz\ v0z == \(-en0\)\ gam\ \((\
+\[ImaginaryI]\ dvx0\ \[ExponentialE]\^\(\(-\[ImaginaryI]\)\ omega\ t + \
+\[ImaginaryI]\ \((kx\ x + ky\ y + kz\ z)\)\)\ kx + \[ImaginaryI]\ dvy0\ \
+\[ExponentialE]\^\(\(-\[ImaginaryI]\)\ omega\ t + \[ImaginaryI]\ \((kx\ x + \
+ky\ y + kz\ z)\)\)\ ky + \[ImaginaryI]\ dvz0\ \[ExponentialE]\^\(\(-\
+\[ImaginaryI]\)\ omega\ t + \[ImaginaryI]\ \((kx\ x + ky\ y + kz\ z)\)\)\ kz)\
+\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(eq4 = 
+      FullSimplify[eq4] //. {x \[Rule] 0, y \[Rule] 0, z \[Rule] 0, 
+          t \[Rule] 0}\)], "Input"],
+
+Cell[BoxData[
+    \(dvx0\ en0\ gam\ kx + dvy0\ en0\ gam\ ky + dvz0\ en0\ gam\ kz - 
+        den0\ omega + den0\ kx\ v0x + den0\ ky\ v0y + den0\ kz\ v0z == 
+      0\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(gold1 = \(-eq4[\([1]\)]\) \[Equal] 0\), "\[IndentingNewLine]", 
+    \(gold2 = I*eq3[\([1]\)] \[Equal] 0\), "\[IndentingNewLine]", 
+    \(gold3 = 
+      I*eq1[\([1]\)] . {1, 0, 0} \[Equal] 0\), "\[IndentingNewLine]", 
+    \(gold4 = 
+      I*eq1[\([1]\)] . {0, 1, 0} \[Equal] 0\), "\[IndentingNewLine]", 
+    \(gold5 = 
+      I*eq1[\([1]\)] . {0, 0, 1} \[Equal] 0\), "\[IndentingNewLine]", 
+    \(gold6 = 
+      I*eq2[\([1]\)] . {1, 0, 0} \[Equal] 0\), "\[IndentingNewLine]", 
+    \(gold7 = 
+      I*eq2[\([1]\)] . {0, 1, 0} \[Equal] 0\), "\[IndentingNewLine]", 
+    \(gold8 = I*eq2[\([1]\)] . {0, 0, 1} \[Equal] 0\)}], "Input"],
+
+Cell[BoxData[
+    \(\(-dvx0\)\ en0\ gam\ kx - dvy0\ en0\ gam\ ky - dvz0\ en0\ gam\ kz + 
+        den0\ omega - den0\ kx\ v0x - den0\ ky\ v0y - den0\ kz\ v0z == 
+      0\)], "Output"],
+
+Cell[BoxData[
+    \(\(-\((dvx0\ kx + dvy0\ ky + dvz0\ kz)\)\)\ rho0 - 
+        drho0\ \((\(-omega\) + kx\ v0x + ky\ v0y + kz\ v0z)\) == 
+      0\)], "Output"],
+
+Cell[BoxData[
+    \(\(-\(\(B0y\ dBy0\ kx + B0z\ dBz0\ kx + cs\^2\ drho0\ kx - 
+              B0y\ dBx0\ ky - B0z\ dBx0\ kz - dvx0\ omega\ rho0 + 
+              dvx0\ kx\ rho0\ v0x + dvy0\ kx\ rho0\ v0y + 
+              dvz0\ kx\ rho0\ v0z\)\/rho0\)\) == 0\)], "Output"],
+
+Cell[BoxData[
+    \(\(-\(\(\(-B0x\)\ dBy0\ kx + B0x\ dBx0\ ky + B0z\ dBz0\ ky + 
+              cs\^2\ drho0\ ky - B0z\ dBy0\ kz - dvy0\ omega\ rho0 + 
+              dvx0\ ky\ rho0\ v0x + dvy0\ ky\ rho0\ v0y + 
+              dvz0\ ky\ rho0\ v0z\)\/rho0\)\) == 0\)], "Output"],
+
+Cell[BoxData[
+    \(\(-\(\(\(-B0x\)\ dBz0\ kx - B0y\ dBz0\ ky + B0x\ dBx0\ kz + 
+              B0y\ dBy0\ kz + cs\^2\ drho0\ kz - dvz0\ omega\ rho0 + 
+              dvx0\ kz\ rho0\ v0x + dvy0\ kz\ rho0\ v0y + 
+              dvz0\ kz\ rho0\ v0z\)\/rho0\)\) == 0\)], "Output"],
+
+Cell[BoxData[
+    \(B0y\ dvx0\ ky + B0z\ dvx0\ kz - B0x\ \((dvy0\ ky + dvz0\ kz)\) + 
+        dBx0\ omega + dBy0\ ky\ v0x + dBz0\ kz\ v0x - dBx0\ ky\ v0y - 
+        dBx0\ kz\ v0z == 0\)], "Output"],
+
+Cell[BoxData[
+    \(B0x\ dvy0\ kx + B0z\ dvy0\ kz - B0y\ \((dvx0\ kx + dvz0\ kz)\) + 
+        dBy0\ omega - dBy0\ kx\ v0x + dBx0\ kx\ v0y + dBz0\ kz\ v0y - 
+        dBy0\ kz\ v0z == 0\)], "Output"],
+
+Cell[BoxData[
+    \(B0x\ dvz0\ kx + B0y\ dvz0\ ky - B0z\ \((dvx0\ kx + dvy0\ ky)\) + 
+        dBz0\ omega - dBz0\ kx\ v0x - dBz0\ ky\ v0y + dBx0\ kx\ v0z + 
+        dBy0\ ky\ v0z == 0\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    \( (*\ 
+      should\ figure\ out\ how\ to\ dot\ an\ \(equation!\)\ *) \)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(matgod = 
+      LinearEquationsToMatrices[{gold1, gold2, gold3, gold4, gold5, gold6, 
+          gold7, gold8}, {den0, drho0, dvx0, dvy0, dvz0, dBx0, dBy0, 
+          dBz0}]\)], "Input"],
+
+Cell[BoxData[
+    \({{{omega - kx\ v0x - ky\ v0y - kz\ v0z, 
+          0, \(-en0\)\ gam\ kx, \(-en0\)\ gam\ ky, \(-en0\)\ gam\ kz, 0, 0, 
+          0}, {0, omega - kx\ v0x - ky\ v0y - 
+            kz\ v0z, \(-kx\)\ rho0, \(-ky\)\ rho0, \(-kz\)\ rho0, 0, 0, 
+          0}, {0, \(-\(\(cs\^2\ kx\)\/rho0\)\), \(-\(\(\(-omega\)\ rho0 + 
+                  kx\ rho0\ v0x\)\/rho0\)\), \(-kx\)\ v0y, \(-kx\)\ v0z, \
+\(-\(\(\(-B0y\)\ ky - 
+                  B0z\ kz\)\/rho0\)\), \(-\(\(B0y\ kx\)\/rho0\)\), \(-\(\(B0z\
+\ kx\)\/rho0\)\)}, {0, \(-\(\(cs\^2\ ky\)\/rho0\)\), \(-ky\)\ v0x, \
+\(-\(\(\(-omega\)\ rho0 + 
+                  ky\ rho0\ v0y\)\/rho0\)\), \(-ky\)\ v0z, \(-\(\(B0x\ \
+ky\)\/rho0\)\), \(-\(\(\(-B0x\)\ kx - 
+                  B0z\ kz\)\/rho0\)\), \(-\(\(B0z\ ky\)\/rho0\)\)}, {0, \(-\(\
+\(cs\^2\ kz\)\/rho0\)\), \(-kz\)\ v0x, \(-kz\)\ v0y, \(-\(\(\(-omega\)\ rho0 \
++ kz\ rho0\ v0z\)\/rho0\)\), \(-\(\(B0x\ kz\)\/rho0\)\), \(-\(\(B0y\ \
+kz\)\/rho0\)\), \(-\(\(\(-B0x\)\ kx - B0y\ ky\)\/rho0\)\)}, {0, 0, 
+          B0y\ ky + B0z\ kz, \(-B0x\)\ ky, \(-B0x\)\ kz, 
+          omega - ky\ v0y - kz\ v0z, ky\ v0x, kz\ v0x}, {0, 0, \(-B0y\)\ kx, 
+          B0x\ kx + B0z\ kz, \(-B0y\)\ kz, kx\ v0y, 
+          omega - kx\ v0x - kz\ v0z, kz\ v0y}, {0, 
+          0, \(-B0z\)\ kx, \(-B0z\)\ ky, B0x\ kx + B0y\ ky, kx\ v0z, ky\ v0z, 
+          omega - kx\ v0x - ky\ v0y}}, {0, 0, 0, 0, 0, 0, 0, 0}}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(mat = \(-matgod[\([1]\)]\) //. {v0x \[Rule] 0, v0y \[Rule] 0, 
+          v0z \[Rule] 0}\)], "Input"],
+
+Cell[BoxData[
+    \({{\(-omega\), 0, en0\ gam\ kx, en0\ gam\ ky, en0\ gam\ kz, 0, 0, 
+        0}, {0, \(-omega\), kx\ rho0, ky\ rho0, kz\ rho0, 0, 0, 
+        0}, {0, \(cs\^2\ kx\)\/rho0, \(-omega\), 0, 
+        0, \(\(-B0y\)\ ky - B0z\ kz\)\/rho0, \(B0y\ kx\)\/rho0, \(B0z\ \
+kx\)\/rho0}, {0, \(cs\^2\ ky\)\/rho0, 0, \(-omega\), 
+        0, \(B0x\ ky\)\/rho0, \(\(-B0x\)\ kx - B0z\ kz\)\/rho0, \(B0z\ \
+ky\)\/rho0}, {0, \(cs\^2\ kz\)\/rho0, 0, 
+        0, \(-omega\), \(B0x\ kz\)\/rho0, \(B0y\ kz\)\/rho0, \(\(-B0x\)\ kx - \
+B0y\ ky\)\/rho0}, {0, 0, \(-B0y\)\ ky - B0z\ kz, B0x\ ky, 
+        B0x\ kz, \(-omega\), 0, 0}, {0, 0, B0y\ kx, \(-B0x\)\ kx - B0z\ kz, 
+        B0y\ kz, 0, \(-omega\), 0}, {0, 0, B0z\ kx, 
+        B0z\ ky, \(-B0x\)\ kx - B0y\ ky, 0, 0, \(-omega\)}}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(c = matgod[\([2]\)]\)], "Input"],
+
+Cell[BoxData[
+    \({0, 0, 0, 0, 0, 0, 0, 0}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(MatrixForm[mat]\)], "Input"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {\(-omega\), 
+              "0", \(en0\ gam\ kx\), \(en0\ gam\ ky\), \(en0\ gam\ kz\), "0", 
+              "0", "0"},
+            {"0", \(-omega\), \(kx\ rho0\), \(ky\ rho0\), \(kz\ rho0\), "0", 
+              "0", "0"},
+            {"0", \(\(cs\^2\ kx\)\/rho0\), \(-omega\), "0", 
+              "0", \(\(\(-B0y\)\ ky - 
+                    B0z\ kz\)\/rho0\), \(\(B0y\ kx\)\/rho0\), \(\(B0z\ \
+kx\)\/rho0\)},
+            {"0", \(\(cs\^2\ ky\)\/rho0\), "0", \(-omega\), 
+              "0", \(\(B0x\ ky\)\/rho0\), \(\(\(-B0x\)\ kx - 
+                    B0z\ kz\)\/rho0\), \(\(B0z\ ky\)\/rho0\)},
+            {"0", \(\(cs\^2\ kz\)\/rho0\), "0", 
+              "0", \(-omega\), \(\(B0x\ kz\)\/rho0\), \(\(B0y\ kz\)\/rho0\), \
+\(\(\(-B0x\)\ kx - B0y\ ky\)\/rho0\)},
+            {"0", 
+              "0", \(\(-B0y\)\ ky - 
+                B0z\ kz\), \(B0x\ ky\), \(B0x\ kz\), \(-omega\), "0", "0"},
+            {"0", "0", \(B0y\ kx\), \(\(-B0x\)\ kx - B0z\ kz\), \(B0y\ kz\), 
+              "0", \(-omega\), "0"},
+            {"0", "0", \(B0z\ kx\), \(B0z\ ky\), \(\(-B0x\)\ kx - B0y\ ky\), 
+              "0", "0", \(-omega\)}
+            }], "\[NoBreak]", ")"}],
+      (MatrixForm[ #]&)]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(matidentity = IdentityMatrix[8]\), "\[IndentingNewLine]", 
+    \(MatrixForm[matidentity]\)}], "Input"],
+
+Cell[BoxData[
+    \({{1, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 0, 0, 0, 0, 0, 0}, {0, 0, 1, 0, 0, 0, 
+        0, 0}, {0, 0, 0, 1, 0, 0, 0, 0}, {0, 0, 0, 0, 1, 0, 0, 0}, {0, 0, 0, 
+        0, 0, 1, 0, 0}, {0, 0, 0, 0, 0, 0, 1, 0}, {0, 0, 0, 0, 0, 0, 0, 
+        1}}\)], "Output"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {"1", "0", "0", "0", "0", "0", "0", "0"},
+            {"0", "1", "0", "0", "0", "0", "0", "0"},
+            {"0", "0", "1", "0", "0", "0", "0", "0"},
+            {"0", "0", "0", "1", "0", "0", "0", "0"},
+            {"0", "0", "0", "0", "1", "0", "0", "0"},
+            {"0", "0", "0", "0", "0", "1", "0", "0"},
+            {"0", "0", "0", "0", "0", "0", "1", "0"},
+            {"0", "0", "0", "0", "0", "0", "0", "1"}
+            }], "\[NoBreak]", ")"}],
+      (MatrixForm[ #]&)]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(golden = mat + matidentity*omega\)], "Input"],
+
+Cell[BoxData[
+    \({{0, 0, en0\ gam\ kx, en0\ gam\ ky, en0\ gam\ kz, 0, 0, 0}, {0, 0, 
+        kx\ rho0, ky\ rho0, kz\ rho0, 0, 0, 0}, {0, \(cs\^2\ kx\)\/rho0, 0, 
+        0, 0, \(\(-B0y\)\ ky - B0z\ kz\)\/rho0, \(B0y\ kx\)\/rho0, \(B0z\ \
+kx\)\/rho0}, {0, \(cs\^2\ ky\)\/rho0, 0, 0, 
+        0, \(B0x\ ky\)\/rho0, \(\(-B0x\)\ kx - B0z\ kz\)\/rho0, \(B0z\ \
+ky\)\/rho0}, {0, \(cs\^2\ kz\)\/rho0, 0, 0, 
+        0, \(B0x\ kz\)\/rho0, \(B0y\ kz\)\/rho0, \(\(-B0x\)\ kx - B0y\ \
+ky\)\/rho0}, {0, 0, \(-B0y\)\ ky - B0z\ kz, B0x\ ky, B0x\ kz, 0, 0, 0}, {0, 
+        0, B0y\ kx, \(-B0x\)\ kx - B0z\ kz, B0y\ kz, 0, 0, 0}, {0, 0, 
+        B0z\ kx, B0z\ ky, \(-B0x\)\ kx - B0y\ ky, 0, 0, 0}}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(MatrixForm[golden]\)], "Input"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {"0", "0", \(en0\ gam\ kx\), \(en0\ gam\ ky\), \(en0\ gam\ kz\), 
+              "0", "0", "0"},
+            {"0", "0", \(kx\ rho0\), \(ky\ rho0\), \(kz\ rho0\), "0", "0", 
+              "0"},
+            {"0", \(\(cs\^2\ kx\)\/rho0\), "0", "0", 
+              "0", \(\(\(-B0y\)\ ky - 
+                    B0z\ kz\)\/rho0\), \(\(B0y\ kx\)\/rho0\), \(\(B0z\ \
+kx\)\/rho0\)},
+            {"0", \(\(cs\^2\ ky\)\/rho0\), "0", "0", 
+              "0", \(\(B0x\ ky\)\/rho0\), \(\(\(-B0x\)\ kx - 
+                    B0z\ kz\)\/rho0\), \(\(B0z\ ky\)\/rho0\)},
+            {"0", \(\(cs\^2\ kz\)\/rho0\), "0", "0", 
+              "0", \(\(B0x\ kz\)\/rho0\), \(\(B0y\ kz\)\/rho0\), \(\(\(-B0x\)\
+\ kx - B0y\ ky\)\/rho0\)},
+            {"0", "0", \(\(-B0y\)\ ky - B0z\ kz\), \(B0x\ ky\), \(B0x\ kz\), 
+              "0", "0", "0"},
+            {"0", "0", \(B0y\ kx\), \(\(-B0x\)\ kx - B0z\ kz\), \(B0y\ kz\), 
+              "0", "0", "0"},
+            {"0", "0", \(B0z\ kx\), \(B0z\ ky\), \(\(-B0x\)\ kx - B0y\ ky\), 
+              "0", "0", "0"}
+            }], "\[NoBreak]", ")"}],
+      (MatrixForm[ #]&)]], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    \( (*\ The\ Dispersion\ relation\ *) \)], "Input"],
+
+Cell[BoxData[""], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(subsit = {va0x^2 \[Rule] va0^2 - va0y^2 - va0z^2, 
+        kx^2 \[Rule] k2 - ky^2 - kz^2, 
+        kx*va0x \[Rule] kdotva0 - ky*va0y - kz*va0z, 
+        B0x \[Rule] va0x*Sqrt[rho0], B0y \[Rule] va0y*Sqrt[rho0], 
+        B0z \[Rule] va0z*Sqrt[rho0]}\)], "Input"],
+
+Cell[BoxData[
+    \(General::"spell1" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(va0x\)\" is similar to \
+existing symbol \"\!\(v0x\)\"."\)], "Message"],
+
+Cell[BoxData[
+    \(General::"spell" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(va0y\)\" is similar to \
+existing symbols \!\({v0y, va0, va0x}\)."\)], "Message"],
+
+Cell[BoxData[
+    \(General::"spell" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(va0z\)\" is similar to \
+existing symbols \!\({v0z, va0, va0x, va0y}\)."\)], "Message"],
+
+Cell[BoxData[
+    \({va0x\^2 \[Rule] va0\^2 - va0y\^2 - va0z\^2, 
+      kx\^2 \[Rule] k2 - ky\^2 - kz\^2, 
+      kx\ va0x \[Rule] kdotva0 - ky\ va0y - kz\ va0z, 
+      B0x \[Rule] \@rho0\ va0x, B0y \[Rule] \@rho0\ va0y, 
+      B0z \[Rule] \@rho0\ va0z}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(\(disp = Det[mat];\)\), "\[IndentingNewLine]", 
+    \(\(disp = FullSimplify[disp];\)\), "\[IndentingNewLine]", 
+    \(\(disp = disp //. subsit;\)\), "\[IndentingNewLine]", 
+    \(disp = FullSimplify[disp]\)}], "Input"],
+
+Cell[BoxData[
+    \(omega\^2\ \((\(-kdotva0\^2\) + omega\^2)\)\ \((omega\^4 + 
+          cs\^2\ k2\ \((kdotva0 - omega)\)\ \((kdotva0 + omega)\) - 
+          k2\ omega\^2\ va0\^2)\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(\(eigen = Eigenvalues[golden];\)\), "\[IndentingNewLine]", 
+    \(\(eigen = FullSimplify[eigen];\)\), "\[IndentingNewLine]", 
+    \(\(eigen = eigen //. subsit;\)\), "\[IndentingNewLine]", 
+    \(eigen = 
+      FullSimplify[eigen, {rho0 > 0, Im[kdotva0] \[Equal] 0}]\)}], "Input"],
+
+Cell[BoxData[
+    \({0, 0, 
+      Abs[kdotva0], \(-Abs[
+          kdotva0]\), \(-\(\@\(k2\ \((cs\^2 + va0\^2)\) - \@\(k2\ \((cs\^4\ \
+k2 + k2\ va0\^4 + cs\^2\ \((\(-4\)\ kdotva0\^2 + 2\ k2\ va0\^2)\))\)\)\)\/\@2\
+\)\), \@\(k2\ \((cs\^2 + va0\^2)\) - \@\(k2\ \((cs\^4\ k2 + k2\ va0\^4 + \
+cs\^2\ \((\(-4\)\ kdotva0\^2 + 2\ k2\ va0\^2)\))\)\)\)\/\@2, \(-\(\@\(k2\ \
+\((cs\^2 + va0\^2)\) + \@\(k2\ \((cs\^4\ k2 + k2\ va0\^4 + cs\^2\ \((\(-4\)\ \
+kdotva0\^2 + 2\ k2\ va0\^2)\))\)\)\)\/\@2\)\), \@\(k2\ \((cs\^2 + va0\^2)\) + \
+\@\(k2\ \((cs\^4\ k2 + k2\ va0\^4 + cs\^2\ \((\(-4\)\ kdotva0\^2 + 2\ k2\ va0\
+\^2)\))\)\)\)\/\@2}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(FullSimplify[
+      eigen //. {va0 \[Rule] 0, kdotva0 \[Rule] 0}, {cs > 0, 
+        k2 > 0}]\)], "Input"],
+
+Cell[BoxData[
+    \(Power::"infy" \(\(:\)\(\ \)\) 
+      "Infinite expression \!\(1\/0\) encountered."\)], "Message"],
+
+Cell[BoxData[
+    \({0, 0, 0, 0, 0, 0, \(-cs\)\ \@k2, cs\ \@k2}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(eigenvalue1 = eigen[\([1]\)]\), "\[IndentingNewLine]", 
+    \(eigenvalue2 = eigen[\([2]\)]\), "\[IndentingNewLine]", 
+    \(eigenvalue3 = eigen[\([3]\)]\), "\[IndentingNewLine]", 
+    \(eigenvalue4 = eigen[\([4]\)]\), "\[IndentingNewLine]", 
+    \(eigenvalue5 = eigen[\([5]\)]\), "\[IndentingNewLine]", 
+    \(eigenvalue6 = eigen[\([6]\)]\ \), "\[IndentingNewLine]", 
+    \(eigenvalue7 = eigen[\([7]\)]\), "\[IndentingNewLine]", 
+    \(eigenvalue8 = eigen[\([8]\)]\)}], "Input"],
+
+Cell[BoxData[
+    \(0\)], "Output"],
+
+Cell[BoxData[
+    \(0\)], "Output"],
+
+Cell[BoxData[
+    \(Abs[kdotva0]\)], "Output"],
+
+Cell[BoxData[
+    \(\(-Abs[kdotva0]\)\)], "Output"],
+
+Cell[BoxData[
+    \(\(-\(\@\(k2\ \((cs\^2 + va0\^2)\) - \@\(k2\ \((cs\^4\ k2 + k2\ va0\^4 + \
+cs\^2\ \((\(-4\)\ kdotva0\^2 + 2\ k2\ va0\^2)\))\)\)\)\/\@2\)\)\)], "Output"],
+
+Cell[BoxData[
+    \(\@\(k2\ \((cs\^2 + va0\^2)\) - \@\(k2\ \((cs\^4\ k2 + k2\ va0\^4 + \
+cs\^2\ \((\(-4\)\ kdotva0\^2 + 2\ k2\ va0\^2)\))\)\)\)\/\@2\)], "Output"],
+
+Cell[BoxData[
+    \(\(-\(\@\(k2\ \((cs\^2 + va0\^2)\) + \@\(k2\ \((cs\^4\ k2 + k2\ va0\^4 + \
+cs\^2\ \((\(-4\)\ kdotva0\^2 + 2\ k2\ va0\^2)\))\)\)\)\/\@2\)\)\)], "Output"],
+
+Cell[BoxData[
+    \(\@\(k2\ \((cs\^2 + va0\^2)\) + \@\(k2\ \((cs\^4\ k2 + k2\ va0\^4 + \
+cs\^2\ \((\(-4\)\ kdotva0\^2 + 2\ k2\ va0\^2)\))\)\)\)\/\@2\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(vec = {den0, drho0, dvx0, dvy0, dvz0, dBx0, dBy0, dBz0}\)], "Input"],
+
+Cell[BoxData[
+    \({den0, drho0, dvx0, dvy0, dvz0, dBx0, dBy0, dBz0}\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    \( (*\ test\ for\ specific\ wave\ *) \)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(mx = 4\), "\[IndentingNewLine]", 
+    \(my = 0\), "\[IndentingNewLine]", 
+    \(mz = 0\), "\[IndentingNewLine]", 
+    \(mbx = 18\), "\[IndentingNewLine]", 
+    \(mby = 70\), "\[IndentingNewLine]", 
+    \(mbz = 70\), "\[IndentingNewLine]", 
+    \(BTOT0 = 1\), "\[IndentingNewLine]", 
+    \(Lx = 1\), "\[IndentingNewLine]", 
+    \(Ly = 1\), "\[IndentingNewLine]", 
+    \(Lz = 1\), "\[IndentingNewLine]", 
+    \(N1 =  .01\), "\[IndentingNewLine]", 
+    \(N2 =  .01\), "\[IndentingNewLine]", 
+    \(RHO0 = 1\), "\[IndentingNewLine]", 
+    \(EN0 = 1\), "\[IndentingNewLine]", 
+    \(VA = BTOT0/Sqrt[RHO0]\), "\[IndentingNewLine]", 
+    \(dva0 = N1*VA\), "\[IndentingNewLine]", 
+    \(CS = N1/N2*BTOT0/Sqrt[RHO0]\), "\[IndentingNewLine]", 
+    \(drho0 = N1*CS\ \  (*\ used\ for\ non\ magnetic\ waves, \ 
+      non\ entropy\ mode\ *) \), "\[IndentingNewLine]", 
+    \(den0 = N1*CS\ \  (*\ 
+      used\ for\ entropy\ \ mode\ *) \), "\[IndentingNewLine]", 
+    \(GAM = 5/3\), "\[IndentingNewLine]", 
+    \(va0 = {B0x/Sqrt[rho0], B0y/Sqrt[rho0], 
+        B0z/Sqrt[rho0]}\), "\[IndentingNewLine]", 
+    \(magsonic1 = {kx \[Rule] 2*Pi*mx/Lx, ky \[Rule] 2*Pi*my/Ly, 
+        kz \[Rule] 2*Pi*mz/Lz, rho0 \[Rule] RHO0, en0 \[Rule] EN0, 
+        cs \[Rule] CS, B0x -> mbx*BTOT0/Sqrt[mbx^2 + mby^2 + mbz^2], 
+        B0y -> mby*BTOT0/Sqrt[mbx^2 + mby^2 + mbz^2], 
+        B0z -> mbz*BTOT0/Sqrt[mbx^2 + mby^2 + mbz^2], 
+        kdotva0 \[Rule] k . va0, k2 \[Rule] k . k, 
+        gam \[Rule] GAM}\)}], "Input"],
+
+Cell[BoxData[
+    \(4\)], "Output"],
+
+Cell[BoxData[
+    \(0\)], "Output"],
+
+Cell[BoxData[
+    \(0\)], "Output"],
+
+Cell[BoxData[
+    \(18\)], "Output"],
+
+Cell[BoxData[
+    \(70\)], "Output"],
+
+Cell[BoxData[
+    \(70\)], "Output"],
+
+Cell[BoxData[
+    \(1\)], "Output"],
+
+Cell[BoxData[
+    \(1\)], "Output"],
+
+Cell[BoxData[
+    \(1\)], "Output"],
+
+Cell[BoxData[
+    \(1\)], "Output"],
+
+Cell[BoxData[
+    \(0.01`\)], "Output"],
+
+Cell[BoxData[
+    \(0.01`\)], "Output"],
+
+Cell[BoxData[
+    \(1\)], "Output"],
+
+Cell[BoxData[
+    \(General::"spell1" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(EN0\)\" is similar to \
+existing symbol \"\!\(en0\)\"."\)], "Message"],
+
+Cell[BoxData[
+    \(1\)], "Output"],
+
+Cell[BoxData[
+    \(1\)], "Output"],
+
+Cell[BoxData[
+    \(General::"spell" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(dva0\)\" is similar to \
+existing symbols \!\({dvx0, dvy0, dvz0, va0}\)."\)], "Message"],
+
+Cell[BoxData[
+    \(0.01`\)], "Output"],
+
+Cell[BoxData[
+    \(1.`\)], "Output"],
+
+Cell[BoxData[
+    \(0.01`\)], "Output"],
+
+Cell[BoxData[
+    \(0.01`\)], "Output"],
+
+Cell[BoxData[
+    \(General::"spell1" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(GAM\)\" is similar to \
+existing symbol \"\!\(gam\)\"."\)], "Message"],
+
+Cell[BoxData[
+    \(5\/3\)], "Output"],
+
+Cell[BoxData[
+    \({B0x\/\@rho0, B0y\/\@rho0, B0z\/\@rho0}\)], "Output"],
+
+Cell[BoxData[
+    \({kx \[Rule] 8\ \[Pi], ky \[Rule] 0, kz \[Rule] 0, rho0 \[Rule] 1, 
+      en0 \[Rule] 1, cs \[Rule] 1.`, B0x \[Rule] 9\/\@2531, 
+      B0y \[Rule] 35\/\@2531, B0z \[Rule] 35\/\@2531, 
+      kdotva0 \[Rule] \(B0x\ kx\)\/\@rho0 + \(B0y\ ky\)\/\@rho0 + \(B0z\ kz\)\
+\/\@rho0, k2 \[Rule] kx\^2 + ky\^2 + kz\^2, gam \[Rule] 5\/3}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(testdot = 
+      N[\((B0 . k)\)/\((Sqrt[B0 . B0]*Sqrt[k . k])\) //. 
+          magsonic1]\)], "Input"],
+
+Cell[BoxData[
+    \(0.1788942727031962`\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(whichconst = magsonic1\), "\[IndentingNewLine]", 
+    \(magsonic1 //. magsonic1\)}], "Input"],
+
+Cell[BoxData[
+    \({kx \[Rule] 8\ \[Pi], ky \[Rule] 0, kz \[Rule] 0, rho0 \[Rule] 1, 
+      en0 \[Rule] 1, cs \[Rule] 1.`, B0x \[Rule] 9\/\@2531, 
+      B0y \[Rule] 35\/\@2531, B0z \[Rule] 35\/\@2531, 
+      kdotva0 \[Rule] \(B0x\ kx\)\/\@rho0 + \(B0y\ ky\)\/\@rho0 + \(B0z\ kz\)\
+\/\@rho0, k2 \[Rule] kx\^2 + ky\^2 + kz\^2, gam \[Rule] 5\/3}\)], "Output"],
+
+Cell[BoxData[
+    \({8\ \[Pi] \[Rule] 8\ \[Pi], 0 \[Rule] 0, 0 \[Rule] 0, 1 \[Rule] 1, 
+      1 \[Rule] 1, 1.` \[Rule] 1.`, 9\/\@2531 \[Rule] 9\/\@2531, 
+      35\/\@2531 \[Rule] 35\/\@2531, 
+      35\/\@2531 \[Rule] 
+        35\/\@2531, \(72\ \[Pi]\)\/\@2531 \[Rule] \(72\ \[Pi]\)\/\@2531, 
+      64\ \[Pi]\^2 \[Rule] 64\ \[Pi]\^2, 5\/3 \[Rule] 5\/3}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(et1 = eigenvalue1 //. whichconst\), "\[IndentingNewLine]", 
+    \(et2 = eigenvalue2 //. whichconst\), "\[IndentingNewLine]", 
+    \(et3 = eigenvalue3 //. whichconst\), "\[IndentingNewLine]", 
+    \(et4 = eigenvalue4 //. whichconst\), "\[IndentingNewLine]", 
+    \(et5 = eigenvalue5 //. whichconst\), "\[IndentingNewLine]", 
+    \(et6 = eigenvalue6 //. whichconst\), "\[IndentingNewLine]", 
+    \(et7 = eigenvalue7 //. whichconst\), "\[IndentingNewLine]", 
+    \(et8 = eigenvalue8 //. whichconst\)}], "Input"],
+
+Cell[BoxData[
+    \(0\)], "Output"],
+
+Cell[BoxData[
+    \(0\)], "Output"],
+
+Cell[BoxData[
+    \(\(72\ \[Pi]\)\/\@2531\)], "Output"],
+
+Cell[BoxData[
+    \(\(-\(\(72\ \[Pi]\)\/\@2531\)\)\)], "Output"],
+
+Cell[BoxData[
+    \({\(-4.496103463149208`\), \(-3.7183157040030688`\), \
+\(-3.7183157040030688`\)}\)], "Output"],
+
+Cell[BoxData[
+    \({4.496103463149208`, 3.7183157040030688`, 
+      3.7183157040030688`}\)], "Output"],
+
+Cell[BoxData[
+    \({\(-25.13274122871835`\), \(-30.389943692844707`\), \
+\(-30.389943692844707`\)}\)], "Output"],
+
+Cell[BoxData[
+    \({25.13274122871835`, 30.389943692844707`, 
+      30.389943692844707`}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(period1 = 2. *Pi/et1\), "\[IndentingNewLine]", 
+    \(period2 = 2. *Pi/et2\), "\[IndentingNewLine]", 
+    \(period3 = 2. *Pi/et3\), "\[IndentingNewLine]", 
+    \(period4 = 2. *Pi/et4\), "\[IndentingNewLine]", 
+    \(period5 = 2. *Pi/et5\), "\[IndentingNewLine]", 
+    \(period6 = 2. *Pi/et6\), "\[IndentingNewLine]", 
+    \(period7 = 2. *Pi/et7\), "\[IndentingNewLine]", 
+    \(period8 = 2. *Pi/et8\)}], "Input"],
+
+Cell[BoxData[
+    \(Power::"infy" \(\(:\)\(\ \)\) 
+      "Infinite expression \!\(1\/0\) encountered."\)], "Message"],
+
+Cell[BoxData[
+    InterpretationBox["ComplexInfinity",
+      DirectedInfinity[ ]]], "Output"],
+
+Cell[BoxData[
+    \(Power::"infy" \(\(:\)\(\ \)\) 
+      "Infinite expression \!\(1\/0\) encountered."\)], "Message"],
+
+Cell[BoxData[
+    InterpretationBox["ComplexInfinity",
+      DirectedInfinity[ ]]], "Output"],
+
+Cell[BoxData[
+    \(1.397473469789474`\)], "Output"],
+
+Cell[BoxData[
+    \(\(-1.397473469789474`\)\)], "Output"],
+
+Cell[BoxData[
+    \({\(-1.3974734697894724`\), \(-1.6897933923187927`\), \
+\(-1.6897933923187927`\)}\)], "Output"],
+
+Cell[BoxData[
+    \({1.3974734697894724`, 1.6897933923187927`, 
+      1.6897933923187927`}\)], "Output"],
+
+Cell[BoxData[
+    \({\(-0.24999999999999997`\), \(-0.20675212072403273`\), \
+\(-0.20675212072403273`\)}\)], "Output"],
+
+Cell[BoxData[
+    \({0.24999999999999997`, 0.20675212072403273`, 
+      0.20675212072403273`}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(trialgolden = golden //. whichconst\)], "Input"],
+
+Cell[BoxData[
+    \({{0, 0, \(40\ \[Pi]\)\/3, 0, 0, 0, 0, 0}, {0, 0, 8\ \[Pi], 0, 0, 0, 0, 
+        0}, {0, 25.132741228718345`, 0, 0, 0, 
+        0, \(280\ \[Pi]\)\/\@2531, \(280\ \[Pi]\)\/\@2531}, {0, 0, 0, 0, 0, 
+        0, \(-\(\(72\ \[Pi]\)\/\@2531\)\), 0}, {0, 0, 0, 0, 0, 0, 
+        0, \(-\(\(72\ \[Pi]\)\/\@2531\)\)}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 
+        0, \(280\ \[Pi]\)\/\@2531, \(-\(\(72\ \[Pi]\)\/\@2531\)\), 0, 0, 0, 
+        0}, {0, 0, \(280\ \[Pi]\)\/\@2531, 0, \(-\(\(72\ \[Pi]\)\/\@2531\)\), 
+        0, 0, 0}}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(es = Eigensystem[trialgolden]\)], "Input"],
+
+Cell[BoxData[
+    \({{\(-35.399430813253936`\), 35.39943081325393`, 
+        4.496103463149202`, \(-4.496103463149202`\), 
+        3.192124909380327`, \(-3.1921249093803263`\), 0.`, 
+        0.`}, {{\(-0.6401843996644797`\), \(-0.38411063979868804`\), 
+          0.5410192980720772`, \(-0.03449700223723577`\), \
+\(-0.03449700223723576`\), 
+          0.`, \(-0.2716072381275557`\), \(-0.2716072381275557`\)}, \
+{0.6401843996644797`, 0.384110639798688`, 
+          0.5410192980720772`, \(-0.03449700223723575`\), \
+\(-0.03449700223723575`\), 0.`, 0.27160723812755555`, 
+          0.27160723812755555`}, {\(-2.0213911643912317`*^-16\), \
+\(-1.212834698634739`*^-16\), \(-2.1696918132146177`*^-17\), \
+\(-0.5000000000000001`\), 0.49999999999999983`, 0.`, 
+          0.5`, \(-0.5`\)}, {1.0818548028294813`*^-16, 
+          6.491128816976887`*^-17, \(-1.1612257687358387`*^-17\), 
+          0.49999999999999994`, \(-0.5`\), 0.`, 
+          0.5`, \(-0.5`\)}, {\(-0.64018439966448`\), \
+\(-0.3841106397986881`\), \(-0.04878612842511382`\), \
+\(-0.3825584144195517`\), \(-0.3825584144195517`\), 0.`, 
+          0.27160723812755555`, 0.2716072381275555`}, {0.6401843996644799`, 
+          0.38411063979868787`, \(-0.04878612842511381`\), \
+\(-0.3825584144195517`\), \(-0.3825584144195517`\), 
+          0.`, \(-0.27160723812755555`\), \(-0.2716072381275556`\)}, {1.`, 
+          0.`, 0.`, 0.`, 0.`, 0.`, 0.`, 0.`}, {0.`, 0.`, 0.`, 0.`, 0.`, 1.`, 
+          0.`, 0.`}}}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(eval = es[\([1]\)]\), "\[IndentingNewLine]", 
+    \(ev = es[\([2]\)]\)}], "Input"],
+
+Cell[BoxData[
+    \({\(-35.399430813253936`\), 35.39943081325393`, 
+      4.496103463149202`, \(-4.496103463149202`\), 
+      3.192124909380327`, \(-3.1921249093803263`\), 0.`, 0.`}\)], "Output"],
+
+Cell[BoxData[
+    \({{\(-0.6401843996644797`\), \(-0.38411063979868804`\), 
+        0.5410192980720772`, \(-0.03449700223723577`\), \
+\(-0.03449700223723576`\), 
+        0.`, \(-0.2716072381275557`\), \(-0.2716072381275557`\)}, \
+{0.6401843996644797`, 0.384110639798688`, 
+        0.5410192980720772`, \(-0.03449700223723575`\), \
+\(-0.03449700223723575`\), 0.`, 0.27160723812755555`, 
+        0.27160723812755555`}, {\(-2.0213911643912317`*^-16\), \
+\(-1.212834698634739`*^-16\), \(-2.1696918132146177`*^-17\), \
+\(-0.5000000000000001`\), 0.49999999999999983`, 0.`, 
+        0.5`, \(-0.5`\)}, {1.0818548028294813`*^-16, 
+        6.491128816976887`*^-17, \(-1.1612257687358387`*^-17\), 
+        0.49999999999999994`, \(-0.5`\), 0.`, 
+        0.5`, \(-0.5`\)}, {\(-0.64018439966448`\), \(-0.3841106397986881`\), \
+\(-0.04878612842511382`\), \(-0.3825584144195517`\), \
+\(-0.3825584144195517`\), 0.`, 0.27160723812755555`, 
+        0.2716072381275555`}, {0.6401843996644799`, 
+        0.38411063979868787`, \(-0.04878612842511381`\), \
+\(-0.3825584144195517`\), \(-0.3825584144195517`\), 
+        0.`, \(-0.27160723812755555`\), \(-0.2716072381275556`\)}, {1.`, 0.`, 
+        0.`, 0.`, 0.`, 0.`, 0.`, 0.`}, {0.`, 0.`, 0.`, 0.`, 0.`, 1.`, 0.`, 
+        0.`}}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(MatrixForm[ev]\)], "Input"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {\(-0.6401843996644797`\), \(-0.38411063979868804`\), 
+              "0.5410192980720772`", \(-0.03449700223723577`\), \
+\(-0.03449700223723576`\), 
+              "0.`", \(-0.2716072381275557`\), \(-0.2716072381275557`\)},
+            {"0.6401843996644797`", "0.384110639798688`", 
+              "0.5410192980720772`", \(-0.03449700223723575`\), \
+\(-0.03449700223723575`\), "0.`", "0.27160723812755555`", 
+              "0.27160723812755555`"},
+            {\(-2.0213911643912317`*^-16\), \(-1.212834698634739`*^-16\), \
+\(-2.1696918132146177`*^-17\), \(-0.5000000000000001`\), 
+              "0.49999999999999983`", "0.`", "0.5`", \(-0.5`\)},
+            {"1.0818548028294813`*^-16", 
+              "6.491128816976887`*^-17", \(-1.1612257687358387`*^-17\), 
+              "0.49999999999999994`", \(-0.5`\), "0.`", "0.5`", \(-0.5`\)},
+            {\(-0.64018439966448`\), \(-0.3841106397986881`\), \
+\(-0.04878612842511382`\), \(-0.3825584144195517`\), \(-0.3825584144195517`\),
+               "0.`", "0.27160723812755555`", "0.2716072381275555`"},
+            {"0.6401843996644799`", 
+              "0.38411063979868787`", \(-0.04878612842511381`\), \
+\(-0.3825584144195517`\), \(-0.3825584144195517`\), 
+              "0.`", \(-0.27160723812755555`\), \(-0.2716072381275556`\)},
+            {"1.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`", "0.`"},
+            {"0.`", "0.`", "0.`", "0.`", "0.`", "1.`", "0.`", "0.`"}
+            }], "\[NoBreak]", ")"}],
+      (MatrixForm[ #]&)]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(ev[\([1]\)]\)], "Input"],
+
+Cell[BoxData[
+    \({\(-0.6401843996644797`\), \(-0.38411063979868804`\), 
+      0.5410192980720772`, \(-0.03449700223723577`\), \(-0.03449700223723576`\
+\), 0.`, \(-0.2716072381275557`\), \(-0.2716072381275557`\)}\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[""], "Input"],
+
+Cell[BoxData[
+    \( (*\ so\ othonormal\ *) \)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(ev5 . ev3\)], "Input"],
+
+Cell[BoxData[
+    \(ev5 . ev3\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    \( (*\ so\ orthoganal\ *) \)], "Input"],
+
+Cell[BoxData[
+    \(\(\(\ \)\( (*\ 
+      now\ normalize\ by\ our\ desired\ factor\ of\ dva\ \((assumes\ not\ \
+sound\ wave)\)\ *) \)\)\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(MatrixForm[IdentityMatrix[8]]\)], "Input"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {"1", "0", "0", "0", "0", "0", "0", "0"},
+            {"0", "1", "0", "0", "0", "0", "0", "0"},
+            {"0", "0", "1", "0", "0", "0", "0", "0"},
+            {"0", "0", "0", "1", "0", "0", "0", "0"},
+            {"0", "0", "0", "0", "1", "0", "0", "0"},
+            {"0", "0", "0", "0", "0", "1", "0", "0"},
+            {"0", "0", "0", "0", "0", "0", "1", "0"},
+            {"0", "0", "0", "0", "0", "0", "0", "1"}
+            }], "\[NoBreak]", ")"}],
+      (MatrixForm[ #]&)]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    RowBox[{"dbpull", "=", 
+      TagBox[
+        RowBox[{"(", "\[NoBreak]", GridBox[{
+              {"0", "0", "0", "0", "0", "0", "0", "0"},
+              {"0", "0", "0", "0", "0", "0", "0", "0"},
+              {"0", "0", "0", "0", "0", "0", "0", "0"},
+              {"0", "0", "0", "0", "0", "0", "0", "0"},
+              {"0", "0", "0", "0", "0", "0", "0", "0"},
+              {"0", "0", "0", "0", "0", "1", "0", "0"},
+              {"0", "0", "0", "0", "0", "0", "1", "0"},
+              {"0", "0", "0", "0", "0", "0", "0", "1"}
+              }], "\[NoBreak]", ")"}],
+        (MatrixForm[ #]&)]}]], "Input"],
+
+Cell[BoxData[
+    \({{0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 
+        0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 
+        0, 0, 1, 0, 0}, {0, 0, 0, 0, 0, 0, 1, 0}, {0, 0, 0, 0, 0, 0, 0, 
+        1}}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    RowBox[{"denpull", "=", 
+      TagBox[
+        RowBox[{"(", "\[NoBreak]", GridBox[{
+              {"1", "0", "0", "0", "0", "0", "0", "0"},
+              {"0", "0", "0", "0", "0", "0", "0", "0"},
+              {"0", "0", "0", "0", "0", "0", "0", "0"},
+              {"0", "0", "0", "0", "0", "0", "0", "0"},
+              {"0", "0", "0", "0", "0", "0", "0", "0"},
+              {"0", "0", "0", "0", "0", "0", "0", "0"},
+              {"0", "0", "0", "0", "0", "0", "0", "0"},
+              {"0", "0", "0", "0", "0", "0", "0", "0"}
+              }], "\[NoBreak]", ")"}],
+        (MatrixForm[ #]&)]}], "\[IndentingNewLine]", 
+    RowBox[{"drhopull", "=", 
+      TagBox[
+        RowBox[{"(", "\[NoBreak]", GridBox[{
+              {"0", "0", "0", "0", "0", "0", "0", "0"},
+              {"0", "1", "0", "0", "0", "0", "0", "0"},
+              {"0", "0", "0", "0", "0", "0", "0", "0"},
+              {"0", "0", "0", "0", "0", "0", "0", "0"},
+              {"0", "0", "0", "0", "0", "0", "0", "0"},
+              {"0", "0", "0", "0", "0", "0", "0", "0"},
+              {"0", "0", "0", "0", "0", "0", "0", "0"},
+              {"0", "0", "0", "0", "0", "0", "0", "0"}
+              }], "\[NoBreak]", ")"}],
+        (MatrixForm[ #]&)]}]}], "Input"],
+
+Cell[BoxData[
+    \({{1, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 
+        0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 
+        0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 
+        0}}\)], "Output"],
+
+Cell[BoxData[
+    \({{0, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 
+        0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 
+        0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 
+        0}}\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[""], "Input"],
+
+Cell[BoxData[
+    \(WHICHWAVE[evn_, evalthis_] := 
+      If[Abs[evalthis] < 10^\((\(-10\))\), 
+        If[Abs[\(({0, 0, 0, 0, 0, kx, ky, kz} . evn)\) //. whichconst] < 
+            10^\((\(-10\))\), "\<EntropyMode\>", "\<MonopoleMode\>"], 
+        If[Abs[{0, 1, 0, 0, 0, 0, 0, 0} . evn\ ] < 10^\((\(-10\))\), 
+          If[evalthis < 0, "\<LeftAlfvenMode\>", "\<RightAlfvenMode\>"], 
+          If[Max[eval] \[Equal] evalthis, "\<RightFastMode\>", 
+            If[Min[eval] \[Equal] evalthis, "\<LeftFastMode\>", 
+              If[evalthis < 
+                  0, "\<LeftSlowMode\>", "\<RightSlowMode\>"]]]]]\)], "Input"],
+
+Cell[BoxData[""], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(TNL = \((1/\((Sqrt[\((k . k)\)]*dva0)\))\) //. whichconst\)], "Input"],
+
+Cell[BoxData[
+    \(3.978873577297384`\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(For[i = 1, 
+      i \[LessEqual] 8, \[IndentingNewLine]evalthis = 
+        eval[\([i]\)]; \[IndentingNewLine]Period = 
+        2. *Pi/evalthis; \[IndentingNewLine]evo = 
+        ev[\([i]\)]; \[IndentingNewLine]wavetype = 
+        WHICHWAVE[evo, 
+          evalthis]; \[IndentingNewLine] (*\(evn = 
+            If[wavetype \[Equal] "\<EntropyMode\>", 
+              evo*den0/\((\((evo . denpull)\) . \((evo . denpull)\))\), 
+              evo*dva0/\((\((evo . dbpull)\) . \((evo . 
+                          dbpull)\))\)];\)*) \[IndentingNewLine]evn = 
+        evo*drho0/\((\((evo . drhopull)\) . \((evo . 
+                    drhopull)\))\); \[IndentingNewLine]Print[
+        wavetype]; \[IndentingNewLine]Print[Period]; \[IndentingNewLine]Print[
+        evn]; \[IndentingNewLine]Print["\<----\>"]; \
+\[IndentingNewLine]\(i++\)\[IndentingNewLine]]\)], "Input"],
+
+Cell[BoxData[
+    \("LeftFastMode"\)], "Print"],
+
+Cell[BoxData[
+    \(\(-0.17749396424834868`\)\)], "Print"],
+
+Cell[BoxData[
+    \({\(-0.043390275977259155`\), \(-0.026034165586355507`\), 
+      0.03666908575821854`, \(-0.0023381301516348678`\), \
+\(-0.002338130151634867`\), 
+      0.`, \(-0.018408935028645435`\), \(-0.018408935028645435`\)}\)], "Print"],
+
+Cell[BoxData[
+    \("----"\)], "Print"],
+
+Cell[BoxData[
+    \("RightFastMode"\)], "Print"],
+
+Cell[BoxData[
+    \(0.1774939642483487`\)], "Print"],
+
+Cell[BoxData[
+    \({0.04339027597725917`, 0.02603416558635551`, 
+      0.036669085758218554`, \(-0.002338130151634867`\), \
+\(-0.002338130151634867`\), 0.`, 0.018408935028645428`, 
+      0.018408935028645428`}\)], "Print"],
+
+Cell[BoxData[
+    \("----"\)], "Print"],
+
+Cell[BoxData[
+    \("RightAlfvenMode"\)], "Print"],
+
+Cell[BoxData[
+    \(1.397473469789474`\)], "Print"],
+
+Cell[BoxData[
+    \({\(-1.3741911148673405`*^14\), \(-8.245146689204042`*^13\), \
+\(-1.4750095202963232`*^13\), \(-3.3991221963246195`*^29\), 
+      3.3991221963246174`*^29, 0.`, 
+      3.399122196324619`*^29, \(-3.399122196324619`*^29\)}\)], "Print"],
+
+Cell[BoxData[
+    \("----"\)], "Print"],
+
+Cell[BoxData[
+    \("LeftAlfvenMode"\)], "Print"],
+
+Cell[BoxData[
+    \(\(-1.397473469789474`\)\)], "Print"],
+
+Cell[BoxData[
+    \({2.5676068271941694`*^14, 
+      1.5405640963165016`*^14, \(-2.7559809356319727`*^13\), 
+      1.1866688674297394`*^30, \(-1.1866688674297396`*^30\), 0.`, 
+      1.1866688674297396`*^30, \(-1.1866688674297396`*^30\)}\)], "Print"],
+
+Cell[BoxData[
+    \("----"\)], "Print"],
+
+Cell[BoxData[
+    \("RightSlowMode"\)], "Print"],
+
+Cell[BoxData[
+    \(1.968339424536903`\)], "Print"],
+
+Cell[BoxData[
+    \({\(-0.04339027597725916`\), \(-0.0260341655863555`\), \
+\(-0.003306615371035489`\), \(-0.025928959199547366`\), \
+\(-0.025928959199547366`\), 0.`, 0.018408935028645414`, 
+      0.01840893502864541`}\)], "Print"],
+
+Cell[BoxData[
+    \("----"\)], "Print"],
+
+Cell[BoxData[
+    \("LeftSlowMode"\)], "Print"],
+
+Cell[BoxData[
+    \(\(-1.9683394245369032`\)\)], "Print"],
+
+Cell[BoxData[
+    \({0.04339027597725921`, 
+      0.026034165586355518`, \(-0.0033066153710354924`\), \
+\(-0.0259289591995474`\), \(-0.0259289591995474`\), 
+      0.`, \(-0.018408935028645438`\), \(-0.01840893502864544`\)}\)], "Print"],
+
+Cell[BoxData[
+    \("----"\)], "Print"],
+
+Cell[BoxData[
+    \(Power::"infy" \(\(:\)\(\ \)\) 
+      "Infinite expression \!\(1\/0.`\) encountered."\)], "Message"],
+
+Cell[BoxData[
+    \(Power::"infy" \(\(:\)\(\ \)\) 
+      "Infinite expression \!\(1\/0.`\) encountered."\)], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(\[Infinity]::"indet"\), \(\(:\)\(\ \)\), "\<\"Indeterminate \
+expression \\!\\(0.`\\\\ \\*InterpretationBox[\\\"ComplexInfinity\\\", \
+DirectedInfinity[]]\\) encountered.\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(\[Infinity]::"indet"\), \(\(:\)\(\ \)\), "\<\"Indeterminate \
+expression \\!\\(0.`\\\\ \\*InterpretationBox[\\\"ComplexInfinity\\\", \
+DirectedInfinity[]]\\) encountered.\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(\[Infinity]::"indet"\), \(\(:\)\(\ \)\), "\<\"Indeterminate \
+expression \\!\\(0.`\\\\ \\*InterpretationBox[\\\"ComplexInfinity\\\", \
+DirectedInfinity[]]\\) encountered.\"\>"}]], "Message"],
+
+Cell[BoxData[
+    \(General::"stop" \(\(:\)\(\ \)\) 
+      "Further output of \!\(\[Infinity] :: \"indet\"\) will be suppressed \
+during this calculation."\)], "Message"],
+
+Cell[BoxData[
+    \("EntropyMode"\)], "Print"],
+
+Cell[BoxData[
+    InterpretationBox["ComplexInfinity",
+      DirectedInfinity[ ]]], "Print"],
+
+Cell[BoxData[
+    RowBox[{"{", 
+      RowBox[{
+        InterpretationBox["ComplexInfinity",
+          DirectedInfinity[ ]], ",", "Indeterminate", ",", "Indeterminate", 
+        ",", "Indeterminate", ",", "Indeterminate", ",", "Indeterminate", ",",
+         "Indeterminate", ",", "Indeterminate"}], "}"}]], "Print"],
+
+Cell[BoxData[
+    \("----"\)], "Print"],
+
+Cell[BoxData[
+    \(Power::"infy" \(\(:\)\(\ \)\) 
+      "Infinite expression \!\(1\/0.`\) encountered."\)], "Message"],
+
+Cell[BoxData[
+    \(General::"stop" \(\(:\)\(\ \)\) 
+      "Further output of \!\(Power :: \"infy\"\) will be suppressed during \
+this calculation."\)], "Message"],
+
+Cell[BoxData[
+    \("MonopoleMode"\)], "Print"],
+
+Cell[BoxData[
+    InterpretationBox["ComplexInfinity",
+      DirectedInfinity[ ]]], "Print"],
+
+Cell[BoxData[
+    RowBox[{"{", 
+      RowBox[{
+      "Indeterminate", ",", "Indeterminate", ",", "Indeterminate", ",", 
+        "Indeterminate", ",", "Indeterminate", ",", 
+        InterpretationBox["ComplexInfinity",
+          DirectedInfinity[ ]], ",", "Indeterminate", ",", "Indeterminate"}], 
+      "}"}]], "Print"],
+
+Cell[BoxData[
+    \("----"\)], "Print"]
+}, Open  ]],
+
+Cell[BoxData[
+    \(\.03  \.1a  \.03  \.1a  \.18\)], "Input"]
+},
+FrontEndVersion->"4.0 for X",
+ScreenRectangle->{{0, 1600}, {0, 1200}},
+WindowSize->{1422, 1155},
+WindowMargins->{{0, Automatic}, {4, Automatic}}
+]
+
+
+(***********************************************************************
+Cached data follows.  If you edit this Notebook file directly, not using
+Mathematica, you must remove the line containing CacheID at the top of 
+the file.  The cache data will then be recreated when you save this file 
+from within Mathematica.
+***********************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1717, 49, 68, 1, 27, "Input"],
+Cell[1788, 52, 60, 1, 27, "Input"],
+Cell[1851, 55, 69, 1, 27, "Input"],
+
+Cell[CellGroupData[{
+Cell[1945, 60, 67, 1, 27, "Input"],
+Cell[2015, 63, 52, 1, 27, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[2104, 69, 206, 4, 75, "Input"],
+Cell[2313, 75, 46, 1, 27, "Output"],
+Cell[2362, 78, 43, 1, 27, "Output"],
+Cell[2408, 81, 49, 1, 27, "Output"],
+Cell[2460, 84, 49, 1, 27, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[2546, 90, 449, 8, 75, "Input"],
+Cell[2998, 100, 181, 3, 23, "Message"],
+Cell[3182, 105, 185, 3, 23, "Message"],
+Cell[3370, 110, 181, 3, 23, "Message"],
+Cell[3554, 115, 185, 3, 23, "Message"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[3776, 123, 56, 1, 27, "Input"],
+Cell[3835, 126, 378, 6, 32, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[4250, 137, 56, 1, 27, "Input"],
+Cell[4309, 140, 387, 7, 32, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[4733, 152, 62, 1, 27, "Input"],
+Cell[4798, 155, 182, 3, 23, "Message"],
+Cell[4983, 160, 144, 2, 30, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[5164, 167, 59, 1, 27, "Input"],
+Cell[5226, 170, 142, 2, 30, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[5405, 177, 224, 5, 27, "Input"],
+Cell[5632, 184, 3670, 48, 190, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[9339, 237, 131, 3, 27, "Input"],
+Cell[9473, 242, 670, 9, 122, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[10180, 256, 171, 4, 27, "Input"],
+Cell[10354, 262, 3570, 46, 151, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[13961, 313, 131, 3, 27, "Input"],
+Cell[14095, 318, 686, 10, 59, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[14818, 333, 148, 3, 27, "Input"],
+Cell[14969, 338, 954, 13, 51, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[15960, 356, 131, 3, 27, "Input"],
+Cell[16094, 361, 178, 3, 27, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[16309, 369, 166, 4, 27, "Input"],
+Cell[16478, 375, 954, 13, 51, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[17469, 393, 131, 3, 27, "Input"],
+Cell[17603, 398, 177, 3, 27, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[17817, 406, 647, 13, 139, "Input"],
+Cell[18467, 421, 182, 3, 27, "Output"],
+Cell[18652, 426, 158, 3, 27, "Output"],
+Cell[18813, 431, 269, 4, 46, "Output"],
+Cell[19085, 437, 274, 4, 46, "Output"],
+Cell[19362, 443, 274, 4, 46, "Output"],
+Cell[19639, 449, 197, 3, 27, "Output"],
+Cell[19839, 454, 197, 3, 27, "Output"],
+Cell[20039, 459, 197, 3, 27, "Output"]
+}, Open  ]],
+Cell[20251, 465, 102, 2, 27, "Input"],
+
+Cell[CellGroupData[{
+Cell[20378, 471, 205, 4, 27, "Input"],
+Cell[20586, 477, 1413, 22, 135, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[22036, 504, 120, 2, 27, "Input"],
+Cell[22159, 508, 788, 12, 110, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[22984, 525, 52, 1, 27, "Input"],
+Cell[23039, 528, 58, 1, 27, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[23134, 534, 48, 1, 27, "Input"],
+Cell[23185, 537, 1277, 26, 196, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[24499, 568, 123, 2, 43, "Input"],
+Cell[24625, 572, 269, 4, 27, "Output"],
+Cell[24897, 578, 573, 12, 166, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[25507, 595, 65, 1, 27, "Input"],
+Cell[25575, 598, 698, 10, 97, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[26310, 613, 51, 1, 27, "Input"],
+Cell[26364, 616, 1189, 24, 196, "Output"]
+}, Open  ]],
+Cell[27568, 643, 68, 1, 27, "Input"],
+Cell[27639, 646, 26, 0, 27, "Input"],
+
+Cell[CellGroupData[{
+Cell[27690, 650, 281, 5, 27, "Input"],
+Cell[27974, 657, 180, 3, 23, "Message"],
+Cell[28157, 662, 189, 3, 23, "Message"],
+Cell[28349, 667, 195, 3, 23, "Message"],
+Cell[28547, 672, 266, 5, 37, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[28850, 682, 239, 4, 75, "Input"],
+Cell[29092, 688, 195, 3, 29, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[29324, 696, 300, 5, 75, "Input"],
+Cell[29627, 703, 635, 10, 142, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[30299, 718, 125, 3, 27, "Input"],
+Cell[30427, 723, 117, 2, 36, "Message"],
+Cell[30547, 727, 77, 1, 37, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[30661, 733, 499, 8, 139, "Input"],
+Cell[31163, 743, 35, 1, 27, "Output"],
+Cell[31201, 746, 35, 1, 27, "Output"],
+Cell[31239, 749, 46, 1, 27, "Output"],
+Cell[31288, 752, 51, 1, 27, "Output"],
+Cell[31342, 755, 171, 2, 71, "Output"],
+Cell[31516, 759, 162, 2, 71, "Output"],
+Cell[31681, 763, 171, 2, 71, "Output"],
+Cell[31855, 767, 162, 2, 71, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[32054, 774, 88, 1, 27, "Input"],
+Cell[32145, 777, 83, 1, 27, "Output"]
+}, Open  ]],
+Cell[32243, 781, 68, 1, 27, "Input"],
+
+Cell[CellGroupData[{
+Cell[32336, 786, 1513, 31, 379, "Input"],
+Cell[33852, 819, 35, 1, 27, "Output"],
+Cell[33890, 822, 35, 1, 27, "Output"],
+Cell[33928, 825, 35, 1, 27, "Output"],
+Cell[33966, 828, 36, 1, 27, "Output"],
+Cell[34005, 831, 36, 1, 27, "Output"],
+Cell[34044, 834, 36, 1, 27, "Output"],
+Cell[34083, 837, 35, 1, 27, "Output"],
+Cell[34121, 840, 35, 1, 27, "Output"],
+Cell[34159, 843, 35, 1, 27, "Output"],
+Cell[34197, 846, 35, 1, 27, "Output"],
+Cell[34235, 849, 39, 1, 27, "Output"],
+Cell[34277, 852, 39, 1, 27, "Output"],
+Cell[34319, 855, 35, 1, 27, "Output"],
+Cell[34357, 858, 179, 3, 23, "Message"],
+Cell[34539, 863, 35, 1, 27, "Output"],
+Cell[34577, 866, 35, 1, 27, "Output"],
+Cell[34615, 869, 196, 3, 23, "Message"],
+Cell[34814, 874, 39, 1, 27, "Output"],
+Cell[34856, 877, 37, 1, 27, "Output"],
+Cell[34896, 880, 39, 1, 27, "Output"],
+Cell[34938, 883, 39, 1, 27, "Output"],
+Cell[34980, 886, 179, 3, 23, "Message"],
+Cell[35162, 891, 38, 1, 44, "Output"],
+Cell[35203, 894, 73, 1, 48, "Output"],
+Cell[35279, 897, 357, 5, 48, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[35673, 907, 122, 3, 27, "Input"],
+Cell[35798, 912, 53, 1, 27, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[35888, 918, 114, 2, 43, "Input"],
+Cell[36005, 922, 357, 5, 48, "Output"],
+Cell[36365, 929, 365, 6, 48, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[36767, 940, 529, 8, 139, "Input"],
+Cell[37299, 950, 35, 1, 27, "Output"],
+Cell[37337, 953, 35, 1, 27, "Output"],
+Cell[37375, 956, 55, 1, 48, "Output"],
+Cell[37433, 959, 64, 1, 48, "Output"],
+Cell[37500, 962, 113, 2, 27, "Output"],
+Cell[37616, 966, 103, 2, 27, "Output"],
+Cell[37722, 970, 113, 2, 27, "Output"],
+Cell[37838, 974, 103, 2, 27, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[37978, 981, 433, 8, 139, "Input"],
+Cell[38414, 991, 117, 2, 36, "Message"],
+Cell[38534, 995, 93, 2, 27, "Output"],
+Cell[38630, 999, 117, 2, 36, "Message"],
+Cell[38750, 1003, 93, 2, 27, "Output"],
+Cell[38846, 1007, 52, 1, 27, "Output"],
+Cell[38901, 1010, 57, 1, 27, "Output"],
+Cell[38961, 1013, 114, 2, 27, "Output"],
+Cell[39078, 1017, 104, 2, 27, "Output"],
+Cell[39185, 1021, 117, 2, 27, "Output"],
+Cell[39305, 1025, 107, 2, 27, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[39449, 1032, 68, 1, 27, "Input"],
+Cell[39520, 1035, 545, 8, 90, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[40102, 1048, 62, 1, 27, "Input"],
+Cell[40167, 1051, 1473, 25, 79, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[41677, 1081, 103, 2, 43, "Input"],
+Cell[41783, 1085, 195, 3, 27, "Output"],
+Cell[41981, 1090, 1269, 22, 79, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[43287, 1117, 47, 1, 27, "Input"],
+Cell[43337, 1120, 1575, 27, 170, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[44949, 1152, 44, 1, 27, "Input"],
+Cell[44996, 1155, 228, 3, 27, "Output"]
+}, Open  ]],
+Cell[45239, 1161, 26, 0, 27, "Input"],
+Cell[45268, 1163, 57, 1, 27, "Input"],
+
+Cell[CellGroupData[{
+Cell[45350, 1168, 42, 1, 27, "Input"],
+Cell[45395, 1171, 43, 1, 27, "Output"]
+}, Open  ]],
+Cell[45453, 1175, 57, 1, 27, "Input"],
+Cell[45513, 1178, 148, 3, 27, "Input"],
+
+Cell[CellGroupData[{
+Cell[45686, 1185, 62, 1, 27, "Input"],
+Cell[45751, 1188, 573, 12, 166, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[46361, 1205, 626, 13, 153, "Input"],
+Cell[46990, 1220, 269, 4, 27, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[47296, 1229, 1258, 26, 326, "Input"],
+Cell[48557, 1257, 269, 4, 27, "Output"],
+Cell[48829, 1263, 269, 4, 27, "Output"]
+}, Open  ]],
+Cell[49113, 1270, 26, 0, 27, "Input"],
+Cell[49142, 1272, 620, 10, 59, "Input"],
+Cell[49765, 1284, 26, 0, 27, "Input"],
+
+Cell[CellGroupData[{
+Cell[49816, 1288, 90, 1, 27, "Input"],
+Cell[49909, 1291, 52, 1, 27, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[49998, 1297, 880, 16, 219, "Input"],
+Cell[50881, 1315, 47, 1, 23, "Print"],
+Cell[50931, 1318, 58, 1, 23, "Print"],
+Cell[50992, 1321, 245, 4, 23, "Print"],
+Cell[51240, 1327, 39, 1, 23, "Print"],
+Cell[51282, 1330, 48, 1, 23, "Print"],
+Cell[51333, 1333, 52, 1, 23, "Print"],
+Cell[51388, 1336, 223, 4, 23, "Print"],
+Cell[51614, 1342, 39, 1, 23, "Print"],
+Cell[51656, 1345, 50, 1, 23, "Print"],
+Cell[51709, 1348, 51, 1, 23, "Print"],
+Cell[51763, 1351, 251, 4, 25, "Print"],
+Cell[52017, 1357, 39, 1, 23, "Print"],
+Cell[52059, 1360, 49, 1, 23, "Print"],
+Cell[52111, 1363, 56, 1, 23, "Print"],
+Cell[52170, 1366, 249, 4, 25, "Print"],
+Cell[52422, 1372, 39, 1, 23, "Print"],
+Cell[52464, 1375, 48, 1, 23, "Print"],
+Cell[52515, 1378, 51, 1, 23, "Print"],
+Cell[52569, 1381, 231, 4, 23, "Print"],
+Cell[52803, 1387, 39, 1, 23, "Print"],
+Cell[52845, 1390, 47, 1, 23, "Print"],
+Cell[52895, 1393, 57, 1, 23, "Print"],
+Cell[52955, 1396, 235, 4, 23, "Print"],
+Cell[53193, 1402, 39, 1, 23, "Print"],
+Cell[53235, 1405, 119, 2, 36, "Message"],
+Cell[53357, 1409, 119, 2, 36, "Message"],
+Cell[53479, 1413, 218, 3, 23, "Message"],
+Cell[53700, 1418, 218, 3, 23, "Message"],
+Cell[53921, 1423, 218, 3, 23, "Message"],
+Cell[54142, 1428, 170, 3, 23, "Message"],
+Cell[54315, 1433, 46, 1, 23, "Print"],
+Cell[54364, 1436, 92, 2, 23, "Print"],
+Cell[54459, 1440, 314, 6, 23, "Print"],
+Cell[54776, 1448, 39, 1, 23, "Print"],
+Cell[54818, 1451, 119, 2, 36, "Message"],
+Cell[54940, 1455, 163, 3, 23, "Message"],
+Cell[55106, 1460, 47, 1, 23, "Print"],
+Cell[55156, 1463, 92, 2, 23, "Print"],
+Cell[55251, 1467, 319, 7, 23, "Print"],
+Cell[55573, 1476, 39, 1, 23, "Print"]
+}, Open  ]],
+Cell[55627, 1480, 61, 1, 27, "Input"]
+}
+]
+*)
+
+
+
+
+(***********************************************************************
+End of Mathematica Notebook file.
+***********************************************************************)
+

@@ -1,0 +1,603 @@
+(***********************************************************************
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used on any computer system with Mathematica 4.0,
+MathReader 4.0, or any compatible application. The data for the notebook 
+starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do one of 
+the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing the 
+word CacheID, otherwise Mathematica-compatible applications may try to 
+use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+***********************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     15753,        509]*)
+(*NotebookOutlinePosition[     16394,        532]*)
+(*  CellTagsIndexPosition[     16350,        528]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+    \(F = \((\((rout - rg)\)/\((rin - rg)\))\)^\((1/nr)\)\)], "Input"],
+
+Cell[BoxData[
+    \(\((\(\(-rg\) + rout\)\/\(\(-rg\) + rin\))\)\^\(1\/nr\)\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    \(r[n_] := \((rin - rg)\)*F^n + rg\)], "Input"],
+
+Cell[BoxData[
+    \(dr[n_] := \((r[n] - rg)\)*\((F - 1)\)\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(vr = r[n]^\((\(-2\))\)\)], "Input"],
+
+Cell[BoxData[
+    \(1\/\((rg + \((\(-rg\) + rin)\)\ \((\((\(\(-rg\) + rout\)\/\(\(-rg\) + \
+rin\))\)\^\(1\/nr\))\)\^n)\)\^2\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(dt = dr[n]/vr\)], "Input"],
+
+Cell[BoxData[
+    \(\((\(-rg\) + 
+          rin)\)\ \((\((\(\(-rg\) + rout\)\/\(\(-rg\) + \
+rin\))\)\^\(1\/nr\))\)\^n\ \((\(-1\) + \((\(\(-rg\) + rout\)\/\(\(-rg\) + rin\
+\))\)\^\(1\/nr\))\)\ \((rg + \((\(-rg\) + rin)\)\ \((\((\(\(-rg\) + \
+rout\)\/\(\(-rg\) + rin\))\)\^\(1\/nr\))\)\^n)\)\^2\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(const1 = {n \[Rule] 0. , nr \[Rule] 128. , rout \[Rule] 600. , 
+        rg \[Rule] 2. }\)], "Input"],
+
+Cell[BoxData[
+    \({n \[Rule] 0.`, nr \[Rule] 128.`, rout \[Rule] 600.`, 
+      rg \[Rule] 2.`}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(const2 = {rin \[Rule] 2.7}\)], "Input"],
+
+Cell[BoxData[
+    \({rin \[Rule] 2.7`}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\(F //. const1\) //. const2\)], "Input"],
+
+Cell[BoxData[
+    \(1.0541517876089466`\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\(dt //. const1\) //. const2\)], "Input"],
+
+Cell[BoxData[
+    \(0.2763365721684545`\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(dtvsrin = dt //. const1\)], "Input"],
+
+Cell[BoxData[
+    \(1.`\ \((\(-1\) + 
+          1.0512184582007558`\ \((1\/\(\(-2.`\) + rin\))\)\^0.0078125`)\)\ \
+\((\(\(2.`\)\(\[InvisibleSpace]\)\) + 1.`\ \((\(-2.`\) + rin)\))\)\^2\ \
+\((\(-2.`\) + rin)\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(dtnum = FullSimplify[dtvsrin, {rin > 2. , rin < 600. }]\)], "Input"],
+
+Cell[BoxData[
+    \(\(-1.`\)\ rin\^2\ \((\(-2.`\) - 
+          1.0512184582007558`\ \((\(-2.`\) + rin)\)\^0.9921875` + 
+          1.`\ rin)\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Series[dtnum, {rin, 2, 2}]\)], "Input"],
+
+Cell[BoxData[
+    \(Series[\(-1.`\)\ rin\^2\ \((\(-2.`\) - 
+            1.0512184582007558`\ \((\(-2.`\) + rin)\)\^0.9921875` + 
+            1.`\ rin)\), {rin, 2, 2}]\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Plot[dtvsrin, {rin, 2.0, 10}]\)], "Input"],
+
+Cell[GraphicsData["PostScript", "\<\
+%!
+%%Creator: Mathematica
+%%AspectRatio: .61803 
+MathPictureStart
+/Mabs {
+Mgmatrix idtransform
+Mtmatrix dtransform
+} bind def
+/Mabsadd { Mabs
+3 -1 roll add
+3 1 roll add
+exch } bind def
+%% Graphics
+%%IncludeResource: font Courier
+%%IncludeFont: Courier
+/Courier findfont 10  scalefont  setfont
+% Scaling calculations
+-0.214286 0.119048 0.0147151 0.0214639 [
+[.2619 .00222 -3 -9 ]
+[.2619 .00222 3 0 ]
+[.5 .00222 -3 -9 ]
+[.5 .00222 3 0 ]
+[.7381 .00222 -3 -9 ]
+[.7381 .00222 3 0 ]
+[.97619 .00222 -6 -9 ]
+[.97619 .00222 6 0 ]
+[.01131 .12203 -6 -4.5 ]
+[.01131 .12203 0 4.5 ]
+[.01131 .22935 -12 -4.5 ]
+[.01131 .22935 0 4.5 ]
+[.01131 .33667 -12 -4.5 ]
+[.01131 .33667 0 4.5 ]
+[.01131 .44399 -12 -4.5 ]
+[.01131 .44399 0 4.5 ]
+[.01131 .55131 -12 -4.5 ]
+[.01131 .55131 0 4.5 ]
+[ 0 0 0 0 ]
+[ 1 .61803 0 0 ]
+] MathScale
+% Start of Graphics
+1 setlinecap
+1 setlinejoin
+newpath
+0 g
+.25 Mabswid
+[ ] 0 setdash
+.2619 .01472 m
+.2619 .02097 L
+s
+[(4)] .2619 .00222 0 1 Mshowa
+.5 .01472 m
+.5 .02097 L
+s
+[(6)] .5 .00222 0 1 Mshowa
+.7381 .01472 m
+.7381 .02097 L
+s
+[(8)] .7381 .00222 0 1 Mshowa
+.97619 .01472 m
+.97619 .02097 L
+s
+[(10)] .97619 .00222 0 1 Mshowa
+.125 Mabswid
+.08333 .01472 m
+.08333 .01847 L
+s
+.14286 .01472 m
+.14286 .01847 L
+s
+.20238 .01472 m
+.20238 .01847 L
+s
+.32143 .01472 m
+.32143 .01847 L
+s
+.38095 .01472 m
+.38095 .01847 L
+s
+.44048 .01472 m
+.44048 .01847 L
+s
+.55952 .01472 m
+.55952 .01847 L
+s
+.61905 .01472 m
+.61905 .01847 L
+s
+.67857 .01472 m
+.67857 .01847 L
+s
+.79762 .01472 m
+.79762 .01847 L
+s
+.85714 .01472 m
+.85714 .01847 L
+s
+.91667 .01472 m
+.91667 .01847 L
+s
+.25 Mabswid
+0 .01472 m
+1 .01472 L
+s
+.02381 .12203 m
+.03006 .12203 L
+s
+[(5)] .01131 .12203 1 0 Mshowa
+.02381 .22935 m
+.03006 .22935 L
+s
+[(10)] .01131 .22935 1 0 Mshowa
+.02381 .33667 m
+.03006 .33667 L
+s
+[(15)] .01131 .33667 1 0 Mshowa
+.02381 .44399 m
+.03006 .44399 L
+s
+[(20)] .01131 .44399 1 0 Mshowa
+.02381 .55131 m
+.03006 .55131 L
+s
+[(25)] .01131 .55131 1 0 Mshowa
+.125 Mabswid
+.02381 .03618 m
+.02756 .03618 L
+s
+.02381 .05764 m
+.02756 .05764 L
+s
+.02381 .07911 m
+.02756 .07911 L
+s
+.02381 .10057 m
+.02756 .10057 L
+s
+.02381 .1435 m
+.02756 .1435 L
+s
+.02381 .16496 m
+.02756 .16496 L
+s
+.02381 .18643 m
+.02756 .18643 L
+s
+.02381 .20789 m
+.02756 .20789 L
+s
+.02381 .25082 m
+.02756 .25082 L
+s
+.02381 .27228 m
+.02756 .27228 L
+s
+.02381 .29375 m
+.02756 .29375 L
+s
+.02381 .31521 m
+.02756 .31521 L
+s
+.02381 .35814 m
+.02756 .35814 L
+s
+.02381 .3796 m
+.02756 .3796 L
+s
+.02381 .40107 m
+.02756 .40107 L
+s
+.02381 .42253 m
+.02756 .42253 L
+s
+.02381 .46546 m
+.02756 .46546 L
+s
+.02381 .48692 m
+.02756 .48692 L
+s
+.02381 .50838 m
+.02756 .50838 L
+s
+.02381 .52985 m
+.02756 .52985 L
+s
+.02381 .57278 m
+.02756 .57278 L
+s
+.02381 .59424 m
+.02756 .59424 L
+s
+.02381 .6157 m
+.02756 .6157 L
+s
+.25 Mabswid
+.02381 0 m
+.02381 .61803 L
+s
+0 0 m
+1 0 L
+1 .61803 L
+0 .61803 L
+closepath
+clip
+newpath
+.5 Mabswid
+.02381 .01472 m
+.06244 .01699 L
+.10458 .0204 L
+.14415 .02477 L
+.18221 .0302 L
+.22272 .03743 L
+.26171 .04595 L
+.30316 .05681 L
+.34309 .06916 L
+.3815 .08291 L
+.42237 .09968 L
+.46172 .11801 L
+.49955 .13777 L
+.53984 .16122 L
+.57861 .18623 L
+.61984 .21557 L
+.65954 .24661 L
+.69774 .27912 L
+.73838 .3167 L
+.77751 .35587 L
+.81909 .40081 L
+.85916 .44745 L
+.89771 .49551 L
+.93871 .55014 L
+.97619 .60332 L
+s
+% End of Graphics
+MathPictureEnd
+\
+\>"], "Graphics",
+  ImageSize->{288, 177.938},
+  ImageMargins->{{43, 0}, {0, 0}},
+  ImageRegion->{{0, 1}, {0, 1}},
+  ImageCache->GraphicsData["Bitmap", "\<\
+CF5dJ6E]HGAYHf4PAg9QL6QYHg<PAVmbKF5d0`40004P0000/A000`40n007h00Ooooo8Ooo003ooolQ
+ool005?oo`03003ooooo03coo`8003ooo`8003_oo`@000?oo`8000Ooo`00Dooo00<00?ooool0>ooo
+00@00?ooool003goo`04003ooooo000lool01@00oooooooo00000_oo00<00?ooool01?oo001@ool5
+000lool01000ooooo`00?Ooo00@00?ooool003coo`05003oooooool00002ool00`00ooooo`04ool0
+053oo`04003ooooo000mool3000oool2000mool01@00oooooooo00000_oo00<00?ooool01?oo001A
+ool00`00ool0000mool00`00ooooo`0nool01000ooooo`00??oo00D00?ooooooo`0000;oo`03003o
+oooo00Coo`00D_oo0P00?Ooo00<00?ooool0?_oo00@00?ooool003[oo`<000?oo`04003ooooo0006
+ool001;oo`03003ooooo03koo`03003ooooo03coo`<003koo`8003goo`03003ooooo00;oo`8000Oo
+o`004_oo00<00?ooool0oooo3?oo000Bool00`00ooooo`3oool<ool001;oo`03003ooooo0?ooo`co
+o`002oooo`004`000ooo000Bool00`00ooooo`03ool;000?ool00`00ooooo`0=ool00`00ooooo`0>
+ool00`00ooooo`0=ool00`00ooooo`0=ool00`00ooooo`0=ool00`00ooooo`0=ool00`00ooooo`0>
+ool00`00ooooo`0=ool00`00ooooo`0=ool00`00ooooo`0=ool00`00ooooo`0>ool00`00ooooo`0=
+ool00`00ooooo`0=ool00`00ooooo`0=ool00`00ooooo`08ool001;oo`03003ooooo00koo`/002Go
+o`03003ooooo03goo`03003ooooo03koo`03003ooooo03koo`03003ooooo00Soo`004_oo00<00?oo
+ool06Ooo2P00j?oo000Bool00`00ooooo`0Sool8003Pool001;oo`03003ooooo02_oo`H00=[oo`00
+4_oo0P00<_oo1@00eOoo000Bool00`00ooooo`0fool5003@ool001;oo`03003ooooo03_oo`D00<_o
+o`004_oo00<00?ooool0@?oo1000aooo000Bool00`00ooooo`14ool40033ool001;oo`03003ooooo
+04Soo`<00<3oo`004_oo0P00C?oo0`00_Ooo000Bool00`00ooooo`1>ool2002kool001;oo`03003o
+oooo053oo`<00;Soo`004_oo00<00?ooool0Dooo0`00]Ooo000Bool00`00ooooo`1Fool2002cool0
+01;oo`03003ooooo05Soo`<00;3oo`004_oo0P00G?oo0P00[_oo000Bool00`00ooooo`1Mool3002[
+ool001;oo`03003ooooo063oo`<00:Soo`004_oo00<00?ooool0Hooo0P00Y_oo000Bool00`00oooo
+o`1Uool3002Sool001;oo`8006Woo`<00:3oo`004_oo00<00?ooool0Jooo0P00W_oo000Bool00`00
+ooooo`1]ool2002Lool001;oo`03003ooooo06ooo`8009[oo`002Ooo0`001_oo00<00?ooool0LOoo
+0P00V?oo000<ool00`00ooooo`03ool00`00ooooo`1cool2002Fool000coo`03003ooooo00?oo`80
+07Koo`8009Coo`002Ooo0`001_oo00<00?ooool0Mooo0P00T_oo0009ool00`00ooooo`06ool00`00
+ooooo`1iool00`00ooooo`2?ool000Woo`03003ooooo00Koo`03003ooooo07[oo`8008ooo`002Ooo
+10001Ooo00<00?ooool0O?oo0P00SOoo000Bool00`00ooooo`1nool00`00ooooo`2:ool001;oo`80
+083oo`8008[oo`004_oo00<00?ooool0POoo0P00R?oo000Bool00`00ooooo`23ool20026ool001;o
+o`03003ooooo08Goo`8008Coo`004_oo00<00?ooool0Qooo0P00P_oo000Bool00`00ooooo`29ool0
+0`00ooooo`1oool001;oo`8008_oo`8007ooo`004_oo00<00?ooool0S?oo00<00?ooool0O?oo000B
+ool00`00ooooo`2=ool2001lool001;oo`03003ooooo08ooo`8007[oo`004_oo00<00?ooool0TOoo
+00<00?ooool0Mooo000Bool00`00ooooo`2Bool2001gool001;oo`8009Goo`03003ooooo07Coo`00
+4_oo00<00?ooool0UOoo0P00M?oo000Bool00`00ooooo`2Gool00`00ooooo`1aool001;oo`03003o
+oooo09Soo`03003ooooo073oo`004_oo00<00?ooool0VOoo0P00L?oo000Bool00`00ooooo`2Kool0
+0`00ooooo`1]ool001;oo`8009goo`03003ooooo06coo`004_oo00<00?ooool0WOoo0P00K?oo000B
+ool00`00ooooo`2Oool00`00ooooo`1Yool001;oo`03003ooooo0:3oo`8006Woo`000ooo10000ooo
+0P001_oo00<00?ooool0X_oo00<00?ooool0I_oo0005ool01@00oooooooo00000_oo00<00?ooool0
+0ooo00<00?ooool0Xooo00<00?ooool0IOoo0005ool01@00oooooooo00000_oo00<00?ooool00ooo
+0P00YOoo0P00IOoo0005ool01@00oooooooo00000_oo00<00?ooool00ooo00<00?ooool0Y_oo00<0
+0?ooool0H_oo0005ool01@00oooooooo00000_oo00<00?ooool00ooo00<00?ooool0Yooo00<00?oo
+ool0HOoo0003ool30003ool01000ooooo`001Ooo00<00?ooool0Z?oo0P00HOoo0005ool00`00oooo
+o`02ool20006ool00`00ooooo`2Zool00`00ooooo`1Nool001;oo`800:coo`03003ooooo05goo`00
+4_oo00<00?ooool0[?oo00<00?ooool0G?oo000Bool00`00ooooo`2]ool00`00ooooo`1Kool001;o
+o`03003ooooo0:koo`8005_oo`004_oo00<00?ooool0/?oo00<00?ooool0F?oo000Bool00`00oooo
+o`2aool00`00ooooo`1Gool001;oo`800;?oo`03003ooooo05Koo`004_oo00<00?ooool0/ooo00<0
+0?ooool0EOoo000Bool00`00ooooo`2dool00`00ooooo`1Dool001;oo`03003ooooo0;Goo`03003o
+oooo05?oo`004_oo00<00?ooool0]_oo00<00?ooool0D_oo000Bool00`00ooooo`2gool00`00oooo
+o`1Aool001;oo`800;Woo`03003ooooo053oo`004_oo00<00?ooool0^Ooo0P00D?oo000Bool00`00
+ooooo`2kool00`00ooooo`1=ool001;oo`03003ooooo0;coo`03003ooooo04coo`004_oo00<00?oo
+ool0_Ooo00<00?ooool0Booo000Bool00`00ooooo`2nool00`00ooooo`1:ool001;oo`800<3oo`03
+003ooooo04Woo`004_oo00<00?ooool0`?oo00<00?ooool0B?oo000Bool00`00ooooo`31ool00`00
+ooooo`17ool001;oo`03003ooooo0<;oo`03003ooooo04Koo`000ooo10000_oo0`001_oo00<00?oo
+ool0`ooo00<00?ooool0AOoo0005ool00`00ooooo`04ool00`00ooooo`03ool00`00ooooo`34ool0
+0`00ooooo`14ool000Goo`03003ooooo00Coo`03003ooooo00?oo`800<Koo`03003ooooo04?oo`00
+1Ooo00@00?ooooooo`<000Koo`03003ooooo0<Koo`03003ooooo04;oo`001Ooo00D00?ooooooo`00
+00Soo`03003ooooo0<Ooo`03003ooooo047oo`000ooo0`000ooo00<00?ooool01_oo00<00?ooool0
+b?oo00<00?ooool0@?oo0005ool01000oooooooo10001Ooo00<00?ooool0bOoo00<00?ooool0?ooo
+000Bool00`00ooooo`3:ool00`00ooooo`0nool001;oo`800<coo`03003ooooo03goo`004_oo00<0
+0?ooool0c?oo00<00?ooool0??oo000Bool00`00ooooo`3=ool00`00ooooo`0kool001;oo`03003o
+oooo0<koo`03003ooooo03[oo`004_oo00<00?ooool0cooo00<00?ooool0>Ooo000Bool2003Aool0
+0`00ooooo`0hool001;oo`03003ooooo0=3oo`03003ooooo03Soo`004_oo00<00?ooool0dOoo00<0
+0?ooool0=ooo000Bool00`00ooooo`3Bool00`00ooooo`0fool001;oo`03003ooooo0=?oo`03003o
+oooo03Goo`004_oo00<00?ooool0e?oo00<00?ooool0=?oo000Bool2003Fool00`00ooooo`0cool0
+01;oo`03003ooooo0=Koo`03003ooooo03;oo`004_oo00<00?ooool0eooo00<00?ooool0<Ooo000B
+ool00`00ooooo`3Hool00`00ooooo`0`ool001;oo`03003ooooo0=Soo`03003ooooo033oo`004_oo
+00<00?ooool0fOoo00<00?ooool0;ooo000Bool2003Kool00`00ooooo`0^ool001;oo`03003ooooo
+0=_oo`03003ooooo02goo`004_oo00<00?ooool0g?oo00<00?ooool0;?oo000Bool00`00ooooo`3M
+ool00`00ooooo`0[ool000?oo`@000?oo`8000Koo`03003ooooo0=goo`03003ooooo02_oo`000ooo
+00<00?ooool00ooo00@00?ooool000Goo`03003ooooo0=koo`03003ooooo02[oo`001?oo00<00?oo
+ool00_oo00@00?ooool000Goo`800>3oo`03003ooooo02Woo`001Ooo00D00?ooooooo`0000;oo`03
+003ooooo00?oo`03003ooooo0>3oo`03003ooooo02Soo`001_oo00@00?ooool000;oo`03003ooooo
+00?oo`03003ooooo0>7oo`03003ooooo02Ooo`000ooo00@00?ooool000;oo`04003ooooo0005ool0
+0`00ooooo`3Rool00`00ooooo`0Vool000Coo`8000Coo`8000Koo`03003ooooo0>?oo`03003ooooo
+02Goo`004_oo00<00?ooool0hooo00<00?ooool09Ooo000Bool2003Uool00`00ooooo`0Tool001;o
+o`03003ooooo0>Goo`03003ooooo02?oo`004_oo00<00?ooool0i_oo00<00?ooool08_oo000Bool0
+0`00ooooo`3Wool00`00ooooo`0Qool001;oo`03003ooooo0>Soo`03003ooooo023oo`004_oo00<0
+0?ooool0j?oo00<00?ooool08?oo000Bool2003Zool00`00ooooo`0Oool001;oo`03003ooooo0>[o
+o`03003ooooo01koo`004_oo00<00?ooool0jooo00<00?ooool07Ooo000Bool00`00ooooo`3/ool0
+0`00ooooo`0Lool001;oo`03003ooooo0>coo`03003ooooo01coo`004_oo00<00?ooool0kOoo00<0
+0?ooool06ooo000Bool2003_ool00`00ooooo`0Jool001;oo`03003ooooo0>ooo`03003ooooo01Wo
+o`004_oo00<00?ooool0kooo00<00?ooool06Ooo000Bool00`00ooooo`3`ool00`00ooooo`0Hool0
+01;oo`03003ooooo0?7oo`03003ooooo01Ooo`004_oo0P00looo00<00?ooool05_oo000Bool00`00
+ooooo`3bool00`00ooooo`0Fool001;oo`03003ooooo0??oo`03003ooooo01Goo`004_oo00<00?oo
+ool0m?oo00<00?ooool05?oo0003ool40002ool30006ool00`00ooooo`3eool00`00ooooo`0Cool0
+00?oo`03003ooooo00Koo`03003ooooo00?oo`03003ooooo0?Goo`03003ooooo01?oo`001?oo00<0
+0?ooool01Ooo00<00?ooool00ooo0P00mooo00<00?ooool04_oo0005ool01000oooooooo0`001_oo
+00<00?ooool0mooo00<00?ooool04Ooo0006ool01000ooooo`002?oo00<00?ooool0mooo00<00?oo
+ool04Ooo0003ool01000ooooo`000_oo00<00?ooool01_oo00<00?ooool0n?oo00<00?ooool04?oo
+0004ool20003ool40005ool00`00ooooo`3iool00`00ooooo`0?ool001;oo`03003ooooo0?[oo`03
+003ooooo00koo`004_oo0P00nooo00<00?ooool03_oo000Bool00`00ooooo`3kool00`00ooooo`0=
+ool001;oo`03003ooooo0?coo`03003ooooo00coo`004_oo00<00?ooool0o?oo00<00?ooool03?oo
+000Bool00`00ooooo`3mool00`00ooooo`0;ool001;oo`03003ooooo0?koo`03003ooooo00[oo`00
+4_oo0P00oooo0Ooo00<00?ooool02Ooo000Bool00`00ooooo`3oool00`00ooooo`09ool001;oo`03
+003ooooo0?ooo`7oo`03003ooooo00Soo`004_oo00<00?ooool0oooo3?oo000Bool00`00ooooo`3o
+ool<ool001;oo`03003ooooo0?ooo`coo`004_oo0P00oooo3Ooo0000\
+\>"],
+  ImageRangeCache->{{{0, 287}, {176.938, 0}} -> {1.44256, -2.11987, \
+0.0308022, 0.170842}}],
+
+Cell[BoxData[
+    TagBox[\(\[SkeletonIndicator]  Graphics  \[SkeletonIndicator]\),
+      False,
+      Editable->False]], "Output"]
+}, Open  ]]
+},
+FrontEndVersion->"4.0 for X",
+ScreenRectangle->{{0, 1600}, {0, 1200}},
+WindowSize->{520, 600},
+WindowMargins->{{172, Automatic}, {Automatic, 77}}
+]
+
+
+(***********************************************************************
+Cached data follows.  If you edit this Notebook file directly, not using
+Mathematica, you must remove the line containing CacheID at the top of 
+the file.  The cache data will then be recreated when you save this file 
+from within Mathematica.
+***********************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[1739, 51, 84, 1, 27, "Input"],
+Cell[1826, 54, 88, 1, 53, "Output"]
+}, Open  ]],
+Cell[1929, 58, 65, 1, 27, "Input"],
+Cell[1997, 61, 70, 1, 27, "Input"],
+
+Cell[CellGroupData[{
+Cell[2092, 66, 55, 1, 27, "Input"],
+Cell[2150, 69, 137, 2, 72, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[2324, 76, 46, 1, 27, "Input"],
+Cell[2373, 79, 306, 5, 112, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[2716, 89, 120, 2, 27, "Input"],
+Cell[2839, 93, 110, 2, 27, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[2986, 100, 59, 1, 27, "Input"],
+Cell[3048, 103, 52, 1, 27, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[3137, 109, 60, 1, 27, "Input"],
+Cell[3200, 112, 53, 1, 27, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[3290, 118, 61, 1, 27, "Input"],
+Cell[3354, 121, 53, 1, 27, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[3444, 127, 56, 1, 27, "Input"],
+Cell[3503, 130, 222, 4, 72, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[3762, 139, 88, 1, 27, "Input"],
+Cell[3853, 142, 155, 3, 29, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[4045, 150, 59, 1, 27, "Input"],
+Cell[4107, 153, 180, 3, 45, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[4324, 161, 62, 1, 27, "Input"],
+Cell[4389, 164, 11215, 337, 186, 3305, 235, "GraphicsData", "PostScript", \
+"Graphics"],
+Cell[15607, 503, 130, 3, 27, "Output"]
+}, Open  ]]
+}
+]
+*)
+
+
+
+
+(***********************************************************************
+End of Mathematica Notebook file.
+***********************************************************************)
+

@@ -1,0 +1,2847 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 4.2'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     81879,       2509]*)
+(*NotebookOutlinePosition[     82508,       2531]*)
+(*  CellTagsIndexPosition[     82464,       2527]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell[BoxData[{
+    \(<< Calculus`VectorAnalysis`\), "\[IndentingNewLine]", 
+    \(<< LinearAlgebra`Orthogonalization`\)}], "Input"],
+
+Cell[BoxData[
+    \(\(\( (*\ 
+      KS\ coordinates\ of\ Kerr - 
+        Newman\ geometry\ *) \)\(\[IndentingNewLine]\)\(\(nab = {{\(-1\), 0, 
+            0, 0}, {0, 1, 0, 0}, {0, 0, 1, 0}, {0, 0, 0, 
+            1}};\)\[IndentingNewLine]
+    \(Inverse[nab];\)\)\)\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(\(delta = r^2 - 2*M*r + a^2;\)\), "\[IndentingNewLine]", 
+    \(\(rho = Sqrt[r^2 + a^2*Cos[h]^2];\)\), "\[IndentingNewLine]", 
+    \(\(sigma = \((r^2 + a^2)\)^2 - 
+          a^2*delta*Sin[h]^2;\)\[IndentingNewLine]\), "\[IndentingNewLine]", 
+    \(ds2 = \(-\((1 - 2*M*r/rho^2)\)\)*dt^2 - 
+        4*M*a*r/rho^2*Sin[h]^2*dt*dphi + 
+        4*M*r/rho^2*dt*dr + \((1 + 2*M*r/rho^2)\)*dr^2 - 
+        2*a*\((1 + 2*M*r/rho^2)\)*Sin[h]^2*dr*dphi + rho^2*dh^2 + 
+        Sin[h]^2*\((rho^2 + a^2*\((1 + 2*M*r/rho^2)\)*Sin[h]^2)\)*
+          dphi^2\)}], "Input"],
+
+Cell[BoxData[
+    \(\(4\ dr\ dt\ M\ r\)\/\(r\^2 + a\^2\ Cos[h]\^2\) + 
+      dh\^2\ \((r\^2 + a\^2\ Cos[h]\^2)\) + 
+      dt\^2\ \((\(-1\) + \(2\ M\ r\)\/\(r\^2 + a\^2\ Cos[h]\^2\))\) + 
+      dr\^2\ \((1 + \(2\ M\ r\)\/\(r\^2 + a\^2\ Cos[h]\^2\))\) - \(4\ a\ dphi\
+\ dt\ M\ r\ Sin[h]\^2\)\/\(r\^2 + a\^2\ Cos[h]\^2\) - 
+      2\ a\ dphi\ dr\ \((1 + \(2\ M\ r\)\/\(r\^2 + a\^2\ Cos[h]\^2\))\)\ \
+Sin[h]\^2 + 
+      dphi\^2\ Sin[h]\^2\ \((r\^2 + a\^2\ Cos[h]\^2 + 
+            a\^2\ \((1 + \(2\ M\ r\)\/\(r\^2 + a\^2\ Cos[h]\^2\))\)\ \
+Sin[h]\^2)\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(kspcoord = {t, Rin*Exp[r], Pi*h + \((\((1 - hslope)\)/2)\)*Sin[2*Pi*h], 
+        phi}\), "\[IndentingNewLine]", 
+    \(dxdxp = {D[kspcoord[\([1]\)], t], D[kspcoord[\([2]\)], r], 
+        D[kspcoord[\([3]\)], h], 
+        D[kspcoord[\([4]\)], phi]}\), "\[IndentingNewLine]", 
+    \(\(Jac = Array[#1^#2 &, {4, 4}]*0;\)\), "\n", 
+    \(For[i = 1, i \[LessEqual] 4, 
+      For[j = 1, 
+        j \[LessEqual] 4, \[IndentingNewLine]Jac[\([i, j]\)] = 
+          dxdxp[\([i]\)]*
+            dxdxp[\([j]\)]\[IndentingNewLine]; \(j++\)]; \(i++\)]\), "\
+\[IndentingNewLine]", 
+    \(MatrixForm[Jac]\)}], "Input"],
+
+Cell[BoxData[
+    \({t, \[ExponentialE]\^r\ Rin, 
+      h\ \[Pi] + 1\/2\ \((1 - hslope)\)\ Sin[2\ h\ \[Pi]], phi}\)], "Output"],
+
+Cell[BoxData[
+    \({1, \[ExponentialE]\^r\ Rin, \[Pi] + \((1 - hslope)\)\ \[Pi]\ Cos[
+            2\ h\ \[Pi]], 1}\)], "Output"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {
+              "1", \(\[ExponentialE]\^r\ Rin\), \(\[Pi] + \((1 - 
+                      hslope)\)\ \[Pi]\ Cos[2\ h\ \[Pi]]\), "1"},
+            {\(\[ExponentialE]\^r\ Rin\), \(\[ExponentialE]\^\(2\ r\)\ Rin\^2\
+\), \(\[ExponentialE]\^r\ Rin\ \((\[Pi] + \((1 - hslope)\)\ \[Pi]\ Cos[
+                        2\ h\ \[Pi]])\)\), \(\[ExponentialE]\^r\ Rin\)},
+            {\(\[Pi] + \((1 - hslope)\)\ \[Pi]\ Cos[
+                    2\ h\ \[Pi]]\), \(\[ExponentialE]\^r\ Rin\ \((\[Pi] + \
+\((1 - hslope)\)\ \[Pi]\ Cos[
+                        2\ h\ \[Pi]])\)\), \(\((\[Pi] + \((1 - 
+                            hslope)\)\ \[Pi]\ Cos[
+                          2\ h\ \[Pi]])\)\^2\), \(\[Pi] + \((1 - 
+                      hslope)\)\ \[Pi]\ Cos[2\ h\ \[Pi]]\)},
+            {
+              "1", \(\[ExponentialE]\^r\ Rin\), \(\[Pi] + \((1 - 
+                      hslope)\)\ \[Pi]\ Cos[2\ h\ \[Pi]]\), "1"}
+            }], "\[NoBreak]", ")"}],
+      Function[ BoxForm`e$, 
+        MatrixForm[ BoxForm`e$]]]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(ds22[y_] := Coefficient[ds2, y]\), "\[IndentingNewLine]", 
+    \(gcov = {{ds22[dt*dt], ds22[dt*dr]/2, ds22[dt*dh]/2, 
+          ds22[dt*dphi]/2}, {ds22[dr*dt]/2, ds22[dr*dr], ds22[dr*dh]/2, 
+          ds22[dr*dphi]/2}, {ds22[dh*dt]/2, ds22[dh*dr]/2, ds22[dh*dh], 
+          ds22[dh*dphi]/2}, {ds22[dphi*dt]/2, ds22[dphi*dr]/2, 
+          ds22[dphi*dh]/2, ds22[dphi*dphi]}}; MatrixForm[gcov]\)}], "Input"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {\(\(-1\) + \(2\ M\ r\)\/\(r\^2 + a\^2\ Cos[h]\^2\)\), \(\(2\ M\ \
+r\)\/\(r\^2 + a\^2\ Cos[h]\^2\)\), 
+              "0", \(-\(\(2\ a\ M\ r\ Sin[h]\^2\)\/\(r\^2 + 
+                      a\^2\ Cos[h]\^2\)\)\)},
+            {\(\(2\ M\ r\)\/\(r\^2 + 
+                    a\^2\ Cos[h]\^2\)\), \(1 + \(2\ M\ r\)\/\(r\^2 + a\^2\ \
+Cos[h]\^2\)\), 
+              "0", \(\(-a\)\ \((1 + \(2\ M\ r\)\/\(r\^2 + a\^2\ \
+Cos[h]\^2\))\)\ Sin[h]\^2\)},
+            {"0", "0", \(r\^2 + a\^2\ Cos[h]\^2\), "0"},
+            {\(-\(\(2\ a\ M\ r\ Sin[h]\^2\)\/\(r\^2 + 
+                      a\^2\ Cos[h]\^2\)\)\), \(\(-a\)\ \((1 + \(2\ M\ \
+r\)\/\(r\^2 + a\^2\ Cos[h]\^2\))\)\ Sin[h]\^2\), 
+              "0", \(Sin[h]\^2\ \((r\^2 + a\^2\ Cos[h]\^2 + 
+                    a\^2\ \((1 + \(2\ M\ r\)\/\(r\^2 + a\^2\ Cos[h]\^2\))\)\ \
+Sin[h]\^2)\)\)}
+            }], "\[NoBreak]", ")"}],
+      Function[ BoxForm`e$, 
+        MatrixForm[ BoxForm`e$]]]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(gcov = gcov*Jac; MatrixForm[gcov]\)], "Input"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {\(\(-1\) + \(2\ M\ r\)\/\(r\^2 + a\^2\ Cos[h]\^2\)\), \(\(2\ \
+\[ExponentialE]\^r\ M\ r\ Rin\)\/\(r\^2 + a\^2\ Cos[h]\^2\)\), 
+              "0", \(-\(\(2\ a\ M\ r\ Sin[h]\^2\)\/\(r\^2 + 
+                      a\^2\ Cos[h]\^2\)\)\)},
+            {\(\(2\ \[ExponentialE]\^r\ M\ r\ Rin\)\/\(r\^2 + 
+                    a\^2\ Cos[h]\^2\)\), \(\[ExponentialE]\^\(2\ r\)\ Rin\^2\ \
+\((1 + \(2\ M\ r\)\/\(r\^2 + a\^2\ Cos[h]\^2\))\)\), 
+              "0", \(\(-a\)\ \[ExponentialE]\^r\ Rin\ \((1 + \(2\ M\ r\)\/\(r\
+\^2 + a\^2\ Cos[h]\^2\))\)\ Sin[h]\^2\)},
+            {"0", 
+              "0", \(\((r\^2 + 
+                    a\^2\ Cos[h]\^2)\)\ \((\[Pi] + \((1 - hslope)\)\ \[Pi]\ \
+Cos[2\ h\ \[Pi]])\)\^2\), "0"},
+            {\(-\(\(2\ a\ M\ r\ Sin[h]\^2\)\/\(r\^2 + 
+                      a\^2\ Cos[h]\^2\)\)\), \(\(-a\)\ \[ExponentialE]\^r\ \
+Rin\ \((1 + \(2\ M\ r\)\/\(r\^2 + a\^2\ Cos[h]\^2\))\)\ Sin[h]\^2\), 
+              "0", \(Sin[h]\^2\ \((r\^2 + a\^2\ Cos[h]\^2 + 
+                    a\^2\ \((1 + \(2\ M\ r\)\/\(r\^2 + a\^2\ Cos[h]\^2\))\)\ \
+Sin[h]\^2)\)\)}
+            }], "\[NoBreak]", ")"}],
+      Function[ BoxForm`e$, 
+        MatrixForm[ BoxForm`e$]]]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(gcon = Simplify[Inverse[gcov]]; MatrixForm[gcon]\)], "Input"],
+
+Cell[BoxData[
+    \(General::"spell1" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(gcon\)\" is similar to \
+existing symbol \"\!\(gcov\)\"."\)], "Message"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {\(-\(\(r\ \((2\ M + r)\) + a\^2\ Cos[h]\^2\)\/\(r\^2 + 
+                      a\^2\ Cos[h]\^2\)\)\), \(\(2\ \[ExponentialE]\^\(-r\)\ \
+M\ r\)\/\(Rin\ \((r\^2 + a\^2\ Cos[h]\^2)\)\)\), "0", "0"},
+            {\(\(2\ \[ExponentialE]\^\(-r\)\ M\ r\)\/\(Rin\ \((r\^2 + 
+                        a\^2\ Cos[h]\^2)\)\)\), \(\(\[ExponentialE]\^\(\(-2\)\
+\ r\)\ \((a\^2 + r\ \((\(-2\)\ M + r)\))\)\)\/\(Rin\^2\ \((r\^2 + 
+                        a\^2\ Cos[h]\^2)\)\)\), 
+              "0", \(\(a\ \[ExponentialE]\^\(-r\)\)\/\(Rin\ \((r\^2 + 
+                        a\^2\ Cos[h]\^2)\)\)\)},
+            {"0", 
+              "0", \(1\/\(\((r\^2 + 
+                        a\^2\ Cos[h]\^2)\)\ \((\[Pi] - \((\(-1\) + hslope)\)\ \
+\[Pi]\ Cos[2\ h\ \[Pi]])\)\^2\)\), "0"},
+            {
+              "0", \(\(a\ \[ExponentialE]\^\(-r\)\)\/\(Rin\ \((r\^2 + 
+                        a\^2\ Cos[h]\^2)\)\)\), 
+              "0", \(Csc[h]\^2\/\(r\^2 + a\^2\ Cos[h]\^2\)\)}
+            }], "\[NoBreak]", ")"}],
+      Function[ BoxForm`e$, 
+        MatrixForm[ BoxForm`e$]]]], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    \( (*\ static\ limit\ *) \)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(FullSimplify[
+      Solve[gcov[\([1, 1]\)] \[Equal] 0, r]]\), "\[IndentingNewLine]", 
+    \(FullSimplify[Solve[gcon[\([1, 1]\)] \[Equal] 0, r]]\)}], "Input"],
+
+Cell[BoxData[
+    \({{r \[Rule] M - \@\(M\^2 - a\^2\ Cos[h]\^2\)}, {r \[Rule] 
+          M + \@\(M\^2 - a\^2\ Cos[h]\^2\)}}\)], "Output"],
+
+Cell[BoxData[
+    \({{r \[Rule] \(-M\) - \@\(M\^2 - a\^2\ Cos[h]\^2\)}, {r \[Rule] \(-M\) + \
+\@\(M\^2 - a\^2\ Cos[h]\^2\)}}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\(\( (*\ 
+      check\ *) \)\(\[IndentingNewLine]\)\(\(ComplexExpand[
+        Dot[gcov, gcon]];\)\[IndentingNewLine]
+    FullSimplify[%, {r \[GreaterEqual] M, a > 0, h > 0 && h < Pi, 
+        r^2 + a^2*Cos[h]^2 > 0}]; MatrixForm[%];\[IndentingNewLine]
+    FullSimplify[%]\)\)\)], "Input"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {"1", "0", "0", "0"},
+            {"0", "1", "0", "0"},
+            {"0", "0", "1", "0"},
+            {"0", "0", "0", "1"}
+            }], "\[NoBreak]", ")"}],
+      Function[ BoxForm`e$, 
+        MatrixForm[ BoxForm`e$]]]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(gdetreal = Det[gcov]\)], "Input"],
+
+Cell[BoxData[
+    \(\((r\^2 + 
+          a\^2\ Cos[h]\^2)\)\ \((\[Pi] + \((1 - hslope)\)\ \[Pi]\ Cos[2\ h\ \
+\[Pi]])\)\^2\ \((\(-\[ExponentialE]\^\(2\ r\)\)\ r\^2\ Rin\^2\ Sin[h]\^2 - 
+          a\^2\ \[ExponentialE]\^\(2\ r\)\ Rin\^2\ Cos[h]\^2\ \
+Sin[h]\^2)\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(gdet = 
+      FullSimplify[
+        Sqrt[\(-gdetreal\)], {a > 0, r \[GreaterEqual] M, M > 0, 
+          h > 0 && h < Pi}]\)], "Input"],
+
+Cell[BoxData[
+    \(\[ExponentialE]\^r\ \[Pi]\ \((r\^2 + 
+          a\^2\ Cos[h]\^2)\)\ \@\(Rin\^2\ \((\(-1\) + \((\(-1\) + hslope)\)\ \
+Cos[2\ h\ \[Pi]])\)\^2\)\ Sin[h]\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(gdetcode = 
+      FullSimplify[
+        gdet, {hslope > 0, a > 0, r \[GreaterEqual] M, M > 0, 
+          h > 0 && h < Pi}]\)], "Input"],
+
+Cell[BoxData[
+    \(\[ExponentialE]\^r\ \[Pi]\ \@Rin\^2\ Abs[\(-1\) + \((\(-1\) + 
+                hslope)\)\ Cos[2\ h\ \[Pi]]]\ \((r\^2 + 
+          a\^2\ Cos[h]\^2)\)\ Sin[h]\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    \( (*\ \ do\ stuff\ here\ now\ *) \)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(gammiegdetcode = Abs[Abs[Sin[h]]*\((r^2 + a^2*Cos[h]^2)\)]\)], "Input"],
+
+Cell[BoxData[
+    \(Abs[\((r\^2 + a\^2\ Cos[h]\^2)\)\ Sin[h]]\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(const = {M \[Rule] 1, a \[Rule]  .2, 
+        h \[Rule] Pi/3}\), "\[IndentingNewLine]", 
+    \(rh = 
+      N[\(M + Sqrt[M^2 - Q^2 - a^2] //. {Q \[Rule] 0}\) //. 
+          const]\), "\[IndentingNewLine]", 
+    \(const2 = {r \[Rule] rh*1.1}\), "\[IndentingNewLine]", 
+    \(\(gdetcode //. const\) //. const2\), "\[IndentingNewLine]", 
+    \(N[%]\), "\[IndentingNewLine]", 
+    \(\(gammiegdetcode //. const\) //. const2\), "\[IndentingNewLine]", 
+    \(N[%]\), "\[IndentingNewLine]", 
+    \(\)}], "Input"],
+
+Cell[BoxData[
+    \({M \[Rule] 1, a \[Rule] 0.2`, h \[Rule] \[Pi]\/3}\)], "Output"],
+
+Cell[BoxData[
+    \(1.9797958971132712`\)], "Output"],
+
+Cell[BoxData[
+    \({r \[Rule] 2.1777754868245984`}\)], "Output"],
+
+Cell[BoxData[
+    \(4.115964194218753`\)], "Output"],
+
+Cell[BoxData[
+    \(4.115964194218753`\)], "Output"],
+
+Cell[BoxData[
+    \(4.115964194218753`\)], "Output"],
+
+Cell[BoxData[
+    \(4.115964194218753`\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(FullSimplify[gdetcodeplot = gdetcode //. const, 
+      r > 0]\), "\[IndentingNewLine]", 
+    \(FullSimplify[gammiegdetcodeplot = gammiegdetcode //. const, 
+      r > 0]\)}], "Input"],
+
+Cell[BoxData[
+    \(\(\(0.008660254037844388`\)\(\[InvisibleSpace]\)\) + 
+      0.8660254037844386`\ r\^2\)], "Output"],
+
+Cell[BoxData[
+    \(\(\(0.008660254037844388`\)\(\[InvisibleSpace]\)\) + 
+      0.8660254037844386`\ r\^2\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    \(MyD[f_, i_] := 
+      If[i \[Equal] 1, D[f, t], 
+        If[i \[Equal] 2, D[f, r], 
+          If[i \[Equal] 3, D[f, h], If[i \[Equal] 4, D[f, phi]]]]]\)], "Input"],
+
+Cell[BoxData[
+    \(\(\(\[IndentingNewLine]\)\( (*\ 
+      Connection\ for\ KS\ coords\ in\ coordinate\ basis\ *) \)\)\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(\(Connection = 
+        Array[#1^#2\  &, {4, 4, 4}]*0;\)\), "\[IndentingNewLine]", 
+    \(For[i = 1, i \[LessEqual] 4, 
+      For[j = 1, j \[LessEqual] 4, 
+        For[k = 1, 
+          k \[LessEqual] 4, \[IndentingNewLine]Connection[\([i, j, k]\)] = 
+            1/2*\((MyD[gcov[\([i, j]\)], k] + MyD[gcov[\([i, k]\)], j] - 
+                  MyD[gcov[\([j, k]\)], 
+                    i])\); \(k++\)]; \(j++\)]; \(i++\)\[IndentingNewLine]]\), \
+"\[IndentingNewLine]", 
+    \(\(gabc = Array[#1^#2\  &, {4, 4, 4}]*0;\)\), "\[IndentingNewLine]", 
+    \(For[i = 1, i \[LessEqual] 4, 
+      For[j = 1, j \[LessEqual] 4, 
+        For[k = 1, 
+          k \[LessEqual] 4, \[IndentingNewLine]gabc[\([i, j, k]\)] = 
+            MyD[gcov[\([i, j]\)], 
+              k]; \(k++\)]; \(j++\)]; \(i++\)\[IndentingNewLine]]\), "\
+\[IndentingNewLine]", 
+    \(gabc\), "\[IndentingNewLine]", 
+    \(\)}], "Input"],
+
+Cell[BoxData[
+    \({{{0, \(-\(\(4\ M\ r\^2\)\/\((r\^2 + a\^2\ Cos[h]\^2)\)\^2\)\) + \(2\ M\
+\)\/\(r\^2 + a\^2\ Cos[h]\^2\), \(4\ a\^2\ M\ r\ Cos[h]\ Sin[h]\)\/\((r\^2 + \
+a\^2\ Cos[h]\^2)\)\^2, 
+          0}, {0, \(-\(\(4\ M\ r\^2\)\/\((r\^2 + a\^2\ Cos[h]\^2)\)\^2\)\) + \
+\(2\ M\)\/\(r\^2 + a\^2\ Cos[h]\^2\), \(4\ a\^2\ M\ r\ Cos[h]\ Sin[h]\)\/\((r\
+\^2 + a\^2\ Cos[h]\^2)\)\^2, 0}, {0, 0, 0, 
+          0}, {0, \(4\ a\ M\ r\^2\ Sin[h]\^2\)\/\((r\^2 + a\^2\ \
+Cos[h]\^2)\)\^2 - \(2\ a\ M\ Sin[h]\^2\)\/\(r\^2 + a\^2\ Cos[h]\^2\), \
+\(-\(\(4\ a\ M\ r\ Cos[h]\ Sin[h]\)\/\(r\^2 + 
+                    a\^2\ Cos[h]\^2\)\)\) - \(4\ a\^3\ M\ r\ Cos[h]\ \
+Sin[h]\^3\)\/\((r\^2 + a\^2\ Cos[h]\^2)\)\^2, 
+          0}}, {{0, \(-\(\(4\ M\ r\^2\)\/\((r\^2 + a\^2\ Cos[h]\^2)\)\^2\)\) \
++ \(2\ M\)\/\(r\^2 + a\^2\ Cos[h]\^2\), \(4\ a\^2\ M\ r\ Cos[h]\ \
+Sin[h]\)\/\((r\^2 + a\^2\ Cos[h]\^2)\)\^2, 
+          0}, {0, \(-\(\(4\ M\ r\^2\)\/\((r\^2 + a\^2\ Cos[h]\^2)\)\^2\)\) + \
+\(2\ M\)\/\(r\^2 + a\^2\ Cos[h]\^2\), \(4\ a\^2\ M\ r\ Cos[h]\ Sin[h]\)\/\((r\
+\^2 + a\^2\ Cos[h]\^2)\)\^2, 0}, {0, 0, 0, 
+          0}, {0, \(-a\)\ \((\(-\(\(4\ M\ r\^2\)\/\((r\^2 + a\^2\ \
+Cos[h]\^2)\)\^2\)\) + \(2\ M\)\/\(r\^2 + a\^2\ Cos[h]\^2\))\)\ Sin[h]\^2, \
+\(-2\)\ a\ Cos[h]\ \((1 + \(2\ M\ r\)\/\(r\^2 + a\^2\ Cos[h]\^2\))\)\ Sin[
+                h] - \(4\ a\^3\ M\ r\ Cos[h]\ Sin[h]\^3\)\/\((r\^2 + a\^2\ \
+Cos[h]\^2)\)\^2, 0}}, {{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 
+          2\ r, \(-2\)\ a\^2\ Cos[h]\ Sin[h], 0}, {0, 0, 0, 
+          0}}, {{0, \(4\ a\ M\ r\^2\ Sin[h]\^2\)\/\((r\^2 + a\^2\ \
+Cos[h]\^2)\)\^2 - \(2\ a\ M\ Sin[h]\^2\)\/\(r\^2 + a\^2\ Cos[h]\^2\), \
+\(-\(\(4\ a\ M\ r\ Cos[h]\ Sin[h]\)\/\(r\^2 + 
+                    a\^2\ Cos[h]\^2\)\)\) - \(4\ a\^3\ M\ r\ Cos[h]\ \
+Sin[h]\^3\)\/\((r\^2 + a\^2\ Cos[h]\^2)\)\^2, 
+          0}, {0, \(-a\)\ \((\(-\(\(4\ M\ r\^2\)\/\((r\^2 + a\^2\ \
+Cos[h]\^2)\)\^2\)\) + \(2\ M\)\/\(r\^2 + a\^2\ Cos[h]\^2\))\)\ Sin[h]\^2, \
+\(-2\)\ a\ Cos[h]\ \((1 + \(2\ M\ r\)\/\(r\^2 + a\^2\ Cos[h]\^2\))\)\ Sin[
+                h] - \(4\ a\^3\ M\ r\ Cos[h]\ Sin[h]\^3\)\/\((r\^2 + a\^2\ \
+Cos[h]\^2)\)\^2, 0}, {0, 0, 0, 0}, {0, 
+          Sin[h]\^2\ \((2\ r + 
+                a\^2\ \((\(-\(\(4\ M\ r\^2\)\/\((r\^2 + a\^2\ Cos[h]\^2)\)\^2\
+\)\) + \(2\ M\)\/\(r\^2 + a\^2\ Cos[h]\^2\))\)\ Sin[h]\^2)\), 
+          2\ Cos[h]\ Sin[
+                h]\ \((r\^2 + a\^2\ Cos[h]\^2 + 
+                  a\^2\ \((1 + \(2\ M\ r\)\/\(r\^2 + a\^2\ Cos[h]\^2\))\)\ \
+Sin[h]\^2)\) + 
+            Sin[h]\^2\ \((\(-2\)\ a\^2\ Cos[h]\ Sin[h] + 
+                  2\ a\^2\ Cos[
+                      h]\ \((1 + \(2\ M\ r\)\/\(r\^2 + a\^2\ Cos[h]\^2\))\)\ \
+Sin[h] + \(4\ a\^4\ M\ r\ Cos[h]\ Sin[h]\^3\)\/\((r\^2 + a\^2\ \
+Cos[h]\^2)\)\^2)\), 0}}}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(gammiecodeconst = {M \[Rule] 1, Sin[h] \[Rule] sth, sth^2 \[Rule] s2, 
+        s2^2 \[Rule] s4, Cos[h] \[Rule] cth, cth^2 \[Rule] c2, 
+        c2^2 \[Rule] c4, c4*c2 \[Rule] c6, a^2 \[Rule] a2, a2^2 \[Rule] a4, 
+        a4*a2 \[Rule] a6, r^2 \[Rule] r2, r2*r \[Rule] r3, 
+        r3^2 \[Rule] r6, \((r2 + a2*c2)\) \[Rule] rho2, 
+        rho2*rho2 \[Rule] rho4, \((\(-2\)*r2 + rho2)\) \[Rule] it}\)], "Input"],
+
+Cell[BoxData[
+    \({M \[Rule] 1, Sin[h] \[Rule] sth, sth\^2 \[Rule] s2, s2\^2 \[Rule] s4, 
+      Cos[h] \[Rule] cth, cth\^2 \[Rule] c2, c2\^2 \[Rule] c4, 
+      c2\ c4 \[Rule] c6, a\^2 \[Rule] a2, a2\^2 \[Rule] a4, 
+      a2\ a4 \[Rule] a6, r\^2 \[Rule] r2, r\ r2 \[Rule] r3, r3\^2 \[Rule] r6, 
+      a2\ c2 + r2 \[Rule] rho2, 
+      rho2\^2 \[Rule] rho4, \(-2\)\ r2 + rho2 \[Rule] it}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(\(i = 4;\)\), "\[IndentingNewLine]", 
+    \(\(j = 4;\)\), "\[IndentingNewLine]", 
+    \(\(k = 3;\)\), "\[IndentingNewLine]", 
+    \(FullSimplify[
+      FullSimplify[gabc[\([i, j, k]\)]] //. 
+        gammiecodeconst]\), "\[IndentingNewLine]", 
+    \(FullSimplify[gabc[\([i, j, k]\)] //. gammiecodeconst] //. 
+      gammiecodeconst\)}], "Input"],
+
+Cell[BoxData[
+    \(\((a2 + \((\(-2\) + 
+                r)\)\ r + \(8\ r\ \((a2 + r2)\)\^2\)\/\((a2 + 2\ r2 + a2\ \
+Cos[2\ h])\)\^2)\)\ Sin[2\ h]\)], "Output"],
+
+Cell[BoxData[
+    \(\(2\ cth\ \((rho2\^3 + 4\ a2\ r\ rho2\ s2 + a2\ rho4\ s2 + 2\ a\^4\ r\ \
+s4)\)\ sth\)\/rho2\^2\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(me = 
+      Expand[FullSimplify[\((\(2\ cth\ \((rho2\^3 + 4\ a2\ r\ rho2\ s2 + a2\ \
+rho2^2\ s2 + 2\ a\^4\ r\ s4)\)\ sth\)\/\(2*rho4\))\) //. {rho2 \[Rule] \((r^2 \
++ a2*c2)\), cth \[Rule] 1, sth \[Rule] 1, rho4 \[Rule] 1}]]\)], "Input"],
+
+Cell[BoxData[
+    \(a2\^3\ c2\^3 + 3\ a2\^2\ c2\^2\ r\^2 + 3\ a2\ c2\ r\^4 + r\^6 + 
+      a2\^3\ c2\^2\ s2 + 4\ a2\^2\ c2\ r\ s2 + 2\ a2\^2\ c2\ r\^2\ s2 + 
+      4\ a2\ r\^3\ s2 + a2\ r\^4\ s2 + 2\ a\^4\ r\ s4\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(gammie = 
+      Expand[2*cth*
+            sth*\((r6 + a6*c6 + a2*r3*\((4 + r)\)*s2 + 2*a4*r*s4 + 
+                  c4*\((3*a4*r2 + a6*s2)\) + 
+                  a2*r*c2*\((3*r3 + 2*a2*\((2 + r)\)*s2)\))\)/
+              rho4] //. {rho4 -> 1, cth \[Rule] 1, sth \[Rule] 1}\)], "Input"],
+
+Cell[BoxData[
+    \(2\ a6\ c6 + 6\ a4\ c4\ r2 + 6\ a2\ c2\ r\ r3 + 2\ r6 + 2\ a6\ c4\ s2 + 
+      8\ a2\^2\ c2\ r\ s2 + 4\ a2\^2\ c2\ r\^2\ s2 + 8\ a2\ r3\ s2 + 
+      2\ a2\ r\ r3\ s2 + 4\ a4\ r\ s4\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(eq1 = 
+      Expand[\((gammie/2)\) //. {a2 \[Rule] a^2, c2 \[Rule] c^2, 
+            a6 \[Rule] a^6, c6 \[Rule] c^6, a4 \[Rule] a^4, c4 \[Rule] c^4, 
+            r2 \[Rule] r^2, r3 \[Rule] r^3, r6 \[Rule] r^6, s2 \[Rule] s^2, 
+            c4 \[Rule] c^4, s4 \[Rule] s^4}]\)], "Input"],
+
+Cell[BoxData[
+    \(a\^6\ c\^6 + 3\ a\^4\ c\^4\ r\^2 + 3\ a\^2\ c\^2\ r\^4 + r\^6 + 
+      a\^6\ c\^4\ s\^2 + 4\ a\^4\ c\^2\ r\ s\^2 + 2\ a\^4\ c\^2\ r\^2\ s\^2 + 
+      4\ a\^2\ r\^3\ s\^2 + a\^2\ r\^4\ s\^2 + 2\ a\^4\ r\ s\^4\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(eq2 = 
+      me //. {a2 \[Rule] a^2, c2 \[Rule] c^2, a6 \[Rule] a^6, c6 \[Rule] c^6, 
+          a4 \[Rule] a^4, c4 \[Rule] c^4, r2 \[Rule] r^2, r3 \[Rule] r^3, 
+          r6 \[Rule] r^6, s2 \[Rule] s^2, c4 \[Rule] c^4, 
+          s4 \[Rule] s^4}\)], "Input"],
+
+Cell[BoxData[
+    \(a\^6\ c\^6 + 3\ a\^4\ c\^4\ r\^2 + 3\ a\^2\ c\^2\ r\^4 + r\^6 + 
+      a\^6\ c\^4\ s\^2 + 4\ a\^4\ c\^2\ r\ s\^2 + 2\ a\^4\ c\^2\ r\^2\ s\^2 + 
+      4\ a\^2\ r\^3\ s\^2 + a\^2\ r\^4\ s\^2 + 2\ a\^4\ r\ s\^4\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(FullSimplify[eq2 - eq1]\)], "Input"],
+
+Cell[BoxData[
+    \(0\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    \( (*\ bl\ to\ ks\ \ \((faster\ order\ is\ bl)\)\ *) \)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(Y = a^2*Sin[h]^2/rho^2\), "\[IndentingNewLine]", 
+    \(Z = 2*M*r/rho^2\), "\[IndentingNewLine]", 
+    \(ep = \(-1\)\), "\[IndentingNewLine]", 
+    \(k = 1\)}], "Input"],
+
+Cell[BoxData[
+    \(\(a\^2\ Sin[h]\^2\)\/\(r\^2 + a\^2\ Cos[h]\^2\)\)], "Output"],
+
+Cell[BoxData[
+    \(\(2\ M\ r\)\/\(r\^2 + a\^2\ Cos[h]\^2\)\)], "Output"],
+
+Cell[BoxData[
+    \(\(-1\)\)], "Output"],
+
+Cell[BoxData[
+    \(1\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(trans = 
+      FullSimplify[{{1, \(-ep\)*\((\((1 + Y)\)/\((1 + Y - Z)\) - \((1 - 
+                        Z^k)\)/\((1 - Z)\))\), 0, 0}, {0, 1, 0, 0}, {0, 0, 1, 
+            0}, {0, \(-a\)/delta*ep, 0, 1}}]; MatrixForm[trans]\)], "Input"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {"1", \(\(2\ M\ r\)\/\(a\^2 + r\ \((\(-2\)\ M + r)\)\)\), "0", 
+              "0"},
+            {"0", "1", "0", "0"},
+            {"0", "0", "1", "0"},
+            {"0", \(a\/\(a\^2 - 2\ M\ r + r\^2\)\), "0", "1"}
+            }], "\[NoBreak]", ")"}],
+      (MatrixForm[ #]&)]], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    \( (*\ b\ 4 - vector\ *) \)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(Ef = {\(-\((vy*bz - vz*by)\)\), \(-\((vz*bx - vx*bz)\)\), \(-\((vx*by - 
+              vy*bx)\)\)}\), "\[IndentingNewLine]", 
+    \(Bf = {bx, by, bz}\)}], "Input"],
+
+Cell[BoxData[
+    \({\(-bz\)\ vy + by\ vz, 
+      bz\ vx - bx\ vz, \(-by\)\ vx + bx\ vy}\)], "Output"],
+
+Cell[BoxData[
+    \({bx, by, bz}\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    \( (*\ ucon_calc\ *) \)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(it1 = \(\(\(FullSimplify[
+              Solve[gcov[\([1, 1]\)] \[Equal] 0, 
+                r]]\)[\([2]\)]\)[\([1]\)]\)[\([2]\)]\), \
+"\[IndentingNewLine]", 
+    \(it2 = \(\(\(FullSimplify[
+              Solve[gcov[\([1, 1]\)] \[Equal] 0, 
+                r]]\)[\([1]\)]\)[\([1]\)]\)[\([2]\)]\)}], "Input"],
+
+Cell[BoxData[
+    \(M + \@\(M\^2 - a\^2\ Cos[h]\^2\)\)], "Output"],
+
+Cell[BoxData[
+    \(M - \@\(M\^2 - a\^2\ Cos[h]\^2\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\(\(slh1 = \(\(\(FullSimplify[Solve[sl \[Equal] it1, h], 
+              sl > 0]\)[\([3]\)]\)[\([1]\)]\)[\([2]\)]\[IndentingNewLine]
+    slh2 = FullSimplify[Solve[sl \[Equal] it2, h], sl > 0]\)\(\ \)\( (*\ 
+      same\ *) \)\)\)], "Input"],
+
+Cell[BoxData[
+    \(Solve::"ifun" \(\(:\)\(\ \)\) 
+      "Inverse functions are being used by \!\(Solve\), so some solutions may \
+not be found."\)], "Message"],
+
+Cell[BoxData[
+    \(\(-ArcSec[a\/\@\(\((2\ M - sl)\)\ sl\)]\)\)], "Output"],
+
+Cell[BoxData[
+    \(Solve::"ifun" \(\(:\)\(\ \)\) 
+      "Inverse functions are being used by \!\(Solve\), so some solutions may \
+not be found."\)], "Message"],
+
+Cell[BoxData[
+    \({{h \[Rule] \(-ArcSec[\(-\(a\/\@\(\((2\ M - sl)\)\ sl\)\)\)]\)}, {h \
+\[Rule] ArcSec[\(-\(a\/\@\(\((2\ M - sl)\)\ sl\)\)\)]}, {h \[Rule] \(-ArcSec[
+              a\/\@\(\((2\ M - sl)\)\ sl\)]\)}, {h \[Rule] 
+          ArcSec[a\/\@\(\((2\ M - sl)\)\ sl\)]}}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(gcovsl = FullSimplify[ComplexExpand[gcov //. {h \[Rule] slh1}]]; 
+    MatrixForm[gcovsl]\), "\[IndentingNewLine]", 
+    \(gconsl = FullSimplify[ComplexExpand[gcon //. {h \[Rule] slh1}]]; 
+    MatrixForm[gconsl]\)}], "Input"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {\(\(-1\) + \(2\ M\ r\)\/\(r\^2 + \((2\ M - sl)\)\ sl\)\), \(\(2\ \
+M\ r\)\/\(r\^2 + \((2\ M - sl)\)\ sl\)\), 
+              "0", \(-\(\(2\ M\ r\ \((a\^2 + 
+                          sl\ \((\(-2\)\ M + 
+                                sl)\))\)\)\/\(a\ \((r\^2 + \((2\ M - 
+                                sl)\)\ sl)\)\)\)\)},
+            {\(\(2\ M\ r\)\/\(r\^2 + \((2\ M - 
+                          sl)\)\ sl\)\), \(1 + \(2\ M\ r\)\/\(r\^2 + \((2\ M \
+- sl)\)\ sl\)\), 
+              "0", \(-\(\(\((2\ M + r - sl)\)\ \((r + sl)\)\ \((a\^2 + 
+                          sl\ \((\(-2\)\ M + 
+                                sl)\))\)\)\/\(a\ \((r\^2 + \((2\ M - 
+                                sl)\)\ sl)\)\)\)\)},
+            {"0", "0", \(r\^2 + \((2\ M - sl)\)\ sl\), "0"},
+            {\(-\(\(2\ M\ r\ \((a\^2 + 
+                          sl\ \((\(-2\)\ M + 
+                                sl)\))\)\)\/\(a\ \((r\^2 + \((2\ M - 
+                                sl)\)\ sl)\)\)\)\), \(-\(\(\((2\ M + r - 
+                          sl)\)\ \((r + sl)\)\ \((a\^2 + 
+                          sl\ \((\(-2\)\ M + 
+                                sl)\))\)\)\/\(a\ \((r\^2 + \((2\ M - 
+                                sl)\)\ sl)\)\)\)\), 
+              "0", \(\(\((a\^2 + 
+                        sl\ \((\(-2\)\ M + sl)\))\)\ \((a\^2\ \((2\ M + r - 
+                              sl)\)\ \((r + sl)\) + 
+                        r\ \((r\^3 + r\ \((2\ M - sl)\)\ sl + 
+                              2\ M\ sl\ \((\(-2\)\ M + 
+                                    sl)\))\))\)\)\/\(a\^2\ \((r\^2 + \((2\ M \
+- sl)\)\ sl)\)\)\)}
+            }], "\[NoBreak]", ")"}],
+      (MatrixForm[ #]&)]], "Output"],
+
+Cell[BoxData[
+    \(General::"spell1" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(gconsl\)\" is similar \
+to existing symbol \"\!\(gcovsl\)\"."\)], "Message"],
+
+Cell[BoxData[
+    \($Aborted\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(MatrixForm[
+      gcov //. {a \[Rule] 1, M \[Rule] 1, h \[Rule] Pi/2}]\)], "Input"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {\(\(-1\) + 2\/r\), \(2\/r\), "0", \(-\(2\/r\)\)},
+            {\(2\/r\), \(1 + 2\/r\), "0", \(\(-1\) - 2\/r\)},
+            {"0", "0", \(r\^2\), "0"},
+            {\(-\(2\/r\)\), \(\(-1\) - 2\/r\), "0", \(1 + 2\/r + r\^2\)}
+            }], "\[NoBreak]", ")"}],
+      (MatrixForm[ #]&)]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\(\( (*\ 
+      at\ static\ limit\ proper\ *) \)\(\[IndentingNewLine]\)\(temp = 
+      FullSimplify[gcovsl //. {r \[Rule] sl}]; 
+    MatrixForm[temp]\)\)\)], "Input"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {"0", "1", "0", \(-\(\(a\^2 - 2\ M\ sl + sl\^2\)\/a\)\)},
+            {"1", "2", 
+              "0", \(-\(\(2\ \((a\^2 + sl\ \((\(-2\)\ M + sl)\))\)\)\/a\)\)},
+            {"0", "0", \(2\ M\ sl\), "0"},
+            {\(-\(\(a\^2 - 2\ M\ sl + 
+                      sl\^2\)\/a\)\), \(-\(\(2\ \((a\^2 + 
+                          sl\ \((\(-2\)\ M + sl)\))\)\)\/a\)\), 
+              "0", \(\(2\ \((a\^2 + sl\ \((\(-2\)\ M + sl)\))\)\ \((a\^2 + 
+                        sl\ \((\(-M\) + sl)\))\)\)\/a\^2\)}
+            }], "\[NoBreak]", ")"}],
+      (MatrixForm[ #]&)]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\(\( (*\ at\ static\ limit\ 2\ *) \)\(\[IndentingNewLine]\)\(temp = 
+      FullSimplify[gcovsl //. {r \[Rule] 2*M - sl}]; 
+    MatrixForm[temp]\)\)\)], "Input"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {"0", "1", "0", \(-\(\(a\^2 - 2\ M\ sl + sl\^2\)\/a\)\)},
+            {"1", "2", 
+              "0", \(-\(\(2\ \((a\^2 + sl\ \((\(-2\)\ M + sl)\))\)\)\/a\)\)},
+            {"0", "0", \(2\ M\ \((2\ M - sl)\)\), "0"},
+            {\(-\(\(a\^2 - 2\ M\ sl + 
+                      sl\^2\)\/a\)\), \(-\(\(2\ \((a\^2 + 
+                          sl\ \((\(-2\)\ M + sl)\))\)\)\/a\)\), 
+              "0", \(\(2\ \((a\^2 + 2\ M\^2 - 3\ M\ sl + sl\^2)\)\ \((a\^2 + 
+                        sl\ \((\(-2\)\ M + sl)\))\)\)\/a\^2\)}
+            }], "\[NoBreak]", ")"}],
+      (MatrixForm[ #]&)]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(gcovslR = FullSimplify[gcovsl/gcovsl[\([1, 1]\)]]; 
+    MatrixForm[gcovslR]\)], "Input"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {
+              "1", \(-\(\(2\ M\ r\)\/\(\((r - sl)\)\ \((\(-2\)\ M + r + 
+                          sl)\)\)\)\), 
+              "0", \(\(2\ M\ r\ \((a\^2 + 
+                        sl\ \((\(-2\)\ M + sl)\))\)\)\/\(a\ \((r - 
+                        sl)\)\ \((\(-2\)\ M + r + sl)\)\)\)},
+            {\(-\(\(2\ M\ r\)\/\(\((r - sl)\)\ \((\(-2\)\ M + r + 
+                          sl)\)\)\)\), \(-\(\(\((2\ M + r - sl)\)\ \((r + 
+                          sl)\)\)\/\(\((r - sl)\)\ \((\(-2\)\ M + r + 
+                          sl)\)\)\)\), 
+              "0", \(\(\((2\ M + r - sl)\)\ \((r + sl)\)\ \((a\^2 + 
+                        sl\ \((\(-2\)\ M + sl)\))\)\)\/\(a\ \((r - 
+                        sl)\)\ \((\(-2\)\ M + r + sl)\)\)\)},
+            {"0", 
+              "0", \(-\(\((r\^2 + \((2\ M - sl)\)\ sl)\)\^2\/\(\((r - 
+                          sl)\)\ \((\(-2\)\ M + r + sl)\)\)\)\), "0"},
+            {\(\(2\ M\ r\ \((a\^2 + 
+                        sl\ \((\(-2\)\ M + sl)\))\)\)\/\(a\ \((r - 
+                        sl)\)\ \((\(-2\)\ M + r + sl)\)\)\), \(\(\((2\ M + 
+                        r - sl)\)\ \((r + sl)\)\ \((a\^2 + 
+                        sl\ \((\(-2\)\ M + sl)\))\)\)\/\(a\ \((r - 
+                        sl)\)\ \((\(-2\)\ M + r + sl)\)\)\), 
+              "0", \(-\(\(\((a\^2 + 
+                          sl\ \((\(-2\)\ M + sl)\))\)\ \((a\^2\ \((2\ M + r - 
+                                sl)\)\ \((r + sl)\) + 
+                          r\ \((r\^3 + r\ \((2\ M - sl)\)\ sl + 
+                                2\ M\ sl\ \((\(-2\)\ M + 
+                                      sl)\))\))\)\)\/\(a\^2\ \((r - 
+                          sl)\)\ \((\(-2\)\ M + r + sl)\)\)\)\)}
+            }], "\[NoBreak]", ")"}],
+      (MatrixForm[ #]&)]], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    \(<< Graphics`Graphics`\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(const = {M \[Rule] 1, a \[Rule] 0.999}\), "\[IndentingNewLine]", 
+    \(one = it1 //. const\), "\[IndentingNewLine]", 
+    \(one2 = it2 //. const\), "\[IndentingNewLine]", 
+    \(two = 2*M - it //. const\), "\[IndentingNewLine]", 
+    \(three = M + Sqrt[M^2 - a^2] //. const\)}], "Input"],
+
+Cell[BoxData[
+    \({M \[Rule] 1, a \[Rule] 0.999`}\)], "Output"],
+
+Cell[BoxData[
+    \(1 + \@\(1 - 0.998001`\ Cos[h]\^2\)\)], "Output"],
+
+Cell[BoxData[
+    \(1 - \@\(1 - 0.998001`\ Cos[h]\^2\)\)], "Output"],
+
+Cell[BoxData[
+    \(1 - \@\(1 - 0.998001`\ Cos[h]\^2\)\)], "Output"],
+
+Cell[BoxData[
+    \(1.044710177812216`\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(PolarPlot[{one /. {h \[Rule] h - Pi/2}, two /. {h \[Rule] h - Pi/2}, 
+        three /. {h \[Rule] h - Pi/2}}, {h, 0, 2*Pi}]\)], "Input"],
+
+Cell[GraphicsData["PostScript", "\<\
+%!
+%%Creator: Mathematica
+%%AspectRatio: .65017 
+MathPictureStart
+/Mabs {
+Mgmatrix idtransform
+Mtmatrix dtransform
+} bind def
+/Mabsadd { Mabs
+3 -1 roll add
+3 1 roll add
+exch } bind def
+%% Graphics
+%%IncludeResource: font Courier
+%%IncludeFont: Courier
+/Courier findfont 10  scalefont  setfont
+% Scaling calculations
+0.499999 0.238096 0.325085 0.238096 [
+[.02381 .31258 -6 -9 ]
+[.02381 .31258 6 0 ]
+[.2619 .31258 -6 -9 ]
+[.2619 .31258 6 0 ]
+[.73809 .31258 -3 -9 ]
+[.73809 .31258 3 0 ]
+[.97619 .31258 -3 -9 ]
+[.97619 .31258 3 0 ]
+[.4875 .08699 -12 -4.5 ]
+[.4875 .08699 0 4.5 ]
+[.4875 .20604 -24 -4.5 ]
+[.4875 .20604 0 4.5 ]
+[.4875 .44413 -18 -4.5 ]
+[.4875 .44413 0 4.5 ]
+[.4875 .56318 -6 -4.5 ]
+[.4875 .56318 0 4.5 ]
+[ 0 0 0 0 ]
+[ 1 .65017 0 0 ]
+] MathScale
+% Start of Graphics
+1 setlinecap
+1 setlinejoin
+newpath
+0 g
+.25 Mabswid
+[ ] 0 setdash
+.02381 .32508 m
+.02381 .33133 L
+s
+[(-2)] .02381 .31258 0 1 Mshowa
+.2619 .32508 m
+.2619 .33133 L
+s
+[(-1)] .2619 .31258 0 1 Mshowa
+.73809 .32508 m
+.73809 .33133 L
+s
+[(1)] .73809 .31258 0 1 Mshowa
+.97619 .32508 m
+.97619 .33133 L
+s
+[(2)] .97619 .31258 0 1 Mshowa
+.125 Mabswid
+.07143 .32508 m
+.07143 .32883 L
+s
+.11905 .32508 m
+.11905 .32883 L
+s
+.16667 .32508 m
+.16667 .32883 L
+s
+.21428 .32508 m
+.21428 .32883 L
+s
+.30952 .32508 m
+.30952 .32883 L
+s
+.35714 .32508 m
+.35714 .32883 L
+s
+.40476 .32508 m
+.40476 .32883 L
+s
+.45238 .32508 m
+.45238 .32883 L
+s
+.54762 .32508 m
+.54762 .32883 L
+s
+.59524 .32508 m
+.59524 .32883 L
+s
+.64286 .32508 m
+.64286 .32883 L
+s
+.69048 .32508 m
+.69048 .32883 L
+s
+.78571 .32508 m
+.78571 .32883 L
+s
+.83333 .32508 m
+.83333 .32883 L
+s
+.88095 .32508 m
+.88095 .32883 L
+s
+.92857 .32508 m
+.92857 .32883 L
+s
+.25 Mabswid
+0 .32508 m
+1 .32508 L
+s
+.5 .08699 m
+.50625 .08699 L
+s
+[(-1)] .4875 .08699 1 0 Mshowa
+.5 .20604 m
+.50625 .20604 L
+s
+[(-0.5)] .4875 .20604 1 0 Mshowa
+.5 .44413 m
+.50625 .44413 L
+s
+[(0.5)] .4875 .44413 1 0 Mshowa
+.5 .56318 m
+.50625 .56318 L
+s
+[(1)] .4875 .56318 1 0 Mshowa
+.125 Mabswid
+.5 .1108 m
+.50375 .1108 L
+s
+.5 .13461 m
+.50375 .13461 L
+s
+.5 .15842 m
+.50375 .15842 L
+s
+.5 .18223 m
+.50375 .18223 L
+s
+.5 .22985 m
+.50375 .22985 L
+s
+.5 .25366 m
+.50375 .25366 L
+s
+.5 .27747 m
+.50375 .27747 L
+s
+.5 .30128 m
+.50375 .30128 L
+s
+.5 .34889 m
+.50375 .34889 L
+s
+.5 .3727 m
+.50375 .3727 L
+s
+.5 .39651 m
+.50375 .39651 L
+s
+.5 .42032 m
+.50375 .42032 L
+s
+.5 .46794 m
+.50375 .46794 L
+s
+.5 .49175 m
+.50375 .49175 L
+s
+.5 .51556 m
+.50375 .51556 L
+s
+.5 .53937 m
+.50375 .53937 L
+s
+.5 .06318 m
+.50375 .06318 L
+s
+.5 .03937 m
+.50375 .03937 L
+s
+.5 .01556 m
+.50375 .01556 L
+s
+.5 .58699 m
+.50375 .58699 L
+s
+.5 .6108 m
+.50375 .6108 L
+s
+.5 .63461 m
+.50375 .63461 L
+s
+.25 Mabswid
+.5 0 m
+.5 .65017 L
+s
+0 0 m
+1 0 L
+1 .65017 L
+0 .65017 L
+closepath
+clip
+newpath
+.5 Mabswid
+.97619 .32508 m
+.97617 .32878 L
+.97611 .33214 L
+.976 .33601 L
+.97586 .33968 L
+.97549 .34619 L
+.97494 .35324 L
+.97415 .36099 L
+.97311 .36919 L
+.97072 .38379 L
+.96753 .39872 L
+.96391 .41254 L
+.95338 .44322 L
+.93951 .47309 L
+.92424 .49888 L
+.90352 .52678 L
+.8818 .55026 L
+.83748 .58599 L
+.81199 .6011 L
+.78368 .61418 L
+.75571 .62373 L
+.73976 .6278 L
+.72504 .6307 L
+.71212 .63259 L
+.7048 .6334 L
+.69798 .63397 L
+.69429 .63421 L
+.6908 .6344 L
+.68768 .63452 L
+.68428 .63462 L
+.68253 .63465 L
+.6806 .63468 L
+.67859 .63469 L
+.6767 .63469 L
+.67334 .63465 L
+.67145 .63461 L
+.66972 .63456 L
+.66628 .63444 L
+.66304 .63428 L
+.657 .63388 L
+.65054 .63331 L
+.64359 .63252 L
+.63123 .63066 L
+.62004 .62845 L
+.59517 .62172 L
+.57034 .61227 L
+.52912 .58969 L
+.51335 .57923 L
+.50928 .5768 L
+.50709 .57567 L
+Mistroke
+.50504 .57481 L
+.50315 .57422 L
+.50111 .57388 L
+.49927 .57385 L
+.49757 .57406 L
+.49559 .57458 L
+.49374 .5753 L
+.48945 .57752 L
+.48045 .58332 L
+.4625 .59501 L
+.44017 .60737 L
+.41726 .61735 L
+.39377 .62504 L
+.37996 .62845 L
+.3669 .63098 L
+.35572 .63261 L
+.34928 .63333 L
+.3432 .63387 L
+.34007 .63409 L
+.33677 .63429 L
+.33391 .63443 L
+.33085 .63455 L
+.32753 .63463 L
+.32444 .63468 L
+.32254 .63469 L
+.32075 .63469 L
+.3174 .63465 L
+.31424 .63458 L
+.31084 .63447 L
+.30763 .63432 L
+.30469 .63415 L
+.29749 .63361 L
+.29065 .63292 L
+.27702 .63104 L
+.26218 .62823 L
+.23584 .62118 L
+.21181 .61233 L
+.18646 .60028 L
+.16352 .58665 L
+.13932 .569 L
+.1156 .54769 L
+.09586 .52604 L
+.07657 .50009 L
+.06145 .4749 L
+.04934 .44976 L
+.03825 .41975 L
+.03084 .39152 L
+.02782 .37542 L
+.02578 .36044 L
+.025 .35257 L
+Mistroke
+.02437 .34388 L
+.02414 .33951 L
+.02404 .33709 L
+.02396 .3348 L
+.0239 .33267 L
+.02385 .33035 L
+.02381 .32628 L
+.02381 .32425 L
+.02382 .3221 L
+.02388 .31825 L
+.024 .31411 L
+.02409 .31177 L
+.02419 .30958 L
+.02465 .302 L
+.02534 .29389 L
+.02622 .28604 L
+.02722 .27864 L
+.02958 .26484 L
+.03309 .24886 L
+.03707 .23429 L
+.04858 .2022 L
+.06149 .1752 L
+.07581 .15122 L
+.09404 .12635 L
+.11561 .10246 L
+.1372 .0829 L
+.16255 .06416 L
+.18673 .04975 L
+.21041 .03842 L
+.23826 .02823 L
+.26395 .02156 L
+.27841 .0189 L
+.29173 .01713 L
+.29868 .01646 L
+.30629 .01592 L
+.31012 .01573 L
+.31223 .01565 L
+.31422 .01559 L
+.31607 .01554 L
+.31808 .01551 L
+.3216 .01548 L
+.32337 .01548 L
+.32523 .0155 L
+.32856 .01556 L
+.33213 .01567 L
+.33415 .01575 L
+.33603 .01584 L
+.34252 .01625 L
+.34942 .01686 L
+.35607 .01761 L
+Mistroke
+.36231 .01847 L
+.37385 .02045 L
+.38709 .02338 L
+.39904 .02664 L
+.42487 .03585 L
+.44619 .04588 L
+.46471 .05653 L
+.4744 .06279 L
+.48441 .06949 L
+.4888 .07227 L
+.49116 .07361 L
+.49336 .0747 L
+.49539 .07551 L
+.49756 .0761 L
+.49953 .07634 L
+.50135 .07627 L
+.50327 .07592 L
+.50535 .07525 L
+.50733 .07438 L
+.50915 .07344 L
+.51812 .06781 L
+.53776 .055 L
+.55633 .04457 L
+.57756 .03485 L
+.60106 .02661 L
+.62397 .02089 L
+.63708 .01856 L
+.64962 .01695 L
+.65689 .01629 L
+.6636 .01586 L
+.66714 .0157 L
+.66917 .01562 L
+.67102 .01557 L
+.67298 .01553 L
+.67508 .0155 L
+.67703 .01548 L
+.67888 .01548 L
+.68201 .01551 L
+.68539 .01558 L
+.68858 .01568 L
+.69151 .01581 L
+.69867 .01625 L
+.7055 .01684 L
+.71254 .01763 L
+.71908 .01852 L
+.73391 .02112 L
+.75851 .02725 L
+.78435 .03626 L
+.81163 .04888 L
+.83988 .06578 L
+Mistroke
+.86294 .08301 L
+.88645 .10454 L
+.92474 .15205 L
+.94166 .18121 L
+.9546 .21006 L
+.95975 .22426 L
+.96457 .23998 L
+.96814 .25405 L
+.97123 .26916 L
+.97337 .28287 L
+.97433 .29072 L
+.97504 .2981 L
+.97555 .30487 L
+.97588 .31108 L
+.97601 .31434 L
+.97611 .3179 L
+.97617 .32163 L
+.97619 .32508 L
+Mfstroke
+.5 .32508 m
+.50001 .32508 L
+.50003 .32509 L
+.50006 .32509 L
+.50011 .32509 L
+.50023 .3251 L
+.50042 .32511 L
+.50068 .32514 L
+.50102 .32518 L
+.50181 .32531 L
+.50286 .32553 L
+.50404 .32585 L
+.50743 .32702 L
+.51177 .32905 L
+.51641 .33181 L
+.52242 .33629 L
+.52837 .34182 L
+.53925 .35543 L
+.54466 .3646 L
+.54984 .37588 L
+.554 .38815 L
+.5559 .39566 L
+.55731 .40292 L
+.55827 .40956 L
+.55868 .41343 L
+.55898 .41711 L
+.55911 .41913 L
+.5592 .42106 L
+.55927 .4228 L
+.55932 .42472 L
+.55933 .42571 L
+.55934 .42681 L
+.55935 .42797 L
+.55934 .42906 L
+.55931 .43101 L
+.55928 .43211 L
+.55925 .43313 L
+.55917 .43517 L
+.55907 .43711 L
+.55881 .44077 L
+.55844 .44474 L
+.55792 .4491 L
+.55668 .45706 L
+.55516 .4645 L
+.5503 .48187 L
+.54295 .50042 L
+.53446 .51668 L
+.52324 .53346 L
+.51702 .541 L
+.51378 .54443 L
+Mistroke
+.51066 .54733 L
+.50752 .54976 L
+.50613 .55065 L
+.5046 .55144 L
+.50291 .55209 L
+.50131 .55244 L
+.49947 .55252 L
+.49779 .55227 L
+.4959 .55166 L
+.49412 .55079 L
+.49086 .54858 L
+.48389 .542 L
+.47263 .52779 L
+.46238 .51107 L
+.45359 .49239 L
+.44784 .47599 L
+.44536 .46674 L
+.44352 .45817 L
+.44277 .45383 L
+.4421 .4493 L
+.44163 .44542 L
+.44123 .44132 L
+.44105 .43902 L
+.44092 .43695 L
+.44081 .43485 L
+.44074 .43293 L
+.44071 .43184 L
+.44068 .4307 L
+.44066 .42956 L
+.44065 .4283 L
+.44065 .42723 L
+.44066 .42608 L
+.44068 .425 L
+.4407 .42401 L
+.44075 .42221 L
+.44082 .42053 L
+.44092 .41869 L
+.44104 .41673 L
+.44138 .41279 L
+.44177 .40924 L
+.44269 .40291 L
+.44392 .39649 L
+.4473 .38384 L
+.44964 .37722 L
+.45203 .37142 L
+.45737 .36091 L
+.46286 .35235 L
+.47355 .33991 L
+.47897 .33516 L
+.48434 .33132 L
+Mistroke
+.48886 .32872 L
+.49244 .32707 L
+.49558 .32596 L
+.49689 .3256 L
+.49807 .32533 L
+.49891 .32519 L
+.49923 .32515 L
+.49948 .32512 L
+.49967 .3251 L
+.49983 .32509 L
+.4999 .32509 L
+.49994 .32509 L
+.49997 .32509 L
+.49999 .32508 L
+.5 .32508 L
+.5 .32508 L
+.49999 .32508 L
+.49996 .32508 L
+.49992 .32508 L
+.49987 .32508 L
+.49981 .32508 L
+.49964 .32506 L
+.49939 .32504 L
+.4991 .32501 L
+.49824 .32487 L
+.49735 .32468 L
+.49617 .32438 L
+.49321 .3234 L
+.48914 .3216 L
+.48481 .31915 L
+.47915 .31515 L
+.47353 .31025 L
+.4625 .2973 L
+.45693 .28849 L
+.45155 .27765 L
+.44745 .2668 L
+.44553 .26033 L
+.44396 .25388 L
+.44275 .24763 L
+.44221 .24424 L
+.44172 .24055 L
+.44135 .23708 L
+.44108 .23389 L
+.44097 .23233 L
+.44087 .23063 L
+.44079 .22904 L
+.44074 .22752 L
+.44069 .2256 L
+.44066 .22384 L
+.44065 .22193 L
+Mistroke
+.44066 .22085 L
+.44067 .21984 L
+.44071 .21816 L
+.44077 .2163 L
+.44086 .21434 L
+.44096 .2125 L
+.44129 .20823 L
+.44168 .20428 L
+.44295 .19524 L
+.44465 .18647 L
+.44709 .17678 L
+.45313 .15891 L
+.46137 .141 L
+.47077 .12513 L
+.47678 .11669 L
+.48393 .10813 L
+.48743 .10457 L
+.49127 .10128 L
+.49289 .10013 L
+.49465 .09909 L
+.49661 .09824 L
+.49845 .09776 L
+.50027 .09764 L
+.50131 .09773 L
+.50229 .09791 L
+.50424 .09857 L
+.50533 .09908 L
+.50632 .09964 L
+.50975 .10208 L
+.51326 .10524 L
+.5272 .12215 L
+.5372 .13833 L
+.54591 .15655 L
+.54943 .16576 L
+.55223 .17442 L
+.55436 .18225 L
+.55618 .19045 L
+.55695 .19466 L
+.55767 .19926 L
+.55822 .20344 L
+.55862 .20723 L
+.55898 .21165 L
+.55912 .21406 L
+.55918 .21517 L
+.55923 .21634 L
+.55929 .21842 L
+.55933 .22033 L
+.55934 .2215 L
+.55935 .2226 L
+.55933 .22463 L
+Mistroke
+.55929 .22643 L
+.55923 .22834 L
+.55915 .23014 L
+.55907 .23176 L
+.55878 .23569 L
+.55842 .23934 L
+.55745 .2464 L
+.55606 .25376 L
+.55279 .26604 L
+.549 .27634 L
+.54425 .28635 L
+.53936 .29458 L
+.53365 .30241 L
+.52755 .30919 L
+.5221 .31414 L
+.5165 .3183 L
+.51194 .32103 L
+.50817 .32284 L
+.50464 .32414 L
+.50225 .32477 L
+.50127 .32495 L
+.50061 .32504 L
+.50036 .32506 L
+.50025 .32507 L
+.50016 .32508 L
+.50009 .32508 L
+.50006 .32508 L
+.50004 .32508 L
+.50002 .32508 L
+.50001 .32508 L
+.5 .32508 L
+.5 .32508 L
+Mfstroke
+.74874 .32508 m
+.74873 .32701 L
+.74871 .32877 L
+.74867 .33079 L
+.74862 .33271 L
+.7485 .33611 L
+.7483 .33981 L
+.74803 .34387 L
+.74767 .34817 L
+.74683 .35587 L
+.74571 .36379 L
+.74443 .37116 L
+.7407 .3878 L
+.73573 .40447 L
+.73017 .41938 L
+.71425 .45145 L
+.69679 .47722 L
+.67422 .50262 L
+.64977 .52368 L
+.62095 .54244 L
+.60594 .55014 L
+.58915 .5573 L
+.57425 .56249 L
+.55755 .56708 L
+.54957 .56884 L
+.54096 .57043 L
+.53348 .57156 L
+.52531 .57253 L
+.52051 .57298 L
+.51606 .57331 L
+.5118 .57355 L
+.50965 .57364 L
+.50727 .57372 L
+.50514 .57377 L
+.50318 .57381 L
+.50103 .57382 L
+.49995 .57383 L
+.49877 .57382 L
+.49677 .5738 L
+.49463 .57377 L
+.49262 .57372 L
+.49079 .57365 L
+.487 .57349 L
+.48284 .57323 L
+.47445 .57251 L
+.4667 .57159 L
+.45948 .5705 L
+.44335 .56729 L
+.4263 .56266 L
+.4106 .5572 L
+Mistroke
+.39394 .55008 L
+.36512 .53408 L
+.33915 .51482 L
+.31451 .49081 L
+.29298 .46299 L
+.27651 .43428 L
+.26993 .41963 L
+.26402 .40375 L
+.25949 .38854 L
+.25621 .37446 L
+.25359 .35908 L
+.25257 .35057 L
+.25219 .34665 L
+.25187 .34248 L
+.25164 .33892 L
+.25155 .33703 L
+.25146 .33499 L
+.25139 .33313 L
+.25134 .33142 L
+.2513 .32978 L
+.25128 .32806 L
+.25126 .32619 L
+.25126 .32418 L
+.25127 .32229 L
+.2513 .32057 L
+.25134 .31855 L
+.25141 .31636 L
+.25158 .31239 L
+.25181 .30852 L
+.25212 .30436 L
+.25286 .29688 L
+.25404 .28801 L
+.25539 .27996 L
+.25922 .26265 L
+.26399 .24652 L
+.2763 .21632 L
+.29112 .19002 L
+.30927 .16542 L
+.33265 .14105 L
+.35741 .12127 L
+.3867 .10365 L
+.41684 .09066 L
+.43259 .08565 L
+.44158 .0833 L
+.45016 .08139 L
+.4581 .0799 L
+.46675 .07858 L
+.47466 .07764 L
+.48198 .077 L
+.48607 .07673 L
+Mistroke
+.48991 .07655 L
+.49211 .07647 L
+.49412 .07641 L
+.49523 .07639 L
+.49644 .07637 L
+.49759 .07636 L
+.49865 .07635 L
+.49976 .07634 L
+.50096 .07635 L
+.5021 .07635 L
+.50314 .07636 L
+.50512 .0764 L
+.50721 .07645 L
+.50946 .07652 L
+.51155 .07661 L
+.51632 .07688 L
+.52058 .0772 L
+.52451 .07755 L
+.5334 .0786 L
+.54119 .07978 L
+.54942 .0813 L
+.56352 .08459 L
+.57883 .08917 L
+.60824 .10113 L
+.63794 .1181 L
+.66404 .13811 L
+.68841 .16268 L
+.70792 .18855 L
+.7229 .21469 L
+.73003 .23043 L
+.73573 .24571 L
+.74004 .25989 L
+.74368 .27515 L
+.74587 .28741 L
+.74684 .29443 L
+.74757 .30101 L
+.74809 .30706 L
+.74843 .3126 L
+.74856 .31567 L
+.74862 .31728 L
+.74867 .31901 L
+.7487 .32066 L
+.74872 .32216 L
+.74874 .32367 L
+.74874 .32508 L
+Mfstroke
+% End of Graphics
+MathPictureEnd
+\
+\>"], "Graphics",
+  ImageSize->{288, 187.188},
+  ImageMargins->{{43, 0}, {0, 0}},
+  ImageRegion->{{0, 1}, {0, 1}},
+  ImageCache->GraphicsData["Bitmap", "\<\
+CF5dJ6E]HGAYHf4PAg9QL6QYHg<PAVmbKF5d0`40004P0000^a000`40n007h00OSooo00<00?ooool0
+S_oo002?ool00`00ooooo`2>ool008ooo`03003ooooo08koo`00Sooo00<00?ooool0S_oo002?ool0
+0`00ooooo`2>ool005;ooaH002Ooo`8002OooaH005;oo`00B_oo20005_oo1P008Ooo00<00?ooool0
+8?oo1P005_oo1P00C?oo0016ool4000Tool3000Nool00`00ooooo`0Lool4000Rool40018ool004?o
+o`<002_oo`<001_oo`03003ooooo01Woo`<002[oo`<004Goo`00@?oo0`00<Ooo0P006Ooo00<00?oo
+ool05Ooo1000<?oo0P00@ooo000nool2000fool2000Gool00`00ooooo`0Bool3000fool20011ool0
+03coo`8003[oo`<001Coo`03003ooooo013oo`8003_oo`<003koo`00>_oo0P00?ooo10004?oo0P00
+3ooo0P00@?oo0`00>ooo000hool20015ool2000>ool00`00ooooo`0=ool00`00ooooo`13ool2000i
+ool003Koo`8004Woo`8000coo`03003ooooo00_oo`8004Soo`8003Ooo`00=Ooo00<00?ooool0Booo
+0P002_oo00<00?ooool02Ooo0P00C?oo0P00=Ooo000cool2001@ool00`00ooooo`07ool00`00oooo
+o`08ool00`00ooooo`1>ool2000cool0037oo`8005?oo`8000Ooo`03003ooooo00Koo`8005?oo`03
+003ooooo033oo`00;ooo0P00Eooo00<00?ooool01?oo0P001_oo00<00?ooool0E?oo0P00<?oo000^
+ool00`00ooooo`1Hool20004ool00`00ooooo`03ool2001Iool00`00ooooo`0]ool002coo`8005go
+o`05003oooooool00003ool2001Lool2000]ool002_oo`03003ooooo05koo`04003ooooo0002ool0
+0`00ooooo`1Nool00`00ooooo`0Zool002[oo`03003ooooo05coo`d005koo`03003ooooo02Woo`00
+:?oo0P00F?oo20001Ooo00<00?ooool01?oo1`00F?oo0P00:Ooo000Wool00`00ooooo`1Cool50006
+ool00`00ooooo`04ool00`00ooooo`0;ool3001Gool00`00ooooo`0Vool002Koo`03003ooooo057o
+o`<000_oo`03003ooooo00Coo`<000koo`@005Coo`03003ooooo02Goo`009Ooo00<00?ooool0C_oo
+10001_oo10001?oo00<00?ooool01?oo00<00?ooool04_oo1000DOoo00<00?ooool09?oo000Tool0
+0`00ooooo`1=ool2000Bool00`00ooooo`04ool00`00ooooo`0Fool3001?ool2000Tool002?oo`03
+003ooooo04coo`8001;oo`<000Goo`<001[oo`8004ooo`03003ooooo027oo`008_oo00<00?ooool0
+Booo0P005_oo00@00?ooooooo`800004ool00000000Kool2001>ool00`00ooooo`0Pool0027oo`03
+003ooooo04_oo`03003ooooo01Woo`05003oooooool00002ool2000Kool2001=ool00`00ooooo`0O
+ool0023oo`03003ooooo04[oo`8001_oo`03003ooooo00;oo`03003ooooo00;oo`03003ooooo01[o
+o`8004coo`03003ooooo01koo`007ooo00<00?ooool0BOoo0P007?oo00<00?ooool00ooo0P001?oo
+00<00?ooool06ooo0P00Booo00<00?ooool07Ooo000Nool00`00ooooo`18ool2000Nool00`00oooo
+o`03ool00`00ooooo`03ool00`00ooooo`0Mool20019ool00`00ooooo`0Mool001goo`03003ooooo
+04Ooo`8001ooo`03003ooooo00Coo`03003ooooo00Coo`03003ooooo01koo`03003ooooo04Ooo`03
+003ooooo01coo`007?oo00<00?ooool0Aooo00<00?ooool07ooo00<00?ooool01?oo00<00?ooool0
+1Ooo00<00?ooool07_oo00<00?ooool0Aooo00<00?ooool06ooo000Kool00`00ooooo`17ool00`00
+ooooo`0Oool00`00ooooo`05ool00`00ooooo`06ool00`00ooooo`0Nool00`00ooooo`17ool00`00
+ooooo`0Jool001[oo`03003ooooo04Ooo`03003ooooo01ooo`03003ooooo00Koo`03003ooooo00Ko
+o`03003ooooo01ooo`8004Soo`03003ooooo01Woo`006_oo00<00?ooool0AOoo0P008_oo00<00?oo
+ool01_oo00<00?ooool01ooo00<00?ooool08?oo00<00?ooool0AOoo00<00?ooool06Ooo000Iool0
+0`00ooooo`15ool00`00ooooo`0Qool00`00ooooo`07ool20008ool00`00ooooo`0Qool00`00oooo
+o`15ool00`00ooooo`0Hool001Woo`03003ooooo04Coo`03003ooooo02;oo`03003ooooo00Ooo`03
+003ooooo00Soo`03003ooooo027oo`03003ooooo04Goo`03003ooooo01Ooo`006?oo00<00?ooool0
+A?oo00<00?ooool08_oo00<00?ooool02?oo00<00?ooool02?oo00<00?ooool08_oo00<00?ooool0
+AOoo00<00?ooool05_oo000Gool00`00ooooo`14ool00`00ooooo`0Sool00`00ooooo`08ool00`00
+ooooo`09ool00`00ooooo`0Rool00`00ooooo`14ool00`00ooooo`0Fool001Ooo`03003ooooo04?o
+o`03003ooooo02?oo`03003ooooo00Woo`03003ooooo00Woo`03003ooooo02?oo`03003ooooo04Co
+o`03003ooooo01Goo`005_oo00<00?ooool0@ooo00<00?ooool09?oo00<00?ooool02Ooo00<00?oo
+ool02_oo00<00?ooool08ooo00<00?ooool0A?oo00<00?ooool05?oo000Eool00`00ooooo`13ool0
+0`00ooooo`0Tool00`00ooooo`0:ool00`00ooooo`0:ool00`00ooooo`0Tool00`00ooooo`14ool0
+0`00ooooo`0Cool001Coo`03003ooooo04?oo`03003ooooo02Goo`03003ooooo00[oo`8000_oo`03
+003ooooo02Goo`03003ooooo04?oo`03003ooooo01?oo`005?oo00<00?ooool0@_oo00<00?ooool0
+9_oo00<00?ooool02_oo00<00?ooool02ooo00<00?ooool09Ooo00<00?ooool0@ooo00<00?ooool0
+4_oo000Cool00`00ooooo`12ool00`00ooooo`0Vool00`00ooooo`0;ool00`00ooooo`0;ool00`00
+ooooo`0Vool00`00ooooo`12ool00`00ooooo`0Bool001;oo`03003ooooo04;oo`03003ooooo02Oo
+o`03003ooooo00_oo`03003ooooo00coo`03003ooooo02Koo`03003ooooo04;oo`03003ooooo017o
+o`004Ooo00<00?ooool0@ooo00<00?ooool09_oo00<00?ooool03?oo00<00?ooool03?oo00<00?oo
+ool09ooo00<00?ooool0@Ooo00<00?ooool04Ooo000Aool00`00ooooo`12ool00`00ooooo`0Wool0
+0`00ooooo`0<ool00`00ooooo`0<ool00`00ooooo`0Wool00`00ooooo`12ool00`00ooooo`0@ool0
+013oo`03003ooooo04;oo`03003ooooo02Soo`03003ooooo00coo`8000koo`03003ooooo02Ooo`03
+003ooooo047oo`03003ooooo013oo`004?oo00<00?ooool0@Ooo00<00?ooool0:?oo00<00?ooool0
+3Ooo00<00?ooool03Ooo00<00?ooool0:?oo00<00?ooool0@Ooo00<00?ooool03ooo000@ool00`00
+ooooo`11ool00`00ooooo`0Xool00`00ooooo`0=ool00`00ooooo`0=ool00`00ooooo`0Yool00`00
+ooooo`10ool00`00ooooo`0?ool000ooo`03003ooooo047oo`03003ooooo02Woo`03003ooooo00go
+o`03003ooooo00goo`03003ooooo02[oo`03003ooooo043oo`03003ooooo00koo`003ooo00<00?oo
+ool0@?oo00<00?ooool0:_oo00<00?ooool03Ooo00<00?ooool03Ooo00<00?ooool0:_oo00<00?oo
+ool0@?oo00<00?ooool03_oo000>ool00`00ooooo`11ool00`00ooooo`0Vool20002ool00`00ool0
+0004ool30006ool00`00ooooo`0>ool00`00ooooo`0Zool00`00ooooo`10ool00`00ooooo`0=ool0
+00koo`03003ooooo043oo`03003ooooo02Koo`03003ooooo008000[oo`03003ooooo00?oo`03003o
+oooo00koo`03003ooooo02[oo`03003ooooo043oo`03003ooooo00goo`003_oo00<00?ooool0@?oo
+00<00?ooool09_oo00<00?ooool00P002_oo00<00?ooool00ooo0`003_oo00<00?ooool0:ooo00<0
+0?ooool0@?oo00<00?ooool03?oo000=ool00`00ooooo`10ool00`00ooooo`0Qool40002ool00`00
+ooooo`020007ool30006ool00`00ooooo`0>ool00`00ooooo`0[ool00`00ooooo`10ool00`00oooo
+o`0<ool000goo`03003ooooo043oo`03003ooooo02Ooo`03003ooooo008000Ooo`03003ooooo00Ko
+o`03003ooooo00koo`03003ooooo02coo`03003ooooo03ooo`03003ooooo00coo`003?oo00<00?oo
+ool0@?oo00<00?ooool0:?oo00<00?ooool00P001ooo00<00?ooool01_oo00<00?ooool03_oo00<0
+0?ooool0;?oo00<00?ooool0@?oo00<00?ooool02ooo000<ool00`00ooooo`10ool00`00ooooo`0Y
+ool200000ooo003oo`06ool40005ool00`00ooooo`0>ool00`00ooooo`0]ool00`00ooooo`0oool0
+0`00ooooo`0;ool000_oo`03003ooooo043oo`03003ooooo02goo`03003ooooo00koo`03003ooooo
+00koo`03003ooooo02goo`03003ooooo043oo`03003ooooo00[oo`002ooo00<00?ooool0@?oo00<0
+0?ooool0;Ooo00<00?ooool03_oo00<00?ooool03_oo00<00?ooool0;_oo00<00?ooool0?ooo00<0
+0?ooool02_oo000:ool00`00ooooo`10ool00`00ooooo`0^ool00`00ooooo`0>ool2000?ool00`00
+ooooo`0^ool00`00ooooo`0oool00`00ooooo`0:ool000[oo`03003ooooo043oo`03003ooooo02ko
+o`03003ooooo00koo`03003ooooo00koo`03003ooooo02koo`03003ooooo043oo`03003ooooo00Wo
+o`002_oo00<00?ooool0?ooo00<00?ooool0;ooo00<00?ooool03_oo00<00?ooool03_oo00<00?oo
+ool0;ooo00<00?ooool0?ooo00<00?ooool02Ooo000:ool00`00ooooo`0oool00`00ooooo`0_ool0
+0`00ooooo`0>ool00`00ooooo`0>ool00`00ooooo`0_ool00`00ooooo`0oool00`00ooooo`09ool0
+00Woo`03003ooooo03ooo`03003ooooo033oo`03003ooooo00koo`03003ooooo00koo`03003ooooo
+033oo`03003ooooo03koo`03003ooooo00Woo`002Ooo00<00?ooool0?ooo00<00?ooool0<Ooo00<0
+0?ooool03Ooo00<00?ooool03Ooo00<00?ooool0<Ooo00<00?ooool0?ooo00<00?ooool02?oo0009
+ool00`00ooooo`0oool00`00ooooo`0aool00`00ooooo`0=ool00`00ooooo`0=ool00`00ooooo`0a
+ool00`00ooooo`0oool00`00ooooo`08ool000Woo`03003ooooo03ooo`03003ooooo037oo`03003o
+oooo00goo`8000koo`03003ooooo03;oo`03003ooooo03koo`03003ooooo00Soo`002Ooo00<00?oo
+ool0?_oo00<00?ooool0<_oo00<00?ooool03Ooo00<00?ooool03Ooo00<00?ooool0<_oo00<00?oo
+ool0?_oo00<00?ooool02?oo0008ool00`00ooooo`0oool00`00ooooo`0bool00`00ooooo`0=ool0
+0`00ooooo`0<ool00`00ooooo`0cool00`00ooooo`0oool00`00ooooo`07ool000Soo`03003ooooo
+03ooo`03003ooooo03?oo`03003ooooo00coo`03003ooooo00coo`03003ooooo03?oo`03003ooooo
+03ooo`03003ooooo00Ooo`002?oo00<00?ooool0?ooo00<00?ooool0<ooo00<00?ooool03?oo00<0
+0?ooool03?oo00<00?ooool0=?oo00<00?ooool0?_oo00<00?ooool01ooo0008ool00`00ooooo`0o
+ool00`00ooooo`0cool00`00ooooo`0<ool00`00ooooo`0;ool00`00ooooo`0eool00`00ooooo`0n
+ool00`00ooooo`07ool000Soo`03003ooooo03koo`03003ooooo03Goo`03003ooooo00_oo`03003o
+oooo00_oo`03003ooooo03Goo`03003ooooo03ooo`03003ooooo00Koo`002?oo00<00?ooool0?_oo
+00<00?ooool0=Ooo00<00?ooool02ooo0P003?oo00<00?ooool0=Ooo00<00?ooool0?ooo00<00?oo
+ool01_oo0008ool00`00ooooo`0nool00`00ooooo`0fool00`00ooooo`0:ool00`00ooooo`0:ool0
+0`00ooooo`0fool00`00ooooo`0oool00`00ooooo`06ool000Ooo`03003ooooo03ooo`03003ooooo
+03Koo`03003ooooo00[oo`03003ooooo00[oo`03003ooooo03Koo`03003ooooo03ooo`03003ooooo
+00Koo`001ooo1@00?Ooo00<00?ooool01000<ooo00<00?ooool02Ooo00<00?ooool02Ooo00<00?oo
+ool0<ooo1@00?ooo10001ooo0007ool20010ool00`00ooooo`02ool00`00ooooo`0cool00`00oooo
+o`08ool00`00ooooo`09ool00`00ooooo`0eool01000ooooo`00?_oo00<00?oo00002?oo0007ool0
+0`00ool0000nool00`00ooooo`03ool00`00ooooo`0cool00`00ooooo`08ool00`00ooooo`08ool0
+0`00ooooo`0fool01000ooooo`00?ooo0P002?oo0002ool400001Ooo003ooooo0000>ooo10001?oo
+00<00?ooool0=?oo00<00?ooool01ooo00<00?ooool02?oo00<00?ooool0=_oo00@00?ooool0043o
+o`03003ooooo00Koo`001ooo00D00?ooooooo`0003coo`03003ooooo00?oo`03003ooooo03Goo`03
+003ooooo00Koo`8000Soo`03003ooooo03Ooo`04003ooooo0010ool20007ool000Ooo`8000;oo`03
+003ooooo03[oo`04003oooooool3000gool00`00ooooo`06ool00`00ooooo`06ool00`00ooooo`0f
+ool30002ool00`00ooooo`0lool01000ool000001ooo0007ool01000ool00000?Ooo00<00?ooool0
+0ooo00<00?ooool0=_oo00<00?ooool01Ooo00<00?ooool01?oo0P00>ooo00@00?ooool003ooo`80
+00Soo`001ooo00<00?ooool0?_oo00<00?ooool0?Ooo00<00?ooool01?oo00<00?ooool00ooo00<0
+0?ooool0?_oo00<00?ooool0?_oo00<00?ooool01_oo0007ool00`00ooooo`0nool00`00ooooo`0n
+ool20004ool01000oooooooo0P00@Ooo00<00?ooool0?_oo00<00?ooool01_oo0007ool00`00oooo
+o`0nool00`00ooooo`10ool20002ool01000ooooo`00@ooo00<00?ooool0?_oo00<00?ooool01_oo
+003o000P0001ool000Ooo`03003ooooo00[oo`03003ooooo00_oo`03003ooooo00_oo`03003ooooo
+00[oo`03003ooooo00Soo`04003ooooo000<ool00`00ooooo`0;ool00`00ooooo`0;ool00`00oooo
+o`0:ool00`00ooooo`08ool6000;ool00`00ooooo`0:ool00`00ooooo`0;ool00`00ooooo`0;ool0
+0`00ooooo`0:ool01000ooooo`002_oo00<00?ooool02_oo00<00?ooool02ooo00<00?ooool02ooo
+00<00?ooool02_oo00<00?ooool01_oo0007ool00`00ooooo`0nool01000ooooo`00?_oo0P000ooo
+00<00?ooool00`00?_oo00@00?ooool0043oo`03003ooooo00Koo`001ooo00<00?ooool0?_oo00<0
+0?ooool0?_oo00<00?ooool00ooo00<00?ooool00ooo00<00?ooool0?_oo00<00?ooool0?_oo00<0
+0?ooool01_oo0007ool00`00ooooo`0nool00`00ooooo`0mool00`00ooooo`04ool00`00ooooo`03
+ool2000oool00`00ooooo`0nool00`00ooooo`06ool000Ooo`03003ooooo03koo`03003ooooo03co
+o`03003ooooo00Goo`03003ooooo00Goo`03003ooooo03coo`03003ooooo03koo`03003ooooo00Ko
+o`001ooo00<00?ooool0?_oo00<00?ooool0>ooo00<00?ooool01_oo00<00?ooool01_oo00<00?oo
+ool0>ooo00<00?ooool0?_oo00<00?ooool01_oo0007ool00`00ooooo`0nool00`00ooooo`0jool0
+0`00ooooo`07ool20008ool00`00ooooo`0jool00`00ooooo`0nool00`00ooooo`06ool000Ooo`03
+003ooooo03koo`03003ooooo03Woo`03003ooooo00Soo`03003ooooo00Ooo`03003ooooo03[oo`03
+003ooooo03koo`03003ooooo00Koo`001ooo00<00?ooool0?_oo00<00?ooool0>Ooo00<00?ooool0
+2?oo00<00?ooool02?oo00<00?ooool0>Ooo00<00?ooool0?_oo00<00?ooool01_oo0007ool00`00
+ooooo`0nool00`00ooooo`0hool00`00ooooo`09ool00`00ooooo`09ool00`00ooooo`0hool00`00
+ooooo`0nool00`00ooooo`06ool000Ooo`03003ooooo03koo`03003ooooo03Soo`03003ooooo00Wo
+o`03003ooooo00Woo`03003ooooo03Ooo`03003ooooo03ooo`03003ooooo00Koo`001ooo00<00?oo
+ool0?_oo00<00?ooool0=ooo00<00?ooool02_oo00<00?ooool02_oo00<00?ooool0=_oo00<00?oo
+ool0?ooo00<00?ooool01_oo0008ool00`00ooooo`0nool00`00ooooo`0fool00`00ooooo`0:ool0
+0`00ooooo`0:ool00`00ooooo`0fool00`00ooooo`0nool00`00ooooo`07ool000Soo`03003ooooo
+03koo`03003ooooo03Goo`03003ooooo00_oo`8000coo`03003ooooo03Goo`03003ooooo03koo`03
+003ooooo00Ooo`002?oo00<00?ooool0?_oo00<00?ooool0=Ooo00<00?ooool02ooo00<00?ooool0
+2ooo00<00?ooool0=Ooo00<00?ooool0?_oo00<00?ooool01ooo0008ool00`00ooooo`0nool00`00
+ooooo`0eool00`00ooooo`0;ool00`00ooooo`0;ool00`00ooooo`0eool00`00ooooo`0nool00`00
+ooooo`07ool000Woo`03003ooooo03koo`03003ooooo03?oo`03003ooooo00coo`03003ooooo00co
+o`03003ooooo03?oo`03003ooooo03ooo`03003ooooo00Ooo`002Ooo00<00?ooool0?_oo00<00?oo
+ool0<ooo00<00?ooool03?oo00<00?ooool03?oo00<00?ooool0<ooo00<00?ooool0?ooo00<00?oo
+ool01ooo0009ool00`00ooooo`0nool00`00ooooo`0cool00`00ooooo`0<ool00`00ooooo`0<ool0
+0`00ooooo`0cool00`00ooooo`0oool00`00ooooo`07ool000Woo`03003ooooo03koo`03003ooooo
+03;oo`03003ooooo00goo`03003ooooo00goo`03003ooooo03;oo`03003ooooo03koo`03003ooooo
+00Soo`002Ooo00<00?ooool0?ooo00<00?ooool0<Ooo00<00?ooool03Ooo0P003_oo00<00?ooool0
+<Ooo00<00?ooool0?ooo00<00?ooool02?oo000:ool00`00ooooo`0nool00`00ooooo`0aool00`00
+ooooo`0=ool00`00ooooo`0=ool00`00ooooo`0aool00`00ooooo`0oool00`00ooooo`08ool000[o
+o`03003ooooo03koo`03003ooooo037oo`03003ooooo00goo`03003ooooo00goo`03003ooooo037o
+o`03003ooooo03ooo`03003ooooo00Soo`002_oo00<00?ooool0?ooo00<00?ooool0<?oo00<00?oo
+ool03Ooo00<00?ooool03_oo00<00?ooool0<?oo00<00?ooool0?_oo00<00?ooool02Ooo000:ool0
+0`00ooooo`0oool00`00ooooo`0_ool00`00ooooo`0>ool00`00ooooo`0>ool00`00ooooo`0_ool0
+0`00ooooo`0oool00`00ooooo`09ool000_oo`03003ooooo03ooo`03003ooooo02koo`03003ooooo
+00koo`03003ooooo00koo`03003ooooo02ooo`03003ooooo03ooo`03003ooooo00Woo`002ooo00<0
+0?ooool0?ooo00<00?ooool0;_oo00<00?ooool03_oo00<00?ooool03_oo00<00?ooool0;_oo00<0
+0?ooool0?ooo00<00?ooool02_oo000;ool00`00ooooo`0oool00`00ooooo`0^ool00`00ooooo`0>
+ool2000?ool00`00ooooo`0^ool00`00ooooo`0oool00`00ooooo`0:ool000_oo`03003ooooo043o
+o`03003ooooo02goo`03003ooooo00koo`03003ooooo00koo`03003ooooo02goo`03003ooooo043o
+o`03003ooooo00[oo`003?oo00<00?ooool0?ooo00<00?ooool0;Ooo00<00?ooool03_oo00<00?oo
+ool03_oo00<00?ooool0;Ooo00<00?ooool0?ooo00<00?ooool02ooo000<ool00`00ooooo`10ool0
+0`00ooooo`0/ool00`00ooooo`0>ool00`00ooooo`0>ool00`00ooooo`0/ool00`00ooooo`10ool0
+0`00ooooo`0;ool000goo`03003ooooo03ooo`03003ooooo02Woo`800005ool00?ooool00004ool3
+0006ool00`00ooooo`0>ool00`00ooooo`0/ool00`00ooooo`10ool00`00ooooo`0;ool000goo`03
+003ooooo043oo`03003ooooo02Ooo`03003ooooo008000[oo`03003ooooo00?oo`03003ooooo00ko
+o`03003ooooo02_oo`03003ooooo043oo`03003ooooo00coo`003Ooo00<00?ooool0@?oo00<00?oo
+ool09ooo00<00?ooool00P002_oo00<00?ooool00ooo0`003_oo00<00?ooool0:ooo00<00?ooool0
+@?oo00<00?ooool03?oo000>ool00`00ooooo`10ool00`00ooooo`0Vool00`00ooooo`020007ool3
+0006ool00`00ooooo`0>ool00`00ooooo`0Zool00`00ooooo`11ool00`00ooooo`0<ool000koo`03
+003ooooo047oo`03003ooooo02Goo`03003ooooo008000Ooo`03003ooooo00Koo`03003ooooo00ko
+o`03003ooooo02[oo`03003ooooo043oo`03003ooooo00goo`003_oo00<00?ooool0@Ooo00<00?oo
+ool09Ooo00H00?ooool00?oo0006ool00`00ooooo`06ool00`00ooooo`0>ool00`00ooooo`0Yool0
+0`00ooooo`11ool00`00ooooo`0=ool000ooo`03003ooooo047oo`03003ooooo02Goo`8000;oo`03
+003ooooo00Coo`@000Goo`03003ooooo00goo`03003ooooo02Woo`03003ooooo047oo`03003ooooo
+00koo`003ooo00<00?ooool0@Ooo00<00?ooool0:Ooo00<00?ooool03Ooo00<00?ooool03Ooo00<0
+0?ooool0:Ooo00<00?ooool0@Ooo00<00?ooool03_oo000@ool00`00ooooo`11ool00`00ooooo`0X
+ool00`00ooooo`0=ool00`00ooooo`0=ool00`00ooooo`0Xool00`00ooooo`11ool00`00ooooo`0?
+ool0013oo`03003ooooo04;oo`03003ooooo02Ooo`03003ooooo00goo`8000koo`03003ooooo02Oo
+o`03003ooooo04;oo`03003ooooo00ooo`004Ooo00<00?ooool0@_oo00<00?ooool09_oo00<00?oo
+ool03Ooo00<00?ooool03?oo00<00?ooool09ooo00<00?ooool0@_oo00<00?ooool04?oo000Aool0
+0`00ooooo`12ool00`00ooooo`0Wool00`00ooooo`0<ool00`00ooooo`0<ool00`00ooooo`0Wool0
+0`00ooooo`12ool00`00ooooo`0@ool001;oo`03003ooooo04;oo`03003ooooo02Koo`03003ooooo
+00coo`03003ooooo00_oo`03003ooooo02Ooo`03003ooooo04;oo`03003ooooo017oo`004_oo00<0
+0?ooool0@ooo00<00?ooool09_oo00<00?ooool02ooo00<00?ooool02ooo00<00?ooool09_oo00<0
+0?ooool0@ooo00<00?ooool04Ooo000Cool00`00ooooo`13ool00`00ooooo`0Uool00`00ooooo`0;
+ool00`00ooooo`0;ool00`00ooooo`0Uool00`00ooooo`13ool00`00ooooo`0Bool001Coo`03003o
+oooo04;oo`03003ooooo02Koo`03003ooooo00[oo`03003ooooo00[oo`03003ooooo02Goo`03003o
+oooo04?oo`03003ooooo01?oo`005?oo00<00?ooool0@ooo00<00?ooool09Ooo00<00?ooool02_oo
+0P002ooo00<00?ooool09Ooo00<00?ooool0@_oo00<00?ooool05?oo000Eool00`00ooooo`13ool0
+0`00ooooo`0Tool00`00ooooo`0:ool00`00ooooo`0:ool00`00ooooo`0Tool00`00ooooo`13ool0
+0`00ooooo`0Dool001Goo`03003ooooo04Coo`03003ooooo02Coo`03003ooooo00Woo`03003ooooo
+00Woo`03003ooooo02Coo`03003ooooo04?oo`03003ooooo01Goo`005_oo00<00?ooool0A?oo00<0
+0?ooool08ooo00<00?ooool02Ooo00<00?ooool02Ooo00<00?ooool08ooo00<00?ooool0@ooo00<0
+0?ooool05_oo000Gool00`00ooooo`14ool00`00ooooo`0Rool00`00ooooo`09ool00`00ooooo`09
+ool00`00ooooo`0Rool00`00ooooo`14ool00`00ooooo`0Fool001Ooo`03003ooooo04Goo`03003o
+oooo02;oo`03003ooooo00Soo`03003ooooo00Soo`03003ooooo02;oo`03003ooooo04Coo`03003o
+oooo01Ooo`006?oo00<00?ooool0AOoo00<00?ooool08Ooo00<00?ooool02?oo00<00?ooool02?oo
+00<00?ooool08?oo0P00Aooo00<00?ooool05ooo000Iool00`00ooooo`15ool00`00ooooo`0Qool0
+0`00ooooo`07ool20008ool00`00ooooo`0Pool00`00ooooo`16ool00`00ooooo`0Hool001[oo`03
+003ooooo04Goo`8002;oo`03003ooooo00Koo`03003ooooo00Koo`03003ooooo023oo`03003ooooo
+04Koo`03003ooooo01Woo`006_oo00<00?ooool0Aooo00<00?ooool07ooo00<00?ooool01_oo00<0
+0?ooool01_oo00<00?ooool07ooo00<00?ooool0Aooo00<00?ooool06Ooo000Kool00`00ooooo`17
+ool00`00ooooo`0Oool00`00ooooo`05ool00`00ooooo`05ool00`00ooooo`0Nool20019ool00`00
+ooooo`0Jool001coo`03003ooooo04Ooo`80023oo`03003ooooo00Coo`03003ooooo00Goo`03003o
+oooo01goo`03003ooooo04Soo`03003ooooo01_oo`007Ooo00<00?ooool0B?oo00<00?ooool07Ooo
+00<00?ooool01?oo00<00?ooool01?oo00<00?ooool07Ooo00<00?ooool0B?oo00<00?ooool07?oo
+000Nool00`00ooooo`18ool2000Nool00`00ooooo`03ool00`00ooooo`03ool00`00ooooo`0Lool2
+001:ool00`00ooooo`0Mool001ooo`03003ooooo04Woo`8001coo`03003ooooo00?oo`8000?oo`03
+003ooooo01coo`03003ooooo04Woo`03003ooooo01koo`008?oo00<00?ooool0B_oo0P006ooo0P00
+0ooo00D00?ooooooo`0001goo`8004_oo`03003ooooo01ooo`008Ooo00<00?ooool0Booo0P006ooo
+00@00?ooool000;oo`03003ooooo01[oo`8004coo`03003ooooo023oo`008_oo00<00?ooool0C?oo
+0P006_oo1@006_oo0`00COoo00<00?ooool08Ooo000Sool00`00ooooo`1=ool2000Jool00`00oooo
+o`0Hool2001?ool00`00ooooo`0Rool002Coo`8004ooo`<000koo`@000Goo`03003ooooo01Goo`<0
+04ooo`8002Goo`009_oo00<00?ooool0Cooo10003?oo00<00?ooool01?oo00<00?ooool04Ooo1000
+DOoo00<00?ooool09Ooo000Wool00`00ooooo`1Bool2000:ool00`00ooooo`04ool3000?ool2001D
+ool00`00ooooo`0Vool002Soo`03003ooooo05?oo`@000Koo`03003ooooo00Coo`03003ooooo00[o
+o`D005Goo`03003ooooo02Ooo`00:Ooo0P00Eooo2@001?oo00@00?ooooooo`T005Woo`03003ooooo
+02Soo`00:ooo00<00?ooool0F?oo0`000_oo2000H?oo0P00:ooo000/ool00`00ooooo`1Iool00`00
+ooooo`020002ool01@00oooooooo0000G_oo00<00?ooool0:ooo000]ool2001Jool20004ool00`00
+ooooo`02ool2001Kool00`00ooooo`0/ool002ooo`03003ooooo05Koo`03003ooooo00Coo`8000Go
+o`03003ooooo05Koo`8002ooo`00<?oo0P00E?oo0P001ooo00<00?ooool01Ooo00<00?ooool0Dooo
+0P00<Ooo000bool00`00ooooo`1@ool00`00ooooo`07ool00`00ooooo`06ool2001Aool2000cool0
+03?oo`8004koo`8000[oo`03003ooooo00Soo`8004goo`8003Goo`00=Ooo00<00?ooool0BOoo0P00
+3?oo00<00?ooool02_oo0P00BOoo0P00=ooo000fool20017ool2000>ool00`00ooooo`0<ool00`00
+ooooo`14ool2000iool003Soo`8004?oo`80013oo`03003ooooo00goo`8004;oo`8003_oo`00>_oo
+0P00?ooo0P004_oo0P004?oo0P00?_oo0P00?Ooo000lool2000kool2000Dool00`00ooooo`0Aool2
+000jool2000oool003koo`@003Coo`<001Koo`03003ooooo01?oo`@003?oo`<0047oo`00@_oo1000
+;Ooo0`006Ooo00<00?ooool05ooo0`00;_oo0P00A?oo0016ool4000Uool4000Lool00`00ooooo`0J
+ool4000Vool40016ool004[oo`@001goo`@0023oo`03003ooooo01koo`@001koo`@004[oo`00C_oo
+10004ooo1P009?oo00<00?ooool08_oo1P004Ooo1`00C_oo001BoolC000Zool2000YoolA001Eool0
+08ooo`03003ooooo08koo`00Sooo00<00?ooool0S_oo002?ool00`00ooooo`2>ool008ooo`03003o
+oooo08koo`00\
+\>"],
+  ImageRangeCache->{{{0, 287}, {186.188, 0}} -> {-2.10465, -1.36537, \
+0.0146666, 0.0146666}}],
+
+Cell[BoxData[
+    TagBox[\(\[SkeletonIndicator]  Graphics  \[SkeletonIndicator]\),
+      False,
+      Editable->False]], "Output"]
+}, Open  ]],
+
+Cell[BoxData[""], "Input"],
+
+Cell[BoxData[
+    \(\(\( (*\ 
+      find\ eigenvalues\ and\ eigenvectors\ of\ the\ metric\ *) \)\(\
+\[IndentingNewLine]\)\(\[IndentingNewLine]\)\)\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\(\(\[IndentingNewLine]\)\(Print["\<metric\>"]\[IndentingNewLine]
+    gcov = {{1, 0, 0}, {0, r^2, 0}, {0, 0, r^2*Sin[h]}}; 
+    MatrixForm[gcov]\[IndentingNewLine]
+    gcon = Inverse[gcov]; MatrixForm[gcon]\[IndentingNewLine]
+    \(gcovnum = gcov;\)\[IndentingNewLine]
+    \(myc[i_] := If[i \[Equal] 1, 1, 1];\)\[IndentingNewLine]
+    \(n = 3;\)\[IndentingNewLine]
+    \(ident = IdentityMatrix[n];\)\[IndentingNewLine] (*gcovnum = 
+        N[gcov //. {M \[Rule] 1, r \[Rule] 4*M, h \[Rule] Pi/3, 
+              a \[Rule]  .5}]; 
+      MatrixForm[gcovnum]\ Condition[i_] := 
+        If[i \[Equal] 1, \(-1\), 1];*) \[IndentingNewLine]
+    \(es = Eigensystem[gcovnum];\)\[IndentingNewLine]
+    Print["\<eigenvalues\>"]\[IndentingNewLine]
+    eval = es[\([1]\)]\[IndentingNewLine]
+    Print["\<eigenvectors\>"]\[IndentingNewLine]
+    evecnat = es[\([2]\)]; MatrixForm[evecnat]\[IndentingNewLine]
+    Print["\<normal eigenvectors\>"]\[IndentingNewLine]
+    evec = GramSchmidt[es[\([2]\)]]; MatrixForm[evec]\[IndentingNewLine]
+    Print["\<normal div sqrt eval eigenvectors\>"]\[IndentingNewLine]
+    newevec = Table[evec[\([i]\)]/Sqrt[Abs[eval[\([i]\)]]], {i, n}]; 
+    MatrixForm[newevec]\[IndentingNewLine]
+    Print["\<eval matrix\>"]\[IndentingNewLine]
+    evalmat = Table[eval[\([i]\)]*ident[\([i, j]\)], {i, n}, {j, n}]; 
+    MatrixForm[evalmat]\[IndentingNewLine]
+    Print["\<new metric using normal evec\>"]\[IndentingNewLine]
+    newg = 
+      Table[Sum[myc[i]*evec[\([i, j]\)]*evec[\([k, j]\)], {j, 1, n}], {i, 
+          n}, {k, n}]; MatrixForm[newg]\[IndentingNewLine]
+    Print["\<new metric using evec\>"]\[IndentingNewLine]
+    newgnat = 
+      Table[Sum[
+          myc[i]*evecnat[\([i, j]\)]*evecnat[\([k, j]\)], {j, 1, n}], {i, 
+          n}, {k, n}]; MatrixForm[newgnat]\[IndentingNewLine]
+    Print["\<new metric using normal div sqrt eval, evec\>"]\
+\[IndentingNewLine]
+    newnewg = 
+      Table[Sum[
+          myc[i]*newevec[\([i, j]\)]*newevec[\([k, j]\)], {j, 1, n}], {i, 
+          n}, {k, n}]; 
+    MatrixForm[newnewg]\[IndentingNewLine]\[IndentingNewLine]
+    \)\)\)], "Input"],
+
+Cell[BoxData[
+    \("metric"\)], "Print"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {"1", "0", "0"},
+            {"0", \(r\^2\), "0"},
+            {"0", "0", \(r\^2\ Sin[h]\)}
+            }], "\[NoBreak]", ")"}],
+      Function[ BoxForm`e$, 
+        MatrixForm[ BoxForm`e$]]]], "Output"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {"1", "0", "0"},
+            {"0", \(1\/r\^2\), "0"},
+            {"0", "0", \(Csc[h]\/r\^2\)}
+            }], "\[NoBreak]", ")"}],
+      Function[ BoxForm`e$, 
+        MatrixForm[ BoxForm`e$]]]], "Output"],
+
+Cell[BoxData[
+    \("eigenvalues"\)], "Print"],
+
+Cell[BoxData[
+    \({1, r\^2, r\^2\ Sin[h]}\)], "Output"],
+
+Cell[BoxData[
+    \("eigenvectors"\)], "Print"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {"1", "0", "0"},
+            {"0", "1", "0"},
+            {"0", "0", "1"}
+            }], "\[NoBreak]", ")"}],
+      Function[ BoxForm`e$, 
+        MatrixForm[ BoxForm`e$]]]], "Output"],
+
+Cell[BoxData[
+    \("normal eigenvectors"\)], "Print"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {"1", "0", "0"},
+            {"0", "1", "0"},
+            {"0", "0", "1"}
+            }], "\[NoBreak]", ")"}],
+      Function[ BoxForm`e$, 
+        MatrixForm[ BoxForm`e$]]]], "Output"],
+
+Cell[BoxData[
+    \("normal div sqrt eval eigenvectors"\)], "Print"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {"1", "0", "0"},
+            {"0", \(1\/Abs[r]\), "0"},
+            {"0", "0", \(1\/\@Abs[r\^2\ Sin[h]]\)}
+            }], "\[NoBreak]", ")"}],
+      Function[ BoxForm`e$, 
+        MatrixForm[ BoxForm`e$]]]], "Output"],
+
+Cell[BoxData[
+    \("eval matrix"\)], "Print"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {"1", "0", "0"},
+            {"0", \(r\^2\), "0"},
+            {"0", "0", \(r\^2\ Sin[h]\)}
+            }], "\[NoBreak]", ")"}],
+      Function[ BoxForm`e$, 
+        MatrixForm[ BoxForm`e$]]]], "Output"],
+
+Cell[BoxData[
+    \("new metric using normal evec"\)], "Print"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {"1", "0", "0"},
+            {"0", "1", "0"},
+            {"0", "0", "1"}
+            }], "\[NoBreak]", ")"}],
+      Function[ BoxForm`e$, 
+        MatrixForm[ BoxForm`e$]]]], "Output"],
+
+Cell[BoxData[
+    \("new metric using evec"\)], "Print"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {"1", "0", "0"},
+            {"0", "1", "0"},
+            {"0", "0", "1"}
+            }], "\[NoBreak]", ")"}],
+      Function[ BoxForm`e$, 
+        MatrixForm[ BoxForm`e$]]]], "Output"],
+
+Cell[BoxData[
+    \("new metric using normal div sqrt eval, evec"\)], "Print"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {"1", "0", "0"},
+            {"0", \(1\/Abs[r]\^2\), "0"},
+            {"0", "0", \(1\/Abs[r\^2\ Sin[h]]\)}
+            }], "\[NoBreak]", ")"}],
+      Function[ BoxForm`e$, 
+        MatrixForm[ BoxForm`e$]]]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(MatrixForm[Inverse[evec] . evec]\), "\[IndentingNewLine]", 
+    \(MatrixForm[\((Transpose[Inverse[newevec]] . gcovnum)\) . 
+        Transpose[newevec]]\), "\[IndentingNewLine]", 
+    \(MatrixForm[\((Transpose[Inverse[evec]] . gcovnum)\) . 
+        Transpose[evec]]\), "\[IndentingNewLine]", 
+    \(MatrixForm[
+      Transpose[Inverse[evec]] . Transpose[evec]]\), "\[IndentingNewLine]", 
+    \(MatrixForm[
+      Table[gcovnum . evec[\([i]\)] - eval[\([i]\)]*evec[\([i]\)], {i, 
+          n}]]\), "\[IndentingNewLine]", 
+    \(MatrixForm[
+      gcovnum . evec[\([1]\)] - 
+        eval[\([1]\)]*evec[\([1]\)]]\), "\[IndentingNewLine]", 
+    \(MatrixForm[
+      gcovnum . evec[\([1]\)] - 
+        eval[\([1]\)]*evec[\([1]\)]]\), "\[IndentingNewLine]", 
+    \(newevec[\([1]\)] . gcovnum . 
+      newevec[\([1]\)]\), "\[IndentingNewLine]", 
+    \(evec[\([1]\)] . gcovnum . evec[\([1]\)]\), "\[IndentingNewLine]", 
+    \(newevec[\([1]\)] . newevec[\([1]\)]\), "\[IndentingNewLine]", 
+    \(MatrixForm[
+      Inverse[Transpose[gcovnum]] . gcovnum]\), "\[IndentingNewLine]", 
+    \(\)}], "Input"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {"1", "0", "0"},
+            {"0", "1", "0"},
+            {"0", "0", "1"}
+            }], "\[NoBreak]", ")"}],
+      Function[ BoxForm`e$, 
+        MatrixForm[ BoxForm`e$]]]], "Output"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {"1", "0", "0"},
+            {"0", \(r\^2\), "0"},
+            {"0", "0", \(r\^2\ Sin[h]\)}
+            }], "\[NoBreak]", ")"}],
+      Function[ BoxForm`e$, 
+        MatrixForm[ BoxForm`e$]]]], "Output"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {"1", "0", "0"},
+            {"0", \(r\^2\), "0"},
+            {"0", "0", \(r\^2\ Sin[h]\)}
+            }], "\[NoBreak]", ")"}],
+      Function[ BoxForm`e$, 
+        MatrixForm[ BoxForm`e$]]]], "Output"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {"1", "0", "0"},
+            {"0", "1", "0"},
+            {"0", "0", "1"}
+            }], "\[NoBreak]", ")"}],
+      Function[ BoxForm`e$, 
+        MatrixForm[ BoxForm`e$]]]], "Output"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {"0", "0", "0"},
+            {"0", "0", "0"},
+            {"0", "0", "0"}
+            }], "\[NoBreak]", ")"}],
+      Function[ BoxForm`e$, 
+        MatrixForm[ BoxForm`e$]]]], "Output"],
+
+Cell[BoxData[
+    InterpretationBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {"0"},
+            {"0"},
+            {"0"}
+            }], "\[NoBreak]", ")"}],
+      MatrixForm[ {0, 0, 0}]]], "Output"],
+
+Cell[BoxData[
+    InterpretationBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {"0"},
+            {"0"},
+            {"0"}
+            }], "\[NoBreak]", ")"}],
+      MatrixForm[ {0, 0, 0}]]], "Output"],
+
+Cell[BoxData[
+    \(1\)], "Output"],
+
+Cell[BoxData[
+    \(1\)], "Output"],
+
+Cell[BoxData[
+    \(1\)], "Output"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {"1", "0", "0"},
+            {"0", "1", "0"},
+            {"0", "0", "1"}
+            }], "\[NoBreak]", ")"}],
+      Function[ BoxForm`e$, 
+        MatrixForm[ BoxForm`e$]]]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(\((gcov . newevec[\([2]\)])\) . 
+      newevec[\([2]\)]\), "\[IndentingNewLine]", 
+    \(\((gcov . evec[\([2]\)])\) . evec[\([2]\)]\), "\[IndentingNewLine]", 
+    \(eveccov = 
+      FullSimplify[
+        Table[Sum[
+            ident[\([j, l]\)]*gcov[\([l, a]\)]*newevec[\([a, k]\)], {a, 1, 
+              3}, {l, 1, 3}], {j, 3}, {k, 3}], {r > 0, h > 0, 
+          h < Pi}]\), "\[IndentingNewLine]", 
+    \(Inverse[newevec]\), "\[IndentingNewLine]", 
+    \(\)}], "Input"],
+
+Cell[BoxData[
+    \(r\^2\/Abs[r]\^2\)], "Output"],
+
+Cell[BoxData[
+    \(r\^2\)], "Output"],
+
+Cell[BoxData[
+    \({{1, 0, 0}, {0, r, 0}, {0, 0, r\ \@Sin[h]}}\)], "Output"],
+
+Cell[BoxData[
+    \({{1, 0, 0}, {0, Abs[r], 0}, {0, 0, \@Abs[r\^2\ Sin[h]]}}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(gcovnum . evec[\([1]\)]\)], "Input"],
+
+Cell[BoxData[
+    \({0.`, 0.`, 16.25`, 0.`}\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[""], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(newevec[\([1, 3]\)]\)], "Input"],
+
+Cell[BoxData[
+    \(0.24806946917841693`\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(gcovnum . evec[\([1]\)] - 
+      eval[\([1]\)]*evec[\([1]\)]\), "\[IndentingNewLine]", 
+    \(evec[\([1]\)] . evec[\([1]\)]\), "\[IndentingNewLine]", 
+    \(newevec[\([1]\)] . newevec[\([1]\)]\), "\[IndentingNewLine]", 
+    \(eval[\([1]\)]\), "\[IndentingNewLine]", 
+    \(gcovnum[\([1, 1]\)]\)}], "Input"],
+
+Cell[BoxData[
+    \({0.`, 0.`, 0.`, 0.`}\)], "Output"],
+
+Cell[BoxData[
+    \(1.`\)], "Output"],
+
+Cell[BoxData[
+    \(0.06153846153846155`\)], "Output"],
+
+Cell[BoxData[
+    \(16.25`\)], "Output"],
+
+Cell[BoxData[
+    \(\(-0.5076923076923077`\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(\(gab = Array[#1^#2\  &, {4, 4}]*0;\)\), "\[IndentingNewLine]", 
+    \(For[i = 1, i \[LessEqual] 4, 
+      For[j = 1, 
+        j \[LessEqual] 
+          4, \[IndentingNewLine]gab[\([i, 
+              j]\)] = \(es[\([2]\)]\)[\([i]\)] . \(es[\([2]\)]\)[\([j]\)]; \
+\(j++\)]; \(i++\)\[IndentingNewLine]]\), "\[IndentingNewLine]", 
+    \(MatrixForm[gab]\)}], "Input"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {"1.`", "0.`", "0.`", "0.`"},
+            {"0.`", "1.`", "6.207057437479513`*^-18", 
+              "3.532466203229334`*^-17"},
+            {"0.`", "6.207057437479513`*^-18", 
+              "1.`", \(-1.0742018897519834`*^-16\)},
+            {"0.`", "3.532466203229334`*^-17", \(-1.0742018897519834`*^-16\), 
+              "1.`"}
+            }], "\[NoBreak]", ")"}],
+      Function[ BoxForm`e$, 
+        MatrixForm[ BoxForm`e$]]]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[""], "Input"],
+
+Cell[BoxData[
+    \({{\(-0.999766068348678`\) + 
+          0.021628882972268646`\ \[ImaginaryI], \(-0.999766068348678`\) - 
+          0.021628882972268646`\ \[ImaginaryI], 1.`, 
+        1.`}, {{\(\(0.07878597136551388`\)\(\[InvisibleSpace]\)\) - 
+            0.0332454591617466`\ \[ImaginaryI], \(\(0.7018432010382011`\)\(\
+\[InvisibleSpace]\)\) + 
+            1.5829351718288365`*^-17\ \[ImaginaryI], \
+\(\(0.007590486156809041`\)\(\[InvisibleSpace]\)\) + 
+            0.7018021540031371`\ \[ImaginaryI], \(\(0.03393046407510364`\)\(\
+\[InvisibleSpace]\)\) - 
+            0.07980273229455938`\ \[ImaginaryI]}, {\(\(0.07878597136551388`\)\
+\(\[InvisibleSpace]\)\) + 
+            0.0332454591617466`\ \[ImaginaryI], \(\(0.7018432010382011`\)\(\
+\[InvisibleSpace]\)\) - 
+            1.5829351718288365`*^-17\ \[ImaginaryI], \
+\(\(0.007590486156809041`\)\(\[InvisibleSpace]\)\) - 
+            0.7018021540031371`\ \[ImaginaryI], \(\(0.03393046407510364`\)\(\
+\[InvisibleSpace]\)\) + 
+            0.07980273229455938`\ \[ImaginaryI]}, {0.943495890193246`, \
+\(-0.1211817271497091`\), 0.07860885266199101`, 
+          0.2982467811672633`}, {\(-0.30375834431928744`\), \
+\(-0.01274604851134092`\), 0.0934169254643158`, 
+          0.948072615647423`}}}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(gtestcov = {{\(-1\), 0, 0, 0}, {0, 1, 0, 0}, {0, 0, r^2, Cos[h]}, {0, 
+          0, Cos[h], r^2*Sin[h]^2}}; 
+    MatrixForm[gtestcov]\), "\[IndentingNewLine]", 
+    \(\(escov = Eigensystem[gtestcov];\)\), "\[IndentingNewLine]", 
+    \(evalcov = escov[\([1]\)]\), "\[IndentingNewLine]", 
+    \(eveccov = FullSimplify[GramSchmidt[escov[\([2]\)]], r > 0]; 
+    MatrixForm[eveccov]\)}], "Input"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {\(-1\), "0", "0", "0"},
+            {"0", "1", "0", "0"},
+            {"0", "0", \(r\^2\), \(Cos[h]\)},
+            {"0", "0", \(Cos[h]\), \(r\^2\ Sin[h]\^2\)}
+            }], "\[NoBreak]", ")"}],
+      (MatrixForm[ #]&)]], "Output"],
+
+Cell[BoxData[
+    \({\(-1\), 1, 
+      1\/2\ \((r\^2 + 
+            r\^2\ Sin[h]\^2 - \@\(r\^4 + 4\ Cos[h]\^2 - 2\ r\^4\ Sin[h]\^2 + \
+r\^4\ Sin[h]\^4\))\), 
+      1\/2\ \((r\^2 + 
+            r\^2\ Sin[h]\^2 + \@\(r\^4 + 4\ Cos[h]\^2 - 2\ r\^4\ Sin[h]\^2 + \
+r\^4\ Sin[h]\^4\))\)}\)], "Output"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {"1", "0", "0", "0"},
+            {"0", "1", "0", "0"},
+            {"0", 
+              "0", \(\(2\ r\^2\ Cos[
+                        h] - \@2\ \@\(Cos[h]\^2\ \((8 + r\^4 + r\^4\ Cos[2\ \
+h])\)\)\ Sec[
+                        h]\)\/\(2\ \@\(8 + r\^4 + r\^4\ Cos[2\ h] - \@2\ r\^2\
+\ \@\(Cos[h]\^2\ \((8 + r\^4 + r\^4\ Cos[2\ h])\)\)\)\)\), \(2\/\@\(8 + r\^4 \
++ r\^4\ Cos[2\ h] - \@2\ r\^2\ \@\(Cos[h]\^2\ \((8 + r\^4 + r\^4\ Cos[2\ \
+h])\)\)\)\)},
+            {"0", 
+              "0", \(\(Cos[
+                      h]\ \@\(8 + r\^4 + r\^4\ Cos[2\ h] + \@2\ r\^2\ \
+\@\(Cos[h]\^2\ \((8 + r\^4 + r\^4\ Cos[2\ h])\)\)\)\)\/\(\@2\ \@\(Cos[h]\^2\ \
+\((8 + r\^4 + r\^4\ Cos[2\ h])\)\)\)\), \(2\/\@\(8 + r\^4 + r\^4\ Cos[2\ h] + \
+\@2\ r\^2\ \@\(Cos[h]\^2\ \((8 + r\^4 + r\^4\ Cos[2\ h])\)\)\)\)}
+            }], "\[NoBreak]", ")"}],
+      (MatrixForm[ #]&)]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(gtestcon = Inverse[gtestcov]; 
+    MatrixForm[gtestcon]\), "\[IndentingNewLine]", 
+    \(\(escon = Eigensystem[gtestcon];\)\), "\[IndentingNewLine]", 
+    \(evalcon = escon[\([1]\)]\), "\[IndentingNewLine]", 
+    \(eveccon = FullSimplify[GramSchmidt[escon[\([2]\)]], r > 0]; 
+    MatrixForm[eveccon]\)}], "Input"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {\(\(\(-Cos[h]\^2\) + r\^4\ Sin[h]\^2\)\/\(Cos[h]\^2 - 
+                    r\^4\ Sin[h]\^2\)\), "0", "0", "0"},
+            {"0", "1", "0", "0"},
+            {"0", 
+              "0", \(-\(\(r\^2\ Sin[h]\^2\)\/\(Cos[h]\^2 - 
+                      r\^4\ Sin[h]\^2\)\)\), \(Cos[h]\/\(Cos[h]\^2 - 
+                    r\^4\ Sin[h]\^2\)\)},
+            {"0", 
+              "0", \(Cos[h]\/\(Cos[h]\^2 - 
+                    r\^4\ Sin[h]\^2\)\), \(-\(r\^2\/\(Cos[h]\^2 - 
+                      r\^4\ Sin[h]\^2\)\)\)}
+            }], "\[NoBreak]", ")"}],
+      (MatrixForm[ #]&)]], "Output"],
+
+Cell[BoxData[
+    \(General::"spell1" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(escon\)\" is similar to \
+existing symbol \"\!\(escov\)\"."\)], "Message"],
+
+Cell[BoxData[
+    \(General::"spell1" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(evalcon\)\" is similar \
+to existing symbol \"\!\(evalcov\)\"."\)], "Message"],
+
+Cell[BoxData[
+    \({\(-1\), 
+      1, \(\(-r\^2\) - r\^2\ Sin[h]\^2 - \@\(r\^4 + 4\ Cos[h]\^2 - 2\ r\^4\ \
+Sin[h]\^2 + r\^4\ Sin[h]\^4\)\)\/\(2\ \((Cos[h]\^2 - r\^4\ Sin[h]\^2)\)\), \(\
+\(-r\^2\) - r\^2\ Sin[h]\^2 + \@\(r\^4 + 4\ Cos[h]\^2 - 2\ r\^4\ Sin[h]\^2 + \
+r\^4\ Sin[h]\^4\)\)\/\(2\ \((Cos[h]\^2 - r\^4\ Sin[h]\^2)\)\)}\)], "Output"],
+
+Cell[BoxData[
+    \(General::"spell1" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(eveccon\)\" is similar \
+to existing symbol \"\!\(eveccov\)\"."\)], "Message"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {"1", "0", "0", "0"},
+            {"0", "1", "0", "0"},
+            {"0", 
+              "0", \(\(2\ r\^2\ Cos[
+                        h] - \@2\ \@\(Cos[h]\^2\ \((8 + r\^4 + r\^4\ Cos[2\ \
+h])\)\)\ Sec[
+                        h]\)\/\(2\ \@\(8 + r\^4 + r\^4\ Cos[2\ h] - \@2\ r\^2\
+\ \@\(Cos[h]\^2\ \((8 + r\^4 + r\^4\ Cos[2\ h])\)\)\)\)\), \(2\/\@\(8 + r\^4 \
++ r\^4\ Cos[2\ h] - \@2\ r\^2\ \@\(Cos[h]\^2\ \((8 + r\^4 + r\^4\ Cos[2\ \
+h])\)\)\)\)},
+            {"0", 
+              "0", \(\(Cos[
+                      h]\ \@\(8 + r\^4 + r\^4\ Cos[2\ h] + \@2\ r\^2\ \
+\@\(Cos[h]\^2\ \((8 + r\^4 + r\^4\ Cos[2\ h])\)\)\)\)\/\(\@2\ \@\(Cos[h]\^2\ \
+\((8 + r\^4 + r\^4\ Cos[2\ h])\)\)\)\), \(2\/\@\(8 + r\^4 + r\^4\ Cos[2\ h] + \
+\@2\ r\^2\ \@\(Cos[h]\^2\ \((8 + r\^4 + r\^4\ Cos[2\ h])\)\)\)\)}
+            }], "\[NoBreak]", ")"}],
+      (MatrixForm[ #]&)]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Simplify[GramSchmidt[gcov] - GramSchmidt[gcon]]\)], "Input"],
+
+Cell[BoxData[
+    \($Aborted\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[""], "Input"],
+
+Cell[BoxData[""], "Input"]
+},
+FrontEndVersion->"4.2 for X",
+ScreenRectangle->{{0, 1280}, {0, 1024}},
+WindowSize->{907, 1024},
+WindowMargins->{{Automatic, 1}, {Automatic, 0}}
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1754, 51, 131, 2, 43, "Input"],
+Cell[1888, 55, 277, 6, 59, "Input"],
+
+Cell[CellGroupData[{
+Cell[2190, 65, 574, 10, 123, "Input"],
+Cell[2767, 77, 561, 10, 89, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[3365, 92, 622, 13, 123, "Input"],
+Cell[3990, 107, 127, 2, 44, "Output"],
+Cell[4120, 111, 129, 2, 27, "Output"],
+Cell[4252, 115, 1096, 21, 98, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[5385, 141, 425, 6, 107, "Input"],
+Cell[5813, 149, 1019, 21, 132, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[6869, 175, 66, 1, 27, "Input"],
+Cell[6938, 178, 1264, 24, 132, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[8239, 207, 81, 1, 27, "Input"],
+Cell[8323, 210, 181, 3, 23, "Message"],
+Cell[8507, 215, 1147, 22, 142, "Output"]
+}, Open  ]],
+Cell[9669, 240, 56, 1, 27, "Input"],
+
+Cell[CellGroupData[{
+Cell[9750, 245, 178, 3, 43, "Input"],
+Cell[9931, 250, 137, 2, 38, "Output"],
+Cell[10071, 254, 138, 2, 38, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[10246, 261, 308, 6, 75, "Input"],
+Cell[10557, 269, 315, 9, 94, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[10909, 283, 53, 1, 27, "Input"],
+Cell[10965, 286, 275, 5, 29, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[11277, 296, 154, 4, 27, "Input"],
+Cell[11434, 302, 183, 3, 35, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[11654, 310, 155, 4, 27, "Input"],
+Cell[11812, 316, 190, 3, 35, "Output"]
+}, Open  ]],
+Cell[12017, 322, 65, 1, 27, "Input"],
+
+Cell[CellGroupData[{
+Cell[12107, 327, 91, 1, 27, "Input"],
+Cell[12201, 330, 75, 1, 29, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[12313, 336, 524, 11, 139, "Input"],
+Cell[12840, 349, 83, 1, 40, "Output"],
+Cell[12926, 352, 53, 1, 27, "Output"],
+Cell[12982, 355, 65, 1, 27, "Output"],
+Cell[13050, 358, 52, 1, 27, "Output"],
+Cell[13105, 361, 52, 1, 27, "Output"],
+Cell[13160, 364, 52, 1, 27, "Output"],
+Cell[13215, 367, 52, 1, 27, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[13304, 373, 203, 4, 43, "Input"],
+Cell[13510, 379, 119, 2, 29, "Output"],
+Cell[13632, 383, 119, 2, 29, "Output"]
+}, Open  ]],
+Cell[13766, 388, 183, 4, 27, "Input"],
+Cell[13952, 394, 131, 2, 43, "Input"],
+
+Cell[CellGroupData[{
+Cell[14108, 400, 917, 20, 187, "Input"],
+Cell[15028, 422, 2761, 45, 511, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[17826, 472, 428, 6, 59, "Input"],
+Cell[18257, 480, 400, 6, 47, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[18694, 491, 364, 8, 91, "Input"],
+Cell[19061, 501, 160, 3, 51, "Output"],
+Cell[19224, 506, 128, 2, 47, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[19389, 513, 257, 4, 90, "Input"],
+Cell[19649, 519, 225, 3, 29, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[19911, 527, 305, 6, 91, "Input"],
+Cell[20219, 535, 213, 3, 29, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[20469, 543, 304, 5, 59, "Input"],
+Cell[20776, 550, 241, 3, 29, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[21054, 558, 278, 5, 43, "Input"],
+Cell[21335, 565, 241, 3, 29, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[21613, 573, 56, 1, 27, "Input"],
+Cell[21672, 576, 35, 1, 27, "Output"]
+}, Open  ]],
+Cell[21722, 580, 84, 1, 27, "Input"],
+
+Cell[CellGroupData[{
+Cell[21831, 585, 190, 4, 75, "Input"],
+Cell[22024, 591, 81, 1, 49, "Output"],
+Cell[22108, 594, 73, 1, 47, "Output"],
+Cell[22184, 597, 40, 1, 27, "Output"],
+Cell[22227, 600, 35, 1, 27, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[22299, 606, 257, 4, 59, "Input"],
+Cell[22559, 612, 368, 9, 95, "Output"]
+}, Open  ]],
+Cell[22942, 624, 56, 1, 27, "Input"],
+
+Cell[CellGroupData[{
+Cell[23023, 629, 184, 3, 43, "Input"],
+Cell[23210, 634, 102, 2, 27, "Output"],
+Cell[23315, 638, 46, 1, 27, "Output"]
+}, Open  ]],
+Cell[23376, 642, 52, 1, 27, "Input"],
+
+Cell[CellGroupData[{
+Cell[23453, 647, 327, 7, 43, "Input"],
+Cell[23783, 656, 66, 1, 35, "Output"],
+Cell[23852, 659, 66, 1, 35, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[23955, 665, 258, 4, 59, "Input"],
+Cell[24216, 671, 160, 3, 23, "Message"],
+Cell[24379, 676, 75, 1, 46, "Output"],
+Cell[24457, 679, 160, 3, 23, "Message"],
+Cell[24620, 684, 290, 4, 85, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[24947, 693, 245, 4, 59, "Input"],
+Cell[25195, 699, 1766, 33, 125, "Output"],
+Cell[26964, 734, 185, 3, 23, "Message"],
+Cell[27152, 739, 42, 1, 27, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[27231, 745, 103, 2, 27, "Input"],
+Cell[27337, 749, 379, 8, 103, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[27753, 762, 186, 4, 43, "Input"],
+Cell[27942, 768, 656, 13, 115, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[28635, 786, 180, 3, 43, "Input"],
+Cell[28818, 791, 674, 13, 115, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[29529, 809, 108, 2, 27, "Input"],
+Cell[29640, 813, 1854, 33, 137, "Output"]
+}, Open  ]],
+Cell[31509, 849, 54, 1, 27, "Input"],
+
+Cell[CellGroupData[{
+Cell[31588, 854, 309, 5, 91, "Input"],
+Cell[31900, 861, 65, 1, 27, "Output"],
+Cell[31968, 864, 68, 1, 35, "Output"],
+Cell[32039, 867, 68, 1, 35, "Output"],
+Cell[32110, 870, 68, 1, 35, "Output"],
+Cell[32181, 873, 52, 1, 27, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[32270, 879, 156, 2, 27, "Input"],
+Cell[32429, 883, 31325, 1060, 196, 12279, 820, "GraphicsData", "PostScript", \
+"Graphics"],
+Cell[63757, 1945, 130, 3, 27, "Output"]
+}, Open  ]],
+Cell[63902, 1951, 26, 0, 27, "Input"],
+Cell[63931, 1953, 159, 3, 59, "Input"],
+
+Cell[CellGroupData[{
+Cell[64115, 1960, 2120, 42, 459, "Input"],
+Cell[66238, 2004, 41, 1, 23, "Print"],
+Cell[66282, 2007, 284, 8, 67, "Output"],
+Cell[66569, 2017, 287, 8, 77, "Output"],
+Cell[66859, 2027, 46, 1, 23, "Print"],
+Cell[66908, 2030, 57, 1, 29, "Output"],
+Cell[66968, 2033, 47, 1, 23, "Print"],
+Cell[67018, 2036, 266, 8, 63, "Output"],
+Cell[67287, 2046, 54, 1, 23, "Print"],
+Cell[67344, 2049, 266, 8, 63, "Output"],
+Cell[67613, 2059, 68, 1, 23, "Print"],
+Cell[67684, 2062, 299, 8, 87, "Output"],
+Cell[67986, 2072, 46, 1, 23, "Print"],
+Cell[68035, 2075, 284, 8, 67, "Output"],
+Cell[68322, 2085, 63, 1, 23, "Print"],
+Cell[68388, 2088, 266, 8, 63, "Output"],
+Cell[68657, 2098, 56, 1, 23, "Print"],
+Cell[68716, 2101, 266, 8, 63, "Output"],
+Cell[68985, 2111, 78, 1, 23, "Print"],
+Cell[69066, 2114, 300, 8, 81, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[69403, 2127, 1108, 23, 203, "Input"],
+Cell[70514, 2152, 266, 8, 63, "Output"],
+Cell[70783, 2162, 284, 8, 67, "Output"],
+Cell[71070, 2172, 284, 8, 67, "Output"],
+Cell[71357, 2182, 266, 8, 63, "Output"],
+Cell[71626, 2192, 266, 8, 63, "Output"],
+Cell[71895, 2202, 214, 7, 63, "Output"],
+Cell[72112, 2211, 214, 7, 63, "Output"],
+Cell[72329, 2220, 35, 1, 27, "Output"],
+Cell[72367, 2223, 35, 1, 27, "Output"],
+Cell[72405, 2226, 35, 1, 27, "Output"],
+Cell[72443, 2229, 266, 8, 63, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[72746, 2242, 491, 11, 107, "Input"],
+Cell[73240, 2255, 49, 1, 49, "Output"],
+Cell[73292, 2258, 38, 1, 29, "Output"],
+Cell[73333, 2261, 77, 1, 37, "Output"],
+Cell[73413, 2264, 90, 1, 38, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[73540, 2270, 56, 1, 27, "Input"],
+Cell[73599, 2273, 57, 1, 27, "Output"]
+}, Open  ]],
+Cell[73671, 2277, 26, 0, 27, "Input"],
+
+Cell[CellGroupData[{
+Cell[73722, 2281, 52, 1, 27, "Input"],
+Cell[73777, 2284, 54, 1, 27, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[73868, 2290, 327, 6, 91, "Input"],
+Cell[74198, 2298, 54, 1, 27, "Output"],
+Cell[74255, 2301, 37, 1, 27, "Output"],
+Cell[74295, 2304, 54, 1, 27, "Output"],
+Cell[74352, 2307, 40, 1, 27, "Output"],
+Cell[74395, 2310, 58, 1, 27, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[74490, 2316, 384, 8, 91, "Input"],
+Cell[74877, 2326, 520, 12, 87, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[75434, 2343, 26, 0, 27, "Input"],
+Cell[75463, 2345, 1259, 23, 79, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[76759, 2373, 412, 7, 91, "Input"],
+Cell[77174, 2382, 315, 8, 85, "Output"],
+Cell[77492, 2392, 295, 7, 80, "Output"],
+Cell[77790, 2401, 949, 20, 161, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[78776, 2426, 334, 6, 91, "Input"],
+Cell[79113, 2434, 667, 15, 119, "Output"],
+Cell[79783, 2451, 183, 3, 23, "Message"],
+Cell[79969, 2456, 187, 3, 23, "Message"],
+Cell[80159, 2461, 342, 5, 104, "Output"],
+Cell[80504, 2468, 187, 3, 23, "Message"],
+Cell[80694, 2473, 949, 20, 161, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[81680, 2498, 80, 1, 27, "Input"],
+Cell[81763, 2501, 42, 1, 27, "Output"]
+}, Open  ]],
+Cell[81820, 2505, 26, 0, 27, "Input"],
+Cell[81849, 2507, 26, 0, 27, "Input"]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

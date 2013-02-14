@@ -1,0 +1,669 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 5.0'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     26817,        572]*)
+(*NotebookOutlinePosition[     27461,        594]*)
+(*  CellTagsIndexPosition[     27417,        590]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell[BoxData[
+    \( (*\ to\ use, \ 
+      run\ grmhd - ksksp . nb\ \ then\ grmhd - 
+        connectiononly . nb\ then\ this\ file\ *) \)], "Input"],
+
+Cell[BoxData[
+    \(Clear[b, u, p, ptot, eta]\)], "Input"],
+
+Cell[BoxData[{
+    \(\(p = \((gam - 1)\)*en;\)\), "\n", 
+    \(\(eta = p + rho + en + b2;\)\), "\n", 
+    \(\(ptot = p + b2/2;\)\)}], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(ucon = {uu0, uu1, uu2, uu3}\), "\[IndentingNewLine]", 
+    \(ucov = 
+      FullSimplify[
+        Table[Sum[gcov2[\([ii, jj]\)]*ucon[\([jj]\)], {jj, 1, 4}], {ii, 1, 
+            4}]]\), "\[IndentingNewLine]", 
+    \(ucov = 
+      Simplify[Simplify[Simplify[ucov //. mybackconvert] //. myconvert] //. 
+          myconvert]\)}], "Input"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell1"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(ucon\\)\\\" is similar to existing symbol \\\
+\"\\!\\(gcon\\)\\\". \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell1\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    \({uu0, uu1, uu2, uu3}\)], "Output"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(ucov\\)\\\" is similar to existing symbols \
+\\!\\({gcov, ucon}\\). \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    \({\(\(-sigma\)\ uu0 + 2\ M\ r\ \((uu0 + drdx1\ uu1)\) - 2\ a\ M\ r\ uu3\ \
+Sin[h]\^2\)\/sigma, \(drdx1\ \((drdx1\ sigma\ uu1 + 2\ M\ r\ \((uu0 + drdx1\ \
+uu1)\) - a\ \((2\ M\ r + sigma)\)\ uu3\ Sin[h]\^2)\)\)\/sigma, 
+      dhdx2\^2\ sigma\ uu2, \(Sin[h]\^2\ \((\(-a\)\ \((drdx1\ sigma\ uu1 + 2\ \
+M\ r\ \((uu0 + drdx1\ uu1)\))\) + sigma\^2\ uu3 + a\^2\ \((2\ M\ r + sigma)\)\
+\ uu3\ Sin[h]\^2)\)\)\/sigma}\)], "Output"],
+
+Cell[BoxData[
+    \({\(-\(\(a\^2\ uu0\ Cos[h]\^2 + 
+              r\ \((drdx1\ uu0 - 2\ M\ uu0 + R0\ uu0 - 2\ drdx1\ M\ uu1 + 
+                    2\ a\ M\ uu3\ Sin[h]\^2)\)\)\/sigma\)\), \(\(1\/\(8\ \
+sigma\)\)\((drdx1\ \((16\ M\ r\ uu0 + 4\ a\^2\ drdx1\ uu1 + 
+              16\ drdx1\ M\ r\ uu1 + 8\ drdx1\ r\^2\ uu1 - a\^3\ uu3 - 
+              8\ a\ M\ r\ uu3 - 4\ a\ r\^2\ uu3 + 
+              4\ a\ \((a\ drdx1\ uu1 + r\ \((2\ M + r)\)\ uu3)\)\ Cos[2\ h] + 
+              a\^3\ uu3\ Cos[4\ h])\))\)\), 
+      dhdx2\^2\ sigma\ uu2, \(\(1\/\(2\ sigma\)\)\((\((\(-a\^3\)\ drdx1\ uu1 \
+- 2\ a\ r\ \((drdx1\ r\ uu1 + 2\ M\ \((uu0 + drdx1\ uu1)\))\) + a\^4\ uu3 + 
+              2\ r\^4\ uu3 + a\^2\ r\ \((2\ M + 3\ r)\)\ uu3 + 
+              a\^2\ \((\(-a\)\ drdx1\ uu1 + a\^2\ uu3 + 
+                    r\ \((\(-2\)\ M + r)\)\ uu3)\)\ Cos[
+                  2\ h])\)\ Sin[h]\^2)\)\)}\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[""], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(\(\(bcon = {bu0, bu1, bu2, bu3}\)\(\[IndentingNewLine]\)
+    \) (*mybu0 = \(Solve[bcon . ucov \[Equal] 0, bu0]\)[\([1, 1, 
+              2]\)]\[IndentingNewLine]\(bcon = 
+            bcon //. {bu0 \[Rule] mybu0}\); \[IndentingNewLine]bcon = 
+        Simplify[
+          Simplify[Simplify[bcon //. mybackconvert] //. myconvert] //. 
+            myconvert]*) \), "\[IndentingNewLine]", 
+    \(bcov = 
+      Simplify[Table[
+          Sum[gcov2[\([ii, jj]\)]*bcon[\([jj]\)], {jj, 1, 4}], {ii, 1, 
+            4}]]\), "\[IndentingNewLine]", 
+    \(bcov = 
+      Simplify[Simplify[Simplify[bcov //. mybackconvert] //. myconvert] //. 
+          myconvert]\)}], "Input"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(bcon\\)\\\" is similar to existing symbols \
+\\!\\({gcon, ucon}\\). \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    \({bu0, bu1, bu2, bu3}\)], "Output"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(bcov\\)\\\" is similar to existing symbols \
+\\!\\({bcon, gcov, ucov}\\). \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    \({\(2\ bu0\ M\ r + 2\ bu1\ drdx1\ M\ r - bu0\ sigma - 2\ a\ bu3\ M\ r\ \
+Sin[h]\^2\)\/sigma, \(drdx1\ \((2\ bu0\ M\ r + bu1\ drdx1\ \((2\ M\ r + \
+sigma)\) - a\ bu3\ \((2\ M\ r + sigma)\)\ Sin[h]\^2)\)\)\/sigma, 
+      bu2\ dhdx2\^2\ sigma, \(Sin[h]\^2\ \((bu3\ sigma\^2 - a\ \((2\ bu0\ M\ \
+r + bu1\ drdx1\ \((2\ M\ r + sigma)\))\) + a\^2\ bu3\ \((2\ M\ r + sigma)\)\ \
+Sin[h]\^2)\)\)\/sigma}\)], "Output"],
+
+Cell[BoxData[
+    \({\(\(-a\^2\)\ bu0\ Cos[h]\^2 + r\ \((2\ bu0\ M + 2\ bu1\ drdx1\ M - bu0\
+\ r - 2\ a\ bu3\ M\ Sin[h]\^2)\)\)\/sigma, \(\(1\/\(8\ sigma\)\)\((drdx1\ \((\
+\(-a\^3\)\ bu3 + 4\ a\^2\ bu1\ drdx1 + 16\ bu0\ M\ r - 8\ a\ bu3\ M\ r + 
+              16\ bu1\ drdx1\ M\ r - 4\ a\ bu3\ r\^2 + 8\ bu1\ drdx1\ r\^2 + 
+              4\ a\ \((a\ bu1\ drdx1 + bu3\ r\ \((2\ M + r)\))\)\ Cos[2\ h] + 
+              a\^3\ bu3\ Cos[4\ h])\))\)\), 
+      bu2\ dhdx2\^2\ sigma, \(\(1\/\(2\ sigma\)\)\((\((a\^4\ bu3 - 
+              a\^3\ bu1\ drdx1 + 2\ bu3\ r\^4 + 
+              a\^2\ bu3\ r\ \((2\ M + 3\ r)\) - 
+              2\ a\ r\ \((2\ bu0\ M + bu1\ drdx1\ \((2\ M + r)\))\) + 
+              a\^2\ \((a\^2\ bu3 - a\ bu1\ drdx1 + 
+                    bu3\ r\ \((\(-2\)\ M + r)\))\)\ Cos[
+                  2\ h])\)\ Sin[h]\^2)\)\)}\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    \(\(Tud = 
+        Table[eta*ucon[\([i]\)]*ucov[\([j]\)] + ptot*KroneckerDelta[i, j] - 
+            bcon[\([i]\)]*bcov[\([j]\)], {i, 4}, {j, 4}];\)\)], "Input"],
+
+Cell[BoxData[{
+    \(\(mydUpart1 = 
+        Table[Sum[
+            Tud[\([j, k]\)]*Connection2[\([k, aa, j]\)], {j, 1, 4}, {k, 1, 
+              4}], {aa, 1, 4}];\)\), "\[IndentingNewLine]", 
+    \(\(mydUpart2 = 
+        Table[Sum[Tud[\([j, aa]\)]*conn2[\([j]\)], {j, 1, 4}], {aa, 1, 
+            4}];\)\)}], "Input"],
+
+Cell[BoxData[
+    \(\(mydUpart1fs1 = 
+        Simplify[
+          Simplify[
+              Simplify[mydUpart1[\([1]\)] //. mybackconvert] //. myconvert] //. 
+            myconvert];\)\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(mydUpart1fs1\)], "Input"],
+
+Cell[BoxData[
+    \(0\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    \(\(mydUpart2fs1 = Simplify[mydUpart2[\([1]\)]];\)\)], "Input"],
+
+Cell[BoxData[
+    \(\(mydUpart1fs4 = 
+        Simplify[
+          Simplify[
+              Simplify[mydUpart1[\([4]\)] //. mybackconvert] //. myconvert] //. 
+            myconvert];\)\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(mydUpart1fs4\)], "Input"],
+
+Cell[BoxData[
+    \(0\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    \(\(mydUpart2fs4 = Simplify[mydUpart2[\([4]\)]];\)\)], "Input"],
+
+Cell[BoxData[
+    \(\(\(\[IndentingNewLine]\)\(\[IndentingNewLine]\)\(\[IndentingNewLine]\)\
+\)\)], "Input"],
+
+Cell[BoxData[
+    \(\(mydUtotal2 = mydUpart1[\([2]\)] + mydUpart2[\([2]\)];\)\)], "Input"],
+
+Cell[BoxData[
+    \(\(mydU2fs = Simplify[mydUtotal2];\)\)], "Input"],
+
+Cell[BoxData[
+    \( (*\(mydU2fs = 
+          Simplify[
+            Simplify[Simplify[mydUtotal2 //. mybackconvert] //. myconvert] //. 
+              myconvert];\)*) \)], "Input"],
+
+Cell[BoxData[
+    \(\(mydUtotal3 = mydUpart1[\([3]\)] + mydUpart2[\([3]\)];\)\)], "Input"],
+
+Cell[BoxData[
+    \(\(mydU3fs = Simplify[mydUtotal3];\)\)], "Input"],
+
+Cell[BoxData[
+    \( (*\(mydU3fs = 
+          Simplify[
+            Simplify[Simplify[mydUtotal3 //. mybackconvert] //. myconvert] //. 
+              myconvert];\)*) \)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(mydU2fs\)], "Input"],
+
+Cell[BoxData[
+    \(1\/16\ \((\(\(1\/sigma\)\((16\ drdx1\ r\ \((b2\/2 + 
+                  en\ \((\(-1\) + gam)\) - bu2\^2\ dhdx2\^2\ sigma + 
+                  dhdx2\^2\ \((b2 + en\ gam + 
+                        rho)\)\ sigma\ uu2\^2)\))\)\) - \
+\(\(1\/sigma\^4\)\((drdx1\ M\ \((r\^2 - a\^2\ Cos[h]\^2)\)\ \((\(-a\^2\) + 
+                  4\ M\ r + 
+                  a\^2\ Cos[
+                      2\ h])\)\ \((\(-bu0\)\ \((\(-a\^3\)\ bu3 + 
+                        4\ a\^2\ bu1\ drdx1 + 16\ bu0\ M\ r - 
+                        8\ a\ bu3\ M\ r + 16\ bu1\ drdx1\ M\ r - 
+                        4\ a\ bu3\ r\^2 + 8\ bu1\ drdx1\ r\^2 + 
+                        4\ a\ \((a\ bu1\ drdx1 + 
+                              bu3\ r\ \((2\ M + r)\))\)\ Cos[2\ h] + 
+                        a\^3\ bu3\ Cos[4\ h])\) + \((b2 + en\ gam + 
+                        rho)\)\ uu0\ \((16\ M\ r\ uu0 + 4\ a\^2\ drdx1\ uu1 + 
+                        16\ drdx1\ M\ r\ uu1 + 8\ drdx1\ r\^2\ uu1 - 
+                        a\^3\ uu3 - 8\ a\ M\ r\ uu3 - 4\ a\ r\^2\ uu3 + 
+                        4\ a\ \((a\ drdx1\ uu1 + 
+                              r\ \((2\ M + r)\)\ uu3)\)\ Cos[2\ h] + 
+                        a\^3\ uu3\ Cos[4\ h])\))\))\)\) + 
+          2\ \((\(-1\) - \(2\ drdx1\ r\)\/sigma)\)\ \((4\ b2 + 
+                8\ en\ \((\(-1\) + 
+                      gam)\) - \(\(1\/sigma\)\((bu1\ drdx1\ \((\(-a\^3\)\ bu3 \
++ 4\ a\^2\ bu1\ drdx1 + 16\ bu0\ M\ r - 8\ a\ bu3\ M\ r + 
+                        16\ bu1\ drdx1\ M\ r - 4\ a\ bu3\ r\^2 + 
+                        8\ bu1\ drdx1\ r\^2 + 
+                        4\ a\ \((a\ bu1\ drdx1 + 
+                              bu3\ r\ \((2\ M + r)\))\)\ Cos[2\ h] + 
+                        a\^3\ bu3\ Cos[
+                            4\ h])\))\)\) + \(\(1\/sigma\)\((drdx1\ \((b2 + 
+                        en\ gam + rho)\)\ uu1\ \((16\ M\ r\ uu0 + 
+                        4\ a\^2\ drdx1\ uu1 + 16\ drdx1\ M\ r\ uu1 + 
+                        8\ drdx1\ r\^2\ uu1 - a\^3\ uu3 - 8\ a\ M\ r\ uu3 - 
+                        4\ a\ r\^2\ uu3 + 
+                        4\ a\ \((a\ drdx1\ uu1 + 
+                              r\ \((2\ M + r)\)\ uu3)\)\ Cos[2\ h] + 
+                        a\^3\ uu3\ Cos[
+                            4\ h])\))\)\))\) - \(\(1\/sigma\^3\)\((8\ a\ \
+dhdx2\ drdx1\ Cos[
+                h]\ \((r\ \((2\ M + r)\) + 
+                  a\^2\ Cos[h]\^2)\)\ \((\(-bu2\)\ \((a\^4\ bu3 - 
+                        a\^3\ bu1\ drdx1 + 2\ bu3\ r\^4 + 
+                        a\^2\ bu3\ r\ \((2\ M + 3\ r)\) - 
+                        2\ a\ r\ \((2\ bu0\ M + 
+                              bu1\ drdx1\ \((2\ M + r)\))\) + 
+                        a\^2\ \((a\^2\ bu3 - a\ bu1\ drdx1 + 
+                              bu3\ r\ \((\(-2\)\ M + r)\))\)\ Cos[
+                            2\ h])\) + \((b2 + en\ gam + 
+                        rho)\)\ uu2\ \((\(-a\^3\)\ drdx1\ uu1 - 
+                        2\ a\ r\ \((drdx1\ r\ uu1 + 
+                              2\ M\ \((uu0 + drdx1\ uu1)\))\) + a\^4\ uu3 + 
+                        2\ r\^4\ uu3 + a\^2\ r\ \((2\ M + 3\ r)\)\ uu3 + 
+                        a\^2\ \((\(-a\)\ drdx1\ uu1 + a\^2\ uu3 + 
+                              r\ \((\(-2\)\ M + r)\)\ uu3)\)\ Cos[
+                            2\ h])\))\)\ Sin[
+                h])\)\) - \(\(1\/sigma\^2\)\((2\ a\^2\ dhdx2\ drdx1\ Cos[
+                h]\ \((\(-bu2\)\ \((\(-a\^3\)\ bu3 + 4\ a\^2\ bu1\ drdx1 + 
+                        16\ bu0\ M\ r - 8\ a\ bu3\ M\ r + 
+                        16\ bu1\ drdx1\ M\ r - 4\ a\ bu3\ r\^2 + 
+                        8\ bu1\ drdx1\ r\^2 + 
+                        4\ a\ \((a\ bu1\ drdx1 + 
+                              bu3\ r\ \((2\ M + r)\))\)\ Cos[2\ h] + 
+                        a\^3\ bu3\ Cos[4\ h])\) + \((b2 + en\ gam + 
+                        rho)\)\ uu2\ \((16\ M\ r\ uu0 + 4\ a\^2\ drdx1\ uu1 + 
+                        16\ drdx1\ M\ r\ uu1 + 8\ drdx1\ r\^2\ uu1 - 
+                        a\^3\ uu3 - 8\ a\ M\ r\ uu3 - 4\ a\ r\^2\ uu3 + 
+                        4\ a\ \((a\ drdx1\ uu1 + 
+                              r\ \((2\ M + r)\)\ uu3)\)\ Cos[2\ h] + 
+                        a\^3\ uu3\ Cos[4\ h])\))\)\ Sin[
+                h])\)\) + \(\(1\/sigma\^4\)\((8\ a\ drdx1\ M\ \((r\^2 - 
+                  a\^2\ Cos[h]\^2)\)\ \((\(-bu0\)\ \((a\^4\ bu3 - 
+                        a\^3\ bu1\ drdx1 + 2\ bu3\ r\^4 + 
+                        a\^2\ bu3\ r\ \((2\ M + 3\ r)\) - 
+                        2\ a\ r\ \((2\ bu0\ M + 
+                              bu1\ drdx1\ \((2\ M + r)\))\) + 
+                        a\^2\ \((a\^2\ bu3 - a\ bu1\ drdx1 + 
+                              bu3\ r\ \((\(-2\)\ M + r)\))\)\ Cos[
+                            2\ h])\) + \((b2 + en\ gam + 
+                        rho)\)\ uu0\ \((\(-a\^3\)\ drdx1\ uu1 - 
+                        2\ a\ r\ \((drdx1\ r\ uu1 + 
+                              2\ M\ \((uu0 + drdx1\ uu1)\))\) + a\^4\ uu3 + 
+                        2\ r\^4\ uu3 + a\^2\ r\ \((2\ M + 3\ r)\)\ uu3 + 
+                        a\^2\ \((\(-a\)\ drdx1\ uu1 + a\^2\ uu3 + 
+                              r\ \((\(-2\)\ M + r)\)\ uu3)\)\ Cos[
+                            2\ h])\))\)\ Sin[h]\^2)\)\) + \
+\(\(1\/sigma\^4\)\((8\ a\ drdx1\^2\ M\ \((r\^2 - 
+                  a\^2\ Cos[h]\^2)\)\ \((\(-bu1\)\ \((a\^4\ bu3 - 
+                        a\^3\ bu1\ drdx1 + 2\ bu3\ r\^4 + 
+                        a\^2\ bu3\ r\ \((2\ M + 3\ r)\) - 
+                        2\ a\ r\ \((2\ bu0\ M + 
+                              bu1\ drdx1\ \((2\ M + r)\))\) + 
+                        a\^2\ \((a\^2\ bu3 - a\ bu1\ drdx1 + 
+                              bu3\ r\ \((\(-2\)\ M + r)\))\)\ Cos[
+                            2\ h])\) + \((b2 + en\ gam + 
+                        rho)\)\ uu1\ \((\(-a\^3\)\ drdx1\ uu1 - 
+                        2\ a\ r\ \((drdx1\ r\ uu1 + 
+                              2\ M\ \((uu0 + drdx1\ uu1)\))\) + a\^4\ uu3 + 
+                        2\ r\^4\ uu3 + a\^2\ r\ \((2\ M + 3\ r)\)\ uu3 + 
+                        a\^2\ \((\(-a\)\ drdx1\ uu1 + a\^2\ uu3 + 
+                              r\ \((\(-2\)\ M + r)\)\ uu3)\)\ Cos[
+                            
+                            2\ h])\))\)\ Sin[h]\^2)\)\) + \
+\(\(1\/sigma\^4\)\((a\ drdx1\ \((a\^2\ M\ \((\(-2\)\ r\^2 + sigma)\) + 
+                  2\ r\ \((M\^2\ \((4\ r\^2 - 2\ sigma)\) + sigma\^2)\) + 
+                  a\^2\ M\ \((r\^2 - a\^2\ Cos[h]\^2)\)\ Cos[
+                      2\ h])\)\ \((\(-bu3\)\ \((\(-a\^3\)\ bu3 + 
+                        4\ a\^2\ bu1\ drdx1 + 16\ bu0\ M\ r - 
+                        8\ a\ bu3\ M\ r + 16\ bu1\ drdx1\ M\ r - 
+                        4\ a\ bu3\ r\^2 + 8\ bu1\ drdx1\ r\^2 + 
+                        4\ a\ \((a\ bu1\ drdx1 + 
+                              bu3\ r\ \((2\ M + r)\))\)\ Cos[2\ h] + 
+                        a\^3\ bu3\ Cos[4\ h])\) + \((b2 + en\ gam + 
+                        rho)\)\ uu3\ \((16\ M\ r\ uu0 + 4\ a\^2\ drdx1\ uu1 + 
+                        16\ drdx1\ M\ r\ uu1 + 8\ drdx1\ r\^2\ uu1 - 
+                        a\^3\ uu3 - 8\ a\ M\ r\ uu3 - 4\ a\ r\^2\ uu3 + 
+                        4\ a\ \((a\ drdx1\ uu1 + 
+                              r\ \((2\ M + r)\)\ uu3)\)\ Cos[2\ h] + 
+                        a\^3\ uu3\ Cos[
+                            4\ h])\))\)\ Sin[h]\^2)\)\) + \
+\(\(1\/sigma\^3\)\((8\ drdx1\ \((r\ sigma\^2 + 
+                  a\^2\ M\ \((\(-r\^2\) + 
+                        a\^2\ Cos[h]\^2)\)\ Sin[h]\^2)\)\ \((b2 + 
+                  2\ en\ \((\(-1\) + 
+                        gam)\) - \(\(1\/sigma\)\((bu3\ \((a\^4\ bu3 - 
+                          a\^3\ bu1\ drdx1 + 2\ bu3\ r\^4 + 
+                          a\^2\ bu3\ r\ \((2\ M + 3\ r)\) - 
+                          2\ a\ r\ \((2\ bu0\ M + 
+                                bu1\ drdx1\ \((2\ M + r)\))\) + 
+                          a\^2\ \((a\^2\ bu3 - a\ bu1\ drdx1 + 
+                                bu3\ r\ \((\(-2\)\ M + r)\))\)\ Cos[
+                              2\ h])\)\ Sin[h]\^2)\)\) + \
+\(\(1\/sigma\)\((\((b2 + en\ gam + rho)\)\ uu3\ \((\(-a\^3\)\ drdx1\ uu1 - 
+                          2\ a\ r\ \((drdx1\ r\ uu1 + 
+                                2\ M\ \((uu0 + drdx1\ uu1)\))\) + a\^4\ uu3 + 
+                          2\ r\^4\ uu3 + a\^2\ r\ \((2\ M + 3\ r)\)\ uu3 + 
+                          a\^2\ \((\(-a\)\ drdx1\ uu1 + a\^2\ uu3 + 
+                                r\ \((\(-2\)\ M + r)\)\ uu3)\)\ Cos[
+                              2\ h])\)\ Sin[h]\^2)\)\))\))\)\) + \(\(1\/sigma\
+\^3\)\((2\ \((4\ b2 + 
+                  8\ en\ \((\(-1\) + 
+                        gam)\) - \(\(1\/sigma\)\((bu1\ drdx1\ \((\(-a\^3\)\ \
+bu3 + 4\ a\^2\ bu1\ drdx1 + 16\ bu0\ M\ r - 8\ a\ bu3\ M\ r + 
+                          16\ bu1\ drdx1\ M\ r - 4\ a\ bu3\ r\^2 + 
+                          8\ bu1\ drdx1\ r\^2 + 
+                          4\ a\ \((a\ bu1\ drdx1 + 
+                                bu3\ r\ \((2\ M + r)\))\)\ Cos[2\ h] + 
+                          a\^3\ bu3\ Cos[
+                              4\ h])\))\)\) + \(\(1\/sigma\)\((drdx1\ \((b2 + 
+                          en\ gam + rho)\)\ uu1\ \((16\ M\ r\ uu0 + 
+                          4\ a\^2\ drdx1\ uu1 + 16\ drdx1\ M\ r\ uu1 + 
+                          8\ drdx1\ r\^2\ uu1 - a\^3\ uu3 - 8\ a\ M\ r\ uu3 - 
+                          4\ a\ r\^2\ uu3 + 
+                          4\ a\ \((a\ drdx1\ uu1 + 
+                                r\ \((2\ M + r)\)\ uu3)\)\ Cos[2\ h] + 
+                          a\^3\ uu3\ Cos[
+                              4\ h])\))\)\))\)\ \((\(-drdx1\)\ M\ r\^3\ \((2\ \
+M + r)\) + sigma\^3 + 
+                  a\^2\ drdx1\ M\ \((2\ M\ r\ Cos[h]\^2 + 
+                        a\^2\ Cos[h]\^4 + \((r\^2 - 
+                              a\^2\ Cos[h]\^2)\)\ Sin[h]\^2)\))\))\)\) + \
+\(\(1\/sigma\^3\)\((16\ drdx1\ M\ \((r\^2 - 
+                  a\^2\ Cos[h]\^2)\)\ \((r\ \((2\ M + r)\) + 
+                  a\^2\ Cos[h]\^2)\)\ \((b2\/2 + 
+                  en\ \((\(-1\) + 
+                        gam)\) + \(bu0\ \((a\^2\ bu0\ Cos[h]\^2 + r\ \
+\((\(-2\)\ bu0\ M - 2\ bu1\ drdx1\ M + bu0\ r + 2\ a\ bu3\ M\ Sin[h]\^2)\))\)\
+\)\/sigma - \(\(1\/sigma\)\((\((b2 + en\ gam + 
+                          rho)\)\ uu0\ \((a\^2\ uu0\ Cos[h]\^2 + 
+                          r\ \((drdx1\ uu0 - 2\ M\ uu0 + R0\ uu0 - 
+                                2\ drdx1\ M\ uu1 + 
+                                2\ a\ M\ uu3\ Sin[h]\^2)\))\))\)\))\))\)\) - \
+\(\(1\/sigma\^4\)\((32\ drdx1\^2\ M\ \((r\^2 - 
+                  a\^2\ Cos[h]\^2)\)\ \((r\ \((M + r)\) + 
+                  a\^2\ Cos[h]\^2)\)\ \((bu1\ \((\(-a\^2\)\ bu0\ Cos[h]\^2 + 
+                        r\ \((2\ bu0\ M + 2\ bu1\ drdx1\ M - bu0\ r - 
+                              2\ a\ bu3\ M\ Sin[h]\^2)\))\) + \((b2 + 
+                        en\ gam + rho)\)\ uu1\ \((a\^2\ uu0\ Cos[h]\^2 + 
+                        r\ \((drdx1\ uu0 - 2\ M\ uu0 + R0\ uu0 - 
+                              2\ drdx1\ M\ uu1 + 
+                              2\ a\ M\ uu3\ Sin[h]\^2)\))\))\))\)\) + \
+\(\(1\/sigma\^4\)\((16\ a\ drdx1\ M\ \((\(-r\^2\) + 
+                  a\^2\ Cos[h]\^2)\)\ \((r\ \((2\ M + r)\) + 
+                  a\^2\ Cos[h]\^2)\)\ Sin[h]\^2\ \((bu3\ \((a\^2\ bu0\ Cos[h]\
+\^2 + r\ \((\(-2\)\ bu0\ M - 2\ bu1\ drdx1\ M + bu0\ r + 
+                              2\ a\ bu3\ M\ Sin[h]\^2)\))\) - \((b2 + 
+                        en\ gam + rho)\)\ uu3\ \((a\^2\ uu0\ Cos[h]\^2 + 
+                        r\ \((drdx1\ uu0 - 2\ M\ uu0 + R0\ uu0 - 
+                              2\ drdx1\ M\ uu1 + 
+                              2\ a\ M\ uu3\ Sin[h]\^2)\))\))\))\)\) + \(16\ a\
+\^2\ dhdx2\ drdx1\ M\ r\ \((bu0\ bu2 - \((b2 + en\ gam + rho)\)\ uu0\ uu2)\)\ \
+Sin[2\ h]\)\/sigma\^2 + \(16\ a\^2\ dhdx2\ drdx1\^2\ M\ r\ \((bu1\ bu2 - \
+\((b2 + en\ gam + rho)\)\ uu1\ uu2)\)\ Sin[2\ h]\)\/sigma\^2 - \
+\(\(1\/sigma\^3\)\((16\ a\^2\ dhdx2\ drdx1\ M\ r\ \((bu2\ \((a\^2\ bu0\ \
+Cos[h]\^2 + r\ \((\(-2\)\ bu0\ M - 2\ bu1\ drdx1\ M + bu0\ r + 
+                              2\ a\ bu3\ M\ Sin[h]\^2)\))\) - \((b2 + 
+                        en\ gam + rho)\)\ uu2\ \((a\^2\ uu0\ Cos[h]\^2 + 
+                        r\ \((drdx1\ uu0 - 2\ M\ uu0 + R0\ uu0 - 
+                              2\ drdx1\ M\ uu1 + 
+                              2\ a\ M\ uu3\ Sin[h]\^2)\))\))\)\ Sin[
+                2\ h])\)\) + \(\(1\/sigma\)\((2\ drdx1\ \((\(-bu2\)\ \
+\((\(-a\^3\)\ bu3 + 4\ a\^2\ bu1\ drdx1 + 16\ bu0\ M\ r - 8\ a\ bu3\ M\ r + 
+                        16\ bu1\ drdx1\ M\ r - 4\ a\ bu3\ r\^2 + 
+                        8\ bu1\ drdx1\ r\^2 + 
+                        4\ a\ \((a\ bu1\ drdx1 + 
+                              bu3\ r\ \((2\ M + r)\))\)\ Cos[2\ h] + 
+                        a\^3\ bu3\ Cos[4\ h])\) + \((b2 + en\ gam + 
+                        rho)\)\ uu2\ \((16\ M\ r\ uu0 + 4\ a\^2\ drdx1\ uu1 + 
+                        16\ drdx1\ M\ r\ uu1 + 8\ drdx1\ r\^2\ uu1 - 
+                        a\^3\ uu3 - 8\ a\ M\ r\ uu3 - 4\ a\ r\^2\ uu3 + 
+                        4\ a\ \((a\ drdx1\ uu1 + 
+                              r\ \((2\ M + r)\)\ uu3)\)\ Cos[2\ h] + 
+                        a\^3\ uu3\ Cos[
+                            4\ h])\))\)\ \((\(4\ \[Pi]\^2\ \((h - \[Pi]\ y)\)\
+\)\/dhdx2 - dhdx2\ Cot[
+                      h] + \(a\^2\ dhdx2\ Sin[2\ h]\)\/sigma)\))\)\) - \
+\(\(1\/sigma\^2\)\((16\ a\ dhdx2\ drdx1\ \((bu2\ bu3 - \((b2 + en\ gam + 
+                        rho)\)\ uu2\ uu3)\)\ Sin[
+                h]\ \((r\ \((2\ M + r)\)\ sigma\ Cos[h] + 
+                  a\^2\ sigma\ Cos[h]\^3 + 
+                  a\^2\ M\ r\ Sin[h]\ Sin[2\ h])\))\)\))\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\(outputreplaceharm = {b2 \[Rule] bsq, bu0 -> "\<b[TT]\>", 
+          bu1 -> "\<b[RR]\>", bu2 -> "\<b[TH]\>", bu3 -> "\<b[PH]\>", 
+          uu0 -> "\<u[TT]\>", uu1 -> "\<u[RR]\>", uu2 -> "\<u[TH]\>", 
+          uu3 -> "\<u[PH]\>", dhdx2 \[Rule] "\<dxdxp[2]\>", 
+          drdx1 \[Rule] "\<dxdxp[1]\>", Cos \[Rule] cos, Sin \[Rule] sin, 
+          y \[Rule] "\<X[2]\>", Cot \[Rule] cot, Power \[Rule] pow, 
+          h \[Rule] th, Pi \[Rule] "\<M_PI\>"};\)\)], "Input"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell1"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(cos\\)\\\" is similar to existing symbol \
+\\\"\\!\\(Cos\\)\\\". \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell1\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell1"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(sin\\)\\\" is similar to existing symbol \
+\\\"\\!\\(Sin\\)\\\". \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell1\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell1"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(cot\\)\\\" is similar to existing symbol \
+\\\"\\!\\(Cot\\)\\\". \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell1\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(General::"stop"\), \(\(:\)\(\ \)\), "\<\"Further output of \
+\\!\\(General :: \\\"spell1\\\"\\) will be suppressed during this \
+calculation. \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::stop\\\"]\\)\"\>"}]], "Message"]
+}, Open  ]],
+
+Cell[BoxData[""], "Input"],
+
+Cell[BoxData[{
+    \(\(harmprintdU = 
+        N[\(mydUpart2fs1 //. 
+              outputreplaceharm\) //. {M \[Rule] 1}];\)\), "\n", 
+    \(\(strm = 
+        OpenWrite["\<c:\\dU1fs.txt\>", 
+          FormatType \[Rule] CForm];\)\), "\[IndentingNewLine]", 
+    \(\(Write[strm, "\<dU[\>", 0, "\<]=\>", 
+        harmprintdU, "\<;\>"];\)\), "\n", 
+    \(\(Close[strm];\)\)}], "Input"],
+
+Cell[BoxData[
+    \(\(\(\[IndentingNewLine]\)\(\[IndentingNewLine]\)\(\(harmprintdU = 
+        N[\(mydU2fs //. outputreplaceharm\) //. {M \[Rule] 1}];\)\n
+    \(strm = 
+        OpenWrite["\<c:\\dU2fs.txt\>", 
+          FormatType \[Rule] CForm];\)\[IndentingNewLine]
+    \(Write[strm, "\<dU[\>", 1, "\<]=\>", harmprintdU, "\<;\>"];\)\n
+    \(Close[strm];\)\)\)\)], "Input"],
+
+Cell[BoxData[{
+    \(\(harmprintdU = 
+        N[\(mydU3fs //. outputreplaceharm\) //. {M \[Rule] 1}];\)\), "\n", 
+    \(\(strm = 
+        OpenWrite["\<c:\\dU3fs.txt\>", 
+          FormatType \[Rule] CForm];\)\), "\[IndentingNewLine]", 
+    \(\(Write[strm, "\<dU[\>", 2, "\<]=\>", 
+        harmprintdU, "\<;\>"];\)\), "\[IndentingNewLine]", 
+    \(\(Close[strm];\)\)}], "Input"],
+
+Cell[BoxData[""], "Input"],
+
+Cell[BoxData[{
+    \(\(harmprintdU = 
+        N[\(mydUpart2fs4 //. 
+              outputreplaceharm\) //. {M \[Rule] 1}];\)\), "\n", 
+    \(\(strm = 
+        OpenWrite["\<c:\\dU4fs.txt\>", 
+          FormatType \[Rule] CForm];\)\), "\[IndentingNewLine]", 
+    \(\(Write[strm, "\<dU[\>", 3, "\<]=\>", 
+        harmprintdU, "\<;\>"];\)\), "\n", 
+    \(\(Close[strm];\)\)}], "Input"]
+},
+FrontEndVersion->"5.0 for Microsoft Windows",
+ScreenRectangle->{{0, 1400}, {0, 967}},
+WindowSize->{671, 780},
+WindowMargins->{{Automatic, 1}, {Automatic, -1}}
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1754, 51, 148, 3, 30, "Input"],
+Cell[1905, 56, 58, 1, 30, "Input"],
+Cell[1966, 59, 142, 3, 70, "Input"],
+
+Cell[CellGroupData[{
+Cell[2133, 66, 355, 8, 110, "Input"],
+Cell[2491, 76, 356, 5, 37, "Message"],
+Cell[2850, 83, 54, 1, 29, "Output"],
+Cell[2907, 86, 355, 5, 37, "Message"],
+Cell[3265, 93, 439, 6, 150, "Output"],
+Cell[3707, 101, 901, 14, 183, "Output"]
+}, Open  ]],
+Cell[4623, 118, 26, 0, 30, "Input"],
+
+Cell[CellGroupData[{
+Cell[4674, 122, 683, 14, 170, "Input"],
+Cell[5360, 138, 355, 5, 37, "Message"],
+Cell[5718, 145, 54, 1, 29, "Output"],
+Cell[5775, 148, 361, 5, 37, "Message"],
+Cell[6139, 155, 426, 6, 150, "Output"],
+Cell[6568, 163, 851, 13, 165, "Output"]
+}, Open  ]],
+Cell[7434, 179, 178, 3, 50, "Input"],
+Cell[7615, 184, 317, 7, 70, "Input"],
+Cell[7935, 193, 195, 5, 70, "Input"],
+
+Cell[CellGroupData[{
+Cell[8155, 202, 45, 1, 30, "Input"],
+Cell[8203, 205, 35, 1, 29, "Output"]
+}, Open  ]],
+Cell[8253, 209, 81, 1, 30, "Input"],
+Cell[8337, 212, 195, 5, 70, "Input"],
+
+Cell[CellGroupData[{
+Cell[8557, 221, 45, 1, 30, "Input"],
+Cell[8605, 224, 35, 1, 29, "Output"]
+}, Open  ]],
+Cell[8655, 228, 81, 1, 30, "Input"],
+Cell[8739, 231, 108, 2, 90, "Input"],
+Cell[8850, 235, 90, 1, 30, "Input"],
+Cell[8943, 238, 68, 1, 30, "Input"],
+Cell[9014, 241, 179, 4, 70, "Input"],
+Cell[9196, 247, 90, 1, 30, "Input"],
+Cell[9289, 250, 68, 1, 30, "Input"],
+Cell[9360, 253, 179, 4, 70, "Input"],
+
+Cell[CellGroupData[{
+Cell[9564, 261, 40, 1, 30, "Input"],
+Cell[9607, 264, 13681, 220, 2213, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[23325, 489, 489, 7, 70, "Input"],
+Cell[23817, 498, 354, 5, 22, "Message"],
+Cell[24174, 505, 354, 5, 22, "Message"],
+Cell[24531, 512, 354, 5, 22, "Message"],
+Cell[24888, 519, 333, 5, 22, "Message"]
+}, Open  ]],
+Cell[25236, 527, 26, 0, 30, "Input"],
+Cell[25265, 529, 380, 9, 90, "Input"],
+Cell[25648, 540, 373, 7, 130, "Input"],
+Cell[26024, 549, 377, 8, 90, "Input"],
+Cell[26404, 559, 26, 0, 30, "Input"],
+Cell[26433, 561, 380, 9, 90, "Input"]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

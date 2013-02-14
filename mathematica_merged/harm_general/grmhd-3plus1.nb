@@ -1,0 +1,599 @@
+(***********************************************************************
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used on any computer system with Mathematica 4.0,
+MathReader 4.0, or any compatible application. The data for the notebook 
+starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do one of 
+the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing the 
+word CacheID, otherwise Mathematica-compatible applications may try to 
+use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+***********************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     15557,        450]*)
+(*NotebookOutlinePosition[     16211,        473]*)
+(*  CellTagsIndexPosition[     16167,        469]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[{
+    \( (*3 + 
+        1\ metric*) \[IndentingNewLine] (*gm = {{g11, g12, g13}, {g12, g22, 
+            g23}, {g13, g23, 
+            g33}}*) \[IndentingNewLine]\(Print["\<metric\>"];\)\), "\
+\[IndentingNewLine]", 
+    \(\(gmcov = 
+        Table[gcov[\([i, j]\)], {i, 2, 4}, {j, 2, 
+            4}];\)\), "\[IndentingNewLine]", 
+    \(MatrixForm[gmcov]\[IndentingNewLine] (*\ 
+      inverse\ is\ inverse\ of\ new\ 3 - metric, \ 
+      not\ 4 - metric\ *) \), "\[IndentingNewLine]", 
+    \(\(gmcon = Inverse[gmcov];\)\)}], "Input"],
+
+Cell[BoxData[
+    \("metric"\)], "Print"],
+
+Cell[BoxData[
+    \(General::"spell1" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(gmcov\)\" is similar to \
+existing symbol \"\!\(gcov\)\"."\)], "Message"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {\(1 + \(2\ M\ x\)\/\(x\^2 + a\^2\ Cos[y]\^2\)\), 
+              "0", \(\(-a\)\ \((1 + \(2\ M\ x\)\/\(x\^2 + a\^2\ \
+Cos[y]\^2\))\)\ Sin[y]\^2\)},
+            {"0", \(x\^2 + a\^2\ Cos[y]\^2\), "0"},
+            {\(\(-a\)\ \((1 + \(2\ M\ x\)\/\(x\^2 + a\^2\ Cos[y]\^2\))\)\ \
+Sin[y]\^2\), "0", \(Sin[y]\^2\ \((x\^2 + a\^2\ Cos[y]\^2 + 
+                    a\^2\ \((1 + \(2\ M\ x\)\/\(x\^2 + a\^2\ Cos[y]\^2\))\)\ \
+Sin[y]\^2)\)\)}
+            }], "\[NoBreak]", ")"}],
+      (MatrixForm[ #]&)]], "Output"],
+
+Cell[BoxData[
+    \(General::"spell" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(gmcon\)\" is similar to \
+existing symbols \!\({gcon, gmcov}\)."\)], "Message"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(\[IndentingNewLine]\[IndentingNewLine]\(Print["\<betacov/con\>"];\)\), \
+"\[IndentingNewLine]", 
+    \(\(betacov = {beta1, beta2, beta3};\)\), "\n", 
+    \(\(betacon = gmcon . betacov;\)\), "\[IndentingNewLine]", 
+    \(\(betasq = betacov . gmcon . \ betacov;\)\)}], "Input"],
+
+Cell[BoxData[
+    \("betacov/con"\)], "Print"],
+
+Cell[BoxData[
+    \(General::"spell1" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(betacon\)\" is similar \
+to existing symbol \"\!\(betacov\)\"."\)], "Message"]
+}, Open  ]],
+
+Cell[BoxData[
+    \(\(Print["\<realgcov/con\>"];\)\)], "Input"],
+
+Cell[BoxData[{
+    \(\(realgcov = {{\(-a^2\) + betasq, betacov[\([1]\)], betacov[\([2]\)], 
+            betacov[\([3]\)]}, {betacov[\([1]\)], gmcov[\([1, 1]\)], 
+            gmcov[\([1, 2]\)], gmcov[\([1, 3]\)]}, {betacov[\([2]\)], 
+            gmcov[\([2, 1]\)], gmcov[\([2, 2]\)], 
+            gmcov[\([2, 3]\)]}, {betacov[\([3]\)], gmcov[\([3, 1]\)], 
+            gmcov[\([3, 2]\)], 
+            gmcov[\([3, 3]\)]}};\)\), "\[IndentingNewLine]", 
+    \(\(realgconalso = Inverse[realgcov];\)\), "\[IndentingNewLine]", 
+    \(\(realgcon = {{\(-1\)/a^2, betacon[\([1]\)]/a^2, betacon[\([2]\)]/a^2, 
+            betacon[\([3]\)]/a^2}, {betacon[\([1]\)]/a^2, 
+            gmcon[\([1, 1]\)] - betacon[\([1]\)]\ betacon[\([1]\)]/a^2, 
+            gmcon[\([1, 2]\)] - betacon[\([1]\)]\ betacon[\([2]\)]/a^2, 
+            gmcon[\([1, 3]\)] - 
+              betacon[\([1]\)]\ betacon[\([3]\)]/a^2}, {betacon[\([2]\)]/a^2, 
+            gmcon[\([2, 1]\)] - betacon[\([2]\)]\ betacon[\([1]\)]/a^2, 
+            gmcon[\([2, 2]\)] - betacon[\([2]\)]\ betacon[\([2]\)]/a^2, 
+            gmcon[\([2, 3]\)] - 
+              betacon[\([2]\)]\ betacon[\([3]\)]/a^2}, {betacon[\([3]\)]/a^2, 
+            gmcon[\([3, 1]\)] - betacon[\([3]\)]\ betacon[\([1]\)]/a^2, 
+            gmcon[\([3, 2]\)] - betacon[\([3]\)]\ betacon[\([2]\)]/a^2, 
+            gmcon[\([3, 3]\)] - 
+              betacon[\([3]\)]\ betacon[\([3]\)]/a^2}};\)\)}], "Input"],
+
+Cell[BoxData[
+    \(\(\(\[IndentingNewLine]\)\(\n\)\(\n\)\(\[IndentingNewLine]\)\(\
+\[IndentingNewLine]\)\(\[IndentingNewLine]\)\)\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\(\( (*\ 
+      check\ to\ see\ if\ given\ metric\ is\ really\ inverse\ *) \)\(\
+\[IndentingNewLine]\)\(FullSimplify[
+      ComplexExpand[realgconalso - realgcon]]\)\)\)], "Input"],
+
+Cell[BoxData[
+    \({{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(\(Print["\<myb\>"];\)\), "\[IndentingNewLine]", 
+    \(myb1 = \(Solve[gcov[\([1, 2]\)] \[Equal] realgcov[\([1, 2]\)], 
+          betacov[\([1]\)]]\)[\([1]\)]\), "\n", 
+    \(myb2 = \(Solve[gcov[\([1, 3]\)] \[Equal] realgcov[\([1, 3]\)], 
+          betacov[\([2]\)]]\)[\([1]\)]\), "\[IndentingNewLine]", 
+    \(myb3 = \(Solve[gcov[\([1, 4]\)] \[Equal] realgcov[\([1, 4]\)], 
+          betacov[\([3]\)]]\)[\([1]\)]\), "\[IndentingNewLine]", 
+    \(\(mybsq = \(\(betasq //. myb1\) //. myb2\) //. 
+          myb3;\)\), "\[IndentingNewLine]", 
+    \(\(mya = 
+        FullSimplify[
+          Solve[realgcon[\([1, 1]\)] \[Equal] gcon[\([1, 1]\)], 
+            a]];\)\), "\[IndentingNewLine]", 
+    \(\(\(mya[\([1]\)]\)[\([1]\)]\)[\([2]\)] + \(\(mya[\([2]\)]\)[\([1]\)]\)[\
+\([2]\)]\), "\[IndentingNewLine]", 
+    \(mya = 
+      Sqrt[\(\(mya[\([1]\)]\)[\([1]\)]\)[\([2]\)]^2]\), \
+"\[IndentingNewLine]", 
+    \(testdiff = FullSimplify[\(-1\)/mya^2 - gcon[\([1, 1]\)]]\)}], "Input"],
+
+Cell[BoxData[
+    \("myb"\)], "Print"],
+
+Cell[BoxData[
+    \({beta1 \[Rule] gcov12}\)], "Output"],
+
+Cell[BoxData[
+    \({beta2 \[Rule] gcov13}\)], "Output"],
+
+Cell[BoxData[
+    \({beta3 \[Rule] gcov14}\)], "Output"],
+
+Cell[BoxData[
+    \(0\)], "Output"],
+
+Cell[BoxData[
+    \(\[Sqrt]\((\((\(-gcov13\^2\)\ gcov24\^2 + gcov11\ gcov24\^2\ gcov33 + 
+              gcov14\^2\ \((\(-gcov23\^2\) + gcov22\ gcov33)\) + 
+              2\ gcov12\ gcov13\ gcov24\ gcov34 - 
+              2\ gcov11\ gcov23\ gcov24\ gcov34 - gcov12\^2\ gcov34\^2 + 
+              gcov11\ gcov22\ gcov34\^2 + 
+              2\ gcov14\ \((gcov13\ gcov23\ gcov24 - gcov12\ gcov24\ gcov33 - 
+                    gcov13\ gcov22\ gcov34 + 
+                    gcov12\ gcov23\ gcov34)\) + \((gcov13\^2\ gcov22 - 
+                    2\ gcov12\ gcov13\ gcov23 + gcov11\ gcov23\^2 + 
+                    gcov12\^2\ gcov33 - 
+                    gcov11\ gcov22\ gcov33)\)\ gcov44)\)/\((\(-gcov24\^2\)\ \
+gcov33 + 2\ gcov23\ gcov24\ gcov34 - gcov22\ gcov34\^2 - gcov23\^2\ gcov44 + 
+              gcov22\ gcov33\ gcov44)\))\)\)], "Output"],
+
+Cell[BoxData[
+    \(0\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\(\(\[IndentingNewLine]\)\(\[IndentingNewLine]\)\(v = {v1, v2, 
+        v3}\[IndentingNewLine] (*\ 
+      So\ we\ may\ more\ simply\ \(\(write\)\(:\)\)\ *) \[IndentingNewLine] \
+(*bcov = \ \(\(a^2*betacov //. myb1\) //. myb2\) //. 
+          myb3*) \[IndentingNewLine]
+    bcov = a^2 {gcon12, gcon13, gcon14}\[IndentingNewLine]\[IndentingNewLine]
+    \(Print["\<vsq\>"];\)\n
+    \(vsq = 
+        Sum[gmcov[\([i, j]\)]\ v[\([i]\)]\ v[\([j]\)], {i, 3}, {j, 3}];\)\n
+    \(gamma = \((1 - vsq)\)^\((\(-1\)/2)\);\)\n\[IndentingNewLine]
+    \(Print["\<ucon\>"];\)\[IndentingNewLine]
+    \(ucon = {gamma/a, gamma\ \((v[\([1]\)] - beta[\([1]\)]/a)\), 
+          gamma\ \((v[\([2]\)] - beta[\([2]\)]/a)\), 
+          gamma\ \((v[\([3]\)] - beta[\([3]\)]/a)\)};\)\[IndentingNewLine]\n
+    \(tmp = {gamma/a, gv1 - gamma\ b1/a, gv2 - gamma\ b2/a, 
+          gv3 - gamma\ b3/a};\)\[IndentingNewLine]
+    \(normu = {1/a, \(-betacon[\([1]\)]\)/a, \(-betacon[\([2]\)]\)/
+            a, \(-betacon[\([3]\)]\)/a};\)\)\)\)], "Input"],
+
+Cell[BoxData[
+    \({v1, v2, v3}\)], "Output"],
+
+Cell[BoxData[
+    \({a\^2\ gcon12, a\^2\ gcon13, a\^2\ gcon14}\)], "Output"],
+
+Cell[BoxData[
+    \("vsq"\)], "Print"],
+
+Cell[BoxData[
+    \("ucon"\)], "Print"]
+}, Open  ]],
+
+Cell[BoxData[
+    \( (*\ checks\ *) \)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(betacon1 = 
+      FullSimplify[
+        ComplexExpand[\(\(\(betacon/a^2 //. {a \[Rule] mya}\) //. myb1\) //. 
+                myb2\) //. myb3] - 
+          ComplexExpand[Table[gcon[\([1, i]\)], {i, 2, 4}]]]\)], "Input"],
+
+Cell[BoxData[
+    \({0, 0, 0}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(testgcov = 
+      FullSimplify[\(\(\(gcov - realgcov //. {a \[Rule] mya}\) //. myb1\) //. 
+            myb2\) //. myb3]\), "\[IndentingNewLine]", 
+    \(testgcon = 
+      FullSimplify[\(\(\(gcon - realgcon //. {a \[Rule] mya}\) //. myb1\) //. 
+            myb2\) //. myb3]\)}], "Input"],
+
+Cell[BoxData[
+    \({{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}}\)], "Output"],
+
+Cell[BoxData[
+    \(General::"spell1" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(testgcon\)\" is similar \
+to existing symbol \"\!\(testgcov\)\"."\)], "Message"],
+
+Cell[BoxData[
+    \({{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}}\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    \( (*\ Thus\ gcov/gcon\ with\ and\ without\ beta, 
+      alpha\ agrees\ *) \)], "Input"],
+
+Cell[BoxData[
+    \(\(myutp = 
+        utp //. {vx \[Rule] gcon[\([1, 2]\)]/gcon[\([1, 1]\)], 
+            vy \[Rule] gcon[\([1, 3]\)]/gcon[\([1, 1]\)], 
+            vz \[Rule] gcon[\([1, 3]\)]/gcon[\([1, 1]\)]};\)\)], "Input"],
+
+Cell[BoxData[
+    \(\(utest = {Sqrt[\(-gcon[\([1, 1]\)]\)], \(-gcon[\([1, 2]\)]\)/
+            Sqrt[\(-gcon[\([1, 1]\)]\)], \(-gcon[\([1, 3]\)]\)/
+            Sqrt[\(-gcon[\([1, 1]\)]\)], \(-gcon[\([1, 4]\)]\)/
+            Sqrt[\(-gcon[\([1, 1]\)]\)]};\)\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(myutp = 
+      FullSimplify[
+        utp //. {vx \[Rule] utest[\([2]\)]/utest[\([1]\)], 
+            vy \[Rule] utest[\([3]\)]/utest[\([1]\)], 
+            vz \[Rule] utest[\([4]\)]/utest[\([1]\)]}]\)], "Input"],
+
+Cell[BoxData[
+    \(\[Sqrt]\((\(-\(\((gcov24\^2\ gcov33 - 2\ gcov23\ gcov24\ gcov34 + 
+                gcov23\^2\ gcov44 + 
+                gcov22\ \((gcov34\^2 - 
+                      gcov33\ gcov44)\))\)/\((\(-gcov13\^2\)\ gcov24\^2 + 
+                gcov11\ gcov24\^2\ gcov33 + 
+                gcov14\^2\ \((\(-gcov23\^2\) + gcov22\ gcov33)\) + 
+                2\ gcov12\ gcov13\ gcov24\ gcov34 - 
+                2\ gcov11\ gcov23\ gcov24\ gcov34 - gcov12\^2\ gcov34\^2 + 
+                gcov11\ gcov22\ gcov34\^2 + 
+                2\ gcov14\ \((gcov13\ gcov23\ gcov24 - 
+                      gcov12\ gcov24\ gcov33 - gcov13\ gcov22\ gcov34 + 
+                      gcov12\ gcov23\ gcov34)\) + \((gcov13\^2\ gcov22 - 
+                      2\ gcov12\ gcov13\ gcov23 + gcov11\ gcov23\^2 + 
+                      gcov12\^2\ gcov33 - 
+                      gcov11\ gcov22\ gcov33)\)\ gcov44)\)\)\))\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(FullSimplify[myutp^2 == 1/mya^2]\)], "Input"],
+
+Cell[BoxData[
+    \(True\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    \( (*\ 
+      Proves\ the\ normal\ observer\ is\ normalized\ correctly\ as\ a\ 4 - 
+        velocity\ *) \)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(qsq = 
+      FullSimplify[\(({vx, vy, vz} . gmcov . {vx, vy, vz})\) //. {M \[Rule] 
+              1, a \[Rule] 1, y \[Rule] Pi/4, x \[Rule] 0}]\)], "Input"],
+
+Cell[BoxData[
+    \(1\/2\ \((2\ vx\^2 + vy\^2 - 2\ vx\ vz + vz\^2)\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Expand[vx^2 + vy^2 + \((vx - vz)\)^2]\)], "Input"],
+
+Cell[BoxData[
+    \(2\ vx\^2 + vy\^2 - 2\ vx\ vz + vz\^2\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(gcov[\([1, 1]\)] //. {M \[Rule] 1, y \[Rule] Pi/6, a \[Rule] 1, 
+        x \[Rule] 5}\)], "Input"],
+
+Cell[BoxData[
+    \(\(-\(63\/103\)\)\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    \( (*\ Complete\ the\ square\ to\ determine\ form\ of\ metric\ \((i . 
+              e . \ positive - definite, \ positive\ semi - definite, \ 
+          negative\ semi - definite, \ 
+          or\ negative\ definite)\)\ *) \)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(it = Table[gcov[\([i, j]\)], {i, 2, 4}, {j, 2, 4}]\)], "Input"],
+
+Cell[BoxData[
+    \({{1 + \(2\ M\ x\)\/\(x\^2 + a\^2\ Cos[y]\^2\), 
+        0, \(-a\)\ \((1 + \(2\ M\ x\)\/\(x\^2 + a\^2\ Cos[y]\^2\))\)\ \
+Sin[y]\^2}, {0, x\^2 + a\^2\ Cos[y]\^2, 
+        0}, {\(-a\)\ \((1 + \(2\ M\ x\)\/\(x\^2 + a\^2\ Cos[y]\^2\))\)\ \
+Sin[y]\^2, 0, 
+        Sin[y]\^2\ \((x\^2 + a\^2\ Cos[y]\^2 + 
+              a\^2\ \((1 + \(2\ M\ x\)\/\(x\^2 + a\^2\ Cos[y]\^2\))\)\ Sin[y]\
+\^2)\)}}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\(\(Det[it]\)\(//.\)\({M \[Rule] 1, a \[Rule] 1, 
+        y \[Rule] Pi/6}\)\(\[IndentingNewLine]\)\)\)], "Input"],
+
+Cell[BoxData[
+    \(9\/64 + \(3\ x\^2\)\/8 + 
+      x\^4\/4 + \(9\ x\)\/\(32\ \((3\/4 + x\^2)\)\) + \(3\ x\^3\)\/\(4\ \
+\((3\/4 + x\^2)\)\) + x\^5\/\(2\ \((3\/4 + x\^2)\)\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(gcon\)], "Input"],
+
+Cell[BoxData[
+    \({{\(-\(\(x\ \((2\ M + x)\) + a\^2\ Cos[y]\^2\)\/\(x\^2 + 
+                a\^2\ Cos[y]\^2\)\)\), \(2\ M\ x\)\/\(x\^2 + a\^2\ \
+Cos[y]\^2\), 0, 
+        0}, {\(2\ M\ x\)\/\(x\^2 + a\^2\ Cos[y]\^2\), \(2\ \((a\^2 + x\ \
+\((\(-2\)\ M + x)\))\)\)\/\(a\^2 + 2\ x\^2 + a\^2\ Cos[2\ y]\), 0, 
+        a\/\(x\^2 + a\^2\ Cos[y]\^2\)}, {0, 0, 1\/\(x\^2 + a\^2\ Cos[y]\^2\), 
+        0}, {0, a\/\(x\^2 + a\^2\ Cos[y]\^2\), 0, 
+        Csc[y]\^2\/\(x\^2 + a\^2\ Cos[y]\^2\)}}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(utest = {ut, ux, uy, uz}\)], "Input"],
+
+Cell[BoxData[
+    \({ut, ux, uy, uz}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[""], "Input"],
+
+Cell[BoxData[
+    \(ut\^2\/3 + \(7\ ux\^2\)\/3 + \(3\ uy\^2\)\/2 + 
+      ut\ \((\(8\ ux\)\/3 - \(4\ uz\)\/3)\) - \(7\ ux\ uz\)\/3 + 
+      c\ uz\^2\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[""], "Input"],
+
+Cell[BoxData[
+    \(ut\^2\/12 - ut\ ux + ux\^2\/3 - ut\ uy - 4\ ux\ uy - \(3\ uy\^2\)\/2 + 
+      ut\ \((\(8\ ux\)\/3 - \(4\ uz\)\/3)\) - ut\ uz - \(19\ ux\ uz\)\/3 - 
+      6\ uy\ uz - 3\ uz\^2 + c\ uz\^2\)], "Output"]
+}, Open  ]]
+},
+FrontEndVersion->"4.0 for Microsoft Windows",
+ScreenRectangle->{{0, 1568}, {0, 1117}},
+WindowSize->{758, 974},
+WindowMargins->{{Automatic, 0}, {Automatic, 0}}
+]
+
+
+(***********************************************************************
+Cached data follows.  If you edit this Notebook file directly, not using
+Mathematica, you must remove the line containing CacheID at the top of 
+the file.  The cache data will then be recreated when you save this file 
+from within Mathematica.
+***********************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[1739, 51, 544, 12, 150, "Input"],
+Cell[2286, 65, 41, 1, 25, "Print"],
+Cell[2330, 68, 182, 3, 42, "Message"],
+Cell[2515, 73, 584, 12, 99, "Output"],
+Cell[3102, 87, 187, 3, 42, "Message"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[3326, 95, 296, 5, 130, "Input"],
+Cell[3625, 102, 46, 1, 25, "Print"],
+Cell[3674, 105, 187, 3, 42, "Message"]
+}, Open  ]],
+Cell[3876, 111, 63, 1, 30, "Input"],
+Cell[3942, 114, 1423, 22, 250, "Input"],
+Cell[5368, 138, 143, 2, 150, "Input"],
+
+Cell[CellGroupData[{
+Cell[5536, 144, 200, 4, 50, "Input"],
+Cell[5739, 150, 90, 1, 29, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[5866, 156, 994, 19, 190, "Input"],
+Cell[6863, 177, 38, 1, 25, "Print"],
+Cell[6904, 180, 56, 1, 29, "Output"],
+Cell[6963, 183, 56, 1, 29, "Output"],
+Cell[7022, 186, 56, 1, 29, "Output"],
+Cell[7081, 189, 35, 1, 29, "Output"],
+Cell[7119, 192, 843, 13, 125, "Output"],
+Cell[7965, 207, 35, 1, 29, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[8037, 213, 1034, 18, 350, "Input"],
+Cell[9074, 233, 46, 1, 29, "Output"],
+Cell[9123, 236, 76, 1, 29, "Output"],
+Cell[9202, 239, 38, 1, 25, "Print"],
+Cell[9243, 242, 39, 1, 25, "Print"]
+}, Open  ]],
+Cell[9297, 246, 49, 1, 30, "Input"],
+
+Cell[CellGroupData[{
+Cell[9371, 251, 239, 5, 70, "Input"],
+Cell[9613, 258, 43, 1, 29, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[9693, 264, 307, 6, 50, "Input"],
+Cell[10003, 272, 90, 1, 29, "Output"],
+Cell[10096, 275, 189, 3, 42, "Message"],
+Cell[10288, 280, 90, 1, 29, "Output"]
+}, Open  ]],
+Cell[10393, 284, 106, 2, 30, "Input"],
+Cell[10502, 288, 227, 4, 50, "Input"],
+Cell[10732, 294, 267, 4, 50, "Input"],
+
+Cell[CellGroupData[{
+Cell[11024, 302, 231, 5, 70, "Input"],
+Cell[11258, 309, 922, 15, 144, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[12217, 329, 65, 1, 30, "Input"],
+Cell[12285, 332, 38, 1, 29, "Output"]
+}, Open  ]],
+Cell[12338, 336, 136, 3, 30, "Input"],
+
+Cell[CellGroupData[{
+Cell[12499, 343, 176, 3, 30, "Input"],
+Cell[12678, 348, 82, 1, 42, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[12797, 354, 70, 1, 30, "Input"],
+Cell[12870, 357, 70, 1, 29, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[12977, 363, 118, 2, 30, "Input"],
+Cell[13098, 367, 50, 1, 42, "Output"]
+}, Open  ]],
+Cell[13163, 371, 255, 4, 70, "Input"],
+
+Cell[CellGroupData[{
+Cell[13443, 379, 83, 1, 30, "Input"],
+Cell[13529, 382, 419, 8, 80, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[13985, 395, 133, 2, 50, "Input"],
+Cell[14121, 399, 186, 3, 54, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[14344, 407, 37, 1, 30, "Input"],
+Cell[14384, 410, 497, 8, 127, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[14918, 423, 57, 1, 30, "Input"],
+Cell[14978, 426, 50, 1, 29, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[15065, 432, 26, 0, 30, "Input"],
+Cell[15094, 434, 162, 3, 45, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[15293, 442, 26, 0, 30, "Input"],
+Cell[15322, 444, 219, 3, 45, "Output"]
+}, Open  ]]
+}
+]
+*)
+
+
+
+
+(***********************************************************************
+End of Mathematica Notebook file.
+***********************************************************************)
+

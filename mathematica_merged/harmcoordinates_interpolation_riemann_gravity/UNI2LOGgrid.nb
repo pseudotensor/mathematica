@@ -1,0 +1,333 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 5.2'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[      6629,        228]*)
+(*NotebookOutlinePosition[      7275,        250]*)
+(*  CellTagsIndexPosition[      7231,        246]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[{
+    \(rminus = 
+      Rstar + B*\((i - Nstar)\)/Nstar + 
+        C*\((i - Nstar)\)^2/Nstar^2\), "\[IndentingNewLine]", 
+    \(N1\  = \ Nrat*Nstar\), "\[IndentingNewLine]", 
+    \(i = x1*N1\), "\[IndentingNewLine]", 
+    \(rplus = \((Rstar + \((Rout - 
+                Rstar)\)*\((AF^\((\((x1*Nrat - 1)\)/\((Nrat - 1)\))\) - 
+                  1)\)/\((AF - 1)\))\)\)}], "Input"],
+
+Cell[BoxData[
+    \(Rstar + \(B\ \((\(-Nstar\) + Nrat\ Nstar\ x1)\)\)\/Nstar + \(C\ \
+\((\(-Nstar\) + Nrat\ Nstar\ x1)\)\^2\)\/Nstar\^2\)], "Output"],
+
+Cell[BoxData[
+    \(Nrat\ Nstar\)], "Output"],
+
+Cell[BoxData[
+    \(Nrat\ Nstar\ x1\)], "Output"],
+
+Cell[BoxData[
+    \(\(\((\(-1\) + AF\^\(\(\(-1\) + Nrat\ x1\)\/\(\(-1\) + Nrat\)\))\)\ \
+\((Rout - Rstar)\)\)\/\(\(-1\) + AF\) + Rstar\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(fun1 = \((rminus \[Equal] rplus)\) //. {x1 \[Rule] 
+            Nstar/N1}\), "\[IndentingNewLine]", 
+    \(fun2 = \((D[rminus, x1] \[Equal] D[rplus, x1])\) //. {x1 \[Rule] 
+            Nstar/N1}\), "\[IndentingNewLine]", 
+    \(fun3 = \((rminus \[Equal] Rin)\) //. {x1 \[Rule] 0}\)}], "Input"],
+
+Cell[BoxData[
+    \(True\)], "Output"],
+
+Cell[BoxData[
+    \(B\ Nrat \[Equal] \(Nrat\ \((Rout - Rstar)\)\ Log[AF]\)\/\(\((\(-1\) + \
+AF)\)\ \((\(-1\) + Nrat)\)\)\)], "Output"],
+
+Cell[BoxData[
+    \(\(-B\) + C + Rstar \[Equal] Rin\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(sols = FullSimplify[Solve[{fun2, fun3}, {B, C}]]\)], "Input"],
+
+Cell[BoxData[
+    \({{C \[Rule] 
+          Rin - Rstar + \(\((Rout - Rstar)\)\ Log[AF]\)\/\(\((\(-1\) + AF)\)\ \
+\((\(-1\) + Nrat)\)\), 
+        B \[Rule] \(\((Rout - Rstar)\)\ Log[AF]\)\/\(\((\(-1\) + AF)\)\ \
+\((\(-1\) + Nrat)\)\)}}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(myC = Solve[fun3, C]\)], "Input"],
+
+Cell[BoxData[
+    \({{C \[Rule] B + Rin - Rstar}}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(FullSimplify[rminus]\)], "Input"],
+
+Cell[BoxData[
+    \(Rstar + B\ \((\(-1\) + Nrat\ x1)\) + 
+      C\ \((\(-1\) + Nrat\ x1)\)\^2\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(myrminus = rminus //. sols[\([1]\)]\)], "Input"],
+
+Cell[BoxData[
+    \(Rstar + \(\((Rout - Rstar)\)\ \((\(-Nstar\) + Nrat\ Nstar\ x1)\)\ \
+Log[AF]\)\/\(\((\(-1\) + AF)\)\ \((\(-1\) + Nrat)\)\ Nstar\) + \
+\(\((\(-Nstar\) + Nrat\ Nstar\ x1)\)\^2\ \((Rin - Rstar + \(\((Rout - \
+Rstar)\)\ Log[AF]\)\/\(\((\(-1\) + AF)\)\ \((\(-1\) + \
+Nrat)\)\))\)\)\/Nstar\^2\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(god = 
+      Rstar + \(\((Rout - Rstar)\)\ \((\(-Nstar\) + Nrat\ Nstar\ Abs[x1])\)\ \
+Log[AF]\)\/\(\((\(-1\) + AF)\)\ \((\(-1\) + Nrat)\)\ Nstar\) + \
+\(\((\(-Nstar\) + Nrat\ Nstar*Abs[\ x1])\)\^2\ \((Rin - Rstar + \(\((Rout - \
+Rstar)\)\ Log[AF]\)\/\(\((\(-1\) + AF)\)\ \((\(-1\) + \
+Nrat)\)\))\)\)\/Nstar\^2\)], "Input"],
+
+Cell[BoxData[
+    \(Rstar + \(\((Rout - Rstar)\)\ \((\(-Nstar\) + Nrat\ Nstar\ Abs[x1])\)\ \
+Log[AF]\)\/\(\((\(-1\) + AF)\)\ \((\(-1\) + Nrat)\)\ Nstar\) + \
+\(\((\(-Nstar\) + Nrat\ Nstar\ Abs[x1])\)\^2\ \((Rin - Rstar + \(\((Rout - \
+Rstar)\)\ Log[AF]\)\/\(\((\(-1\) + AF)\)\ \((\(-1\) + \
+Nrat)\)\))\)\)\/Nstar\^2\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(FullSimplify[god //. {x1 \[Rule] \(-Nstar\)/N1}, {Nrat > 0}]\)], "Input"],
+
+Cell[BoxData[
+    \(Rstar\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Solve[fun2, B]\)], "Input"],
+
+Cell[BoxData[
+    \({{B \[Rule] \(\((Rout - Rstar)\)\ Log[AF]\)\/\(\((\(-1\) + AF)\)\ \
+\((\(-1\) + Nrat)\)\)}}\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[""], "Input"],
+
+Cell[BoxData[""], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(FullSimplify[\((Rin - 
+            Rstar + \(Nstar\ \((Rout - Rstar)\)\ Log[AF]\)\/\(\((\(-1\) + AF)\
+\)\ \((N1 - Nstar)\)\))\) //. {N1 \[Rule] Nstar*rat}]\)], "Input"],
+
+Cell[BoxData[
+    \(Rin - 
+      Rstar + \(\((Rout - Rstar)\)\ Log[AF]\)\/\(\((\(-1\) + AF)\)\ \((\(-1\) \
++ rat)\)\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(FullSimplify[\(\((Rout - Rstar)\)\ Log[AF]\)\/\(\((\(-1\) + AF)\)\ \
+\((N1 - Nstar)\)\) //. {N1 \[Rule] Nstar*rat}]\)], "Input"],
+
+Cell[BoxData[
+    \(\(\((Rout - Rstar)\)\ Log[AF]\)\/\(\((\(-1\) + AF)\)\ Nstar\ \((\(-1\) \
++ rat)\)\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Solve[fun3, C]\)], "Input"],
+
+Cell[BoxData[
+    \({{C \[Rule] \(B\ Nstar + Rin - Rstar\)\/Nstar\^2}}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\(\((Rstar + B*\((i - Nstar)\) + C*\((i - Nstar)\)^2)\) //. {i \[Rule] 
+            ii}\) //. {ii \[Rule] x1new*N1}\)], "Input"],
+
+Cell[BoxData[
+    \(Rstar + B\ \((\(-Nstar\) + N1\ x1new)\) + 
+      C\ \((\(-Nstar\) + N1\ x1new)\)\^2\)], "Output"]
+}, Open  ]]
+},
+FrontEndVersion->"5.2 for Microsoft Windows",
+ScreenRectangle->{{0, 1600}, {0, 1117}},
+WindowSize->{823, 952},
+WindowMargins->{{48, Automatic}, {Automatic, 60}}
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[1776, 53, 392, 8, 90, "Input"],
+Cell[2171, 63, 149, 2, 45, "Output"],
+Cell[2323, 67, 45, 1, 29, "Output"],
+Cell[2371, 70, 49, 1, 29, "Output"],
+Cell[2423, 73, 148, 2, 61, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[2608, 80, 314, 5, 70, "Input"],
+Cell[2925, 87, 38, 1, 29, "Output"],
+Cell[2966, 90, 134, 2, 44, "Output"],
+Cell[3103, 94, 65, 1, 29, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[3205, 100, 81, 1, 30, "Input"],
+Cell[3289, 103, 248, 5, 44, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[3574, 113, 53, 1, 30, "Input"],
+Cell[3630, 116, 63, 1, 29, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[3730, 122, 53, 1, 30, "Input"],
+Cell[3786, 125, 107, 2, 29, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[3930, 132, 68, 1, 30, "Input"],
+Cell[4001, 135, 319, 5, 91, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[4357, 145, 342, 6, 91, "Input"],
+Cell[4702, 153, 329, 5, 91, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[5068, 163, 93, 1, 30, "Input"],
+Cell[5164, 166, 39, 1, 29, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[5240, 172, 47, 1, 30, "Input"],
+Cell[5290, 175, 125, 2, 44, "Output"]
+}, Open  ]],
+Cell[5430, 180, 26, 0, 30, "Input"],
+Cell[5459, 182, 26, 0, 30, "Input"],
+
+Cell[CellGroupData[{
+Cell[5510, 186, 188, 3, 44, "Input"],
+Cell[5701, 191, 131, 3, 44, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[5869, 199, 148, 2, 44, "Input"],
+Cell[6020, 203, 117, 2, 44, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[6174, 210, 47, 1, 30, "Input"],
+Cell[6224, 213, 84, 1, 42, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[6345, 219, 148, 2, 30, "Input"],
+Cell[6496, 223, 117, 2, 29, "Output"]
+}, Open  ]]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

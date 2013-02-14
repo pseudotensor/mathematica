@@ -1,0 +1,279 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 5.2'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[      6136,        210]*)
+(*NotebookOutlinePosition[      6783,        232]*)
+(*  CellTagsIndexPosition[      6739,        228]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell[BoxData[
+    \(g[x_, s_] := Sqrt[x^2 + s^2]\)], "Input"],
+
+Cell[BoxData[
+    \(g[x_, s_] := x + Cos[s]\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(z = f[g[x, s]]\)], "Input"],
+
+Cell[BoxData[
+    \(f[x + Cos[s]]\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[""], "Input"],
+
+Cell[BoxData[""], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\(\(\[IndentingNewLine]\)\(FullSimplify[
+      Series[z, {s, 0, 6}], {x > 0}]\)\)\)], "Input"],
+
+Cell[BoxData[
+    InterpretationBox[
+      RowBox[{\(f[1 + x]\), "-", 
+        RowBox[{\(1\/2\), " ", 
+          RowBox[{
+            SuperscriptBox["f", "\[Prime]",
+              MultilineFunction->None], "[", \(1 + x\), "]"}], 
+          " ", \(s\^2\)}], "+", 
+        RowBox[{\(1\/24\), " ", 
+          RowBox[{"(", 
+            RowBox[{
+              RowBox[{
+                SuperscriptBox["f", "\[Prime]",
+                  MultilineFunction->None], "[", \(1 + x\), "]"}], "+", 
+              RowBox[{"3", " ", 
+                RowBox[{
+                  SuperscriptBox["f", "\[Prime]\[Prime]",
+                    MultilineFunction->None], "[", \(1 + x\), "]"}]}]}], 
+            ")"}], " ", \(s\^4\)}], "+", 
+        RowBox[{\(1\/720\), " ", 
+          RowBox[{"(", 
+            RowBox[{
+              RowBox[{"-", 
+                RowBox[{
+                  SuperscriptBox["f", "\[Prime]",
+                    MultilineFunction->None], "[", \(1 + x\), "]"}]}], "-", 
+              RowBox[{"15", " ", 
+                RowBox[{"(", 
+                  RowBox[{
+                    RowBox[{
+                      SuperscriptBox["f", "\[Prime]\[Prime]",
+                        MultilineFunction->None], "[", \(1 + x\), "]"}], "+", 
+                    
+                    RowBox[{
+                      SuperscriptBox["f", 
+                        TagBox[\((3)\),
+                          Derivative],
+                        MultilineFunction->None], "[", \(1 + x\), "]"}]}], 
+                  ")"}]}]}], ")"}], " ", \(s\^6\)}], "+", 
+        InterpretationBox[\(O[s]\^7\),
+          SeriesData[ s, 0, {}, 0, 7, 1],
+          Editable->False]}],
+      SeriesData[ s, 0, {
+        f[ 
+          Plus[ 1, x]], 0, 
+        Times[ 
+          Rational[ -1, 2], 
+          Derivative[ 1][ f][ 
+            Plus[ 1, x]]], 0, 
+        Times[ 
+          Rational[ 1, 24], 
+          Plus[ 
+            Derivative[ 1][ f][ 
+              Plus[ 1, x]], 
+            Times[ 3, 
+              Derivative[ 2][ f][ 
+                Plus[ 1, x]]]]], 0, 
+        Times[ 
+          Rational[ 1, 720], 
+          Plus[ 
+            Times[ -1, 
+              Derivative[ 1][ f][ 
+                Plus[ 1, x]]], 
+            Times[ -15, 
+              Plus[ 
+                Derivative[ 2][ f][ 
+                  Plus[ 1, x]], 
+                Derivative[ 3][ f][ 
+                  Plus[ 1, x]]]]]]}, 0, 7, 1],
+      Editable->False]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(z2 = 
+      f[x] + Sum[
+          D[f[x], {x, 2*n}]/\(\((2*n)\)!\)*\(\((2*n - 1)\)!!\)*
+            s^\((2*n)\), {n, 1, Infinity}]\)], "Input"],
+
+Cell[BoxData[
+    RowBox[{\(f[x]\), "+", 
+      RowBox[{\(\[Sum]\+\(n = 1\)\%\[Infinity]\), 
+        FractionBox[
+          RowBox[{\(s\^\(2\ n\)\), " ", \(\((\(-1\) + 2\ n)\)!!\), " ", 
+            RowBox[{
+              SuperscriptBox["f", 
+                TagBox[\((2\ n)\),
+                  Derivative],
+                MultilineFunction->None], "[", "x", 
+              "]"}]}], \(\((2\ n)\)!\)]}]}]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(FullSimplify[z2]\)], "Input"],
+
+Cell[BoxData[
+    RowBox[{\(f[x]\), "+", 
+      RowBox[{\(\[Sum]\+\(n = 1\)\%\[Infinity]\), 
+        FractionBox[
+          RowBox[{\(s\^\(2\ n\)\), " ", \(\((\(-1\) + 2\ n)\)!!\), " ", 
+            RowBox[{
+              SuperscriptBox["f", 
+                TagBox[\((2\ n)\),
+                  Derivative],
+                MultilineFunction->None], "[", "x", 
+              "]"}]}], \(\((2\ n)\)!\)]}]}]], "Output"]
+}, Open  ]],
+
+Cell[BoxData[""], "Input"],
+
+Cell[BoxData[
+    \(myfac[n_] := 2^n*Gamma[n/2 + 1]/Gamma[0]\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(myfac[1]\)], "Input"],
+
+Cell[BoxData[
+    \(0\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Gamma[0]\)], "Input"],
+
+Cell[BoxData[
+    \(ComplexInfinity\)], "Output"]
+}, Open  ]]
+},
+FrontEndVersion->"5.2 for Microsoft Windows",
+ScreenRectangle->{{0, 1600}, {0, 1117}},
+WindowSize->{1010, 740},
+WindowMargins->{{24, Automatic}, {Automatic, 30}}
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1754, 51, 61, 1, 30, "Input"],
+Cell[1818, 54, 56, 1, 30, "Input"],
+
+Cell[CellGroupData[{
+Cell[1899, 59, 47, 1, 30, "Input"],
+Cell[1949, 62, 47, 1, 29, "Output"]
+}, Open  ]],
+Cell[2011, 66, 26, 0, 30, "Input"],
+Cell[2040, 68, 26, 0, 30, "Input"],
+
+Cell[CellGroupData[{
+Cell[2091, 72, 114, 2, 50, "Input"],
+Cell[2208, 76, 2435, 69, 42, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[4680, 150, 163, 4, 30, "Input"],
+Cell[4846, 156, 417, 10, 59, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[5300, 171, 49, 1, 30, "Input"],
+Cell[5352, 174, 417, 10, 59, "Output"]
+}, Open  ]],
+Cell[5784, 187, 26, 0, 30, "Input"],
+Cell[5813, 189, 73, 1, 30, "Input"],
+
+Cell[CellGroupData[{
+Cell[5911, 194, 41, 1, 30, "Input"],
+Cell[5955, 197, 35, 1, 29, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[6027, 203, 41, 1, 30, "Input"],
+Cell[6071, 206, 49, 1, 29, "Output"]
+}, Open  ]]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

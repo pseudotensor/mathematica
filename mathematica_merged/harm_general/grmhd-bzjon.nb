@@ -1,0 +1,381 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 4.2'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[      9019,        278]*)
+(*NotebookOutlinePosition[      9685,        301]*)
+(*  CellTagsIndexPosition[      9641,        297]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell[BoxData[
+    \( (*\ uses\ grmhd - ksksp . nb\ *) \)], "Input"],
+
+Cell[BoxData[
+    \(\(mygconks = 
+        Table[Sum[
+            bl2ks[\([j, i]\)]*bl2ks[\([l, k]\)]*gconbl[\([i, k]\)], {i, 1, 
+              4}, {k, 1, 4}], {j, 1, 4}, {l, 1, 4}];\)\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\((mygconks[\([1, 1]\)] - gconks[\([1, 1]\)])\)\)], "Input"],
+
+Cell[BoxData[
+    \(1 + \(2\ M\ x\)\/sigma + \(4\ M\^2\ x\^2\)\/\(delta\ sigma\) - \(A\ \
+sigma\)\/\(A\ \((sigma - 2\ M\ x)\) + 4\ a\^2\ M\^2\ x\^2\ Sin[y]\^2\)\)], \
+"Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(consts = {sigma \[Rule] 
+          x^2 + a^2*Cos[y]^2, \[IndentingNewLine]delta \[Rule] 
+          x^2 - 2*M*x + a^2, \[IndentingNewLine]A -> \((x^2 + a^2)\)^2 - 
+            delta*a^2*Sin[y]^2}\)], "Input"],
+
+Cell[BoxData[
+    \({sigma \[Rule] x\^2 + a\^2\ Cos[y]\^2, 
+      delta \[Rule] a\^2 - 2\ M\ x + x\^2, 
+      A \[Rule] \((a\^2 + x\^2)\)\^2 - a\^2\ delta\ Sin[y]\^2}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(FullSimplify[\((mygconks - gconks)\) //. consts]\)], "Input"],
+
+Cell[BoxData[
+    \({{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}}\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    \( (*\ so\ now\ that\ bl2ks\ is\ checked, \ 
+      let' s\ use\ it\ *) \)], "Input"],
+
+Cell[BoxData[
+    \( (*\ below\ uses\ grmhd - 
+            transforms . 
+                nb\ version\ of\ F_ {ab}\ and\ BZ77\ or\ Z77\ definitions\ of\
+\ Bt \[Equal] \((delta/sigma)\)*Sin[h]*
+            F_ {r\\theta}\ and\ definitions\ of\ \(omega : \ 
+              omega\) = \(-A0\), r/Ap, r\  = \ \(-A0\), h/Ap, 
+      h\ *) \)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(\(Fcov = 
+        M*{{0, w\ Apr, w\ Aph*M, 0}, {\(-w\)\ Apr, 0, 
+              Bt*sigma/\((Sin[y]*delta)\), 
+              Apr}, {\(-w\)\ Aph*M, \(-Bt\)*sigma/\((Sin[y]*delta)\), 0, 
+              Aph*M}, {0, \(-Apr\), \(-Aph\)*M, 
+              0}};\)\), "\[IndentingNewLine]", 
+    \(\(Fcov = {{0, w\ Apr, w\ Aph, 0}, {\(-w\)\ Apr, 0, 
+            Bt*sigma/\((Sin[y]*delta)\), 
+            Apr}, {\(-w\)\ Aph, \(-Bt\)*sigma/\((Sin[y]*delta)\), 0, 
+            Aph}, {0, \(-Apr\), \(-Aph\), 0}};\)\), "\[IndentingNewLine]", 
+    \(\(\(MatrixForm[Fcov]\)\(\[IndentingNewLine]\)
+    \)\), "\n", 
+    \(\(\(Fcon = 
+        Table[Sum[
+            Fcov[\([k, l]\)]\ gconbl[\([i, k]\)]\ gconbl[\([j, l]\)], {k, 
+              4}, {l, 4}], {i, 4}, {j, 4}];\)\(\n\)
+    \)\), "\[IndentingNewLine]", 
+    \(\(Fconks = 
+        Table[Sum[
+            bl2ks[\([i, k]\)]\ bl2ks[\([j, l]\)]\ Fcon[\([k, l]\)], {k, 
+              4}, {l, 4}], {i, 4}, {j, 4}];\)\), "\[IndentingNewLine]", 
+    \(\(Fcovks = 
+        Table[Sum[
+            Fconks[\([k, l]\)]\ gcovks[\([i, k]\)]\ gcovks[\([j, l]\)], {k, 
+              4}, {l, 4}], {i, 4}, {j, 4}];\)\), "\[IndentingNewLine]", 
+    \(\(dualFcov = 
+        Table[1/2*gdet*
+            Sum[Signature[{i, j, k, l}]*Fcon[\([k, l]\)], {k, 1, 4}, {l, 1, 
+                4}], {i, 1, 4}, {j, 1, 4}];\)\), "\[IndentingNewLine]", 
+    \(\(dualFcon = 
+        Table[1/2*\((\(-1\)/gdet)\)*
+            Sum[Signature[{i, j, k, l}]*Fcov[\([k, l]\)], {k, 1, 4}, {l, 1, 
+                4}], {i, 1, 4}, {j, 1, 4}];\)\), "\[IndentingNewLine]", 
+    \(FullSimplify[
+      Sum[dualFcov[\([i, j]\)]*Fcon[\([i, j]\)], {i, 1, 4}, {j, 1, 
+          4}]]\)}], "Input"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {"0", \(Apr\ w\), \(Aph\ w\), "0"},
+            {\(\(-Apr\)\ w\), "0", \(\(Bt\ sigma\ Csc[y]\)\/delta\), "Apr"},
+            {\(\(-Aph\)\ w\), \(-\(\(Bt\ sigma\ Csc[y]\)\/delta\)\), "0", 
+              "Aph"},
+            {"0", \(-Apr\), \(-Aph\), "0"}
+            }], "\[NoBreak]", ")"}],
+      Function[ BoxForm`e$, 
+        MatrixForm[ BoxForm`e$]]]], "Output"],
+
+Cell[BoxData[
+    \(0\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    \( (*\ So\ Fconks\ for\ each\ term\ must\ be\ finite\ since\ in\ ks - 
+        coordinates, \ in\ particular\ on\ the\ horizon\ *) \)], "Input"],
+
+Cell[BoxData[
+    \(\(fconksc = Fconks //. consts;\)\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\(sfconksc = 
+        Normal[Series[
+            fconksc, {x, M + Sqrt[M^2 - a^2], \(-1\)}]];\)\)], "Input"],
+
+Cell[BoxData[
+    \(General::"spell1" \(\(:\)\(\ \)\) 
+      "Possible spelling error: new symbol name \"\!\(sfconksc\)\" is similar \
+to existing symbol \"\!\(fconksc\)\"."\)], "Message"]
+}, Open  ]],
+
+Cell[BoxData[{
+    \(\(it = 
+        sfconksc[\([3, 4]\)] //. {a \[Rule] 
+              Sqrt[M^2 - \((rp - M)\)^2]};\)\), "\[IndentingNewLine]", 
+    \( (*sfconksc[\([1, 3]\)]\ or\ sfconksc[\([3, 4]\)]\ works, \ 
+      rest\ of\ terms\ not\ in\ asymmetric\ position\ are\ 0\ to\ this\ order\
+\ *) \)}], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(it = FullSimplify[PowerExpand[it]]\)], "Input"],
+
+Cell[BoxData[
+    \(\(2\ Aph\ \((\(-2\)\ M + rp)\) + \@\(\((2\ M - rp)\)\ rp\)\ Csc[y]\ \((\
+\(-Bt\)\ \((2\ M + rp)\) + Bt\ \((\(-2\)\ M + rp)\)\ Cos[2\ y] + 4\ Aph\ M\ w\
+\ Sin[y])\)\)\/\(\((M - rp)\)\ rp\ \((rp - x)\)\ \((2\ M + rp + \((2\ M - rp)\
+\)\ Cos[2\ y])\)\^2\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(Denominator[it] //. {x \[Rule] rp}\), "\[IndentingNewLine]", 
+    \(Numerator[it] //. {x \[Rule] rp}\)}], "Input"],
+
+Cell[BoxData[
+    \(0\)], "Output"],
+
+Cell[BoxData[
+    \(2\ Aph\ \((\(-2\)\ M + rp)\) + \@\(\((2\ M - rp)\)\ rp\)\ Csc[
+          y]\ \((\(-Bt\)\ \((2\ M + rp)\) + 
+            Bt\ \((\(-2\)\ M + rp)\)\ Cos[2\ y] + 
+            4\ Aph\ M\ w\ Sin[y])\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(mybt = 
+      FullSimplify[\(\(\(Solve[Numerator[it] \[Equal] 0, 
+                Bt]\)[\([1]\)]\)[\([1]\)]\)[\([2]\)], {rp > 0, 
+          0 \[LessEqual] y \[LessEqual] Pi}]\)], "Input"],
+
+Cell[BoxData[
+    \(\(2\ Aph\ \((\@\(\((2\ M - rp)\)\ rp\) - 2\ M\ rp\ w)\)\ \
+Sin[y]\)\/\(\(-rp\)\ \((2\ M + rp)\) + rp\ \((\(-2\)\ M + rp)\)\ Cos[2\ \
+y]\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(bz77bt = \((Sin[
+            y]*\((w*\((rp^2 + a^2)\) - a)\)/\((rp^2 + a^2*Cos[y]^2)\)*
+          Aph)\)\)], "Input"],
+
+Cell[BoxData[
+    \(\(Aph\ \((\(-a\) + \((a\^2 + rp\^2)\)\ w)\)\ Sin[y]\)\/\(rp\^2 + a\^2\ \
+Cos[y]\^2\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(FullSimplify[\((mybt - bz77bt)\)]\)], "Input"],
+
+Cell[BoxData[
+    \(Aph\ \((\(a - \((a\^2 + rp\^2)\)\ w\)\/\(rp\^2 + a\^2\ Cos[y]\^2\) + \
+\(2\ \((\@\(\((2\ M - rp)\)\ rp\) - 2\ M\ rp\ w)\)\)\/\(\(-rp\)\ \((2\ M + \
+rp)\) + rp\ \((\(-2\)\ M + rp)\)\ Cos[2\ y]\))\)\ Sin[y]\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(FullSimplify[\((mybt - bz77bt)\) //. {rp \[Rule] 
+            M + Sqrt[M^2 - a^2]}, {a \[GreaterEqual] 0}]\)], "Input"],
+
+Cell[BoxData[
+    \(0\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(FullSimplify[\(mybt //. {rp \[Rule] 
+              M + Sqrt[M^2 - a^2]}\) //. {a \[Rule] 1/2}, M > 0]\)], "Input"],
+
+Cell[BoxData[
+    \(\(4\ Aph\ \((\(-1\) + 2\ M\ \((2\ M + \@\(\(-1\) + 4\ M\^2\))\)\ w)\)\ \
+Sin[y]\)\/\(\(-1\) + 8\ M\ \((2\ M + \@\(\(-1\) + 4\ M\^2\))\) + Cos[2\ \
+y]\)\)], "Output"]
+}, Open  ]]
+},
+FrontEndVersion->"4.2 for Microsoft Windows",
+ScreenRectangle->{{0, 1600}, {0, 1117}},
+WindowSize->{905, 932},
+WindowMargins->{{0, Automatic}, {Automatic, 33}},
+Magnification->1.25
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1754, 51, 67, 1, 35, "Input"],
+Cell[1824, 54, 196, 4, 56, "Input"],
+
+Cell[CellGroupData[{
+Cell[2045, 62, 80, 1, 35, "Input"],
+Cell[2128, 65, 176, 3, 56, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[2341, 73, 227, 4, 77, "Input"],
+Cell[2571, 79, 180, 3, 36, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[2788, 87, 81, 1, 35, "Input"],
+Cell[2872, 90, 90, 1, 35, "Output"]
+}, Open  ]],
+Cell[2977, 94, 102, 2, 35, "Input"],
+Cell[3082, 98, 342, 7, 77, "Input"],
+
+Cell[CellGroupData[{
+Cell[3449, 109, 1701, 36, 371, "Input"],
+Cell[5153, 147, 445, 10, 105, "Output"],
+Cell[5601, 159, 35, 1, 35, "Output"]
+}, Open  ]],
+Cell[5651, 163, 162, 2, 56, "Input"],
+Cell[5816, 167, 65, 1, 35, "Input"],
+
+Cell[CellGroupData[{
+Cell[5906, 172, 128, 3, 35, "Input"],
+Cell[6037, 177, 188, 3, 51, "Message"]
+}, Open  ]],
+Cell[6240, 183, 311, 6, 77, "Input"],
+
+Cell[CellGroupData[{
+Cell[6576, 193, 67, 1, 35, "Input"],
+Cell[6646, 196, 286, 4, 58, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[6969, 205, 135, 2, 56, "Input"],
+Cell[7107, 209, 35, 1, 35, "Output"],
+Cell[7145, 212, 228, 4, 37, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[7410, 221, 207, 4, 35, "Input"],
+Cell[7620, 227, 171, 3, 60, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[7828, 235, 137, 3, 35, "Input"],
+Cell[7968, 240, 118, 2, 55, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[8123, 247, 66, 1, 35, "Input"],
+Cell[8192, 250, 238, 3, 65, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[8467, 258, 139, 2, 35, "Input"],
+Cell[8609, 262, 35, 1, 35, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[8681, 268, 134, 2, 35, "Input"],
+Cell[8818, 272, 185, 3, 69, "Output"]
+}, Open  ]]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

@@ -1,0 +1,269 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 5.0'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[      6262,        188]*)
+(*NotebookOutlinePosition[      6907,        210]*)
+(*  CellTagsIndexPosition[      6863,        206]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+    \(mygcon = gconks //. {a \[Rule] 0, M \[Rule] 1}\)], "Input"],
+
+Cell[BoxData[
+    \({{\(-\(\(2 + x\)\/x\)\), 2\/x, 0, 
+        0}, {2\/x, \(\(-2\)\ x + x\^2\)\/x\^2, 0, 0}, {0, 0, 1\/x\^2, 0}, {0, 
+        0, 0, Csc[y]\^2\/x\^2}}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(mygcov = gcovks //. {a \[Rule] 0, M \[Rule] 1}\)], "Input"],
+
+Cell[BoxData[
+    \({{\(-1\) + 2\/x, 2\/x, 0, 0}, {2\/x, 1 + 2\/x, 0, 0}, {0, 0, x\^2, 
+        0}, {0, 0, 0, x\^2\ Sin[y]\^2}}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(ucon = uu0*{1, uu1, uu2, uu3}\), "\[IndentingNewLine]", 
+    \(ucov = 
+      Table[Sum[mygcov[\([ii, jj]\)]*ucon[\([ii]\)], {ii, 1, 4}], {jj, 1, 
+          4}]\), "\[IndentingNewLine]", 
+    \(myuu0 = \(Solve[ucon . ucov \[Equal] \(-1\), uu0]\)[\([2, 1, 
+          2]\)]\), "\[IndentingNewLine]", 
+    \(\(myucov = 
+        ucov //. {uu0 \[Rule] myuu0, uu2 \[Rule] 0, 
+            uu1 \[Rule] \(-CC\)*
+                mygcon[\([1, 2]\)]/
+                  Sqrt[\(-mygcon[\([1, 1]\)]\)]};\)\)}], "Input"],
+
+Cell[BoxData[
+    \({uu0, uu0\ uu1, uu0\ uu2, uu0\ uu3}\)], "Output"],
+
+Cell[BoxData[
+    \({uu0\ \((\(-1\) + 2\/x)\) + \(2\ uu0\ uu1\)\/x, 
+      uu0\ uu1\ \((1 + 2\/x)\) + \(2\ uu0\)\/x, uu0\ uu2\ x\^2, 
+      uu0\ uu3\ x\^2\ Sin[y]\^2}\)], "Output"],
+
+Cell[BoxData[
+    \(1\/\@\(1 - uu1\^2 - 2\/x - \(4\ uu1\)\/x - \(2\ uu1\^2\)\/x - uu2\^2\ x\
+\^2 - uu3\^2\ x\^2\ Sin[y]\^2\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(myucov\)], "Input"],
+
+Cell[BoxData[
+    \({\(\(-1\) + 2\/x\)\/\@\(1 - 2\/x - \(8\ CC\^2\)\/\(x\^2\ \((2 + x)\)\) \
+- \(4\ CC\^2\)\/\(x\ \((2 + x)\)\) + \(8\ CC\)\/\(x\^2\ \@\(\(2 + x\)\/x\)\) \
+- uu3\^2\ x\^2\ Sin[y]\^2\) - \((4\ CC)\)/\((x\^2\ \@\(\(2 + x\)\/x\)\ \
+\[Sqrt]\((1 - 
+                    2\/x - \(8\ CC\^2\)\/\(x\^2\ \((2 + x)\)\) - \(4\ CC\^2\)\
+\/\(x\ \((2 + x)\)\) + \(8\ CC\)\/\(x\^2\ \@\(\(2 + x\)\/x\)\) - 
+                    uu3\^2\ x\^2\ Sin[y]\^2)\))\), 
+      2\/\(x\ \@\(1 - 2\/x - \(8\ CC\^2\)\/\(x\^2\ \((2 + x)\)\) - \(4\ CC\^2\
+\)\/\(x\ \((2 + x)\)\) + \(8\ CC\)\/\(x\^2\ \@\(\(2 + x\)\/x\)\) - uu3\^2\ \
+x\^2\ Sin[y]\^2\)\) - \((2\ CC\ \((1 + 
+                  2\/x)\))\)/\((x\ \@\(\(2 + x\)\/x\)\ \[Sqrt]\((1 - 
+                    2\/x - \(8\ CC\^2\)\/\(x\^2\ \((2 + x)\)\) - \(4\ CC\^2\)\
+\/\(x\ \((2 + x)\)\) + \(8\ CC\)\/\(x\^2\ \@\(\(2 + x\)\/x\)\) - 
+                    uu3\^2\ x\^2\ Sin[y]\^2)\))\), 
+      0, \(uu3\ x\^2\ Sin[y]\^2\)\/\@\(1 - 2\/x - \(8\ CC\^2\)\/\(x\^2\ \((2 \
++ x)\)\) - \(4\ CC\^2\)\/\(x\ \((2 + x)\)\) + \(8\ CC\)\/\(x\^2\ \@\(\(2 + \
+x\)\/x\)\) - uu3\^2\ x\^2\ Sin[y]\^2\)}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(myuu3 = \(FullSimplify[
+          Solve[ud3 \[Equal] myucov[\([4]\)], uu3]]\)[\([2, 1, 
+          2]\)]\)], "Input"],
+
+Cell[BoxData[
+    RowBox[{\(Solve::"verif"\), \(\(:\)\(\ \)\), "\<\"Potential solution \
+\\!\\({uu3 \[Rule] ComplexInfinity}\\) (possibly discarded by verifier) \
+should be checked by hand. May require use of limits. \
+\\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", ButtonStyle->\\\"RefGuideLinkText\
+\\\", ButtonFrame->None, ButtonData:>\\\"Solve::verif\\\"]\\)\"\>"}]], \
+"Message"],
+
+Cell[BoxData[
+    \(\(\@\(\(ud3\^2\ \((\(-4\)\ x + x\^3 - 4\ CC\^2\ \((2 + x)\) + 8\ CC\ x\ \
+\@\(\(2 + x\)\/x\))\)\)\/\(x\^4\ \((2 + x)\)\)\)\ Csc[y]\)\/\@\(ud3\^2 + x\^2\
+\ Sin[y]\^2\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(myuu3 //. {y \[Rule] Pi/2, x \[Rule] 5, ud3 \[Rule] 5}\)], "Input"],
+
+Cell[BoxData[
+    \(\@\(105 + 8\ \@35\ CC - 28\ CC\^2\)\/\(25\ \@14\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(myuu3 //. {CC \[Rule] 3/50, x \[Rule] 2, ud3 \[Rule] 5, 
+        y \[Rule]  .001}\)], "Input"],
+
+Cell[BoxData[
+    \(142.52440828347108`\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(FullSimplify[
+      Normal[Series[myuu3, {x, Infinity, 2}]], {ud3 > 0, 
+        0 < y < Pi}]\)], "Input"],
+
+Cell[BoxData[
+    \(\(ud3\ Csc[y]\^2\)\/x\^2\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(FullSimplify[myuu3 //. {CC \[Rule] 3. /50, ud3 \[Rule] 5. }]\)], "Input"],
+
+Cell[BoxData[
+    \(\(5.`\ \@\(\(\(-0.0288`\) + x\^3 + x\ \((\(-4.0144`\) + 0.48`\ \@\(\(2 \
++ x\)\/x\))\)\)\/\(x\^4\ \((\(\(2.`\)\(\[InvisibleSpace]\)\) + x)\)\)\)\ \
+Csc[y]\)\/\@\(\(\(25.`\)\(\[InvisibleSpace]\)\) + x\^2\ Sin[y]\^2\)\)], \
+"Output"]
+}, Open  ]]
+},
+FrontEndVersion->"5.0 for Microsoft Windows",
+ScreenRectangle->{{0, 1400}, {0, 967}},
+WindowSize->{495, 740},
+WindowMargins->{{11, Automatic}, {Automatic, 20}}
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[1776, 53, 79, 1, 30, "Input"],
+Cell[1858, 56, 179, 3, 82, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[2074, 64, 79, 1, 30, "Input"],
+Cell[2156, 67, 141, 2, 67, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[2334, 74, 524, 11, 170, "Input"],
+Cell[2861, 87, 69, 1, 29, "Output"],
+Cell[2933, 90, 180, 3, 76, "Output"],
+Cell[3116, 95, 138, 2, 68, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[3291, 102, 39, 1, 30, "Input"],
+Cell[3333, 105, 1129, 17, 638, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[4499, 127, 136, 3, 50, "Input"],
+Cell[4638, 132, 381, 6, 67, "Message"],
+Cell[5022, 140, 200, 3, 84, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[5259, 148, 87, 1, 30, "Input"],
+Cell[5349, 151, 83, 1, 57, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[5469, 157, 114, 2, 30, "Input"],
+Cell[5586, 161, 53, 1, 29, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[5676, 167, 125, 3, 50, "Input"],
+Cell[5804, 172, 58, 1, 45, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[5899, 178, 93, 1, 30, "Input"],
+Cell[5995, 181, 251, 4, 84, "Output"]
+}, Open  ]]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

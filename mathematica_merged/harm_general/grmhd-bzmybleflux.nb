@@ -1,0 +1,482 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 4.2'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     10796,        366]*)
+(*NotebookOutlinePosition[     11446,        388]*)
+(*  CellTagsIndexPosition[     11402,        384]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+    \(FullSimplify[2*\((1/2 - 1*Sin[h]^2)\)]\)], "Input"],
+
+Cell[BoxData[
+    \(Cos[2\ h]\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(efluxr\)], "Input"],
+
+Cell[BoxData[
+    FractionBox[
+      RowBox[{"delta", " ", 
+        RowBox[{
+          SuperscriptBox["A0", 
+            TagBox[\((0, 1)\),
+              Derivative],
+            MultilineFunction->None], "[", \(r, h\), "]"}], " ", 
+        RowBox[{"(", 
+          RowBox[{
+            RowBox[{
+              SuperscriptBox["Ar", 
+                TagBox[\((0, 1)\),
+                  Derivative],
+                MultilineFunction->None], "[", \(r, h\), "]"}], "-", 
+            RowBox[{
+              SuperscriptBox["Ah", 
+                TagBox[\((1, 0)\),
+                  Derivative],
+                MultilineFunction->None], "[", \(r, h\), "]"}]}], 
+          ")"}]}], \(sigma\^2\)]], "Output"]
+}, Open  ]],
+
+Cell[BoxData[""], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    RowBox[{"newefluxr", "=", 
+      RowBox[{"efluxr", "//.", 
+        RowBox[{"{", 
+          
+          RowBox[{\(Cos[2*y] \[Rule] 2*\((1/2 - 1*Sin[y]^2)\)\), 
+            ",", \(D[A0[r, h], h] \[Rule] \(-w\)*D[Ap[r, h], h]\), ",", 
+            RowBox[{
+              RowBox[{
+                RowBox[{
+                  SuperscriptBox["Ar", 
+                    TagBox[\((0, 1)\),
+                      Derivative],
+                    MultilineFunction->None], "[", \(r, h\), "]"}], "-", 
+                RowBox[{
+                  SuperscriptBox["Ah", 
+                    TagBox[\((1, 0)\),
+                      Derivative],
+                    MultilineFunction->None], "[", \(r, h\), "]"}]}], 
+              "\[Rule]", \(\(-Bt\)*\(sigma/delta\)/Sin[y]\)}], 
+            ",", \(M \[Rule] 1\)}], "}"}]}]}]], "Input"],
+
+Cell[BoxData[
+    FractionBox[
+      RowBox[{"Bt", " ", "w", " ", \(Csc[y]\), " ", 
+        RowBox[{
+          SuperscriptBox["Ap", 
+            TagBox[\((0, 1)\),
+              Derivative],
+            MultilineFunction->None], "[", \(r, h\), "]"}]}], 
+      "sigma"]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(myefluxr = FullSimplify[newefluxr]\)], "Input"],
+
+Cell[BoxData[
+    FractionBox[
+      RowBox[{"Bt", " ", "w", " ", \(Csc[y]\), " ", 
+        RowBox[{
+          SuperscriptBox["Ap", 
+            TagBox[\((0, 1)\),
+              Derivative],
+            MultilineFunction->None], "[", \(r, h\), "]"}]}], 
+      "sigma"]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(fsmyefluxr = 
+      FullSimplify[
+        PowerExpand[myefluxr] //. consts, {a \[GreaterEqual] 0, 
+          x \[GreaterEqual] 0, 0 \[LessEqual] y \[LessEqual] Pi}]\)], "Input"],
+
+Cell[BoxData[
+    RowBox[{"-", 
+      FractionBox[
+        RowBox[{
+        "4", " ", "Bt", " ", \((x\^2 + a\^2\ Cos[y]\^2)\), " ", \(Csc[y]\), 
+          " ", \((a\^4\ w - 2\ a\ x + 2\ a\^2\ w\ x\^2 + w\ x\^4 - 
+              a\^2\ w\ \((a\^2 + \((\(-2\) + x)\)\ x)\)\ Sin[y]\^2)\), " ", 
+          RowBox[{
+            SuperscriptBox["Ap", 
+              TagBox[\((0, 1)\),
+                Derivative],
+              MultilineFunction->None], "[", \(r, h\), 
+            "]"}]}], \(\((a\^2 + \((\(-2\) + x)\)\ x)\)\^2\ \((a\^2 + 2\ x\^2 \
++ a\^2\ Cos[2\ y])\)\^2\)]}]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(FullSimplify[
+      ComplexExpand[
+        PowerExpand[\((\(Denominator[myefluxr]/delta^2\)/sigma^2)\) //. 
+            consts]], {a \[GreaterEqual] 0, x \[GreaterEqual] 0, 
+        0 \[LessEqual] y \[LessEqual] Pi}]\)], "Input"],
+
+Cell[BoxData[
+    \(1\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    \( (*\ therefore\ *) \)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    RowBox[{"myefluxr", "=", 
+      RowBox[{
+        RowBox[{
+          RowBox[{"-", 
+            RowBox[{"(", 
+              RowBox[{
+              "Bt", " ", "sigma", " ", \((A\ w - 2\ a\ x)\), " ", \(Csc[y]\), 
+                " ", 
+                RowBox[{
+                  SuperscriptBox["Ap", 
+                    TagBox[\((0, 1)\),
+                      Derivative],
+                    MultilineFunction->None], "[", \(r, h\), "]"}]}], ")"}]}],
+           "/", \(delta^2\)}], "/", \(sigma^2\)}]}]], "Input"],
+
+Cell[BoxData[
+    RowBox[{"-", 
+      FractionBox[
+        RowBox[{"Bt", " ", \((A\ w - 2\ a\ x)\), " ", \(Csc[y]\), " ", 
+          RowBox[{
+            SuperscriptBox["Ap", 
+              TagBox[\((0, 1)\),
+                Derivative],
+              MultilineFunction->None], "[", \(r, h\), 
+            "]"}]}], \(delta\^2\ sigma\)]}]], "Output"]
+}, Open  ]],
+
+Cell[BoxData[""], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(fsnum = 
+      FullSimplify[
+        ComplexExpand[
+          PowerExpand[\((Numerator[myefluxr])\) //. 
+              consts]], {oh \[GreaterEqual] 0, x \[GreaterEqual] 0, 
+          0 \[LessEqual] y \[LessEqual] Pi}]\)], "Input"],
+
+Cell[BoxData[
+    RowBox[{
+    "Bp", " ", \((\(-a\^4\)\ w + 2\ a\ x - 2\ a\^2\ w\ x\^2 - w\ x\^4 + 
+          a\^2\ w\ \((a\^2 + \((\(-2\) + x)\)\ x)\)\ Sin[y]\^2)\), " ", 
+      RowBox[{
+        SuperscriptBox["Ap", 
+          TagBox[\((0, 1)\),
+            Derivative],
+          MultilineFunction->None], "[", \(r, h\), "]"}]}]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Numerator[newefluxr]\)], "Input"],
+
+Cell[BoxData[
+    RowBox[{"Bp", " ", 
+      RowBox[{"(", 
+        RowBox[{
+          RowBox[{\(-A\), " ", "w", " ", 
+            RowBox[{
+              SuperscriptBox["Ap", 
+                TagBox[\((0, 1)\),
+                  Derivative],
+                MultilineFunction->None], "[", \(r, h\), "]"}]}], "+", 
+          RowBox[{"2", " ", "a", " ", "x", " ", 
+            RowBox[{
+              SuperscriptBox["Ap", 
+                TagBox[\((0, 1)\),
+                  Derivative],
+                MultilineFunction->None], "[", \(r, h\), "]"}]}]}], 
+        ")"}]}]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Solve[Numerator[newefluxr] \[Equal] 0, Bp]\)], "Input"],
+
+Cell[BoxData[
+    \({{Bp \[Rule] 0}}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(FullSimplify[
+      Limit[fsmyefluxr, 
+        x \[Rule] 1 - Sqrt[1 - a^2]], {a \[GreaterEqual] 0}]\)], "Input"],
+
+Cell[BoxData[
+    RowBox[{
+    "Bp", " ", \(DirectedInfinity[\(-\(Sign[
+                a - \@\(1 - a\^2\)\ \((a - 4\ w)\) + 
+                  2\ \((\(-2\) + 
+                        a\^2)\)\ w]\/\(\@Sign[1 - a\^2]\ Sign[4 - a\^2 - 4\ \
+\@\(1 - a\^2\) + a\^2\ Cos[2\ y]]\^2\)\)\)]\), " ", 
+      RowBox[{
+        SuperscriptBox["Ap", 
+          TagBox[\((0, 1)\),
+            Derivative],
+          MultilineFunction->None], "[", \(r, h\), "]"}]}]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Numerator[%]\)], "Input"],
+
+Cell[BoxData[
+    RowBox[{
+    "Bp", " ", \(DirectedInfinity[\(-\(Sign[
+                a - \@\(1 - a\^2\)\ \((a - 4\ w)\) + 
+                  2\ \((\(-2\) + 
+                        a\^2)\)\ w]\/\(\@Sign[1 - a\^2]\ Sign[4 - a\^2 - 4\ \
+\@\(1 - a\^2\) + a\^2\ Cos[2\ y]]\^2\)\)\)]\), " ", 
+      RowBox[{
+        SuperscriptBox["Ap", 
+          TagBox[\((0, 1)\),
+            Derivative],
+          MultilineFunction->None], "[", \(r, h\), "]"}]}]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Factor[%]\)], "Input"],
+
+Cell[BoxData[
+    RowBox[{"-", 
+      RowBox[{\(1\/\((1 + 4\ oh\^2)\)\^4\), 
+        RowBox[{"(", 
+          RowBox[{
+          "Bp", " ", \((256\ oh\^4\ w - 8\ oh\ x - 96\ oh\^3\ x - 
+                384\ oh\^5\ x - 512\ oh\^7\ x + 32\ oh\^2\ w\ x\^2 + 
+                256\ oh\^4\ w\ x\^2 + 512\ oh\^6\ w\ x\^2 + w\ x\^4 + 
+                16\ oh\^2\ w\ x\^4 + 96\ oh\^4\ w\ x\^4 + 
+                256\ oh\^6\ w\ x\^4 + 256\ oh\^8\ w\ x\^4 - 
+                256\ oh\^4\ w\ Sin[y]\^2 + 32\ oh\^2\ w\ x\ Sin[y]\^2 + 
+                256\ oh\^4\ w\ x\ Sin[y]\^2 + 512\ oh\^6\ w\ x\ Sin[y]\^2 - 
+                16\ oh\^2\ w\ x\^2\ Sin[y]\^2 - 
+                128\ oh\^4\ w\ x\^2\ Sin[y]\^2 - 
+                256\ oh\^6\ w\ x\^2\ Sin[y]\^2)\), " ", 
+            RowBox[{
+              SuperscriptBox["Ap", 
+                TagBox[\((0, 1)\),
+                  Derivative],
+                MultilineFunction->None], "[", \(r, h\), "]"}]}], 
+          ")"}]}]}]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(FullSimplify[\((A*\((sigma - 2*x)\) + 4  a^2  x^2  Sin[y]^2 - 
+            delta*sigma^2)\) //. consts]\)], "Input"],
+
+Cell[BoxData[
+    \(0\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(FullSimplify[\((a/\((x^2 + a^2)\) - 2*a*x/A)\) //. 
+          consts] //. {a \[Rule] 1, x \[Rule] 7, y \[Rule] Pi/2}\)], "Input"],
+
+Cell[BoxData[
+    \(63\/4400\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Solve[
+      wh \[Equal] a/\((rp^2 + a^2)\) //. {rp \[Rule] M + Sqrt[M^2 - a^2]}, 
+      a]\)], "Input"],
+
+Cell[BoxData[
+    \({{a \[Rule] \(4\ wh\)\/\(1\/M\^2 + 4\ wh\^2\)}}\)], "Output"]
+}, Open  ]]
+},
+FrontEndVersion->"4.2 for Microsoft Windows",
+ScreenRectangle->{{0, 1600}, {0, 1117}},
+WindowSize->{1161, 740},
+WindowMargins->{{Automatic, 200}, {-210, Automatic}}
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[1776, 53, 71, 1, 30, "Input"],
+Cell[1850, 56, 43, 1, 29, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[1930, 62, 39, 1, 30, "Input"],
+Cell[1972, 65, 701, 20, 47, "Output"]
+}, Open  ]],
+Cell[2688, 88, 26, 0, 30, "Input"],
+
+Cell[CellGroupData[{
+Cell[2739, 92, 836, 20, 31, "Input"],
+Cell[3578, 114, 280, 8, 47, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[3895, 127, 67, 1, 30, "Input"],
+Cell[3965, 130, 280, 8, 47, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[4282, 143, 197, 4, 30, "Input"],
+Cell[4482, 149, 581, 13, 48, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[5100, 167, 249, 5, 30, "Input"],
+Cell[5352, 174, 35, 1, 29, "Output"]
+}, Open  ]],
+Cell[5402, 178, 52, 1, 30, "Input"],
+
+Cell[CellGroupData[{
+Cell[5479, 183, 530, 14, 31, "Input"],
+Cell[6012, 199, 349, 9, 47, "Output"]
+}, Open  ]],
+Cell[6376, 211, 26, 0, 30, "Input"],
+
+Cell[CellGroupData[{
+Cell[6427, 215, 251, 6, 30, "Input"],
+Cell[6681, 223, 342, 8, 29, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[7060, 236, 53, 1, 30, "Input"],
+Cell[7116, 239, 580, 16, 29, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[7733, 260, 75, 1, 30, "Input"],
+Cell[7811, 263, 50, 1, 29, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[7898, 269, 132, 3, 30, "Input"],
+Cell[8033, 274, 460, 11, 58, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[8530, 290, 45, 1, 30, "Input"],
+Cell[8578, 293, 460, 11, 58, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[9075, 309, 42, 1, 30, "Input"],
+Cell[9120, 312, 973, 20, 84, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[10130, 337, 136, 2, 30, "Input"],
+Cell[10269, 341, 35, 1, 29, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[10341, 347, 149, 2, 30, "Input"],
+Cell[10493, 351, 42, 1, 42, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[10572, 357, 124, 3, 30, "Input"],
+Cell[10699, 362, 81, 1, 51, "Output"]
+}, Open  ]]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+
