@@ -1,0 +1,1378 @@
+(* Content-type: application/mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 7.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       145,          7]
+NotebookDataLength[     59490,       1369]
+NotebookOptionsPosition[     53512,       1186]
+NotebookOutlinePosition[     53884,       1202]
+CellTagsIndexPosition[     53841,       1199]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Remove", "[", "\"\<Global`*\>\"", "]"}], "\[IndentingNewLine]", 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{"TO", " ", "USE"}], " ", "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{" ", "1", ")"}], " ", "Setup", " ", "gamma_jet", 
+    RowBox[{"_wrapper", ".", "nb"}], " ", "for", " ", "parameter", " ", 
+    "space", " ", "search", " ", "settings", " ", 
+    RowBox[{"(", 
+     RowBox[{"range", ",", " ", "values", ",", " ", "system", ",", " ", 
+      RowBox[{"etc", "."}]}]}]}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{
+     RowBox[{" ", "2", ")"}], " ", "Perhaps", " ", "modify", " ", 
+     RowBox[{"gamma_jet", ".", "nb"}], " ", "or", " ", "gamma_jet", 
+     RowBox[{"_reconnection", ".", "nb"}]}], ",", " ", 
+    RowBox[{"but", " ", "not", " ", "usual"}]}], " ", "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{" ", "3", ")"}], " ", "Ensure", " ", "all", " ", "cells", " ", 
+    "in", " ", "these", " ", "files", " ", 
+    RowBox[{"(", 
+     RowBox[{"including", " ", "this", " ", "one"}], ")"}], " ", "have", " ", 
+    "*", 
+    RowBox[{".", "m"}], " ", "file", " ", "and", " ", "that", " ", "all", " ",
+     "cells", " ", "have", " ", "been", " ", "chosen", " ", "as", " ", 
+    "initialization", " ", "cell", " ", "and", " ", "saved", " ", "as", " ", 
+    "such", " ", 
+    RowBox[{"so", " ", ".", "m"}], " ", "file", " ", "is", " ", "fresh", " ", 
+    "and", " ", "ready"}], " ", "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{" ", "4", ")"}], " ", "Pick", " ", "which", " ", "system", " ", 
+    "running", " ", "on", " ", "as", " ", "below"}], " ", "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{" ", "5", ")"}], " ", "Start", " ", "command", " ", "line", " ", 
+    RowBox[{"(", 
+     RowBox[{"or", " ", "be", " ", "in", " ", "unix"}], ")"}], " ", "and", 
+    " ", "note", " ", "that", " ", "new", " ", "files", " ", "and", " ", 
+    "stdout", " ", "will", " ", "be", " ", "put", " ", "in", " ", "that", " ",
+     "directory"}], " ", "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{" ", "6", ")"}], " ", "run", " ", "on", " ", "command", " ", 
+    "line", " ", "as", " ", "below", " ", "for", " ", "correct", " ", 
+    "system"}], " ", "*)"}]}]}], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.4779217219355907`*^9, 3.4779217229170017`*^9}, {
+  3.477929298570256*^9, 3.477929305700509*^9}, {3.494251462204707*^9, 
+  3.494251569418874*^9}, {3.4942516507358017`*^9, 3.4942516840637245`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{"copy", " ", "as", " ", "plain", " ", "text"}], " ", "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{"windows", " ", 
+    RowBox[{"laptop", ":"}]}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", "\[IndentingNewLine]", 
+   RowBox[{
+   "\"\<C:\\Program Files\\Wolfram Research\\Mathematica\\7.0\\math.exe\>\"", 
+    " ", "<", " ", 
+    "\"\<d:\\\\Super Documents\\\\math\\\\private\\\\gamma_jet_superwrapper.m\
+\>\"", " ", ">", " ", 
+    RowBox[{"mystdout", ".", "dat"}]}], "\[IndentingNewLine]", "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{"windows", " ", 
+    RowBox[{"home", ":"}]}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", "\[IndentingNewLine]", 
+   RowBox[{
+   "\"\<C:\\\\Program Files\\Wolfram \
+Research\\Mathematica\\7.0\\math.exe\>\"", "<", 
+    "\"\<c:\\\\Users\\\\jon\\\\Documents\\\\Super \
+Documents\\\\math\\\\private\\\\gamma_jet_superwrapper.m\>\"", ">", 
+    RowBox[{"mystdout", ".", "dat"}]}], "\[IndentingNewLine]", "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{"windows", " ", "ki"}], "-", 
+    RowBox[{"rh42", ":"}]}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", "\[IndentingNewLine]", 
+   RowBox[{
+   "\"\<D:\\\\Program Files\\Wolfram \
+Research\\Mathematica\\7.0\\math.exe\>\"", "<", 
+    "\"\<c:\\\\Users\\\\jon\\\\Documents\\\\Super \
+Documents\\\\math\\\\private\\\\gamma_jet_superwrapper.m\>\"", ">", 
+    RowBox[{"mystdout", ".", "dat"}]}], "\[IndentingNewLine]", "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{"linux", " ", "ki"}], "-", 
+    RowBox[{"rh42", ":"}]}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"math", "<", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{
+         RowBox[{
+          RowBox[{
+           RowBox[{
+            RowBox[{"/", "u"}], "/", "ki"}], "/", "jmckinne"}], "/", 
+          "nfsslac"}], "/", "codebackups"}], "/", "reconnectionswitch10"}], 
+       "/", "gamma_jet"}], 
+      RowBox[{"_superwrapper", ".", "m"}]}], ">", 
+     RowBox[{
+      RowBox[{"mystdout", ".", "IDENTIFY", ".", "dat"}], 
+      "\[IndentingNewLine]", "\[IndentingNewLine]", "OR", " ", "if", " ", 
+      "copied", " ", "over", " ", "all", " ", "gamma_jet", " ", "files", " ", 
+      "to", " ", "own", " ", "directory", " ", "for", " ", "uniqueness"}]}], 
+    ",", " ", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{"then", " ", "do", " ", 
+        RowBox[{"(", 
+         RowBox[{
+         "and", " ", "set", " ", "IDENTIFY", " ", "to", " ", "what", " ", 
+          "the", " ", "parameter", " ", "space", " ", "search", " ", "is"}], 
+         ")"}]}], ":", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+       RowBox[{"math", "<", " ", 
+        RowBox[{"gamma_jet", 
+         RowBox[{"_superwrapper", ".", "m"}]}], " ", ">", " ", 
+        RowBox[{
+         RowBox[{"mystdout", ".", "IDENTIFY", ".", "dat"}], 
+         "\[IndentingNewLine]", "\[IndentingNewLine]", 
+         RowBox[{"OR", ":", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"nohup", " ", "math"}], "<", " ", 
+           RowBox[{"gamma_jet", 
+            RowBox[{"_superwrapper", ".", "m"}]}], " ", ">", " ", 
+           RowBox[{"mystdout", ".", "IDENTIFY", ".", "dat"}]}]}]}]}]}], " ", 
+      "&"}], "\[IndentingNewLine]", "\[IndentingNewLine]", "Then", " ", "in", 
+     " ", "background", " ", "and", " ", 
+     RowBox[{"won", "'"}], "t", " ", "be", " ", "killed", " ", "if", " ", 
+     "shell", " ", 
+     RowBox[{"closes", "."}]}]}], "\[IndentingNewLine]", "*)"}]}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.47772093856328*^9, 3.4777209826266403`*^9}, {
+   3.477721552766461*^9, 3.4777215584045677`*^9}, {3.477721595708208*^9, 
+   3.4777216009056816`*^9}, {3.4777218600683393`*^9, 3.4777218616105566`*^9}, 
+   3.477721939362358*^9, {3.478444902221896*^9, 3.4784449415784883`*^9}, {
+   3.478445818769827*^9, 3.478445820572419*^9}, {3.4784652187456226`*^9, 
+   3.47846522320203*^9}, {3.4942507643412285`*^9, 3.494250783969453*^9}, {
+   3.4942509498079166`*^9, 3.4942509677737503`*^9}, {3.49425170968056*^9, 
+   3.4942517245619583`*^9}, {3.4942541013796544`*^9, 
+   3.4942541757766323`*^9}, {3.494254208804123*^9, 3.494254216605341*^9}}],
+
+Cell[BoxData[""], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.478444957050736*^9, 3.4784449616673746`*^9}, {
+   3.4784652259159327`*^9, 3.478465229100512*^9}, {3.49425078735432*^9, 
+   3.494250789086811*^9}, 3.4943514668643456`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{"1", " ", "=", " ", 
+    RowBox[{
+     RowBox[{"laptop", " ", "2"}], "=", 
+     RowBox[{
+      RowBox[{"home", " ", "3"}], "=", 
+      RowBox[{
+       RowBox[{"ki", "-", 
+        RowBox[{"rh42", " ", "linux"}]}], "=", "4"}]}]}]}], " ", "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"Unprotect", "[", "whichcomputer", "]"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"whichcomputer", "=", "4"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Protect", "[", "whichcomputer", "]"}], ";"}]}]}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.4784449543067904`*^9, 3.478444964861968*^9}, {
+  3.494351467795685*^9, 3.494351467975944*^9}, {3.4944329273687983`*^9, 
+  3.494432932736517*^9}, {3.4945916610477805`*^9, 3.4945916912174788`*^9}, {
+  3.494591726605773*^9, 3.49459172798805*^9}, {3.5770437780600977`*^9, 
+  3.577043778152837*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{" ", 
+  RowBox[{"AutoGeneratedPackage", "->", 
+   ButtonBox["Automatic",
+    BaseStyle->"Link",
+    ButtonData->"paclet:ref/Automatic"]}]}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{3.4777208939891853`*^9, 3.494352104441136*^9}],
+
+Cell[BoxData[
+ RowBox[{"AutoGeneratedPackage", "\[Rule]", 
+  ButtonBox["Automatic",
+   Appearance->Automatic,
+   BaseStyle->"Link",
+   ButtonData->"paclet:ref/Automatic",
+   Evaluator->Automatic,
+   Method->"Preemptive"]}]], "Output",
+ InitializationCell->True,
+ CellChangeTimes->{{3.4943521312396708`*^9, 3.494352150176901*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"InitializationCell", "\[Rule]", "True"}]], "Input",
+ InitializationCell->True],
+
+Cell[BoxData[
+ RowBox[{"InitializationCell", "\[Rule]", "True"}]], "Output",
+ InitializationCell->True,
+ CellChangeTimes->{3.4942510277600064`*^9}]
+}, Open  ]],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Off", "[", 
+   RowBox[{"General", "::", "stop"}], "]"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Off", "[", 
+   RowBox[{"NSolve", "::", "precw"}], "]"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Off", "[", 
+   RowBox[{"FindRoot", "::", "precw"}], "]"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Off", "[", 
+   RowBox[{"FrontEndObject", "::", "notavail"}], "]"}], ";"}]}], "Input",
+ InitializationCell->True],
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"loadallwrappernotebooks", ":=", 
+     RowBox[{"Module", "[", 
+      RowBox[{
+       RowBox[{"{", "foo", "}"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"(*", " ", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"can", "'"}], "t", " ", "put", " ", "semi"}], "-", 
+         RowBox[{"colons", " ", "on", " ", "end", " ", "of", " ", 
+          RowBox[{"<<", " ", "things"}]}]}], " ", "*)"}], 
+       "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{"whichcomputer", "\[Equal]", "1"}], ",", 
+          "\[IndentingNewLine]", 
+          RowBox[{
+          "<<", "\"\<C:\\\\Users\\\\jon\\\\Documents\\\\Super \
+Documents\\\\math\\\\private\\\\gamma_jet.m\>\""}]}], "\[IndentingNewLine]", 
+         "]"}], ";", "\[IndentingNewLine]", 
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{"whichcomputer", "\[Equal]", "2"}], ",", 
+          "\[IndentingNewLine]", 
+          RowBox[{
+          "<<", "\"\<C:\\\\Users\\\\jon\\\\Documents\\\\Super \
+Documents\\\\math\\\\private\\\\gamma_jet.m\>\""}]}], "\[IndentingNewLine]", 
+         "]"}], ";", "\[IndentingNewLine]", 
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{"whichcomputer", "\[Equal]", "3"}], ",", 
+          "\[IndentingNewLine]", 
+          RowBox[{
+          "<<", "\"\<C:\\\\Users\\\\jon\\\\Documents\\\\Super \
+Documents\\\\math\\\\private\\\\gamma_jet.m\>\""}]}], "\[IndentingNewLine]", 
+         "]"}], ";", "\[IndentingNewLine]", 
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{"whichcomputer", "\[Equal]", "4"}], ",", 
+          "\[IndentingNewLine]", 
+          RowBox[{
+          "<<", "\"\</data/jon/harm_math/mathematica_merged/solveimplicit_\
+func.m\>\""}]}], "\[IndentingNewLine]", "]"}], ";"}]}], "\[IndentingNewLine]",
+       "]"}]}], ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   "\[IndentingNewLine]"}]}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.4777208546325936`*^9, 3.4777208815713296`*^9}, {
+   3.4779205865229473`*^9, 3.477920586773307*^9}, {3.4779206983637667`*^9, 
+   3.4779207067358046`*^9}, {3.477920776596259*^9, 3.477920789254461*^9}, {
+   3.478444967495755*^9, 3.478445024667965*^9}, {3.478445125512973*^9, 
+   3.478445163347376*^9}, {3.478465236290851*^9, 3.4784652491893983`*^9}, {
+   3.4942507981398287`*^9, 3.4942509333242145`*^9}, {3.49436007916823*^9, 
+   3.4943602008832483`*^9}, {3.4944329016818624`*^9, 
+   3.4944329075903587`*^9}, {3.494432942660787*^9, 3.4944329455649633`*^9}, 
+   3.4945912846377273`*^9, {3.577043796864032*^9, 3.57704382120901*^9}, {
+   3.577043919135886*^9, 3.5770439436408377`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"loadallwrappernotebooks", ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"dosolveimplicitwrapper", ";"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "tells", " ", "any", " ", "scanning", " ", "program", " ", "for", " ", 
+    "output", " ", "that", " ", "totally", " ", "done"}], " ", 
+   "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Print", "[", "\"\<SUPERALLDONE\>\"", "]"}], ";"}]}], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.494360111024037*^9, 3.4943601129868593`*^9}, {
+  3.495710832228755*^9, 3.4957108512360864`*^9}, {3.577043908860449*^9, 
+  3.5770439112649183`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.4784708698815565`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.478470869891571*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.4784708699116*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.4784708699216146`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.4784708699516573`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.478470869961672*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.4784708699716864`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.4784708699917154`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.4784708700017295`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.478470870021758*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.4784708700317726`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.4784708700518017`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.478470870061816*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.478470870081845*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.478470870171974*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.4784708701920033`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.478470870202018*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.4784708702220464`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.478470870232061*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.4784708702520895`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.478470870262104*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.478470870282133*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.4784708703021617`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.4784708703121758`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.478470870332205*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.478470870352234*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.478470870392291*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.4784708704023056`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.4784708704223347`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.4784708704523773`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.4784708704724064`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.4784708704924355`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.4784708705024495`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.4784708705324926`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.4784708705525217`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.4784708705625362`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.478470870582565*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.478470870592579*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.478470870612608*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.478470870632637*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.4784708706526656`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.478470870672694*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.4784708706827087`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.4784708707127523`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.4784708707327805`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.478470870742795*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.478470870762824*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.4784708707728386`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.478470870792867*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.4784708708028817`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.4784708708229103`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.4784708708429394`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.478470870852954*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.4784708708729825`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.4784708708829966`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.4784708709030256`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.47847087091304*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.4784708709330688`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.4784708709530973`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.478470870963112*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.478470870983141*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.4784708709931555`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.478470871023198*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.478470871043227*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.4784708710632563`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.478470871093299*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.478470871133357*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"strml\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\($Failed\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not a string, stream, or list of \
+strings and streams.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/strml\\\", ButtonNote -> \
+\\\"General::strml\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.4784708711533856`*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"End:\"\>", "\[InvisibleSpace]", "1", 
+   "\[InvisibleSpace]", "\<\" \"\>", "\[InvisibleSpace]", "75"}],
+  SequenceForm["End:", 1, " ", 75],
+  Editable->False]], "Print",
+ InitializationCell->True,
+ CellChangeTimes->{{3.478466442495288*^9, 3.4784664480232368`*^9}, 
+   3.478466690181443*^9, 3.4784668154015007`*^9, 3.4784668896182194`*^9, 
+   3.4784708711633997`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"openx\"\>"}], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\*StyleBox[\\!\\(\\\"spdata_nums_150._numS_150._\
+numgf1v_1._numeff21f_1._startii_1_endii_1_startjj_75_endjj_75_startkk_1_endkk_\
+1_startll_11_endll_11_Slow_10._Shigh_1.e25_slow_1.e-10_shigh_1.e15_gflow_0_\
+gfhigh_0_eff2low_1.e-16_eff2high_1.e-16.dat\\\"\\), \
+\\\"MT\\\"]\\)\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is not open.\\\\\\\"\\\
+\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", ButtonStyle->\
+\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/openx\\\", ButtonNote -> \
+\\\"General::openx\\\"]\\)\"\>"}]], "Message", "MSG",
+ InitializationCell->True,
+ CellChangeTimes->{3.478470871183429*^9}]
+}, Open  ]],
+
+Cell[BoxData[""], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{3.4777208733194637`*^9}]
+},
+AutoGeneratedPackage->Automatic,
+WindowSize->{779, 818},
+WindowMargins->{{Automatic, 315}, {Automatic, 337}},
+FrontEndVersion->"7.0 for Linux x86 (64-bit) (February 25, 2009)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[545, 20, 2640, 57, 297, "Input",
+ InitializationCell->True],
+Cell[3188, 79, 4361, 98, 781, "Input",
+ InitializationCell->True],
+Cell[7552, 179, 246, 4, 32, "Input",
+ InitializationCell->True],
+Cell[7801, 185, 928, 23, 99, "Input",
+ InitializationCell->True],
+Cell[CellGroupData[{
+Cell[8754, 212, 266, 7, 32, "Input",
+ InitializationCell->True],
+Cell[9023, 221, 329, 9, 43, "Output",
+ InitializationCell->True]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[9389, 235, 102, 2, 32, "Input",
+ InitializationCell->True],
+Cell[9494, 239, 147, 3, 31, "Output",
+ InitializationCell->True]
+}, Open  ]],
+Cell[9656, 245, 477, 13, 99, "Input",
+ InitializationCell->True],
+Cell[10136, 260, 2718, 59, 429, "Input",
+ InitializationCell->True],
+Cell[CellGroupData[{
+Cell[12879, 323, 648, 14, 99, "Input",
+ InitializationCell->True],
+Cell[13530, 339, 567, 10, 23, "Message",
+ InitializationCell->True],
+Cell[14100, 351, 565, 10, 23, "Message",
+ InitializationCell->True],
+Cell[14668, 363, 563, 10, 23, "Message",
+ InitializationCell->True],
+Cell[15234, 375, 567, 10, 23, "Message",
+ InitializationCell->True],
+Cell[15804, 387, 567, 10, 23, "Message",
+ InitializationCell->True],
+Cell[16374, 399, 565, 10, 23, "Message",
+ InitializationCell->True],
+Cell[16942, 411, 567, 10, 23, "Message",
+ InitializationCell->True],
+Cell[17512, 423, 567, 10, 23, "Message",
+ InitializationCell->True],
+Cell[18082, 435, 567, 10, 23, "Message",
+ InitializationCell->True],
+Cell[18652, 447, 565, 10, 23, "Message",
+ InitializationCell->True],
+Cell[19220, 459, 567, 10, 23, "Message",
+ InitializationCell->True],
+Cell[19790, 471, 567, 10, 23, "Message",
+ InitializationCell->True],
+Cell[20360, 483, 565, 10, 23, "Message",
+ InitializationCell->True],
+Cell[20928, 495, 565, 10, 23, "Message",
+ InitializationCell->True],
+Cell[21496, 507, 565, 10, 23, "Message",
+ InitializationCell->True],
+Cell[22064, 519, 567, 10, 23, "Message",
+ InitializationCell->True],
+Cell[22634, 531, 565, 10, 23, "Message",
+ InitializationCell->True],
+Cell[23202, 543, 567, 10, 23, "Message",
+ InitializationCell->True],
+Cell[23772, 555, 565, 10, 23, "Message",
+ InitializationCell->True],
+Cell[24340, 567, 567, 10, 23, "Message",
+ InitializationCell->True],
+Cell[24910, 579, 565, 10, 23, "Message",
+ InitializationCell->True],
+Cell[25478, 591, 565, 10, 23, "Message",
+ InitializationCell->True],
+Cell[26046, 603, 567, 10, 23, "Message",
+ InitializationCell->True],
+Cell[26616, 615, 567, 10, 23, "Message",
+ InitializationCell->True],
+Cell[27186, 627, 565, 10, 23, "Message",
+ InitializationCell->True],
+Cell[27754, 639, 565, 10, 23, "Message",
+ InitializationCell->True],
+Cell[28322, 651, 565, 10, 23, "Message",
+ InitializationCell->True],
+Cell[28890, 663, 567, 10, 23, "Message",
+ InitializationCell->True],
+Cell[29460, 675, 567, 10, 23, "Message",
+ InitializationCell->True],
+Cell[30030, 687, 567, 10, 23, "Message",
+ InitializationCell->True],
+Cell[30600, 699, 567, 10, 23, "Message",
+ InitializationCell->True],
+Cell[31170, 711, 567, 10, 23, "Message",
+ InitializationCell->True],
+Cell[31740, 723, 567, 10, 23, "Message",
+ InitializationCell->True],
+Cell[32310, 735, 567, 10, 23, "Message",
+ InitializationCell->True],
+Cell[32880, 747, 567, 10, 23, "Message",
+ InitializationCell->True],
+Cell[33450, 759, 567, 10, 23, "Message",
+ InitializationCell->True],
+Cell[34020, 771, 565, 10, 23, "Message",
+ InitializationCell->True],
+Cell[34588, 783, 565, 10, 23, "Message",
+ InitializationCell->True],
+Cell[35156, 795, 565, 10, 23, "Message",
+ InitializationCell->True],
+Cell[35724, 807, 565, 10, 23, "Message",
+ InitializationCell->True],
+Cell[36292, 819, 567, 10, 23, "Message",
+ InitializationCell->True],
+Cell[36862, 831, 565, 10, 23, "Message",
+ InitializationCell->True],
+Cell[37430, 843, 567, 10, 23, "Message",
+ InitializationCell->True],
+Cell[38000, 855, 567, 10, 23, "Message",
+ InitializationCell->True],
+Cell[38570, 867, 567, 10, 23, "Message",
+ InitializationCell->True],
+Cell[39140, 879, 565, 10, 23, "Message",
+ InitializationCell->True],
+Cell[39708, 891, 565, 10, 23, "Message",
+ InitializationCell->True],
+Cell[40276, 903, 567, 10, 23, "Message",
+ InitializationCell->True],
+Cell[40846, 915, 565, 10, 23, "Message",
+ InitializationCell->True],
+Cell[41414, 927, 567, 10, 23, "Message",
+ InitializationCell->True],
+Cell[41984, 939, 567, 10, 23, "Message",
+ InitializationCell->True],
+Cell[42554, 951, 567, 10, 23, "Message",
+ InitializationCell->True],
+Cell[43124, 963, 565, 10, 23, "Message",
+ InitializationCell->True],
+Cell[43692, 975, 567, 10, 23, "Message",
+ InitializationCell->True],
+Cell[44262, 987, 567, 10, 23, "Message",
+ InitializationCell->True],
+Cell[44832, 999, 567, 10, 23, "Message",
+ InitializationCell->True],
+Cell[45402, 1011, 564, 10, 23, "Message",
+ InitializationCell->True],
+Cell[45969, 1023, 567, 10, 23, "Message",
+ InitializationCell->True],
+Cell[46539, 1035, 567, 10, 23, "Message",
+ InitializationCell->True],
+Cell[47109, 1047, 565, 10, 23, "Message",
+ InitializationCell->True],
+Cell[47677, 1059, 565, 10, 23, "Message",
+ InitializationCell->True],
+Cell[48245, 1071, 567, 10, 23, "Message",
+ InitializationCell->True],
+Cell[48815, 1083, 565, 10, 23, "Message",
+ InitializationCell->True],
+Cell[49383, 1095, 565, 10, 23, "Message",
+ InitializationCell->True],
+Cell[49951, 1107, 567, 10, 23, "Message",
+ InitializationCell->True],
+Cell[50521, 1119, 565, 10, 23, "Message",
+ InitializationCell->True],
+Cell[51089, 1131, 565, 10, 23, "Message",
+ InitializationCell->True],
+Cell[51657, 1143, 567, 10, 23, "Message",
+ InitializationCell->True],
+Cell[52227, 1155, 415, 9, 24, "Print",
+ InitializationCell->True],
+Cell[52645, 1166, 751, 13, 81, "Message",
+ InitializationCell->True]
+}, Open  ]],
+Cell[53411, 1182, 97, 2, 32, "Input",
+ InitializationCell->True]
+}
+]
+*)
+
+(* End of internal cache information *)
