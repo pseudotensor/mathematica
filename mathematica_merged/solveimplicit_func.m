@@ -32,10 +32,10 @@ dosolveimplicitwrapper:=Module[
 {foo},
 (*filin=ToString[$ScriptCommandLine[[1]]];*)
 (*filein="/data/jon/harmgit/longdoubleversion/runtt/test.txt";*)
-filein=StringJoin[Directory[],"/","test.txt"];
+filein=StringJoin[Directory[],"/","fails.txt"];
 (*OpenRead[filein];*)
 (*allfailsin=Import[filein,"Table"];*)
-filein=StringJoin["/data/jon/harmgit/longdoubleversion/runo","/","fails.txt"];
+(*filein=StringJoin["/data/jon/harmgit/longdoubleversion/runo","/","fails.txt"];*)
 str=OpenRead[filein];
 numfails=10000;
 numele=134;
@@ -112,11 +112,11 @@ ucov=ucon.gcov;
 soluu0=Solve[ucon.ucov==-1,uu0];
 soluu0a=soluu0[[1,1,2]];
 soluu0b=soluu0[[2,1,2]];
-vala=soluu0a//.consts;
-valb=soluu0b//.consts;
-testucon0= whichuconi0//.consts;
-If[Abs[vala -testucon0]<Abs[valb- ucon0],uu0=soluu0a,uu0=soluu0b];
-Print["ucon0=",ucon0," uu0=",uu0//.consts," uu0=",soluu0a//.consts];
+vala=soluu0a//.constspin;
+valb=soluu0b//.constspin;
+testucon0= whichuconi0//.constspin;
+If[Abs[vala -testucon0]<Abs[valb- uconi0],uu0=soluu0a,uu0=soluu0b];
+Print["uconi0=",uconi0," uu0=",uu0//.consts," soluu0a=",soluu0a//.consts," soluu0b=",soluu0b//.consts];
 
 Clear[uru0,uru1,uru2,uru3];
 uradcon={uru0,uru1,uru2,uru3};
@@ -124,11 +124,11 @@ uradcov=uradcon.gcov;
 soluru0=Solve[uradcon.uradcov==-1,uru0];
 soluru0a=soluru0[[1,1,2]];
 soluru0b=soluru0[[2,1,2]];
-valra=soluru0a//.consts;
-valrb=soluru0b//.consts;
-testuradcon0= whichuradconi0//.consts;
-If[Abs[valra -testuradcon0]<Abs[valrb - uradcon0],uru0=soluru0a,uru0=soluru0b];
-Print["uradcon0=",uradcon0," uru0=",uru0//.consts," uru0=",soluru0a//.consts];
+valra=soluru0a//.constspin;
+valrb=soluru0b//.constspin;
+testuradcon0= whichuradconi0//.constspin;
+If[Abs[valra -testuradcon0]<Abs[valrb - uradconi0],uru0=soluru0a,uru0=soluru0b];
+Print["uradconi0=",uradconi0," uru0=",uru0//.consts," soluru0a=",soluru0a//.consts," soluru0b=",soluru0b//.consts];
 
 
 arad=118316261947818976;
@@ -175,9 +175,10 @@ ferr2=(ferr2/Max[u,Er])//.chooseresult;
 ferrtotal=Join[{ferr0},ferr1,ferr2];
 ferrabs=Sqrt[Re[ferrtotal].Re[ferrtotal]];
 Print["Aferr=",ferrtotal,"ferrabs=",ferrabs];
-If[ferrabs<10^(-8),resulttype="Good",resulttype="Bad"];
+(* Using 10^(-6) because apparently harm doesn't have inversion solution any more accurate than this even for ldouble *)
+If[ferrabs<10^(-6),resulttype="Good",resulttype="Bad"];
 cc=0;
-Print["A",resulttype," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
+Print["A",resulttype," ",CForm[ferrabs]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
 
 
 (* normal *)
@@ -198,7 +199,7 @@ ferrtotal=Join[{ferr0},ferr1,ferr2];
 ferrabs=Sqrt[Re[ferrtotal].Re[ferrtotal]];
 Print["0ferr=",ferrtotal,"ferrabs=",ferrabs];
 If[ferrabs<10^(-8),resulttype="Good",resulttype="Bad"];
-Print["0",resulttype," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
+Print["0",resulttype," ",CForm[ferrabs]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
 
 (* normal but more working precision to test if matters *)
 If[resulttype=="Bad",
@@ -219,7 +220,7 @@ ferrtotal=Join[{ferr0},ferr1,ferr2];
 ferrabs=Sqrt[Re[ferrtotal].Re[ferrtotal]];
 Print["0Wferr=",ferrtotal,"ferrabs=",ferrabs];
 If[ferrabs<10^(-8),resulttype="Good",resulttype="Bad"];
-Print["0W",resulttype," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
+Print["0W",resulttype," ",CForm[ferrabs]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
 ];
 
 (* normal but revert to gammamax if still can't find solution *)
@@ -250,7 +251,7 @@ ferrtotal=Join[{ferr0},ferr1,ferr2];
 ferrabs=Sqrt[Re[ferrtotal].Re[ferrtotal]];
 Print["0Mferr=",ferrtotal,"ferrabs=",ferrabs];
 If[ferrabs<10^(-8),resulttype="Good",resulttype="Bad"];
-Print["0M",resulttype," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
+Print["0M",resulttype," ",CForm[ferrabs]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
 ];
 
 
@@ -274,7 +275,7 @@ ferrtotal=Join[{ferr0},ferr1,ferr2];
 ferrabs=Sqrt[Re[ferrtotal].Re[ferrtotal]];
 Print["1ferr=",ferrtotal,"ferrabs=",ferrabs];
 If[ferrabs<10^(-8),resulttype="Good",resulttype="Bad"];
-Print["1",resulttype," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
+Print["1",resulttype," ",CForm[ferrabs]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
 
 
 (* OTHERS *)
