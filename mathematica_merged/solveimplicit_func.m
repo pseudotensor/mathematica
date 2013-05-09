@@ -30,26 +30,78 @@ InitializationCell->True
 
 dosolveimplicitwrapper:=Module[
 {foo},
-filein="/data/jon/harmgit/longdoubleversion/runtt/test.txt";
-{gotfirstnofail,dt,gn11,gn12,gn13,gn14,gn21,gn22,gn23,gn24,gn31,gn32,gn33,gn34,gn41,gn42,gn43,gn44,gv11,gv12,gv13,gv14,gv21,gv22,gv23,gv24,gv31,gv32,gv33,gv34,gv41,gv42,gv43,gv44,pinuse0,pin0,uu00,uu0,uui0,pinuse1,pin1,uu01,uu1,uui1,pinuse2,pin2,uu02,uu2,uui2,pinuse3,pin3,uu03,uu3,uui3,pinuse4,pin4,uu04,uu4,uui4,pinuse5,pin5,uu05,uu5,uui5,pinuse6,pin6,uu06,uu6,uui6,pinuse7,pin7,uu07,uu7,uui7,pinuse8,pin8,uu08,uu8,uui8,pinuse9,pin9,uu09,uu9,uui9,pinuse10,pin10,uu010,uu10,uui10,pinuse11,pin11,uu011,uu11,uui11,pinuse12,pin12,uu012,uu12,uui12,uradcon0,uradcov0,uradcon1,uradcov1,uradcon2,uradcov2,uradcon3,uradcov3,ucon0,ucov0,ucon1,ucov1,ucon2,ucov2,ucon3,ucov3,uradconi0,uradcovi0,uradconi1,uradcovi1,uradconi2,uradcovi2,uradconi3,uradcovi3,uconi0,ucovi0,uconi1,ucovi1,uconi2,ucovi2,uconi3,ucovi3}=Import[filein,"Table"][[1]];
+(*filin=ToString[$ScriptCommandLine[[1]]];*)
+(*filein="/data/jon/harmgit/longdoubleversion/runtt/test.txt";*)
+filein=StringJoin[Directory[],"/","test.txt"];
+(*OpenRead[filein];*)
+(*allfailsin=Import[filein,"Table"];*)
+filein=StringJoin["/data/jon/harmgit/longdoubleversion/runo","/","fails.txt"];
+str=OpenRead[filein];
+numfails=10000;
+numele=134;
+Clear[j];
+For[j=1,j<=numfails,j++,
+Clear[mylist];
+mylist=0*Range[1,numele];
+Clear[i];
+For[i=1,i<=numele,i++,mylist[[i]]=Read[str,Number];];
+(*Print["mylist=",Dimensions[mylist]," ",mylist];*)
+dosolveimplicitone[j,mylist];
+Print["Done=",j];
+];
+Close[str];
+];
+
+
+dosolveimplicitone[j0_,mylist0_]:=Module[
+{myj=j0,mylist=mylist0},
+(*filin=ToString[$ScriptCommandLine[[1]]];*)
+(*filein="/data/jon/harmgit/longdoubleversion/runtt/test.txt";*)
+(*filein=StringJoin[Directory[],"/","test.txt"];*)
+
+(*Print["inside mylist=",Dimensions[mylist]," ",mylist];*)
+{failtype,myid,failnum,gotfirstnofail,dt,gn11,gn12,gn13,gn14,gn21,gn22,gn23,gn24,gn31,gn32,gn33,gn34,gn41,gn42,gn43,gn44,gv11,gv12,gv13,gv14,gv21,gv22,gv23,gv24,gv31,gv32,gv33,gv34,gv41,gv42,gv43,gv44,pinuse0,pin0,uu00,uu0,uui0,pinuse1,pin1,uu01,uu1,uui1,pinuse2,pin2,uu02,uu2,uui2,pinuse3,pin3,uu03,uu3,uui3,pinuse4,pin4,uu04,uu4,uui4,pinuse5,pin5,uu05,uu5,uui5,pinuse6,pin6,uu06,uu6,uui6,pinuse7,pin7,uu07,uu7,uui7,pinuse8,pin8,uu08,uu8,uui8,pinuse9,pin9,uu09,uu9,uui9,pinuse10,pin10,uu010,uu10,uui10,pinuse11,pin11,uu011,uu11,uui11,pinuse12,pin12,uu012,uu12,uui12,uradcon0,uradcov0,uradcon1,uradcov1,uradcon2,uradcov2,uradcon3,uradcov3,ucon0,ucov0,ucon1,ucov1,ucon2,ucov2,ucon3,ucov3,uradconi0,uradcovi0,uradconi1,uradcovi1,uradconi2,uradcovi2,uradconi3,uradcovi3,uconi0,ucovi0,uconi1,ucovi1,uconi2,ucovi2,uconi3,ucovi3}=mylist;
+(*Import[filein,"Table"][[1]];*)
 
 rho0=N[uu00,20];
+rhouu0i=N[uui0,20];
 Tud0=N[{uu01,uu02,uu03,uu04},20];
 Rud0=N[{uu08,uu09,uu010,uu011},20];
 Tudi=N[{uui1,uui2,uui3,uui4},20];
 Rudi=N[{uui8,uui9,uui10,uui11},20];
 rhoi=N[pinuse0,20];
 ui=N[pinuse1,20];
+rhoii=N[pin0,20];
+uii=N[pin1,20];
 uu1i=N[ucon1,20];
 uu2i=N[ucon2,20];
 uu3i=N[ucon3,20];
+uu1ii=N[uconi1,20];
+uu2ii=N[uconi2,20];
+uu3ii=N[uconi3,20];
 Eri=N[pinuse8,20];
+Erii=N[pin8,20];
 uru1i=N[uradcon1,20];
 uru2i=N[uradcon2,20];
 uru3i=N[uradcon3,20];
+uru1ii=N[uradconi1,20];
+uru2ii=N[uradconi2,20];
+uru3ii=N[uradconi3,20];
 
-Clear[uu1,uu2,uu3];
-consts={rho->rhoi,u->ui,uu1->uu1i,uu2->uu2i,uu3->uu3i,Er->Eri,uru1->uru1i,uru2->uru2i,uru3->uru3i};
+Clear[uu1,uu2,uu3,uru1,uru2,uru3];
+(* pinuse that gives uu?i and uru?i can be way off if failure from harm*)
+constspinuse={rho->rhoi,u->ui,uu1->uu1i,uu2->uu2i,uu3->uu3i,Er->Eri,uru1->uru1i,uru2->uru2i,uru3->uru3i,whichuconi0->N[ucon0,20],whichuradconi0->N[uradcon0,20]};
+ICpinuse={{rho,rhoi},{u,ui},{uu1,uu1i},{uu2,uu2i},{uu3,uu3i},{Er,Eri},{uru1,uru1i},{uru2,uru2i},{uru3,uru3i}};
+constspin={rho->rhoii,u->uii,uu1->uu1ii,uu2->uu2ii,uu3->uu3ii,Er->Erii,uru1->uru1ii,uru2->uru2ii,uru3->uru3ii,whichuconi0->N[uconi0,20],whichuradconi0->N[uradconi0,20]};
+ICpin={{rho,rhoii},{u,uii},{uu1,uu1ii},{uu2,uu2ii},{uu3,uu3ii},{Er,Erii},{uru1,uru1ii},{uru2,uru2ii},{uru3,uru3ii}};
+If[0==1,
+consts=constspinuse;
+IC=ICpinuse;
+,
+consts=constspin;
+IC=ICpin;
+];
+
 
 gcon={{gn11,gn12,gn13,gn14},{gn12,gn22,gn23,gn24},{gn13,gn23,gn33,gn34},{gn14,gn24,gn34,gn44}};
 gcov=FullSimplify[Inverse[gcon]];
@@ -60,8 +112,11 @@ ucov=ucon.gcov;
 soluu0=Solve[ucon.ucov==-1,uu0];
 soluu0a=soluu0[[1,1,2]];
 soluu0b=soluu0[[2,1,2]];
-uu0=soluu0b;
-Print["uu0=",uu0//.consts];
+vala=soluu0a//.consts;
+valb=soluu0b//.consts;
+testucon0= whichuconi0//.consts;
+If[Abs[vala -testucon0]<Abs[valb- ucon0],uu0=soluu0a,uu0=soluu0b];
+Print["ucon0=",ucon0," uu0=",uu0//.consts," uu0=",soluu0a//.consts];
 
 Clear[uru0,uru1,uru2,uru3];
 uradcon={uru0,uru1,uru2,uru3};
@@ -69,8 +124,11 @@ uradcov=uradcon.gcov;
 soluru0=Solve[uradcon.uradcov==-1,uru0];
 soluru0a=soluru0[[1,1,2]];
 soluru0b=soluru0[[2,1,2]];
-uru0=soluru0b;
-Print["uru0=",uru0//.consts];
+valra=soluru0a//.consts;
+valrb=soluru0b//.consts;
+testuradcon0= whichuradconi0//.consts;
+If[Abs[valra -testuradcon0]<Abs[valrb - uradcon0],uru0=soluru0a,uru0=soluru0b];
+Print["uradcon0=",uradcon0," uru0=",uru0//.consts," uru0=",soluru0a//.consts];
 
 
 arad=118316261947818976;
@@ -99,59 +157,148 @@ Ruu=Sum[Rud[[ii,jj]]*ucov[[ii]]*ucon[[jj]],{ii,1,4},{jj,1,4}];
 Ru=Table[Sum[Rud[[ii,jj]]*ucon[[jj]],{jj,1,4}],{ii,1,4}];
 Gu=Table[-(kappa*Ru[[ii]]+lambda*ucon[[ii]])-kappaes*(Ru[[ii]]+Ruu*ucon[[ii]]),{ii,1,4}];
 Gd=Table[Sum[Gu[[ii]]*gcov[[ii,jj]],{ii,1,4}],{jj,1,4}];
-ferr0=rhou[[1]]-rho0;
-(*dt=0*)
-ferr1=Table[(Rud[[1,ii]]-Rud0[[ii]])+dt*Gd[[ii]],{ii,1,4}];
-ferr2=Table[(Tud[[1,ii]]-Tud0[[ii]])-dt*Gd[[ii]],{ii,1,4}];
+
 
 Print["ucon=",ucon//.consts];
 Print["uradcon=",uradcon//.consts];
 
-ferr0//.consts;
-ferr1//.consts;
-ferr2//.consts;
-Ru//.consts;
-Ruu//.consts;
-Gu//.consts;
-Gd//.consts;
+(* Just Ui only *)
+dtcold=0;
+ferr0=rhou[[1]]-rhouu0i;
+ferr1=Table[(Rud[[1,ii]]-Rudi[[ii]])+dtcold*Gd[[ii]],{ii,1,4}];
+ferr2=Table[(Tud[[1,ii]]-Tudi[[ii]])-dtcold*Gd[[ii]],{ii,1,4}];
+chooseresult=constspin;
+Print["Aresult=",chooseresult];
+ferr0=ferr0/rho//.chooseresult;
+ferr1=(ferr1/Max[u,Er])//.chooseresult;
+ferr2=(ferr2/Max[u,Er])//.chooseresult;
+ferrtotal=Join[{ferr0},ferr1,ferr2];
+ferrabs=Sqrt[Re[ferrtotal].Re[ferrtotal]];
+Print["Aferr=",ferrtotal,"ferrabs=",ferrabs];
+If[ferrabs<10^(-8),resulttype="Good",resulttype="Bad"];
+cc=0;
+Print["A",resulttype," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
 
-result=FindRoot[{ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0,ferr2[[1]]==0,ferr2[[2]]==0,ferr2[[3]]==0,ferr2[[4]]==0},{{rho,rhoi},{u,ui},{uu1,uu1i},{uu2,uu2i},{uu3,uu3i},{Er,Eri},{uru1,uru1i},{uru2,uru2i},{uru3,uru3i}},WorkingPrecision->40,MaxIterations->1000,AccuracyGoal->20,PrecisionGoal->20,DampingFactor->2];
-Print["0result=",result];
-Print["0ferr0=",(ferr0/rhoi)//.result];
-Print["0ferr1=",(ferr1/Max[ui,Eri])//.result];
-Print["0ferr2=",(ferr2/Max[ui,Eri])//.result];
+
+(* normal *)
+ferr0=rhou[[1]]-rho0;
+(*dt=0*)
+ferr1=Table[(Rud[[1,ii]]-Rud0[[ii]])+dt*Gd[[ii]],{ii,1,4}];
+ferr2=Table[(Tud[[1,ii]]-Tud0[[ii]])-dt*Gd[[ii]],{ii,1,4}];
+Print["0FindRoot"];
+resultorig=Block[{cc=0},{FindRoot[{ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0,ferr2[[1]]==0,ferr2[[2]]==0,ferr2[[3]]==0,ferr2[[4]]==0},ICpin,WorkingPrecision->18,MaxIterations->1000,AccuracyGoal->14,PrecisionGoal->14, StepMonitor:>cc++],cc}];
+(*DampingFactor->2,*)
+result=resultorig[[1]];cc=resultorig[[2]];
+chooseresult=result;
+Print["0result=",chooseresult];
+ferr0=ferr0/Abs[rho]//.chooseresult;
+ferr1=(ferr1/Max[Abs[u//.chooseresult],Abs[Er//.chooseresult]])//.chooseresult;
+ferr2=(ferr2/Max[Abs[u//.chooseresult],Abs[Er//.chooseresult]])//.chooseresult;
+ferrtotal=Join[{ferr0},ferr1,ferr2];
+ferrabs=Sqrt[Re[ferrtotal].Re[ferrtotal]];
+Print["0ferr=",ferrtotal,"ferrabs=",ferrabs];
+If[ferrabs<10^(-8),resulttype="Good",resulttype="Bad"];
+Print["0",resulttype," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
+
+(* normal but more working precision to test if matters *)
+If[resulttype=="Bad",
+ferr0=rhou[[1]]-rho0;
+(*dt=0*)
+ferr1=Table[(Rud[[1,ii]]-Rud0[[ii]])+dt*Gd[[ii]],{ii,1,4}];
+ferr2=Table[(Tud[[1,ii]]-Tud0[[ii]])-dt*Gd[[ii]],{ii,1,4}];
+Print["0WFindRoot"];
+resultorig=Block[{cc=0},{FindRoot[{ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0,ferr2[[1]]==0,ferr2[[2]]==0,ferr2[[3]]==0,ferr2[[4]]==0},ICpin,WorkingPrecision->60,MaxIterations->1000,AccuracyGoal->14,PrecisionGoal->14, StepMonitor:>cc++],cc}];
+(*DampingFactor->2,*)
+result=resultorig[[1]];cc=resultorig[[2]];
+chooseresult=result;
+Print["0Wresult=",chooseresult];
+ferr0=ferr0/Abs[rho]//.chooseresult;
+ferr1=(ferr1/Max[Abs[u//.chooseresult],Abs[Er//.chooseresult]])//.chooseresult;
+ferr2=(ferr2/Max[Abs[u//.chooseresult],Abs[Er//.chooseresult]])//.chooseresult;
+ferrtotal=Join[{ferr0},ferr1,ferr2];
+ferrabs=Sqrt[Re[ferrtotal].Re[ferrtotal]];
+Print["0Wferr=",ferrtotal,"ferrabs=",ferrabs];
+If[ferrabs<10^(-8),resulttype="Good",resulttype="Bad"];
+Print["0W",resulttype," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
+];
+
+(* normal but revert to gammamax if still can't find solution *)
+If[resulttype=="Bad",
+ferr0=rhou[[1]]-rho0;
+(*dt=0*)
+alphasq=1/-N[gcon[[1,1]],20];
+gammarelmax=1000;
+gammamax=gammarelmax/alphasq;
+mysolsuru1=Solve[uru0==gammamax,uru1];
+Print["GOD: ",mysolsuru1//.consts];
+choosesolsuru1=mysolsuru1[[2,1,2]];
+mysolsuru1;
+ferr1=Table[(Rud[[1,ii]]-Rud0[[ii]])+dt*Gd[[ii]],{ii,1,4}];
+(* replace equation for uru1 *)
+ferr1[[1]]=choosesolsuru1-uru1;
+ferr2=Table[(Tud[[1,ii]]-Tud0[[ii]])-dt*Gd[[ii]],{ii,1,4}];
+Print["0MFindRoot"];
+resultorig=Block[{cc=0},{FindRoot[{ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0,ferr2[[1]]==0,ferr2[[2]]==0,ferr2[[3]]==0,ferr2[[4]]==0},ICpin,WorkingPrecision->60,MaxIterations->1000,AccuracyGoal->14,PrecisionGoal->14, StepMonitor:>cc++],cc}];
+(*DampingFactor->2,*)
+result=resultorig[[1]];cc=resultorig[[2]];
+chooseresult=result;
+Print["0Mresult=",chooseresult];
+ferr0=ferr0/Abs[rho]//.chooseresult;
+ferr1=(ferr1/Max[Abs[u//.chooseresult],Abs[Er//.chooseresult]])//.chooseresult;
+ferr2=(ferr2/Max[Abs[u//.chooseresult],Abs[Er//.chooseresult]])//.chooseresult;
+ferrtotal=Join[{ferr0},ferr1,ferr2];
+ferrabs=Sqrt[Re[ferrtotal].Re[ferrtotal]];
+Print["0Mferr=",ferrtotal,"ferrabs=",ferrabs];
+If[ferrabs<10^(-8),resulttype="Good",resulttype="Bad"];
+Print["0M",resulttype," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
+];
+
+
+
 
 (* Just Ui *)
 dtcold=0;
-ferr0=rhou[[1]]-rho0;
+ferr0=rhou[[1]]-rhouu0i;
 ferr1=Table[(Rud[[1,ii]]-Rudi[[ii]])+dtcold*Gd[[ii]],{ii,1,4}];
 ferr2=Table[(Tud[[1,ii]]-Tudi[[ii]])-dtcold*Gd[[ii]],{ii,1,4}];
 eqns={ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0,ferr2[[1]]==0,ferr2[[2]]==0,ferr2[[3]]==0,ferr2[[4]]==0};
-result=FindRoot[eqns,{{rho,rhoi},{u,ui},{uu1,uu1i},{uu2,uu2i},{uu3,uu3i},{Er,Eri},{uru1,uru1i},{uru2,uru2i},{uru3,uru3i}},WorkingPrecision->40,MaxIterations->10000,AccuracyGoal->20,PrecisionGoal->20];
-Print["1result=",result];
-Print["1ferr0=",(ferr0/rhoi)//.result];
-Print["1ferr1=",(ferr1/Max[ui,Eri])//.result];
-Print["1ferr2=",(ferr2/Max[ui,Eri])//.result];
+Print["1FindRoot"];
+resultorig=Block[{cc=0},{FindRoot[eqns,ICpin,WorkingPrecision->18,MaxIterations->1000,AccuracyGoal->14,PrecisionGoal->14, StepMonitor:>cc++],cc}];
+result=resultorig[[1]];cc=resultorig[[2]];
+chooseresult=result;
+Print["1result=",chooseresult];
+ferr0=ferr0/Abs[rho]//.chooseresult;
+ferr1=(ferr1/Max[Abs[u//.chooseresult],Abs[Er//.chooseresult]])//.chooseresult;
+ferr2=(ferr2/Max[Abs[u//.chooseresult],Abs[Er//.chooseresult]])//.chooseresult;
+ferrtotal=Join[{ferr0},ferr1,ferr2];
+ferrabs=Sqrt[Re[ferrtotal].Re[ferrtotal]];
+Print["1ferr=",ferrtotal,"ferrabs=",ferrabs];
+If[ferrabs<10^(-8),resulttype="Good",resulttype="Bad"];
+Print["1",resulttype," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
 
+
+(* OTHERS *)
+If[0,
 (* no-evolve M1 *)
 dtcold=0;
 ferr0=rhou[[1]]-rho0;
 ferr1=Table[(Rud[[1,ii]]-Rud0[[ii]])+dtcold*Gd[[ii]],{ii,1,4}];
 ferr2=Table[(Tud[[1,ii]]-Tud0[[ii]])-dtcold*Gd[[ii]],{ii,1,4}];
 eqns={ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0,ferr2[[1]]==0,ferr2[[2]]==0,ferr2[[3]]==0,ferr2[[4]]==0};
-result=FindRoot[eqns,{{rho,rhoi},{u,ui},{uu1,uu1i},{uu2,uu2i},{uu3,uu3i},{Er,Eri},{uru1,uru1i},{uru2,uru2i},{uru3,uru3i}},WorkingPrecision->40,MaxIterations->10000,AccuracyGoal->20,PrecisionGoal->20];
+Print["2FindRoot"];
+result=FindRoot[eqns,{{rho,rhoi},{u,ui},{uu1,uu1i},{uu2,uu2i},{uu3,uu3i},{Er,Eri},{uru1,uru1i},{uru2,uru2i},{uru3,uru3i}},WorkingPrecision->40,MaxIterations->10000,AccuracyGoal->14,PrecisionGoal->14];
 Print["2result=",result];
 Print["2ferr0=",(ferr0/rhoi)//.result];
 Print["2ferr1=",(ferr1/Max[ui,Eri])//.result];
 Print["2ferr2=",(ferr2/Max[ui,Eri])//.result];
 
-If[0,
+
 (* COLD M1 *)
-dtcold=0;
 ferr0=rhou[[1]]-rho0;
 ferr1=Table[(Rud[[1,ii]]-Rud0[[ii]])+dtcold*Gd[[ii]],{ii,1,4}];
 ferr2=Table[(Tud[[1,ii]]-Tud0[[ii]])-dtcold*Gd[[ii]],{ii,1,4}];
 eqns={ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0,ferr2[[1]]==0,ferr2[[3]]==0,ferr2[[4]]==0}//.{u->0};
+Print["2FindRoot"];
 result=FindRoot[eqns,{{rho,rhoi},{uu1,uu1i},{uu2,uu2i},{uu3,uu3i},{Er,Eri},{uru1,uru1i},{uru2,uru2i},{uru3,uru3i}},WorkingPrecision->40,MaxIterations->10000,AccuracyGoal->20,PrecisionGoal->20];
 Print["2result=",result];
 Print["2ferr0=",(ferr0/rhoi)//.result];
@@ -164,6 +311,7 @@ ferr0=rhou[[1]]-rho0;
 ferr1=Table[(Rud[[1,ii]]-Rud0[[ii]])+dtcold*Gd[[ii]],{ii,1,4}];
 ferr2=Table[(Tud[[1,ii]]-Tud0[[ii]])-dtcold*Gd[[ii]],{ii,1,4}];
 eqns={ferr0==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0,ferr2[[1]]==0,ferr2[[3]]==0,ferr2[[4]]==0}//.{u->0,Er->10^(-10)};
+Print["3FindRoot"];
 result=FindRoot[eqns,{{rho,rhoi},{uu1,uu1i},{uu2,uu2i},{uu3,uu3i},{uru1,uru1i},{uru2,uru2i},{uru3,uru3i}},WorkingPrecision->40,MaxIterations->10000,AccuracyGoal->20,PrecisionGoal->20];
 Print["3result=",result];
 Print["3ferr0=",(ferr0/rhoi)//.result];
@@ -176,12 +324,12 @@ mysolsuru1=Solve[uru0==gammamax,uru1];
 mysolsuru1//.consts;
 choosesolsuru1=mysolsuru1[[2,1,2]];
 mysolsuru1;
-dtcold=0;
 ferr0=rhou[[1]]-rho0;
 ferr1=Table[(Rud[[1,ii]]-Rud0[[ii]])+dtcold*Gd[[ii]],{ii,1,4}];
 ferr1[[1]]=choosesolsuru1==uru1;
 ferr2=Table[(Tud[[1,ii]]-Tud0[[ii]])-dtcold*Gd[[ii]],{ii,1,4}];
 eqns={ferr0==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0,ferr2[[1]]==0,ferr2[[3]]==0,ferr2[[4]]==0}//.{u->0,Er->10^(-10)};
+Print["4FindRoot"];
 result=FindRoot[eqns,{{rho,rhoi},{uu1,uu1i},{uu2,uu2i},{uu3,uu3i},{uru1,uru1i},{uru2,uru2i},{uru3,uru3i}},WorkingPrecision->40,MaxIterations->10000,AccuracyGoal->20,PrecisionGoal->20];
 Print["4result=",result];
 Print["4ferr0=",(ferr0/rhoi)//.result];

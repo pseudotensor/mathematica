@@ -103,7 +103,9 @@ If[whichcomputer==4,
 
 
 loadallwrappernotebooks;
+Print["Before"];
 dosolveimplicitwrapper;
+Print["After"];
 (* tells any scanning program for output that totally done *)
 Print["SUPERALLDONE"];
 
