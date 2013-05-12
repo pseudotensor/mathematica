@@ -198,7 +198,7 @@ ferrtotal=Join[{ferr0},ferr1,ferr2];
 ferrabs=Sqrt[Re[ferrtotal].Re[ferrtotal]];
 ferrabsim=Sqrt[Im[ferrtotal].Im[ferrtotal]];
 Print["Aferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
-If[ferrabs<10^(-6) && ferrabs>10^6*ferrabsim,resulttype="Good",resulttype="Bad"];
+If[ferrabs==0 || ferrabs<10^(-6) && ferrabs>10^6*ferrabsim,resulttype="Good",resulttype="Bad"];
 (* Using 10^(-6) because apparently harm doesn't have inversion solution any more accurate than this even for ldouble *)
 cc=0;
 Print["A",resulttype," ",CForm[ferrabs]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
@@ -227,7 +227,7 @@ ferrtotal=Join[{ferr0},ferr1,ferr2];
 ferrabs=Sqrt[Re[ferrtotal].Re[ferrtotal]];
 ferrabsim=Sqrt[Im[ferrtotal].Im[ferrtotal]];
 Print["0ferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
-If[ferrabs<10^(-8) && ferrabs>10^8*ferrabsim,resulttype="Good",resulttype="Bad"];
+If[ferrabs==0 || ferrabs<10^(-8) && ferrabs>10^8*ferrabsim,resulttype="Good",resulttype="Bad"];
 Print["0",resulttype," ",CForm[ferrabs]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
 Print["W and W' ",W//.chooseresult," ",Wp//.chooseresult];
 Print["DD",DD//.chooseresult];
@@ -264,7 +264,7 @@ ferrtotal=Join[{ferr0},ferr1,ferr2];
 ferrabs=Sqrt[Re[ferrtotal].Re[ferrtotal]];
 ferrabsim=Sqrt[Im[ferrtotal].Im[ferrtotal]];
 Print["0Wferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
-If[ferrabs<10^(-8) && ferrabs>10^8*ferrabsim,resulttype="Good",resulttype="Bad"];
+If[ferrabs==0 || ferrabs<10^(-8) && ferrabs>10^8*ferrabsim,resulttype="Good",resulttype="Bad"];
 Print["0W",resulttype," ",CForm[ferrabs]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
 ];
 
@@ -296,7 +296,7 @@ ferrtotal=Join[{ferr0},ferr1,ferr2];
 ferrabs=Sqrt[Re[ferrtotal].Re[ferrtotal]];
 ferrabsim=Sqrt[Im[ferrtotal].Im[ferrtotal]];
 Print["0Mferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
-If[ferrabs<10^(-8) && ferrabs>10^8*ferrabsim,resulttype="Good",resulttype="Bad"];
+If[ferrabs==0 || ferrabs<10^(-8) && ferrabs>10^8*ferrabsim,resulttype="Good",resulttype="Bad"];
 Print["0M",resulttype," ",CForm[ferrabs]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
 ];
 
@@ -323,7 +323,7 @@ ferrtotal=Join[{ferr0},ferr1,ferr2];
 ferrabs=Sqrt[Re[ferrtotal].Re[ferrtotal]];
 ferrabsim=Sqrt[Im[ferrtotal].Im[ferrtotal]];
 Print["1ferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
-If[ferrabs<10^(-8) && ferrabs>10^8*ferrabsim,resulttype="Good",resulttype="Bad"];
+If[ferrabs==0 || ferrabs<10^(-8) && ferrabs>10^8*ferrabsim,resulttype="Good",resulttype="Bad"];
 Print["1",resulttype," ",CForm[ferrabs]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
 Print["1UU ",rhou[[1]]//.chooseresult, " ",Rud[[1]]//.chooseresult," ",Tud[[1]]//.chooseresult];
 
@@ -345,7 +345,7 @@ ferrtotal=Join[{ferr0},ferr1,ferr2];
 ferrabs=Sqrt[Re[ferrtotal].Re[ferrtotal]];
 ferrabsim=Sqrt[Im[ferrtotal].Im[ferrtotal]];
 Print["2ferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
-If[ferrabs<10^(-8) && ferrabs>10^8*ferrabsim,resulttype="Good",resulttype="Bad"];
+If[ferrabs==0 || ferrabs<10^(-8) && ferrabs>10^8*ferrabsim,resulttype="Good",resulttype="Bad"];
 Print["2",resulttype," ",CForm[ferrabs]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
 Print["2UU ",rhou[[1]]//.chooseresult, " ",Rud[[1]]//.chooseresult," ",Tud[[1]]//.chooseresult];
 
