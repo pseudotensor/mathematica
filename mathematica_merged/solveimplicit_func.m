@@ -37,7 +37,7 @@ filein=StringJoin[Directory[],"/","fails.txt"];
 (*allfailsin=Import[filein,"Table"];*)
 (*filein=StringJoin["/data/jon/harmgit/longdoubleversion/runo","/","fails.txt"];*)
 str=OpenRead[filein];
-numfails=10000;
+numfails=76;
 COUNTFINDROOT=1;
 numele=134;
 Clear[j];
@@ -310,8 +310,8 @@ ferr1=Table[(Rud[[1,ii]]-Rudi[[ii]])+dtcold*Gd[[ii]],{ii,1,4}];
 ferr2=Table[(Tud[[1,ii]]-Tudi[[ii]])-dtcold*Gd[[ii]],{ii,1,4}];
 eqns={ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0,ferr2[[1]]==0,ferr2[[2]]==0,ferr2[[3]]==0,ferr2[[4]]==0};
 Print["1FindRoot"];
-myIC=ICpintest;
-(* myIC=ICpin; *)
+(*myIC=ICpintest;*)
+ myIC=ICpin; 
 resultorig=Block[{cc=0},{FindRoot[eqns,myIC,WorkingPrecision->18,MaxIterations->1000,AccuracyGoal->14,PrecisionGoal->14, StepMonitor:>cc++],cc}];
 result=resultorig[[1]];cc=resultorig[[2]];
 chooseresult=result;
