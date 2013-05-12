@@ -195,8 +195,9 @@ ferr0=ferr0/rho//.chooseresult;
 ferr1=(ferr1/Max[u,Er])//.chooseresult;
 ferr2=(ferr2/Max[u,Er])//.chooseresult;
 ferrtotal=Join[{ferr0},ferr1,ferr2];
+ferrabs=Sqrt[Re[ferrtotal].Re[ferrtotal]];
 ferrabsim=Sqrt[Im[ferrtotal].Im[ferrtotal]];
-Print["0ferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
+Print["Aferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
 If[ferrabs<10^(-6) && ferrabs>10^6*ferrabsim,resulttype="Good",resulttype="Bad"];
 (* Using 10^(-6) because apparently harm doesn't have inversion solution any more accurate than this even for ldouble *)
 cc=0;
