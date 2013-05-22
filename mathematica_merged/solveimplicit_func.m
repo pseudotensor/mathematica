@@ -37,9 +37,10 @@ filein=StringJoin[Directory[],"/","fails.txt"];
 (*allfailsin=Import[filein,"Table"];*)
 (*filein=StringJoin["/data/jon/harmgit/longdoubleversion/runo","/","fails.txt"];*)
 str=OpenRead[filein];
-numfails=76;
+numfails=2;
 COUNTFINDROOT=1;
 numele=134;
+doradonly=0;
 Clear[j];
 For[j=1,j<=numfails,j++,
 Clear[mylist];
@@ -100,6 +101,7 @@ constspinuse={rho->rhoi,u->ui,uu1->uu1i,uu2->uu2i,uu3->uu3i,Er->Eri,uru1->uru1i,
 ICpinuse={{rho,rhoi},{u,ui},{uu1,uu1i},{uu2,uu2i},{uu3,uu3i},{Er,Eri},{uru1,uru1i},{uru2,uru2i},{uru3,uru3i}};
 constspin={rho->rhoii,u->uii,uu1->uu1ii,uu2->uu2ii,uu3->uu3ii,Er->Erii,uru1->uru1ii,uru2->uru2ii,uru3->uru3ii,whichuconi0->N[uconi0,20],whichuradconi0->N[uradconi0,20]};
 ICpin={{rho,rhoii},{u,uii},{uu1,uu1ii},{uu2,uu2ii},{uu3,uu3ii},{Er,Erii},{uru1,uru1ii},{uru2,uru2ii},{uru3,uru3ii}};
+ICpinrad={{Er,Erii},{uru1,uru1ii},{uru2,uru2ii},{uru3,uru3ii}};
 ICpintest={{rho,0.81294331641668613088},{u,-0.39623582536829021164},{uu1,0.0059983053605683365108},{uu2,-6.050321005028674004*10^(-05)},{uu3,0.0016122825983277623461},{Er,8.4180452807836352799},{uru1,1.8487475475809896162*10^(-07)},{uru2,3.0057769907110685415*10^(-07)},{uru3,0.0020962681965309745859}};
 constspintest={rho->0.81294331641668613088,u->-0.39623582536829021164,uu1->0.0059983053605683365108,uu2->-6.050321005028674004*10^(-05),uu3->0.0016122825983277623461,Er->8.4180452807836352799,uru1->1.8487475475809896162*10^(-07),uru2->3.0057769907110685415*10^(-07),uru3->0.0020962681965309745859};
 If[0==1,
@@ -110,8 +112,7 @@ consts=constspin;
 IC=ICpin;
 ];
 
-
-gcon={{gn11,gn12,gn13,gn14},{gn12,gn22,gn23,gn24},{gn13,gn23,gn33,gn34},{gn14,gn24,gn34,gn44}};
+gcon=SetPrecision[{{gn11,gn12,gn13,gn14},{gn12,gn22,gn23,gn24},{gn13,gn23,gn33,gn34},{gn14,gn24,gn34,gn44}},20];
 gcov=FullSimplify[Inverse[gcon]];
 
 Clear[uu0,uu1,uu2,uu3];
@@ -184,6 +185,7 @@ Print["ucon=",ucon//.consts];
 Print["uradcon=",uradcon//.consts];
 
 (* Just Ui only *)
+If[doradonly==0,
 dtcold=0;
 ferr0=rhou[[1]]-rhouu0i;
 ferr1=Table[(Rud[[1,ii]]-Rudi[[ii]])+dtcold*Gd[[ii]],{ii,1,4}];
@@ -204,9 +206,26 @@ cc=0;
 Print["A",resulttype," ",CForm[ferrabs]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
 Print["AUU ",rhou[[1]]//.chooseresult, " ",Rud[[1]]//.chooseresult," ",Tud[[1]]//.chooseresult];
 Print["W and W' ",W//.chooseresult," ",Wp//.chooseresult];
-
+];
+If[doradonly==1,
+ferr1=Table[(Rud[[1,ii]]-Rudi[[ii]]),{ii,1,4}];
+chooseresult=constspin;
+(*chooseresult=constspintest;*)
+Print["ARADresult=",chooseresult];
+ferr1=(ferr1/Max[Er,Er])//.chooseresult;
+ferrtotal=ferr1;
+ferrabs=Sqrt[Re[ferrtotal].Re[ferrtotal]];
+ferrabsim=Sqrt[Im[ferrtotal].Im[ferrtotal]];
+Print["ARADferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
+If[ferrabs==0 || ferrabs<10^(-6) && ferrabs>10^6*ferrabsim,resulttype="Good",resulttype="Bad"];
+(* Using 10^(-6) because apparently harm doesn't have inversion solution any more accurate than this even for ldouble *)
+cc=0;
+Print["ARAD",resulttype," ",CForm[ferrabs]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
+Print["ARADUU ",Rud[[1]]//.chooseresult];
+];
 
 (* normal *)
+If[doradonly==0,
 ferr0=rhou[[1]]-rho0;
 (*dt=0*)
 ferr1=Table[(Rud[[1,ii]]-Rud0[[ii]])+dt*Gd[[ii]],{ii,1,4}];
@@ -221,8 +240,8 @@ resultorig=FindRoot[{ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4
 chooseresult=result;
 Print["0result=",chooseresult];
 ferr0=ferr0/Abs[rho]//.chooseresult;
-ferr1=(ferr1/Max[Abs[u//.chooseresult],Abs[Er//.chooseresult]])//.chooseresult;
-ferr2=(ferr2/Max[Abs[u//.chooseresult],Abs[Er//.chooseresult]])//.chooseresult;
+ferr1=(ferr1/Max[Abs[Er//.chooseresult],Abs[Er//.chooseresult]])//.chooseresult;
+ferr2=(ferr2/Max[Abs[Er//.chooseresult],Abs[Er//.chooseresult]])//.chooseresult;
 ferrtotal=Join[{ferr0},ferr1,ferr2];
 ferrabs=Sqrt[Re[ferrtotal].Re[ferrtotal]];
 ferrabsim=Sqrt[Im[ferrtotal].Im[ferrtotal]];
@@ -243,23 +262,63 @@ Print["term2a=",P//.chooseresult];
 Print["term2b=",(bsq/2)//.chooseresult];
 Print["term3=",-bcon[[1]]*bcov[[1]]//.chooseresult];
 Print["uu0=",uu0//.chooseresult," uru0=",uru0//.chooseresult];
+];
+
+(* normal radiation only *)
+If[doradonly==1,
+ferr1=Table[(Rud[[1,ii]]-Rud0[[ii]]),{ii,1,4}];
+Print["0RADFindRoot"];
+(*DampingFactor->2,*)
+If[COUNTFINDROOT==1,
+resultorig=Block[{cc=0},{FindRoot[{ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0},ICpinrad,WorkingPrecision->18,MaxIterations->1000,AccuracyGoal->14,PrecisionGoal->14, StepMonitor:>cc++],cc}];result=resultorig[[1]];cc=resultorig[[2]];
+,
+resultorig=FindRoot[{ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0},ICpinrad,WorkingPrecision->40,MaxIterations->1000,AccuracyGoal->14,PrecisionGoal->14, StepMonitor:>Print["Step to: ",Er," ",uru1," ",uru2," ",uru3]];result=resultorig;
+];
+chooseresult=result;
+Print["0RADresult=",chooseresult];
+ferr1=(ferr1/Max[Abs[Er//.chooseresult],Abs[Er//.chooseresult]])//.chooseresult;
+ferrtotal=ferr1;
+ferrabs=Sqrt[Re[ferrtotal].Re[ferrtotal]];
+ferrabsim=Sqrt[Im[ferrtotal].Im[ferrtotal]];
+Print["0RADferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
+If[ferrabs==0 || ferrabs<10^(-8) && ferrabs>10^8*ferrabsim,resulttype="Good",resulttype="Bad"];
+Print["0RAD",resulttype," ",CForm[ferrabs]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
+Print["UU ",Rud[[1]]//.chooseresult];
+];
 
 
 (* normal but more working precision to test if matters *)
-If[resulttype=="Bad",
+If[resulttype=="Bad" &&doradonly==0,
 ferr0=rhou[[1]]-rho0;
+ferr0norm=10^(-300)+Abs[rhou[[1]]]+Abs[rho0];
 (*dt=0*)
 ferr1=Table[(Rud[[1,ii]]-Rud0[[ii]])+dt*Gd[[ii]],{ii,1,4}];
+ferr1norm=10^(-300)+Table[(Abs[Rud[[1,ii]]]+Abs[Rud0[[ii]]])+Abs[dt*Gd[[ii]]],{ii,1,4}];
 ferr2=Table[(Tud[[1,ii]]-Tud0[[ii]])-dt*Gd[[ii]],{ii,1,4}];
+ferr2norm=10^(-300)+Table[(Abs[Tud[[1,ii]]]+Abs[Tud0[[ii]]])+Abs[dt*Gd[[ii]]],{ii,1,4}];
+(*ferr0=ferr0/ferr0norm;
+ferr1=ferr1/ferr1norm;
+ferr2=ferr2/ferr2norm;
+*)
 Print["0WFindRoot"];
-resultorig=Block[{cc=0},{FindRoot[{ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0,ferr2[[1]]==0,ferr2[[2]]==0,ferr2[[3]]==0,ferr2[[4]]==0},ICpin,WorkingPrecision->60,MaxIterations->1000,AccuracyGoal->14,PrecisionGoal->14, StepMonitor:>cc++],cc}];
+resultorig=Block[{cc=0},{FindRoot[{ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0,ferr2[[1]]==0,ferr2[[2]]==0,ferr2[[3]]==0,ferr2[[4]]==0},ICpin,WorkingPrecision->60,MaxIterations->1000,AccuracyGoal->30,PrecisionGoal->30, StepMonitor:>cc++],cc}];
 (*DampingFactor->2,*)
 result=resultorig[[1]];cc=resultorig[[2]];
 chooseresult=result;
 Print["0Wresult=",chooseresult];
-ferr0=ferr0/Abs[rho]//.chooseresult;
-ferr1=(ferr1/Max[Abs[u//.chooseresult],Abs[Er//.chooseresult]])//.chooseresult;
-ferr2=(ferr2/Max[Abs[u//.chooseresult],Abs[Er//.chooseresult]])//.chooseresult;
+(*ferr0=ferr0/Abs[rho]//.chooseresult;
+ferr1=(ferr1/Max[Abs[Er//.chooseresult],Abs[Er//.chooseresult]])//.chooseresult;
+ferr2=(ferr2/Max[Abs[Er//.chooseresult],Abs[Er//.chooseresult]])//.chooseresult;
+*)
+ferr0=ferr0/ferr0norm//.chooseresult;
+ferr1=ferr1/ferr1norm//.chooseresult;
+ferr2=ferr2/ferr2norm//.chooseresult;
+
+(*
+ferr0=ferr0//.chooseresult;
+ferr1=ferr1//.chooseresult;
+ferr2=ferr2//.chooseresult;
+*)
 ferrtotal=Join[{ferr0},ferr1,ferr2];
 ferrabs=Sqrt[Re[ferrtotal].Re[ferrtotal]];
 ferrabsim=Sqrt[Im[ferrtotal].Im[ferrtotal]];
@@ -269,7 +328,7 @@ Print["0W",resulttype," ",CForm[ferrabs]," ",myj," ",failtype," ",myid," ",failn
 ];
 
 (* normal but revert to gammamax if still can't find solution *)
-If[resulttype=="Bad",
+If[resulttype=="Bad" && doradonly==0,
 ferr0=rhou[[1]]-rho0;
 (*dt=0*)
 alphasq=1/-N[gcon[[1,1]],20];
@@ -300,10 +359,36 @@ If[ferrabs==0 || ferrabs<10^(-8) && ferrabs>10^8*ferrabsim,resulttype="Good",res
 Print["0M",resulttype," ",CForm[ferrabs]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
 ];
 
+If[resulttype=="Bad" && doradonly==1,
+alphasq=1/-N[gcon[[1,1]],20];
+gammarelmax=1000;
+gammamax=gammarelmax/alphasq;
+mysolsuru1=Solve[uru0==gammamax,uru1];
+Print["GODRAD: ",mysolsuru1//.consts];
+choosesolsuru1=mysolsuru1[[2,1,2]];
+mysolsuru1;
+ferr1=Table[(Rud[[1,ii]]-Rud0[[ii]]),{ii,1,4}];
+(* replace equation for uru1 *)
+ferr1[[1]]=choosesolsuru1-uru1;
+Print["0MRADFindRoot"];
+resultorig=Block[{cc=0},{FindRoot[{ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0},ICpinrad,WorkingPrecision->60,MaxIterations->1000,AccuracyGoal->14,PrecisionGoal->14, StepMonitor:>cc++],cc}];
+(*DampingFactor->2,*)
+result=resultorig[[1]];cc=resultorig[[2]];
+chooseresult=result;
+Print["0MRADresult=",chooseresult];
+ferr1=(ferr1/Max[Abs[Er//.chooseresult],Abs[Er//.chooseresult]])//.chooseresult;
+ferrtotal=ferr1;
+ferrabs=Sqrt[Re[ferrtotal].Re[ferrtotal]];
+ferrabsim=Sqrt[Im[ferrtotal].Im[ferrtotal]];
+Print["0MRADferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
+If[ferrabs==0 || ferrabs<10^(-8) && ferrabs>10^8*ferrabsim,resulttype="Good",resulttype="Bad"];
+Print["0MRAD",resulttype," ",CForm[ferrabs]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
+];
 
 
 
 (* Just Ui *)
+If[doradonly==0,
 dtcold=0;
 ferr0=rhou[[1]]-rhouu0i;
 ferr1=Table[(Rud[[1,ii]]-Rudi[[ii]])+dtcold*Gd[[ii]],{ii,1,4}];
@@ -348,7 +433,7 @@ Print["2ferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
 If[ferrabs==0 || ferrabs<10^(-8) && ferrabs>10^8*ferrabsim,resulttype="Good",resulttype="Bad"];
 Print["2",resulttype," ",CForm[ferrabs]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
 Print["2UU ",rhou[[1]]//.chooseresult, " ",Rud[[1]]//.chooseresult," ",Tud[[1]]//.chooseresult];
-
+];
 
 (* OTHERS *)
 If[0,
