@@ -37,7 +37,7 @@ filein=StringJoin[Directory[],"/","fails.txt"];
 (*allfailsin=Import[filein,"Table"];*)
 (*filein=StringJoin["/data/jon/harmgit/longdoubleversion/runo","/","fails.txt"];*)
 str=OpenRead[filein];
-numfails=2;
+numfails=85;
 COUNTFINDROOT=1;
 numele=134;
 doradonly=0;
@@ -231,9 +231,13 @@ ferr0=rhou[[1]]-rho0;
 ferr1=Table[(Rud[[1,ii]]-Rud0[[ii]])+dt*Gd[[ii]],{ii,1,4}];
 ferr2=Table[(Tud[[1,ii]]-Tud0[[ii]])-dt*Gd[[ii]],{ii,1,4}];
 Print["0FindRoot"];
+If[CheckJacobian==1,
+gold=1;
+];
 (*DampingFactor->2,*)
 If[COUNTFINDROOT==1,
-resultorig=Block[{cc=0},{FindRoot[{ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0,ferr2[[1]]==0,ferr2[[2]]==0,ferr2[[3]]==0,ferr2[[4]]==0},ICpin,WorkingPrecision->18,MaxIterations->1000,AccuracyGoal->14,PrecisionGoal->14, StepMonitor:>cc++],cc}];result=resultorig[[1]];cc=resultorig[[2]];
+resultorig=Block[{cc=0},{FindRoot[{ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0,ferr2[[1]]==0,ferr2[[2]]==0,ferr2[[3]]==0,ferr2[[4]]==0},ICpin,WorkingPrecision->18,MaxIterations->1000,AccuracyGoal->14,PrecisionGoal->14,StepMonitor:>cc++],cc}];result=resultorig[[1]];cc=resultorig[[2]];
+(* , Jacobian->FiniteDifference *) (* shows how Symbolic Jacobian is crucial *)
 ,
 resultorig=FindRoot[{ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0,ferr2[[1]]==0,ferr2[[2]]==0,ferr2[[3]]==0,ferr2[[4]]==0},ICpin,WorkingPrecision->18,MaxIterations->1000,AccuracyGoal->14,PrecisionGoal->14, StepMonitor:>Print["Step to:",rho," ",u," ",uu1," ",uu2," ",uu3," ",Er," ",uru1," ",uru2," ",uru3]];result=resultorig;
 ];
