@@ -99,6 +99,7 @@ numele=134; (* don't change *)
 Clear[j];
 
 ccUi=0;
+ccUiS=0;
 ccUU0=0;
 ccUU0S=0;
 cc0=0;
@@ -107,6 +108,7 @@ cc0W=0;
 cc0WS=0;
 
 ccUimax=0;
+ccUiSmax=0;
 ccUU0max=0;
 ccUU0Smax=0;
 cc0max=0;
@@ -115,6 +117,7 @@ cc0Wmax=0;
 cc0WSmax=0;
 
 errorUi=0;
+errorUiS=0;
 errorUU0=0;
 errorUU0S=0;
 error0=0;
@@ -123,6 +126,7 @@ error0W=0;
 error0WS=0;
 
 errorUimax=0;
+errorUiSmax=0;
 errorUU0max=0;
 errorUU0Smax=0;
 error0max=0;
@@ -143,11 +147,11 @@ Close[str];
 
 (* some reports *)
 numfailsN=N[numfails];
-Print["average cc counts: ",Round[ccUi/numfailsN]," ",Round[ccUU0/numfailsN]," ",Round[ccUU0S/numfailsN]," ",Round[cc0/numfailsN]," ",Round[cc0S/numfailsN]," ",Round[cc0W/numfailsN]," ",Round[cc0WS/numfailsN] ];
-Print["ccmax counts: ",Round[ccUimax]," ",Round[ccUU0max]," ",Round[ccUU0Smax]," ",Round[cc0max]," ",Round[cc0Smax]," ",Round[cc0Wmax]," ",Round[cc0WSmax] ];
+Print["average cc counts: ",Round[ccUi/numfailsN]," ",Round[ccUiS/numfailsN]," ",Round[ccUU0/numfailsN]," ",Round[ccUU0S/numfailsN]," ",Round[cc0/numfailsN]," ",Round[cc0S/numfailsN]," ",Round[cc0W/numfailsN]," ",Round[cc0WS/numfailsN] ];
+Print["ccmax counts: ",Round[ccUimax]," ",Round[ccUiSmax]," ",Round[ccUU0max]," ",Round[ccUU0Smax]," ",Round[cc0max]," ",Round[cc0Smax]," ",Round[cc0Wmax]," ",Round[cc0WSmax] ];
 
-Print["average error counts: ",CForm[errorUi/numfailsN]," ",CForm[errorUU0/numfailsN]," ",CForm[errorUU0S/numfailsN]," ",CForm[error0/numfailsN]," ",CForm[error0S/numfailsN]," ",CForm[error0W/numfailsN]," ",CForm[error0WS/numfailsN] ];
-Print["errormax counts: ",CForm[errorUimax]," ",CForm[errorUU0max]," ",CForm[errorUU0Smax]," ",CForm[error0max]," ",CForm[error0Smax]," ",CForm[error0Wmax]," ",CForm[error0WSmax] ];
+Print["average error counts: ",CForm[errorUi/numfailsN]," ",CForm[errorUiS/numfailsN]," ",CForm[errorUU0/numfailsN]," ",CForm[errorUU0S/numfailsN]," ",CForm[error0/numfailsN]," ",CForm[error0S/numfailsN]," ",CForm[error0W/numfailsN]," ",CForm[error0WS/numfailsN] ];
+Print["errormax counts: ",CForm[errorUimax]," ",CForm[errorUiSmax]," ",CForm[errorUU0max]," ",CForm[errorUU0Smax]," ",CForm[error0max]," ",CForm[error0Smax]," ",CForm[error0Wmax]," ",CForm[error0WSmax] ];
 
 ];
 
@@ -328,6 +332,40 @@ Print["A",resulttype1," ",CForm[ferrabs]," ",myj," ",failtype," ",myid," ",failn
 Print["AUU ",rhou[[1]]//.chooseresult, " ",Rud[[1]]//.chooseresult," ",Tud[[1]]//.chooseresult];
 Print["W and W' ",W//.chooseresult," ",Wp//.chooseresult];
 ];
+(* get inversion of Ui for entropy (i.e. no source term) *)
+If[doradonly==0,
+ferr0=rhou[[1]]-rhouu0i;
+dtcold=0;
+ferr1=Table[(Rud[[1,ii]]-Rudi[[ii]])+dtcold*Gd[[ii]],{ii,1,4}];
+ferr2=Table[(Tud[[1,ii]]-Tudi[[ii]])-dtcold*Gd[[ii]],{ii,1,4}];
+(* entropy error function still function of u, not changing independent variable to S or anything like that *)
+ferr2[[1]]=T*(Sc-Sci -dtcold*GS); (* lab-frame version *)
+
+Print["ASFindRoot"];
+(*DampingFactor->2,*)
+resultorig=Block[{cc=0},{FindRoot[{ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0,ferr2[[1]]==0,ferr2[[2]]==0,ferr2[[3]]==0,ferr2[[4]]==0},ICpin,WorkingPrecision->Uwprec,MaxIterations->1000,AccuracyGoal->Utolprec,PrecisionGoal->Utolprec, Jacobian->JacobianType,StepMonitor:>cc++],cc}];result=resultorig[[1]];cc=resultorig[[2]];
+chooseresult=result;
+Print["ASresult=",chooseresult];
+ferr0=ferr0/Abs[rho]//.chooseresult;
+ferr1=(ferr1/Max[Abs[(Er//.chooseresult)],Abs[(Er//.chooseresult)]])//.chooseresult;
+ferr2=(ferr2/Max[Abs[(Er//.chooseresult)],Abs[(Er//.chooseresult)]])//.chooseresult;
+ferrtotal=Join[{ferr0},ferr1,ferr2];
+ferrabs=Sqrt[myRe[ferrtotal].myRe[ferrtotal]];
+ferrabsim=Sqrt[myIm[ferrtotal].myIm[ferrtotal]];
+Print["ASferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
+complexprims=myRe[(u//.chooseresult)]<myIm[(u//.chooseresult)]/badtol||myRe[(rho//.chooseresult)]<myIm[(rho//.chooseresult)]/badtol||myRe[(Er//.chooseresult)]<myIm[(Er//.chooseresult)]/badtol;
+If[complexprims==1,Print["AScomplexprims"];];
+If[ferrabs==0 || ferrabs<badtol && ferrabsim<badtol&&complexprims==False,resulttype4SnoG="Good",resulttype4SnoG="Bad"];
+Print["AS",resulttype4SnoG," ",CForm[ferrabs]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
+chooseresultUU0noG=chooseresult;
+If[Re[(u//.chooseresult)]<=0,Print["ASresultnegu"];];
+If[Re[(rho//.chooseresult)]<=0,Print["ASresultnegrho"];];
+If[Re[(Er//.chooseresult)]<=0,Print["ASresultnegEr"];];
+If[myRe[(u//.chooseresult)]<myIm[(u//.chooseresult)]/badtol,Print["ASresultcomplexu"];];
+If[myRe[(rho//.chooseresult)]<myIm[(rho//.chooseresult)]/badtol,Print["ASresultcomplexrho"];];
+If[myRe[(Er//.chooseresult)]<myIm[(Er//.chooseresult)]/badtol,Print["ASresultcomplexEr"];];
+];
+
 If[doradonly==1,
 ferr1=Table[(Rud[[1,ii]]-Rudi[[ii]]),{ii,1,4}];
 chooseresult=constspin;
@@ -384,6 +422,44 @@ If[Re[(Er//.chooseresult)]<=0,Print["1resultnegEr"];];
 If[myRe[(u//.chooseresult)]<myIm[(u//.chooseresult)]/badtol,Print["1resultcomplexu"];];
 If[myRe[(rho//.chooseresult)]<myIm[(rho//.chooseresult)]/badtol,Print["1resultcomplexrho"];];
 If[myRe[(Er//.chooseresult)]<myIm[(Er//.chooseresult)]/badtol,Print["1resultcomplexEr"];];
+
+(* get inversion of Ui for entropy (i.e. no source term) *)
+If[doradonly==0,
+ferr0=rhou[[1]]-rhouu0i;
+dtcold=0;
+ferr1=Table[(Rud[[1,ii]]-Rudi[[ii]])+dtcold*Gd[[ii]],{ii,1,4}];
+ferr2=Table[(Tud[[1,ii]]-Tudi[[ii]])-dtcold*Gd[[ii]],{ii,1,4}];
+(* entropy error function still function of u, not changing independent variable to S or anything like that *)
+ferr2[[1]]=T*(Sc-Sci -dtcold*GS); (* lab-frame version *)
+
+Print["1SFindRoot"];
+(*DampingFactor->2,*)
+resultorig=Block[{cc=0},{FindRoot[{ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0,ferr2[[1]]==0,ferr2[[2]]==0,ferr2[[3]]==0,ferr2[[4]]==0},ICpin,WorkingPrecision->Uwprec,MaxIterations->1000,AccuracyGoal->Utolprec,PrecisionGoal->Utolprec, Jacobian->JacobianType,StepMonitor:>cc++],cc}];result=resultorig[[1]];cc=resultorig[[2]];
+chooseresult=result;
+Print["1Sresult=",chooseresult];
+ferr0=ferr0/Abs[rho]//.chooseresult;
+ferr1=(ferr1/Max[Abs[(Er//.chooseresult)],Abs[(Er//.chooseresult)]])//.chooseresult;
+ferr2=(ferr2/Max[Abs[(Er//.chooseresult)],Abs[(Er//.chooseresult)]])//.chooseresult;
+ferrtotal=Join[{ferr0},ferr1,ferr2];
+ferrabs=Sqrt[myRe[ferrtotal].myRe[ferrtotal]];
+ferrabsim=Sqrt[myIm[ferrtotal].myIm[ferrtotal]];
+Print["1Sferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
+complexprims=myRe[(u//.chooseresult)]<myIm[(u//.chooseresult)]/badtol||myRe[(rho//.chooseresult)]<myIm[(rho//.chooseresult)]/badtol||myRe[(Er//.chooseresult)]<myIm[(Er//.chooseresult)]/badtol;
+If[complexprims==1,Print["AScomplexprims"];];
+If[ferrabs==0 || ferrabs<badtol && ferrabsim<badtol&&complexprims==False,resulttype4SnoG="Good",resulttype4SnoG="Bad"];
+Print["1S",resulttype4SnoG," ",CForm[ferrabs]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
+chooseresultUU0noG=chooseresult;
+ccUiS=ccUiS+cc;
+ccUiSmax=Max[ccUiSmax,cc];
+errorUiS=errorUiS+ferrabs+ferrabsim;
+errorUiSmax=Max[errorUiSmax,ferrabs+ferrabsim];
+If[Re[(u//.chooseresult)]<=0,Print["1Sresultnegu"];];
+If[Re[(rho//.chooseresult)]<=0,Print["1Sresultnegrho"];];
+If[Re[(Er//.chooseresult)]<=0,Print["1SresultnegEr"];];
+If[myRe[(u//.chooseresult)]<myIm[(u//.chooseresult)]/badtol,Print["1Sresultcomplexu"];];
+If[myRe[(rho//.chooseresult)]<myIm[(rho//.chooseresult)]/badtol,Print["1Sresultcomplexrho"];];
+If[myRe[(Er//.chooseresult)]<myIm[(Er//.chooseresult)]/badtol,Print["1SresultcomplexEr"];];
+];
 
 
 (* Just UU0 corresponding to "initial+flux" contribution *)
