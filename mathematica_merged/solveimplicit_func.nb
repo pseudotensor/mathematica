@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       145,          7]
-NotebookDataLength[    289186,       6721]
-NotebookOptionsPosition[    288152,       6683]
-NotebookOutlinePosition[    288530,       6699]
-CellTagsIndexPosition[    288487,       6696]
+NotebookDataLength[    290492,       6754]
+NotebookOptionsPosition[    289458,       6716]
+NotebookOutlinePosition[    289836,       6732]
+CellTagsIndexPosition[    289793,       6729]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -5441,7 +5441,7 @@ Cell[BoxData[
        RowBox[{
        "Check", " ", "if", " ", "entropy", " ", "should", " ", "have", " ", 
         "been", " ", "used"}], " ", "*)"}], "\[IndentingNewLine]", 
-      RowBox[{"ugenergy", "=", 
+      RowBox[{"uenergy", "=", 
        RowBox[{"Re", "[", 
         RowBox[{"(", 
          RowBox[{"u", "//.", "chooseresult0"}], ")"}], "]"}]}], ";", 
@@ -5456,7 +5456,7 @@ Cell[BoxData[
         RowBox[{"(", 
          RowBox[{"Er", "//.", "chooseresult0"}], ")"}], "]"}]}], ";", 
       "\[IndentingNewLine]", "\[IndentingNewLine]", 
-      RowBox[{"ugentropy", "=", 
+      RowBox[{"uentropy", "=", 
        RowBox[{"Re", "[", 
         RowBox[{"(", 
          RowBox[{"u", "//.", "chooseresult0S"}], ")"}], "]"}]}], ";", 
@@ -5470,32 +5470,64 @@ Cell[BoxData[
        RowBox[{"Re", "[", 
         RowBox[{"(", 
          RowBox[{"Er", "//.", "chooseresult0S"}], ")"}], "]"}]}], ";", 
-      "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      "\[IndentingNewLine]", 
+      RowBox[{"complexentropy", "=", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"Re", "[", 
+          RowBox[{"(", 
+           RowBox[{"u", "//.", "chooseresult0S"}], ")"}], "]"}], "<", 
+         RowBox[{
+          RowBox[{"Im", "[", 
+           RowBox[{"(", 
+            RowBox[{"u", "//.", "chooseresult0S"}], ")"}], "]"}], "/", 
+          "badtol"}]}], "||", 
+        RowBox[{
+         RowBox[{"Re", "[", 
+          RowBox[{"(", 
+           RowBox[{"rho", "//.", "chooseresult0S"}], ")"}], "]"}], "<", 
+         RowBox[{
+          RowBox[{"Im", "[", 
+           RowBox[{"(", 
+            RowBox[{"rho", "//.", "chooseresult0S"}], ")"}], "]"}], "/", 
+          "badtol"}]}], "||", 
+        RowBox[{
+         RowBox[{"Re", "[", 
+          RowBox[{"(", 
+           RowBox[{"Er", "//.", "chooseresult0S"}], ")"}], "]"}], "<", 
+         RowBox[{
+          RowBox[{"Im", "[", 
+           RowBox[{"(", 
+            RowBox[{"Er", "//.", "chooseresult0S"}], ")"}], "]"}], "/", 
+          "badtol"}]}]}]}], ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
       RowBox[{"If", "[", 
        RowBox[{
         RowBox[{
-         RowBox[{"ugenergy", "\[LessEqual]", "0"}], " ", "&&", " ", 
-         RowBox[{"ugentropy", ">", "0"}]}], ",", 
+         RowBox[{"uenergy", "\[LessEqual]", "0"}], " ", "&&", " ", 
+         RowBox[{"uentropy", ">", "0"}], "&&", 
+         RowBox[{"complexentropy", "\[Equal]", "0"}]}], ",", 
         RowBox[{
          RowBox[{"Print", "[", "\"\<SHOULDUSEENTROPYNEGU\>\"", "]"}], ";"}]}],
         "]"}], ";", "\[IndentingNewLine]", 
       RowBox[{"If", "[", 
        RowBox[{
         RowBox[{
-         RowBox[{"rhogenergy", "\[LessEqual]", "0"}], " ", "&&", " ", 
-         RowBox[{"rhoentropy", ">", "0"}]}], ",", 
+         RowBox[{"rhoenergy", "\[LessEqual]", "0"}], " ", "&&", " ", 
+         RowBox[{"rhoentropy", ">", "0"}], "&&", 
+         RowBox[{"complexentropy", "\[Equal]", "0"}]}], ",", 
         RowBox[{
-         RowBox[{"Print", "[", "\"\<SHOULDUSEENTROPYNEGRHO\>\"", "]"}], 
-         ";"}]}], "]"}], ";", "\[IndentingNewLine]", 
+         RowBox[{"Print", "[", "\"\<SHOULDUSEENTROPYNEGU\>\"", "]"}], ";"}]}],
+        "]"}], ";", "\[IndentingNewLine]", 
       RowBox[{"If", "[", 
        RowBox[{
         RowBox[{
          RowBox[{"Erenergy", "\[LessEqual]", "0"}], " ", "&&", " ", 
-         RowBox[{"Erentropy", ">", "0"}]}], ",", 
+         RowBox[{"Erentropy", ">", "0"}], "&&", 
+         RowBox[{"complexentropy", "\[Equal]", "0"}]}], ",", 
         RowBox[{
-         RowBox[{"Print", "[", "\"\<SHOULDUSEENTROPYNEGER\>\"", "]"}], 
-         ";"}]}], "]"}], ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
-      "\[IndentingNewLine]", 
+         RowBox[{"Print", "[", "\"\<SHOULDUSEENTROPYNEGU\>\"", "]"}], ";"}]}],
+        "]"}], ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      "\[IndentingNewLine]", "\[IndentingNewLine]", "\[IndentingNewLine]", 
       RowBox[{"(*", " ", 
        RowBox[{
        "normal", " ", "but", " ", "revert", " ", "to", " ", "gammamax", " ", 
@@ -6654,7 +6686,8 @@ Cell[BoxData[
    3.5835124978061285`*^9, 3.583512500663292*^9}, {3.583512544834819*^9, 
    3.583512700612729*^9}, {3.5835128381185937`*^9, 3.5835128505443044`*^9}, {
    3.5835129008171797`*^9, 3.58351301935896*^9}, {3.583513129171241*^9, 
-   3.58351319611907*^9}, {3.5835133029381795`*^9, 3.583513418465788*^9}}],
+   3.58351319611907*^9}, {3.5835133029381795`*^9, 3.583513418465788*^9}, {
+   3.583513766692705*^9, 3.5835139380715075`*^9}}],
 
 Cell[BoxData["\[IndentingNewLine]"], "Input",
  InitializationCell->True,
@@ -6713,15 +6746,15 @@ Cell[1609, 59, 168, 3, 30, "Output"]
 }, Open  ]],
 Cell[1792, 65, 23612, 488, 2372, "Input",
  InitializationCell->True],
-Cell[25407, 555, 261737, 6101, 16892, "Input",
+Cell[25407, 555, 263043, 6134, 16972, "Input",
  InitializationCell->True],
-Cell[287147, 6658, 529, 8, 52, "Input",
+Cell[288453, 6691, 529, 8, 52, "Input",
  InitializationCell->True],
-Cell[287679, 6668, 221, 4, 31, "Input",
+Cell[288985, 6701, 221, 4, 31, "Input",
  InitializationCell->True],
-Cell[287903, 6674, 97, 2, 31, "Input",
+Cell[289209, 6707, 97, 2, 31, "Input",
  InitializationCell->True],
-Cell[288003, 6678, 145, 3, 31, "Input",
+Cell[289309, 6711, 145, 3, 31, "Input",
  InitializationCell->True]
 }
 ]
