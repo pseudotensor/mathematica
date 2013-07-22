@@ -62,7 +62,7 @@ dogammamax=0; (* whether to try gammamax for radiation case *)
  (* 18 = long doubles 14 = doubles *)
 (* normal working precision and tolerance *)
 normalwprec=14;
-normaltolprec=9; badtol=10^(-4);
+normaltolprec=9; badtol=10^(-5);
 (*normaltolprec=12; badtol=10^(-6);*)
 (*normaltolprec=6;  badtol=10^(-4);*)
 (* current harm choice *)
@@ -82,6 +82,39 @@ JacobianType={FiniteDifference,"DifferenceOrder"->1};
 (* read-in data *)
 numele=134; (* don't change *)
 Clear[j];
+
+ccUi=0;
+ccUU0=0;
+ccUU0S=0;
+cc0=0;
+cc0S=0;
+cc0W=0;
+cc0WS=0;
+
+ccUimax=0;
+ccUU0max=0;
+ccUU0Smax=0;
+cc0max=0;
+cc0Smax=0;
+cc0Wmax=0;
+cc0WSmax=0;
+
+errorUi=0;
+errorUU0=0;
+errorUU0S=0;
+error0=0;
+error0S=0;
+error0W=0;
+error0WS=0;
+
+errorUimax=0;
+errorUU0max=0;
+errorUU0Smax=0;
+error0max=0;
+error0Smax=0;
+error0Wmax=0;
+error0WSmax=0;
+
 For[j=1,j<=numfails,j++,
 Clear[mylist];
 mylist=0*Range[1,numele];
@@ -92,6 +125,14 @@ dosolveimplicitone[j,mylist];
 Print["Done=",j];
 ];
 Close[str];
+
+(* some reports *)
+Print["average cc counts: ",ccUi/numfails," ",ccUU0/numfails," ",ccUU0S/numfails," ",cc0/numfails," ",cc0S/numfails," ",cc0W/numfails," ",cc0WS/numfails];
+Print["ccmax counts: ",ccUimax," ",ccUU0max," ",ccUU0Smax," ",cc0max," ",cc0Smax," ",cc0Wmax," ",cc0WSmax];
+
+Print["average error counts: ",errorUi/numfails," ",errorUU0/numfails," ",errorUU0S/numfails," ",error0/numfails," ",error0S/numfails," ",error0W/numfails," ",error0WS/numfails];
+Print["errormax counts: ",errorUimax," ",errorUU0max," ",errorUU0Smax," ",error0max," ",error0Smax," ",error0Wmax," ",error0WSmax];
+
 ];
 
 
@@ -258,8 +299,8 @@ ferrabsim=Sqrt[Im[ferrtotal].Im[ferrtotal]];
 Print["Aferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
 If[ferrabs==0 || ferrabs<badtol && ferrabsim<badtol,resulttype1="Good",resulttype1="Bad"];
 (* Using badtol because apparently harm doesn't have inversion solution any more accurate than this even for ldouble *)
-cc=0;
-Print["A",resulttype1," ",CForm[ferrabs]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
+ccA=0;
+Print["A",resulttype1," ",CForm[ferrabs]," ",myj," ",failtype," ",myid," ",failnum, " ccA=",ccA];
 Print["AUU ",rhou[[1]]//.chooseresult, " ",Rud[[1]]//.chooseresult," ",Tud[[1]]//.chooseresult];
 Print["W and W' ",W//.chooseresult," ",Wp//.chooseresult];
 ];
@@ -275,8 +316,8 @@ ferrabsim=Sqrt[Im[ferrtotal].Im[ferrtotal]];
 Print["ARADferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
 If[ferrabs==0 || ferrabs<badtol && ferrabsim<badtol,resulttype2="Good",resulttype2="Bad"];
 (* Using badtol because apparently harm doesn't have inversion solution any more accurate than this even for ldouble *)
-cc=0;
-Print["ARAD",resulttype2," ",CForm[ferrabs]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
+ccARAD=0;
+Print["ARAD",resulttype2," ",CForm[ferrabs]," ",myj," ",failtype," ",myid," ",failnum, " ccARAD=",ccARAD];
 Print["ARADUU ",Rud[[1]]//.chooseresult];
 ];
 
@@ -305,6 +346,10 @@ If[ferrabs==0 || ferrabs<badtol&& ferrabsim<badtol,resulttype10="Good",resulttyp
 Print["1",resulttype10," ",CForm[ferrabs]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
 Print["1UU ",rhou[[1]]//.chooseresult, " ",Rud[[1]]//.chooseresult," ",Tud[[1]]//.chooseresult];
 chooseresultUi=chooseresult;
+ccUi=ccUi+cc;
+ccUimax=Max[ccUimax,cc];
+errorUi=errorUi+ferrabs+ferrabsim;
+errorUimax=Max[errorUimax,ferrabs+ferrabsim];
 
 (* Just UU0 corresponding to "initial+flux" contribution *)
 dtcold=0;
@@ -327,7 +372,11 @@ Print["2ferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
 If[ferrabs==0 || ferrabs<badtol&& ferrabsim<badtol,resulttype11="Good",resulttype11="Bad"];
 Print["2",resulttype11," ",CForm[ferrabs]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
 Print["2UU ",rhou[[1]]//.chooseresult, " ",Rud[[1]]//.chooseresult," ",Tud[[1]]//.chooseresult];
-chooseresultU0=chooseresult;
+chooseresultUU0=chooseresult;
+ccUU0=ccUU0+cc;
+ccUU0max=Max[ccUU0max,cc];
+errorUU0=errorUU0+ferrabs+ferrabsim;
+errorUU0max=Max[errorUU0max,ferrabs+ferrabsim];
 ];
 
 
@@ -363,8 +412,8 @@ If[whichmhd==4,
 Rudff=ucov.Rud.ucon;
 Erff=ucov.Rud.ucon;
 Tudff=ucov.Tud.ucon;
-Rud0ff=(ucov.Rud.ucon)//.chooseresultU0;
-Tud0ff=(ucov.Tud.ucon)//.chooseresultU0;
+Rud0ff=Rudff//.chooseresultUU0;
+Tud0ff=Tudff//.chooseresultUU0;
 Gdff=Gd.ucon;
 dtau=dt*ucov[[1]]; (* correct fully comoving quantity *)
 Gdff=(-kappa*Erff+lambda);
@@ -395,6 +444,10 @@ ferrabsim=Sqrt[Im[ferrtotal].Im[ferrtotal]];
 Print["0ferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
 If[ferrabs==0 || ferrabs<badtol && ferrabsim<badtol,resulttype3="Good",resulttype3="Bad"];
 Print["0",resulttype3," ",CForm[ferrabs]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
+cc0=cc0+cc;
+cc0max=Max[cc0max,cc];
+error0=error0+ferrabs+ferrabsim;
+error0max=Max[error0max,ferrabs+ferrabsim];
 Print["W and W' ",W//.chooseresult," ",Wp//.chooseresult];
 Print["DD",DD//.chooseresult];
 Print["UU ",rhou[[1]]//.chooseresult, " ",Rud[[1]]//.chooseresult," ",Tud[[1]]//.chooseresult];
@@ -414,11 +467,11 @@ Print["uu0=",uu0//.chooseresult," uru0=",uru0//.chooseresult];
 (* get inversion of UU0 for entropy (i.e. no source term) *)
 If[doradonly==0,
 ferr0=rhou[[1]]-rho0;
-dt=0;
-ferr1=Table[(Rud[[1,ii]]-Rud0[[ii]])+dt*Gd[[ii]],{ii,1,4}];
-ferr2=Table[(Tud[[1,ii]]-Tud0[[ii]])-dt*Gd[[ii]],{ii,1,4}];
+dtcold=0;
+ferr1=Table[(Rud[[1,ii]]-Rud0[[ii]])+dtcold*Gd[[ii]],{ii,1,4}];
+ferr2=Table[(Tud[[1,ii]]-Tud0[[ii]])-dtcold*Gd[[ii]],{ii,1,4}];
 (* entropy error function still function of u, not changing independent variable to S or anything like that *)
-ferr2[[1]]=T*(Sc-Sc0 -dt*GS); (* lab-frame version *)
+ferr2[[1]]=T*(Sc-Sc0 -dtcold*GS); (* lab-frame version *)
 
 Print["0SnoGFindRoot"];
 (*DampingFactor->2,*)
@@ -434,7 +487,11 @@ ferrabsim=Sqrt[Im[ferrtotal].Im[ferrtotal]];
 Print["0SnoGferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
 If[ferrabs==0 || ferrabs<badtol && ferrabsim<badtol,resulttype4SnoG="Good",resulttype4SnoG="Bad"];
 Print["0SnoG",resulttype4SnoG," ",CForm[ferrabs]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
-chooseresultU0noG=chooseresult;
+chooseresultUU0noG=chooseresult;
+ccUU0S=ccUU0S+cc;
+ccUU0Smax=Max[ccUU0Smax,cc];
+errorUU0S=errorUU0S+ferrabs+ferrabsim;
+errorUU0Smax=Max[errorUU0Smax,ferrabs+ferrabsim];
 ];
 
 (* normal but uses entropy instead of energy equation *)
@@ -458,8 +515,8 @@ ferr2[[1]]=Sc/ucon[[1]]-Sc0/uu0ii- (kappa Erff - lambda) dt/ucon[[1]]; (* accura
 If[whichentropy==4,
 (* fully fluid-frame version *)
 Erff=ucov.Rud.ucon;
-Scff=(ucov.(Sc/ucon[[1]])*ucon); (* i.e. u\mu S u^\mu   *)
-Sc0ff=Scff//.chooseresultU0noG;
+Scff=ucov.(Sc/ucon[[1]]*ucon); (* i.e. u\mu S u^\mu   *)
+Sc0ff=Scff//.chooseresultUU0noG;
 dtau=ucov[[1]]*dt;
 ferr2[[1]]=Scff-Sc0ff- (kappa Erff - lambda) dtau; 
 ];
@@ -488,6 +545,10 @@ ferrabsim=Sqrt[Im[ferrtotal].Im[ferrtotal]];
 Print["0Sferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
 If[ferrabs==0 || ferrabs<badtol && ferrabsim<badtol,resulttype4S="Good",resulttype4S="Bad"];
 Print["0S",resulttype4S," ",CForm[ferrabs]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
+cc0S=cc0S+cc;
+cc0Smax=Max[cc0Smax,cc];
+error0S=error0S+ferrabs+ferrabsim;
+error0Smax=Max[error0Smax,ferrabs+ferrabsim];
 Print["W and W' ",W//.chooseresult," ",Wp//.chooseresult];
 Print["DD",DD//.chooseresult];
 Print["UU ",rhou[[1]]//.chooseresult, " ",Rud[[1]]//.chooseresult," ",Tud[[1]]//.chooseresult];
@@ -566,8 +627,8 @@ If[whichmhd==4,
 Rudff=ucov.Rud.ucon;
 Erff=ucov.Rud.ucon;
 Tudff=ucov.Tud.ucon;
-Rud0ff=(ucov.Rud.ucon)//.chooseresultU0;
-Tud0ff=(ucov.Tud.ucon)//.chooseresultU0;
+Rud0ff=Rudff//.chooseresultUU0;
+Tud0ff=Tudff//.chooseresultUU0;
 Gdff=Gd.ucon;
 dtau=dt*ucov[[1]]; (* correct fully comoving quantity *)
 Gdff=(-kappa*Erff+lambda);
@@ -603,6 +664,10 @@ ferrabsim=Sqrt[Im[ferrtotal].Im[ferrtotal]];
 Print["0Wferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
 If[ferrabs==0 || ferrabs<badtol && ferrabsim<badtol,resulttype6="Good",resulttype6="Bad"];
 Print["0W",resulttype6," ",CForm[ferrabs]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
+cc0W=cc0W+cc;
+cc0Wmax=Max[cc0Wmax,cc];
+error0W=error0W+ferrabs+ferrabsim;
+error0Wmax=Max[error0Wmax,ferrabs+ferrabsim];
 ];
 
 (* normal but entropy *and* but more working precision to test if matters *)
@@ -632,8 +697,8 @@ ferr2norm[[1]]=10^(-300) + Abs[Sc/ucon[[1]]]+Abs[Sc0/uu0ii]+(Abs[kappa Erff]+Abs
 If[whichentropy==4,
 (* fully fluid-frame version *)
 Erff=ucov.Rud.ucon;
-Scff=(ucov.(Sc/ucon[[1]])*ucon); (* i.e. u\mu S u^\mu   *)
-Sc0ff=Scff//.chooseresultU0noG;
+Scff=ucov.(Sc/ucon[[1]]*ucon); (* i.e. u\mu S u^\mu   *)
+Sc0ff=Scff//.chooseresultUU0noG;
 dtau=ucov[[1]]*dt;
 ferr2[[1]]=Scff-Sc0ff- (kappa Erff - lambda) dtau; 
 ferr2norm[[1]]=10^(-300) + Abs[Scff]+Abs[Sc0ff]+(Abs[kappa Erff]+Abs[lambda]) dtau;
@@ -670,6 +735,10 @@ ferrabsim=Sqrt[Im[ferrtotal].Im[ferrtotal]];
 Print["0WSferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
 If[ferrabs==0 || ferrabs<badtol && ferrabsim<badtol,resulttype7S="Good",resulttype7S="Bad"];
 Print["0WS",resulttype7S," ",CForm[ferrabs]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
+cc0WS=cc0WS+cc;
+cc0WSmax=Max[cc0WSmax,cc];
+error0WS=error0WS+ferrabs+ferrabsim;
+error0WSmax=Max[error0WSmax,ferrabs+ferrabsim];
 ];
 
 (* normal but revert to gammamax if still can't find solution *)
