@@ -309,6 +309,9 @@ Print["Aferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
 If[ferrabs==0 || ferrabs<badtol && ferrabsim<badtol,resulttype1="Good",resulttype1="Bad"];
 (* Using badtol because apparently harm doesn't have inversion solution any more accurate than this even for ldouble *)
 ccA=0;
+If[u//.chooseresult<=0,Print["Aresultnegu"];];
+If[rho//.chooseresult<=0,Print["Aresultnegrho"];];
+If[Er//.chooseresult<=0,Print["AresultnegEr"];];
 Print["A",resulttype1," ",CForm[ferrabs]," ",myj," ",failtype," ",myid," ",failnum, " ccA=",ccA];
 Print["AUU ",rhou[[1]]//.chooseresult, " ",Rud[[1]]//.chooseresult," ",Tud[[1]]//.chooseresult];
 Print["W and W' ",W//.chooseresult," ",Wp//.chooseresult];
@@ -359,6 +362,9 @@ ccUi=ccUi+cc;
 ccUimax=Max[ccUimax,cc];
 errorUi=errorUi+ferrabs+ferrabsim;
 errorUimax=Max[errorUimax,ferrabs+ferrabsim];
+If[u//.chooseresult<=0,Print["1resultnegu"];];
+If[rho//.chooseresult<=0,Print["1resultnegrho"];];
+If[Er//.chooseresult<=0,Print["1resultnegEr"];];
 
 
 (* Just UU0 corresponding to "initial+flux" contribution *)
@@ -387,6 +393,9 @@ ccUU0=ccUU0+cc;
 ccUU0max=Max[ccUU0max,cc];
 errorUU0=errorUU0+ferrabs+ferrabsim;
 errorUU0max=Max[errorUU0max,ferrabs+ferrabsim];
+If[u//.chooseresult<=0,Print["2resultnegu"];];
+If[rho//.chooseresult<=0,Print["2resultnegrho"];];
+If[Er//.chooseresult<=0,Print["2resultnegEr"];];
 ];
 
 
@@ -459,7 +468,11 @@ cc0=cc0+cc;
 cc0max=Max[cc0max,cc];
 error0=error0+ferrabs+ferrabsim;
 error0max=Max[error0max,ferrabs+ferrabsim];
+If[u//.chooseresult<=0,Print["0resultnegu"];];
+If[rho//.chooseresult<=0,Print["0resultnegrho"];];
+If[Er//.chooseresult<=0,Print["0resultnegEr"];];
 ];
+chooseresult0=chooseresult;
 Print["W and W' ",W//.chooseresult," ",Wp//.chooseresult];
 Print["DD",DD//.chooseresult];
 Print["UU ",rhou[[1]]//.chooseresult, " ",Rud[[1]]//.chooseresult," ",Tud[[1]]//.chooseresult];
@@ -562,7 +575,11 @@ cc0S=cc0S+cc;
 cc0Smax=Max[cc0Smax,cc];
 error0S=error0S+ferrabs+ferrabsim;
 error0Smax=Max[error0Smax,ferrabs+ferrabsim];
+If[u//.chooseresult<=0,Print["0Sresultnegu"];];
+If[rho//.chooseresult<=0,Print["0Sresultnegrho"];];
+If[Er//.chooseresult<=0,Print["0SresultnegEr"];];
 ];
+chooseresult0S=chooseresult;
 Print["W and W' ",W//.chooseresult," ",Wp//.chooseresult];
 Print["DD",DD//.chooseresult];
 Print["UU ",rhou[[1]]//.chooseresult, " ",Rud[[1]]//.chooseresult," ",Tud[[1]]//.chooseresult];
@@ -682,6 +699,11 @@ cc0W=cc0W+cc;
 cc0Wmax=Max[cc0Wmax,cc];
 error0W=error0W+ferrabs+ferrabsim;
 error0Wmax=Max[error0Wmax,ferrabs+ferrabsim];
+If[u//.chooseresult<=0,Print["0Wresultnegu"];];
+If[rho//.chooseresult<=0,Print["0Wresultnegrho"];];
+If[Er//.chooseresult<=0,Print["0WresultnegEr"];];
+chooseresult0W=chooseresult;
+chooseresult0=chooseresult; (* overwrite if already set *)
 ];
 
 (* normal but entropy *and* but more working precision to test if matters *)
@@ -753,7 +775,28 @@ cc0WS=cc0WS+cc;
 cc0WSmax=Max[cc0WSmax,cc];
 error0WS=error0WS+ferrabs+ferrabsim;
 error0WSmax=Max[error0WSmax,ferrabs+ferrabsim];
+If[u//.chooseresult<=0,Print["0WSresultnegu"];];
+If[rho//.chooseresult<=0,Print["0WSresultnegrho"];];
+If[Er//.chooseresult<=0,Print["0WSresultnegEr"];];
+chooseresult0WS=chooseresult;
+chooseresult0S=chooseresult; (* overwrite if already set *)
 ];
+
+
+
+(* Check if entropy should have been used *)
+ugenergy=u//.chooseresult0;
+rhogenergy=rho//.chooseresult0;
+Ergenergy=Er//.chooseresult0;
+
+ugentropy=u//.chooseresult0S;
+rhogentropy=rho//.chooseresult0S;
+Ergentropy=Er//.chooseresult0S;
+
+If[ugenergy<=0 && ugentropy>0,Print["SHOULDUSEENTROPYNEGU"];];
+If[rhogenergy<=0 && rhoentropy>0,Print["SHOULDUSEENTROPYNEGRHO"];];
+If[Erenergy<=0 && Erentropy>0,Print["SHOULDUSEENTROPYNEGER"];];
+
 
 (* normal but revert to gammamax if still can't find solution *)
 If[dogammamax==1&&resulttype6=="Bad" && doradonly==0,
