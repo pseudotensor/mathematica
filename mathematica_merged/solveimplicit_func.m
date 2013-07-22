@@ -51,8 +51,10 @@ numfails=165; (* number of failures in fail file loaded in *)
 
 COUNTFINDROOT=1; (* 1 = show number of iterations, stored in "cc" variable and outputted in math.out *)
 
-whichentropy=1; (* 1 = lab-frame times T  ; 2 = Ramesh approximate fluid-frame entropy without flux contribution 3 = nearly completely accurate fluid-frame entropy version *)
-whichmhd=1; (* 1 = lab-frame for all quantities  2 = fluid-frame for energy terms  3= fluid-frame for energy terms using explicitly analytic source *)
+ (* 1 = lab-frame times T  ; 2 = Ramesh approximate fluid-frame entropy without flux contribution 3 = nearly completely accurate fluid-frame entropy version 4 = fully fluid frame version *)
+whichentropy=1;
+ (* 1 = lab-frame for all quantities  2 = fluid-frame for energy terms  3= fluid-frame for energy terms using explicitly analytic source 4 = fully fluid frame version *)
+whichmhd=1;
 
 doradonly=0; (* 0 = do mhd or entropy as normal   1 = do radiation only *)
 dogammamax=0; (* whether to try gammamax for radiation case *)
@@ -60,7 +62,8 @@ dogammamax=0; (* whether to try gammamax for radiation case *)
  (* 18 = long doubles 14 = doubles *)
 (* normal working precision and tolerance *)
 normalwprec=14;
-normaltolprec=12; badtol=10^(-6);
+normaltolprec=9; badtol=10^(-4);
+(*normaltolprec=12; badtol=10^(-6);*)
 (*normaltolprec=6;  badtol=10^(-4);*)
 (* current harm choice *)
 (*normaltolprec=9;  badtol=10^(-2);*)
@@ -408,6 +411,32 @@ Print["term3=",-bcon[[1]]*bcov[[1]]//.chooseresult];
 Print["uu0=",uu0//.chooseresult," uru0=",uru0//.chooseresult];
 ];
 
+(* get inversion of UU0 for entropy (i.e. no source term) *)
+If[doradonly==0,
+ferr0=rhou[[1]]-rho0;
+dt=0;
+ferr1=Table[(Rud[[1,ii]]-Rud0[[ii]])+dt*Gd[[ii]],{ii,1,4}];
+ferr2=Table[(Tud[[1,ii]]-Tud0[[ii]])-dt*Gd[[ii]],{ii,1,4}];
+(* entropy error function still function of u, not changing independent variable to S or anything like that *)
+ferr2[[1]]=T*(Sc-Sc0 -dt*GS); (* lab-frame version *)
+
+Print["0SnoGFindRoot"];
+(*DampingFactor->2,*)
+resultorig=Block[{cc=0},{FindRoot[{ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0,ferr2[[1]]==0,ferr2[[2]]==0,ferr2[[3]]==0,ferr2[[4]]==0},ICpin,WorkingPrecision->normalwprec,MaxIterations->1000,AccuracyGoal->normaltolprec,PrecisionGoal->normaltolprec, Jacobian->JacobianType,StepMonitor:>cc++],cc}];result=resultorig[[1]];cc=resultorig[[2]];
+chooseresult=result;
+Print["0SnoGresult=",chooseresult];
+ferr0=ferr0/Abs[rho]//.chooseresult;
+ferr1=(ferr1/Max[Abs[Er//.chooseresult],Abs[Er//.chooseresult]])//.chooseresult;
+ferr2=(ferr2/Max[Abs[Er//.chooseresult],Abs[Er//.chooseresult]])//.chooseresult;
+ferrtotal=Join[{ferr0},ferr1,ferr2];
+ferrabs=Sqrt[Re[ferrtotal].Re[ferrtotal]];
+ferrabsim=Sqrt[Im[ferrtotal].Im[ferrtotal]];
+Print["0SnoGferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
+If[ferrabs==0 || ferrabs<badtol && ferrabsim<badtol,resulttype4SnoG="Good",resulttype4SnoG="Bad"];
+Print["0SnoG",resulttype4SnoG," ",CForm[ferrabs]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
+chooseresultU0noG=chooseresult;
+];
+
 (* normal but uses entropy instead of energy equation *)
 If[doradonly==0,
 ferr0=rhou[[1]]-rho0;
@@ -425,6 +454,14 @@ If[whichentropy==3,
 Erff=ucov.Rud.ucon;
 (*ferr2[[1]]=(u-uii)-(gam u/rho) (rho-rhoii) - (kappa Erff - lambda) dt/ucon[[1]]; (* accurate fluid-frame version *)*)
 ferr2[[1]]=Sc/ucon[[1]]-Sc0/uu0ii- (kappa Erff - lambda) dt/ucon[[1]]; (* accurate fluid-frame version *)
+];
+If[whichentropy==4,
+(* fully fluid-frame version *)
+Erff=ucov.Rud.ucon;
+Scff=(ucov.(Sc/ucon[[1]])*ucon); (* i.e. u\mu S u^\mu   *)
+Sc0ff=Scff//.chooseresultU0noG;
+dtau=ucov[[1]]*dt;
+ferr2[[1]]=Scff-Sc0ff- (kappa Erff - lambda) dtau; 
 ];
 (* grep 0SGood math.out|wc;grep 0WSGood math.out|wc;grep 0WSBad math.out|wc *)
 (* grep 0Good math.out|wc;grep 0WGood math.out|wc;grep 0WBad math.out|wc *)
@@ -591,6 +628,15 @@ Erff=ucov.Rud.ucon;
 (*ferr2[[1]]=(u-uii)-(gam u/rho) (rho-rhoii) - (kappa Erff - lambda) dt/ucon[[1]]; (* accurate fluid-frame version *)*)
 ferr2[[1]]=Sc/ucon[[1]]-Sc0/uu0ii- (kappa Erff - lambda) dt/ucon[[1]]; (* accurate fluid-frame version *)
 ferr2norm[[1]]=10^(-300) + Abs[Sc/ucon[[1]]]+Abs[Sc0/uu0ii]+(Abs[kappa Erff]+Abs[lambda]) dt/Abs[ucon[[1]]];
+];
+If[whichentropy==4,
+(* fully fluid-frame version *)
+Erff=ucov.Rud.ucon;
+Scff=(ucov.(Sc/ucon[[1]])*ucon); (* i.e. u\mu S u^\mu   *)
+Sc0ff=Scff//.chooseresultU0noG;
+dtau=ucov[[1]]*dt;
+ferr2[[1]]=Scff-Sc0ff- (kappa Erff - lambda) dtau; 
+ferr2norm[[1]]=10^(-300) + Abs[Scff]+Abs[Sc0ff]+(Abs[kappa Erff]+Abs[lambda]) dtau;
 ];
 
 
