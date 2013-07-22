@@ -127,10 +127,11 @@ Print["Done=",j];
 Close[str];
 
 (* some reports *)
-Print["average cc counts: ",ccUi/numfails," ",ccUU0/numfails," ",ccUU0S/numfails," ",cc0/numfails," ",cc0S/numfails," ",cc0W/numfails," ",cc0WS/numfails];
+numfailsN=N[numfails];
+Print["average cc counts: ",ccUi/numfailsN," ",ccUU0/numfailsN," ",ccUU0S/numfailsN," ",cc0/numfailsN," ",cc0S/numfailsN," ",cc0W/numfailsN," ",cc0WS/numfailsN];
 Print["ccmax counts: ",ccUimax," ",ccUU0max," ",ccUU0Smax," ",cc0max," ",cc0Smax," ",cc0Wmax," ",cc0WSmax];
 
-Print["average error counts: ",errorUi/numfails," ",errorUU0/numfails," ",errorUU0S/numfails," ",error0/numfails," ",error0S/numfails," ",error0W/numfails," ",error0WS/numfails];
+Print["average error counts: ",errorUi/numfailsN," ",errorUU0/numfailsN," ",errorUU0S/numfailsN," ",error0/numfailsN," ",error0S/numfailsN," ",error0W/numfailsN," ",error0WS/numfailsN];
 Print["errormax counts: ",errorUimax," ",errorUU0max," ",errorUU0Smax," ",error0max," ",error0Smax," ",error0Wmax," ",error0WSmax];
 
 ];
@@ -351,6 +352,7 @@ ccUimax=Max[ccUimax,cc];
 errorUi=errorUi+ferrabs+ferrabsim;
 errorUimax=Max[errorUimax,ferrabs+ferrabsim];
 
+
 (* Just UU0 corresponding to "initial+flux" contribution *)
 dtcold=0;
 ferr0=rhou[[1]]-rho0;
@@ -444,10 +446,12 @@ ferrabsim=Sqrt[Im[ferrtotal].Im[ferrtotal]];
 Print["0ferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
 If[ferrabs==0 || ferrabs<badtol && ferrabsim<badtol,resulttype3="Good",resulttype3="Bad"];
 Print["0",resulttype3," ",CForm[ferrabs]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
+If[resulttype3=="Good",
 cc0=cc0+cc;
 cc0max=Max[cc0max,cc];
 error0=error0+ferrabs+ferrabsim;
 error0max=Max[error0max,ferrabs+ferrabsim];
+];
 Print["W and W' ",W//.chooseresult," ",Wp//.chooseresult];
 Print["DD",DD//.chooseresult];
 Print["UU ",rhou[[1]]//.chooseresult, " ",Rud[[1]]//.chooseresult," ",Tud[[1]]//.chooseresult];
@@ -545,10 +549,12 @@ ferrabsim=Sqrt[Im[ferrtotal].Im[ferrtotal]];
 Print["0Sferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
 If[ferrabs==0 || ferrabs<badtol && ferrabsim<badtol,resulttype4S="Good",resulttype4S="Bad"];
 Print["0S",resulttype4S," ",CForm[ferrabs]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
+If[resulttype4S=="Good",
 cc0S=cc0S+cc;
 cc0Smax=Max[cc0Smax,cc];
 error0S=error0S+ferrabs+ferrabsim;
 error0Smax=Max[error0Smax,ferrabs+ferrabsim];
+];
 Print["W and W' ",W//.chooseresult," ",Wp//.chooseresult];
 Print["DD",DD//.chooseresult];
 Print["UU ",rhou[[1]]//.chooseresult, " ",Rud[[1]]//.chooseresult," ",Tud[[1]]//.chooseresult];
