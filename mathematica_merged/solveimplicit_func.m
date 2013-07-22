@@ -128,11 +128,11 @@ Close[str];
 
 (* some reports *)
 numfailsN=N[numfails];
-Print["average cc counts: ",ccUi/numfailsN," ",ccUU0/numfailsN," ",ccUU0S/numfailsN," ",cc0/numfailsN," ",cc0S/numfailsN," ",cc0W/numfailsN," ",cc0WS/numfailsN];
-Print["ccmax counts: ",ccUimax," ",ccUU0max," ",ccUU0Smax," ",cc0max," ",cc0Smax," ",cc0Wmax," ",cc0WSmax];
+Print["average cc counts: ",Round[ccUi/numfailsN]," ",Round[ccUU0/numfailsN]," ",Round[ccUU0S/numfailsN]," ",Round[cc0/numfailsN]," ",Round[cc0S/numfailsN]," ",Round[cc0W/numfailsN]," ",Round[cc0WS/numfailsN] ];
+Print["ccmax counts: ",CForm[ccUimax]," ",CForm[ccUU0max]," ",CForm[ccUU0Smax]," ",CForm[cc0max]," ",CForm[cc0Smax]," ",CForm[cc0Wmax]," ",CForm[cc0WSmax] ];
 
-Print["average error counts: ",errorUi/numfailsN," ",errorUU0/numfailsN," ",errorUU0S/numfailsN," ",error0/numfailsN," ",error0S/numfailsN," ",error0W/numfailsN," ",error0WS/numfailsN];
-Print["errormax counts: ",errorUimax," ",errorUU0max," ",errorUU0Smax," ",error0max," ",error0Smax," ",error0Wmax," ",error0WSmax];
+Print["average error counts: ",Round[errorUi/numfailsN]," ",Round[errorUU0/numfailsN]," ",Round[errorUU0S/numfailsN]," ",Round[error0/numfailsN]," ",Round[error0S/numfailsN]," ",Round[error0W/numfailsN]," ",Round[error0WS/numfailsN] ];
+Print["errormax counts: ",CForm[errorUimax]," ",CForm[errorUU0max]," ",CForm[errorUU0Smax]," ",CForm[error0max]," ",CForm[error0Smax]," ",CForm[error0Wmax]," ",CForm[error0WSmax] ];
 
 ];
 
