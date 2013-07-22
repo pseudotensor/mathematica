@@ -542,6 +542,12 @@ ccUU0S=ccUU0S+cc;
 ccUU0Smax=Max[ccUU0Smax,cc];
 errorUU0S=errorUU0S+ferrabs+ferrabsim;
 errorUU0Smax=Max[errorUU0Smax,ferrabs+ferrabsim];
+If[Re[(u//.chooseresult)]<=0,Print["0SnoGresultnegu"];];
+If[Re[(rho//.chooseresult)]<=0,Print["0SnoGresultnegrho"];];
+If[Re[(Er//.chooseresult)]<=0,Print["0SnoGresultnegEr"];];
+If[Re[(u//.chooseresult)]<Im[(u//.chooseresult)]/badtol,Print["0SnoGresultcomplexu"];];
+If[Re[(rho//.chooseresult)]<Im[(rho//.chooseresult)]/badtol,Print["0SnoGresultcomplexrho"];];
+If[Re[(Er//.chooseresult)]<Im[(Er//.chooseresult)]/badtol,Print["0SnoGresultcomplexEr"];];
 ];
 
 (* normal but uses entropy instead of energy equation *)
