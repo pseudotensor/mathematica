@@ -68,6 +68,14 @@ normaltolprec=9; badtol=10^(-5);
 (* current harm choice *)
 (*normaltolprec=9;  badtol=10^(-2);*)
 
+(* tolerance for Ui, UU0, and UU0S *)
+(* point is that sometimes want to test if can get solution at harm-like tolerance using mathematica, but other times assume harm can get solution using more accurate method than 9D method, and then just want these to be good solution so only testing cases when G is also present *)
+(*Uwprec=normalwprec;*)
+(*Utolprec=normaltolprec;*)
+Uwprec=20;
+Utolprec=14;
+
+
 (* high working precision and tolerance *)
 Wwprec=60;
 Wtolprec=14;
@@ -332,7 +340,7 @@ eqns={ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0,ferr2[[1]
 Print["1FindRoot"];
 (*myIC=ICpintest;*)
  myIC=ICpin; 
-resultorig=Block[{cc=0},{FindRoot[eqns,myIC,WorkingPrecision->normalwprec,MaxIterations->1000,AccuracyGoal->normaltolprec,PrecisionGoal->normaltolprec, Jacobian->JacobianType, StepMonitor:>cc++],cc}];
+resultorig=Block[{cc=0},{FindRoot[eqns,myIC,WorkingPrecision->Uwprec,MaxIterations->1000,AccuracyGoal->Utolprec,PrecisionGoal->Utolprec, Jacobian->JacobianType, StepMonitor:>cc++],cc}];
 result=resultorig[[1]];cc=resultorig[[2]];
 chooseresult=result;
 Print["1result=",chooseresult];
@@ -360,7 +368,7 @@ ferr1=Table[(Rud[[1,ii]]-Rud0[[ii]])+dtcold*Gd[[ii]],{ii,1,4}];
 ferr2=Table[(Tud[[1,ii]]-Tud0[[ii]])-dtcold*Gd[[ii]],{ii,1,4}];
 eqns={ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0,ferr2[[1]]==0,ferr2[[2]]==0,ferr2[[3]]==0,ferr2[[4]]==0};
 Print["2FindRoot"];
-resultorig=Block[{cc=0},{FindRoot[eqns,ICpin,WorkingPrecision->normalwprec,MaxIterations->1000,AccuracyGoal->normaltolprec,PrecisionGoal->normaltolprec, Jacobian->JacobianType, StepMonitor:>cc++],cc}];
+resultorig=Block[{cc=0},{FindRoot[eqns,ICpin,WorkingPrecision->Uwprec,MaxIterations->1000,AccuracyGoal->Utolprec,PrecisionGoal->Utolprec, Jacobian->JacobianType, StepMonitor:>cc++],cc}];
 result=resultorig[[1]];cc=resultorig[[2]];
 chooseresult=result;
 Print["2result=",chooseresult];
@@ -479,7 +487,7 @@ ferr2[[1]]=T*(Sc-Sc0 -dtcold*GS); (* lab-frame version *)
 
 Print["0SnoGFindRoot"];
 (*DampingFactor->2,*)
-resultorig=Block[{cc=0},{FindRoot[{ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0,ferr2[[1]]==0,ferr2[[2]]==0,ferr2[[3]]==0,ferr2[[4]]==0},ICpin,WorkingPrecision->normalwprec,MaxIterations->1000,AccuracyGoal->normaltolprec,PrecisionGoal->normaltolprec, Jacobian->JacobianType,StepMonitor:>cc++],cc}];result=resultorig[[1]];cc=resultorig[[2]];
+resultorig=Block[{cc=0},{FindRoot[{ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0,ferr2[[1]]==0,ferr2[[2]]==0,ferr2[[3]]==0,ferr2[[4]]==0},ICpin,WorkingPrecision->Uwprec,MaxIterations->1000,AccuracyGoal->Utolprec,PrecisionGoal->Utolprec, Jacobian->JacobianType,StepMonitor:>cc++],cc}];result=resultorig[[1]];cc=resultorig[[2]];
 chooseresult=result;
 Print["0SnoGresult=",chooseresult];
 ferr0=ferr0/Abs[rho]//.chooseresult;
