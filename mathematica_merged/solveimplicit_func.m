@@ -487,6 +487,7 @@ ferrabsim=Sqrt[myIm[ferrtotal].myIm[ferrtotal]];
 Print["0ferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
 (* only look at densities since velocities can be very small in one component and ok *)
 complexprims=myRe[(u//.chooseresult)]<myIm[(u//.chooseresult)]/badtol||myRe[(rho//.chooseresult)]<myIm[(rho//.chooseresult)]/badtol||myRe[(Er//.chooseresult)]<myIm[(Er//.chooseresult)]/badtol;
+Print["0 complex prims=",complexprims];
 If[complexprims==1,Print["0complexprims"];];
 If[ferrabs==0 || ferrabs<badtol && ferrabsim<badtol &&complexprims==0,resulttype3="Good",resulttype3="Bad"];
 Print["0",resulttype3," ",CForm[ferrabs]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
