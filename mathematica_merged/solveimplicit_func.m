@@ -827,17 +827,20 @@ chooseresult0S=chooseresult; (* overwrite if already set *)
 
 
 (* Check if entropy should have been used *)
-ugenergy=Re[(u//.chooseresult0)];
+uenergy=Re[(u//.chooseresult0)];
 rhogenergy=Re[(rho//.chooseresult0)];
 Ergenergy=Re[(Er//.chooseresult0)];
 
-ugentropy=Re[(u//.chooseresult0S)];
+uentropy=Re[(u//.chooseresult0S)];
 rhogentropy=Re[(rho//.chooseresult0S)];
 Ergentropy=Re[(Er//.chooseresult0S)];
+complexentropy=Re[(u//.chooseresult0S)]<Im[(u//.chooseresult0S)]/badtol||Re[(rho//.chooseresult0S)]<Im[(rho//.chooseresult0S)]/badtol||Re[(Er//.chooseresult0S)]<Im[(Er//.chooseresult0S)]/badtol;
 
-If[ugenergy<=0 && ugentropy>0,Print["SHOULDUSEENTROPYNEGU"];];
-If[rhogenergy<=0 && rhoentropy>0,Print["SHOULDUSEENTROPYNEGRHO"];];
-If[Erenergy<=0 && Erentropy>0,Print["SHOULDUSEENTROPYNEGER"];];
+If[uenergy<=0 && uentropy>0&&complexentropy==0,Print["SHOULDUSEENTROPYNEGU"];];
+If[rhoenergy<=0 && rhoentropy>0&&complexentropy==0,Print["SHOULDUSEENTROPYNEGU"];];
+If[Erenergy<=0 && Erentropy>0&&complexentropy==0,Print["SHOULDUSEENTROPYNEGU"];];
+
+
 
 
 (* normal but revert to gammamax if still can't find solution *)
