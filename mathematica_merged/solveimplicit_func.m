@@ -341,10 +341,7 @@ ferr2=Table[(Tud[[1,ii]]-Tudi[[ii]])-dtcold*Gd[[ii]],{ii,1,4}];
 (* entropy error function still function of u, not changing independent variable to S or anything like that *)
 ferr2[[1]]=T*(Sc-Sci -dtcold*GS); (* lab-frame version *)
 
-Print["ASFindRoot"];
-(*DampingFactor->2,*)
-resultorig=Block[{cc=0},{FindRoot[{ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0,ferr2[[1]]==0,ferr2[[2]]==0,ferr2[[3]]==0,ferr2[[4]]==0},ICpin,WorkingPrecision->Uwprec,MaxIterations->1000,AccuracyGoal->Utolprec,PrecisionGoal->Utolprec, Jacobian->JacobianType,StepMonitor:>cc++],cc}];result=resultorig[[1]];cc=resultorig[[2]];
-chooseresult=result;
+chooseresult=constspin;
 Print["ASresult=",chooseresult];
 ferr0=ferr0/Abs[rho]//.chooseresult;
 ferr1=(ferr1/Max[Abs[(Er//.chooseresult)],Abs[(Er//.chooseresult)]])//.chooseresult;
