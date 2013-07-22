@@ -299,7 +299,7 @@ ferr2=Table[(Tud[[1,ii]]-Tudi[[ii]])-dtcold*Gd[[ii]],{ii,1,4}];
 chooseresult=constspin;
 (*chooseresult=constspintest;*)
 Print["Aresult=",chooseresult];
-ferr0=ferr0/(rho//.chooseresult);
+ferr0=(ferr0/rho)//.chooseresult;
 ferr1=(ferr1/Max[u,Er])//.chooseresult;
 ferr2=(ferr2/Max[u,Er])//.chooseresult;
 ferrtotal=Join[{ferr0},ferr1,ferr2];
@@ -314,7 +314,7 @@ ccA=0;
 If[Re[(u//.chooseresult)]<=0,Print["Aresultnegu"];];
 If[Re[(rho//.chooseresult)]<=0,Print["Aresultnegrho"];];
 If[Re[(Er//.chooseresult)]<=0,Print["AresultnegEr"];];
-If[Re[((u//.chooseresult))]<Im[((u//.chooseresult))]/badtol,Print["Aresultcomplexu"];];
+If[Re[(u//.chooseresult)]<Im[(u//.chooseresult)]/badtol,Print["Aresultcomplexu"];];
 If[Re[(rho//.chooseresult)]<Im[(rho//.chooseresult)]/badtol,Print["Aresultcomplexrho"];];
 If[Re[(Er//.chooseresult)]<Im[(Er//.chooseresult)]/badtol,Print["AresultcomplexEr"];];
 Print["A",resulttype1," ",CForm[ferrabs]," ",myj," ",failtype," ",myid," ",failnum, " ccA=",ccA];
