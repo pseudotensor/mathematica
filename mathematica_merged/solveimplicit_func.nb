@@ -10,16 +10,17 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       145,          7]
-NotebookDataLength[    210717,       4861]
-NotebookOptionsPosition[    209692,       4823]
-NotebookOutlinePosition[    210062,       4839]
-CellTagsIndexPosition[    210019,       4836]
+NotebookDataLength[    219001,       5041]
+NotebookOptionsPosition[    217967,       5003]
+NotebookOutlinePosition[    218345,       5019]
+CellTagsIndexPosition[    218302,       5016]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
 Notebook[{
 Cell[BoxData[""], "Input",
- CellChangeTimes->{{3.58335303049946*^9, 3.583353032075015*^9}}],
+ CellChangeTimes->{{3.58335303049946*^9, 3.583353032075015*^9}, {
+  3.5834551997310743`*^9, 3.583455202685243*^9}}],
 
 Cell[BoxData[
  RowBox[{"(*", " ", 
@@ -1237,9 +1238,11 @@ Cell[BoxData[
       RowBox[{"Print", "[", 
        RowBox[{"\"\<uradcon=\>\"", ",", 
         RowBox[{"uradcon", "//.", "consts"}]}], "]"}], ";", 
-      "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      "\[IndentingNewLine]", "\[IndentingNewLine]", "\[IndentingNewLine]", 
       RowBox[{"(*", " ", 
-       RowBox[{"Just", " ", "Ui", " ", "only"}], " ", "*)"}], 
+       RowBox[{
+       "Just", " ", "Ui", " ", "only", " ", "to", " ", "check", " ", "pi", 
+        RowBox[{"(", "Ui", ")"}], " ", "from", " ", "harm"}], " ", "*)"}], 
       "\[IndentingNewLine]", 
       RowBox[{"If", "[", 
        RowBox[{
@@ -1461,7 +1464,391 @@ Cell[BoxData[
              RowBox[{"[", "1", "]"}], "]"}], "//.", "chooseresult"}]}], "]"}],
           ";"}]}], "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
       "\[IndentingNewLine]", 
-      RowBox[{"(*", " ", "normal", " ", "*)"}], "\[IndentingNewLine]", 
+      RowBox[{"(*", " ", 
+       RowBox[{
+       "Just", " ", "Ui", " ", "corresponding", " ", "to", " ", "the", " ", 
+        "\"\<initial\>\"", " ", "contribution"}], " ", "*)"}], 
+      "\[IndentingNewLine]", 
+      RowBox[{"If", "[", 
+       RowBox[{
+        RowBox[{"doradonly", "\[Equal]", "0"}], ",", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"dtcold", "=", "0"}], ";", "\[IndentingNewLine]", 
+         RowBox[{"ferr0", "=", 
+          RowBox[{
+           RowBox[{"rhou", "[", 
+            RowBox[{"[", "1", "]"}], "]"}], "-", "rhouu0i"}]}], ";", 
+         "\[IndentingNewLine]", 
+         RowBox[{"ferr1", "=", 
+          RowBox[{"Table", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"(", 
+              RowBox[{
+               RowBox[{"Rud", "[", 
+                RowBox[{"[", 
+                 RowBox[{"1", ",", "ii"}], "]"}], "]"}], "-", 
+               RowBox[{"Rudi", "[", 
+                RowBox[{"[", "ii", "]"}], "]"}]}], ")"}], "+", 
+             RowBox[{"dtcold", "*", 
+              RowBox[{"Gd", "[", 
+               RowBox[{"[", "ii", "]"}], "]"}]}]}], ",", 
+            RowBox[{"{", 
+             RowBox[{"ii", ",", "1", ",", "4"}], "}"}]}], "]"}]}], ";", 
+         "\[IndentingNewLine]", 
+         RowBox[{"ferr2", "=", 
+          RowBox[{"Table", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"(", 
+              RowBox[{
+               RowBox[{"Tud", "[", 
+                RowBox[{"[", 
+                 RowBox[{"1", ",", "ii"}], "]"}], "]"}], "-", 
+               RowBox[{"Tudi", "[", 
+                RowBox[{"[", "ii", "]"}], "]"}]}], ")"}], "-", 
+             RowBox[{"dtcold", "*", 
+              RowBox[{"Gd", "[", 
+               RowBox[{"[", "ii", "]"}], "]"}]}]}], ",", 
+            RowBox[{"{", 
+             RowBox[{"ii", ",", "1", ",", "4"}], "}"}]}], "]"}]}], ";", 
+         "\[IndentingNewLine]", 
+         RowBox[{"eqns", "=", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"ferr0", "\[Equal]", "0"}], ",", 
+            RowBox[{
+             RowBox[{"ferr1", "[", 
+              RowBox[{"[", "1", "]"}], "]"}], "\[Equal]", "0"}], ",", 
+            RowBox[{
+             RowBox[{"ferr1", "[", 
+              RowBox[{"[", "2", "]"}], "]"}], "\[Equal]", "0"}], ",", 
+            RowBox[{
+             RowBox[{"ferr1", "[", 
+              RowBox[{"[", "3", "]"}], "]"}], "\[Equal]", "0"}], ",", 
+            RowBox[{
+             RowBox[{"ferr1", "[", 
+              RowBox[{"[", "4", "]"}], "]"}], "\[Equal]", "0"}], ",", 
+            RowBox[{
+             RowBox[{"ferr2", "[", 
+              RowBox[{"[", "1", "]"}], "]"}], "\[Equal]", "0"}], ",", 
+            RowBox[{
+             RowBox[{"ferr2", "[", 
+              RowBox[{"[", "2", "]"}], "]"}], "\[Equal]", "0"}], ",", 
+            RowBox[{
+             RowBox[{"ferr2", "[", 
+              RowBox[{"[", "3", "]"}], "]"}], "\[Equal]", "0"}], ",", 
+            RowBox[{
+             RowBox[{"ferr2", "[", 
+              RowBox[{"[", "4", "]"}], "]"}], "\[Equal]", "0"}]}], "}"}]}], 
+         ";", "\[IndentingNewLine]", 
+         RowBox[{"Print", "[", "\"\<1FindRoot\>\"", "]"}], ";", 
+         "\[IndentingNewLine]", 
+         RowBox[{"(*", 
+          RowBox[{
+           RowBox[{"myIC", "=", "ICpintest"}], ";"}], "*)"}], 
+         "\[IndentingNewLine]", " ", 
+         RowBox[{"myIC", "=", "ICpin"}], ";", " ", "\[IndentingNewLine]", 
+         RowBox[{"resultorig", "=", 
+          RowBox[{"Block", "[", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{"cc", "=", "0"}], "}"}], ",", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"FindRoot", "[", 
+               RowBox[{"eqns", ",", "myIC", ",", 
+                RowBox[{"WorkingPrecision", "\[Rule]", "normalwprec"}], ",", 
+                RowBox[{"MaxIterations", "\[Rule]", "1000"}], ",", 
+                RowBox[{"AccuracyGoal", "\[Rule]", "normaltolprec"}], ",", 
+                RowBox[{"PrecisionGoal", "\[Rule]", "normaltolprec"}], ",", 
+                " ", 
+                RowBox[{"Jacobian", "\[Rule]", "JacobianType"}], ",", " ", 
+                RowBox[{"StepMonitor", "\[RuleDelayed]", 
+                 RowBox[{"cc", "++"}]}]}], "]"}], ",", "cc"}], "}"}]}], 
+           "]"}]}], ";", "\[IndentingNewLine]", 
+         RowBox[{"result", "=", 
+          RowBox[{"resultorig", "[", 
+           RowBox[{"[", "1", "]"}], "]"}]}], ";", 
+         RowBox[{"cc", "=", 
+          RowBox[{"resultorig", "[", 
+           RowBox[{"[", "2", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+         RowBox[{"chooseresult", "=", "result"}], ";", "\[IndentingNewLine]", 
+         
+         RowBox[{"Print", "[", 
+          RowBox[{"\"\<1result=\>\"", ",", "chooseresult"}], "]"}], ";", 
+         "\[IndentingNewLine]", 
+         RowBox[{"ferr0", "=", 
+          RowBox[{
+           RowBox[{"ferr0", "/", 
+            RowBox[{"Abs", "[", "rho", "]"}]}], "//.", "chooseresult"}]}], 
+         ";", "\[IndentingNewLine]", 
+         RowBox[{"ferr1", "=", 
+          RowBox[{
+           RowBox[{"(", 
+            RowBox[{"ferr1", "/", 
+             RowBox[{"Max", "[", 
+              RowBox[{
+               RowBox[{"Abs", "[", 
+                RowBox[{"u", "//.", "chooseresult"}], "]"}], ",", 
+               RowBox[{"Abs", "[", 
+                RowBox[{"Er", "//.", "chooseresult"}], "]"}]}], "]"}]}], 
+            ")"}], "//.", "chooseresult"}]}], ";", "\[IndentingNewLine]", 
+         RowBox[{"ferr2", "=", 
+          RowBox[{
+           RowBox[{"(", 
+            RowBox[{"ferr2", "/", 
+             RowBox[{"Max", "[", 
+              RowBox[{
+               RowBox[{"Abs", "[", 
+                RowBox[{"u", "//.", "chooseresult"}], "]"}], ",", 
+               RowBox[{"Abs", "[", 
+                RowBox[{"Er", "//.", "chooseresult"}], "]"}]}], "]"}]}], 
+            ")"}], "//.", "chooseresult"}]}], ";", "\[IndentingNewLine]", 
+         RowBox[{"ferrtotal", "=", 
+          RowBox[{"Join", "[", 
+           RowBox[{
+            RowBox[{"{", "ferr0", "}"}], ",", "ferr1", ",", "ferr2"}], 
+           "]"}]}], ";", "\[IndentingNewLine]", 
+         RowBox[{"ferrabs", "=", 
+          RowBox[{"Sqrt", "[", 
+           RowBox[{
+            RowBox[{"Re", "[", "ferrtotal", "]"}], ".", 
+            RowBox[{"Re", "[", "ferrtotal", "]"}]}], "]"}]}], ";", 
+         "\[IndentingNewLine]", 
+         RowBox[{"ferrabsim", "=", 
+          RowBox[{"Sqrt", "[", 
+           RowBox[{
+            RowBox[{"Im", "[", "ferrtotal", "]"}], ".", 
+            RowBox[{"Im", "[", "ferrtotal", "]"}]}], "]"}]}], ";", 
+         "\[IndentingNewLine]", 
+         RowBox[{"Print", "[", 
+          RowBox[{
+          "\"\<1ferr=\>\"", ",", "ferrtotal", ",", "\"\<ferrabs=\>\"", ",", 
+           "ferrabs", ",", "\"\<ferrabsim=\>\"", ",", "ferrabsim"}], "]"}], 
+         ";", "\[IndentingNewLine]", 
+         RowBox[{"If", "[", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"ferrabs", "==", "0"}], " ", "||", " ", 
+            RowBox[{
+             RowBox[{"ferrabs", "<", "badtol"}], "&&", " ", 
+             RowBox[{"ferrabsim", "<", "badtol"}]}]}], ",", 
+           RowBox[{"resulttype10", "=", "\"\<Good\>\""}], ",", 
+           RowBox[{"resulttype10", "=", "\"\<Bad\>\""}]}], "]"}], ";", 
+         "\[IndentingNewLine]", 
+         RowBox[{"Print", "[", 
+          RowBox[{"\"\<1\>\"", ",", "resulttype10", ",", "\"\< \>\"", ",", 
+           RowBox[{"CForm", "[", "ferrabs", "]"}], ",", "\"\< \>\"", ",", 
+           "myj", ",", "\"\< \>\"", ",", "failtype", ",", "\"\< \>\"", ",", 
+           "myid", ",", "\"\< \>\"", ",", "failnum", ",", " ", "\"\< cc=\>\"",
+            ",", "cc"}], "]"}], ";", "\[IndentingNewLine]", 
+         RowBox[{"Print", "[", 
+          RowBox[{"\"\<1UU \>\"", ",", 
+           RowBox[{
+            RowBox[{"rhou", "[", 
+             RowBox[{"[", "1", "]"}], "]"}], "//.", "chooseresult"}], ",", 
+           " ", "\"\< \>\"", ",", 
+           RowBox[{
+            RowBox[{"Rud", "[", 
+             RowBox[{"[", "1", "]"}], "]"}], "//.", "chooseresult"}], ",", 
+           "\"\< \>\"", ",", 
+           RowBox[{
+            RowBox[{"Tud", "[", 
+             RowBox[{"[", "1", "]"}], "]"}], "//.", "chooseresult"}]}], "]"}],
+          ";", "\[IndentingNewLine]", 
+         RowBox[{"chooseresultUi", "=", "chooseresult"}], ";", 
+         "\[IndentingNewLine]", "\[IndentingNewLine]", 
+         RowBox[{"(*", " ", 
+          RowBox[{
+          "Just", " ", "UU0", " ", "corresponding", " ", "to", " ", 
+           "\"\<initial+flux\>\"", " ", "contribution"}], " ", "*)"}], 
+         "\[IndentingNewLine]", 
+         RowBox[{"dtcold", "=", "0"}], ";", "\[IndentingNewLine]", 
+         RowBox[{"ferr0", "=", 
+          RowBox[{
+           RowBox[{"rhou", "[", 
+            RowBox[{"[", "1", "]"}], "]"}], "-", "rho0"}]}], ";", 
+         "\[IndentingNewLine]", 
+         RowBox[{"ferr1", "=", 
+          RowBox[{"Table", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"(", 
+              RowBox[{
+               RowBox[{"Rud", "[", 
+                RowBox[{"[", 
+                 RowBox[{"1", ",", "ii"}], "]"}], "]"}], "-", 
+               RowBox[{"Rud0", "[", 
+                RowBox[{"[", "ii", "]"}], "]"}]}], ")"}], "+", 
+             RowBox[{"dtcold", "*", 
+              RowBox[{"Gd", "[", 
+               RowBox[{"[", "ii", "]"}], "]"}]}]}], ",", 
+            RowBox[{"{", 
+             RowBox[{"ii", ",", "1", ",", "4"}], "}"}]}], "]"}]}], ";", 
+         "\[IndentingNewLine]", 
+         RowBox[{"ferr2", "=", 
+          RowBox[{"Table", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"(", 
+              RowBox[{
+               RowBox[{"Tud", "[", 
+                RowBox[{"[", 
+                 RowBox[{"1", ",", "ii"}], "]"}], "]"}], "-", 
+               RowBox[{"Tud0", "[", 
+                RowBox[{"[", "ii", "]"}], "]"}]}], ")"}], "-", 
+             RowBox[{"dtcold", "*", 
+              RowBox[{"Gd", "[", 
+               RowBox[{"[", "ii", "]"}], "]"}]}]}], ",", 
+            RowBox[{"{", 
+             RowBox[{"ii", ",", "1", ",", "4"}], "}"}]}], "]"}]}], ";", 
+         "\[IndentingNewLine]", 
+         RowBox[{"eqns", "=", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"ferr0", "\[Equal]", "0"}], ",", 
+            RowBox[{
+             RowBox[{"ferr1", "[", 
+              RowBox[{"[", "1", "]"}], "]"}], "\[Equal]", "0"}], ",", 
+            RowBox[{
+             RowBox[{"ferr1", "[", 
+              RowBox[{"[", "2", "]"}], "]"}], "\[Equal]", "0"}], ",", 
+            RowBox[{
+             RowBox[{"ferr1", "[", 
+              RowBox[{"[", "3", "]"}], "]"}], "\[Equal]", "0"}], ",", 
+            RowBox[{
+             RowBox[{"ferr1", "[", 
+              RowBox[{"[", "4", "]"}], "]"}], "\[Equal]", "0"}], ",", 
+            RowBox[{
+             RowBox[{"ferr2", "[", 
+              RowBox[{"[", "1", "]"}], "]"}], "\[Equal]", "0"}], ",", 
+            RowBox[{
+             RowBox[{"ferr2", "[", 
+              RowBox[{"[", "2", "]"}], "]"}], "\[Equal]", "0"}], ",", 
+            RowBox[{
+             RowBox[{"ferr2", "[", 
+              RowBox[{"[", "3", "]"}], "]"}], "\[Equal]", "0"}], ",", 
+            RowBox[{
+             RowBox[{"ferr2", "[", 
+              RowBox[{"[", "4", "]"}], "]"}], "\[Equal]", "0"}]}], "}"}]}], 
+         ";", "\[IndentingNewLine]", 
+         RowBox[{"Print", "[", "\"\<2FindRoot\>\"", "]"}], ";", 
+         "\[IndentingNewLine]", 
+         RowBox[{"resultorig", "=", 
+          RowBox[{"Block", "[", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{"cc", "=", "0"}], "}"}], ",", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"FindRoot", "[", 
+               RowBox[{"eqns", ",", "ICpin", ",", 
+                RowBox[{"WorkingPrecision", "\[Rule]", "normalwprec"}], ",", 
+                RowBox[{"MaxIterations", "\[Rule]", "1000"}], ",", 
+                RowBox[{"AccuracyGoal", "\[Rule]", "normaltolprec"}], ",", 
+                RowBox[{"PrecisionGoal", "\[Rule]", "normaltolprec"}], ",", 
+                " ", 
+                RowBox[{"Jacobian", "\[Rule]", "JacobianType"}], ",", " ", 
+                RowBox[{"StepMonitor", "\[RuleDelayed]", 
+                 RowBox[{"cc", "++"}]}]}], "]"}], ",", "cc"}], "}"}]}], 
+           "]"}]}], ";", "\[IndentingNewLine]", 
+         RowBox[{"result", "=", 
+          RowBox[{"resultorig", "[", 
+           RowBox[{"[", "1", "]"}], "]"}]}], ";", 
+         RowBox[{"cc", "=", 
+          RowBox[{"resultorig", "[", 
+           RowBox[{"[", "2", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+         RowBox[{"chooseresult", "=", "result"}], ";", "\[IndentingNewLine]", 
+         
+         RowBox[{"Print", "[", 
+          RowBox[{"\"\<2result=\>\"", ",", "chooseresult"}], "]"}], ";", 
+         "\[IndentingNewLine]", 
+         RowBox[{"ferr0", "=", 
+          RowBox[{
+           RowBox[{"ferr0", "/", 
+            RowBox[{"Abs", "[", "rho", "]"}]}], "//.", "chooseresult"}]}], 
+         ";", "\[IndentingNewLine]", 
+         RowBox[{"ferr1", "=", 
+          RowBox[{
+           RowBox[{"(", 
+            RowBox[{"ferr1", "/", 
+             RowBox[{"Max", "[", 
+              RowBox[{
+               RowBox[{"Abs", "[", 
+                RowBox[{"u", "//.", "chooseresult"}], "]"}], ",", 
+               RowBox[{"Abs", "[", 
+                RowBox[{"Er", "//.", "chooseresult"}], "]"}]}], "]"}]}], 
+            ")"}], "//.", "chooseresult"}]}], ";", "\[IndentingNewLine]", 
+         RowBox[{"ferr2", "=", 
+          RowBox[{
+           RowBox[{"(", 
+            RowBox[{"ferr2", "/", 
+             RowBox[{"Max", "[", 
+              RowBox[{
+               RowBox[{"Abs", "[", 
+                RowBox[{"u", "//.", "chooseresult"}], "]"}], ",", 
+               RowBox[{"Abs", "[", 
+                RowBox[{"Er", "//.", "chooseresult"}], "]"}]}], "]"}]}], 
+            ")"}], "//.", "chooseresult"}]}], ";", "\[IndentingNewLine]", 
+         RowBox[{"ferrtotal", "=", 
+          RowBox[{"Join", "[", 
+           RowBox[{
+            RowBox[{"{", "ferr0", "}"}], ",", "ferr1", ",", "ferr2"}], 
+           "]"}]}], ";", "\[IndentingNewLine]", 
+         RowBox[{"ferrabs", "=", 
+          RowBox[{"Sqrt", "[", 
+           RowBox[{
+            RowBox[{"Re", "[", "ferrtotal", "]"}], ".", 
+            RowBox[{"Re", "[", "ferrtotal", "]"}]}], "]"}]}], ";", 
+         "\[IndentingNewLine]", 
+         RowBox[{"ferrabsim", "=", 
+          RowBox[{"Sqrt", "[", 
+           RowBox[{
+            RowBox[{"Im", "[", "ferrtotal", "]"}], ".", 
+            RowBox[{"Im", "[", "ferrtotal", "]"}]}], "]"}]}], ";", 
+         "\[IndentingNewLine]", 
+         RowBox[{"Print", "[", 
+          RowBox[{
+          "\"\<2ferr=\>\"", ",", "ferrtotal", ",", "\"\<ferrabs=\>\"", ",", 
+           "ferrabs", ",", "\"\<ferrabsim=\>\"", ",", "ferrabsim"}], "]"}], 
+         ";", "\[IndentingNewLine]", 
+         RowBox[{"If", "[", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"ferrabs", "==", "0"}], " ", "||", " ", 
+            RowBox[{
+             RowBox[{"ferrabs", "<", "badtol"}], "&&", " ", 
+             RowBox[{"ferrabsim", "<", "badtol"}]}]}], ",", 
+           RowBox[{"resulttype11", "=", "\"\<Good\>\""}], ",", 
+           RowBox[{"resulttype11", "=", "\"\<Bad\>\""}]}], "]"}], ";", 
+         "\[IndentingNewLine]", 
+         RowBox[{"Print", "[", 
+          RowBox[{"\"\<2\>\"", ",", "resulttype11", ",", "\"\< \>\"", ",", 
+           RowBox[{"CForm", "[", "ferrabs", "]"}], ",", "\"\< \>\"", ",", 
+           "myj", ",", "\"\< \>\"", ",", "failtype", ",", "\"\< \>\"", ",", 
+           "myid", ",", "\"\< \>\"", ",", "failnum", ",", " ", "\"\< cc=\>\"",
+            ",", "cc"}], "]"}], ";", "\[IndentingNewLine]", 
+         RowBox[{"Print", "[", 
+          RowBox[{"\"\<2UU \>\"", ",", 
+           RowBox[{
+            RowBox[{"rhou", "[", 
+             RowBox[{"[", "1", "]"}], "]"}], "//.", "chooseresult"}], ",", 
+           " ", "\"\< \>\"", ",", 
+           RowBox[{
+            RowBox[{"Rud", "[", 
+             RowBox[{"[", "1", "]"}], "]"}], "//.", "chooseresult"}], ",", 
+           "\"\< \>\"", ",", 
+           RowBox[{
+            RowBox[{"Tud", "[", 
+             RowBox[{"[", "1", "]"}], "]"}], "//.", "chooseresult"}]}], "]"}],
+          ";", "\[IndentingNewLine]", 
+         RowBox[{"chooseresultU0", "=", "chooseresult"}], ";"}]}], 
+       "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
+      "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      RowBox[{"(*", " ", 
+       RowBox[{"normal", " ", "full", " ", "inversion"}], " ", "*)"}], 
+      "\[IndentingNewLine]", 
       RowBox[{"If", "[", 
        RowBox[{
         RowBox[{"doradonly", "\[Equal]", "0"}], ",", "\[IndentingNewLine]", 
@@ -1534,6 +1921,11 @@ Cell[BoxData[
           RowBox[{
            RowBox[{"whichmhd", "\[Equal]", "3"}], ",", "\[IndentingNewLine]", 
            
+           RowBox[{"(*", " ", 
+            RowBox[{
+            "only", " ", "contract", " ", "original", " ", "equation", " ", 
+             "with", " ", "ucon", " ", "for", " ", "partial", " ", "comoving",
+              " ", "frame"}], " ", "*)"}], "\[IndentingNewLine]", 
            RowBox[{
             RowBox[{"Rudff", "=", 
              RowBox[{"Rud", ".", "ucon"}]}], ";", "\[IndentingNewLine]", 
@@ -1594,8 +1986,69 @@ Cell[BoxData[
                  RowBox[{"[", "1", "]"}], "]"}], "-", "Tud0ff"}], ")"}], "-", 
               
               RowBox[{"dt", "*", "Gdff"}]}]}], ";"}]}], "\[IndentingNewLine]",
-           "]"}], ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
-         "\[IndentingNewLine]", 
+           "]"}], ";", "\[IndentingNewLine]", 
+         RowBox[{"If", "[", 
+          RowBox[{
+           RowBox[{"whichmhd", "\[Equal]", "4"}], ",", "\[IndentingNewLine]", 
+           
+           RowBox[{"(*", " ", 
+            RowBox[{"fully", " ", "comoving", " ", 
+             RowBox[{"frame", ".", "  ", "Contract"}], " ", "entire", " ", 
+             "equation", " ", "on", " ", "left", " ", "by", " ", "ucov", " ", 
+             "and", " ", "on", " ", "right", " ", "by", " ", 
+             RowBox[{"ucon", " ", "."}]}], " ", "*)"}], "\[IndentingNewLine]", 
+           RowBox[{
+            RowBox[{"Rudff", "=", 
+             RowBox[{"ucov", ".", "Rud", ".", "ucon"}]}], ";", 
+            "\[IndentingNewLine]", 
+            RowBox[{"Erff", "=", 
+             RowBox[{"ucov", ".", "Rud", ".", "ucon"}]}], ";", 
+            "\[IndentingNewLine]", 
+            RowBox[{"Tudff", "=", 
+             RowBox[{"ucov", ".", "Tud", ".", "ucon"}]}], ";", 
+            "\[IndentingNewLine]", 
+            RowBox[{"Rud0ff", "=", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{"ucov", ".", "Rud", ".", "ucon"}], ")"}], "//.", 
+              "chooseresultU0"}]}], ";", "\[IndentingNewLine]", 
+            RowBox[{"Tud0ff", "=", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{"ucov", ".", "Tud", ".", "ucon"}], ")"}], "//.", 
+              "chooseresultU0"}]}], ";", "\[IndentingNewLine]", 
+            RowBox[{"Gdff", "=", 
+             RowBox[{"Gd", ".", "ucon"}]}], ";", "\[IndentingNewLine]", 
+            RowBox[{"dtau", "=", 
+             RowBox[{"dt", "*", 
+              RowBox[{"ucov", "[", 
+               RowBox[{"[", "1", "]"}], "]"}]}]}], ";", " ", 
+            RowBox[{"(*", " ", 
+             RowBox[{
+             "correct", " ", "fully", " ", "comoving", " ", "quantity"}], " ",
+              "*)"}], "\[IndentingNewLine]", 
+            RowBox[{"Gdff", "=", 
+             RowBox[{"(", 
+              RowBox[{
+               RowBox[{
+                RowBox[{"-", "kappa"}], "*", "Erff"}], "+", "lambda"}], 
+              ")"}]}], ";", "\[IndentingNewLine]", 
+            RowBox[{
+             RowBox[{"ferr1", "[", 
+              RowBox[{"[", "jj", "]"}], "]"}], "=", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{"Rudff", "-", "Rud0ff"}], ")"}], "+", 
+              RowBox[{"dtau", "*", "Gdff"}]}]}], ";", "\[IndentingNewLine]", 
+            RowBox[{
+             RowBox[{"ferr2", "[", 
+              RowBox[{"[", "jj", "]"}], "]"}], "=", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{"Tudff", "-", "Tud0ff"}], ")"}], "-", 
+              RowBox[{"dtau", "*", "Gdff"}]}]}], ";"}]}], 
+          "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
+         "\[IndentingNewLine]", "\[IndentingNewLine]", 
          RowBox[{"Print", "[", "\"\<0FindRoot\>\"", "]"}], ";", 
          "\[IndentingNewLine]", 
          RowBox[{"If", "[", 
@@ -2686,6 +3139,11 @@ Cell[BoxData[
           RowBox[{
            RowBox[{"whichmhd", "\[Equal]", "3"}], ",", "\[IndentingNewLine]", 
            
+           RowBox[{"(*", " ", 
+            RowBox[{
+            "only", " ", "contract", " ", "original", " ", "equation", " ", 
+             "with", " ", "ucon", " ", "for", " ", "partial", " ", "comoving",
+              " ", "frame"}], " ", "*)"}], "\[IndentingNewLine]", 
            RowBox[{
             RowBox[{"Rudff", "=", 
              RowBox[{"Rud", ".", "ucon"}]}], ";", "\[IndentingNewLine]", 
@@ -2777,6 +3235,94 @@ Cell[BoxData[
                 RowBox[{"Abs", "[", "Tud0ff", "]"}]}], ")"}], "+", 
               RowBox[{"Abs", "[", 
                RowBox[{"dt", "*", "Gdff"}], "]"}]}]}], ";"}]}], 
+          "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
+         RowBox[{"If", "[", 
+          RowBox[{
+           RowBox[{"whichmhd", "\[Equal]", "4"}], ",", "\[IndentingNewLine]", 
+           
+           RowBox[{"(*", " ", 
+            RowBox[{"fully", " ", "comoving", " ", 
+             RowBox[{"frame", ".", "  ", "Contract"}], " ", "entire", " ", 
+             "equation", " ", "on", " ", "left", " ", "by", " ", "ucov", " ", 
+             "and", " ", "on", " ", "right", " ", "by", " ", 
+             RowBox[{"ucon", " ", "."}]}], " ", "*)"}], "\[IndentingNewLine]", 
+           RowBox[{
+            RowBox[{"Rudff", "=", 
+             RowBox[{"ucov", ".", "Rud", ".", "ucon"}]}], ";", 
+            "\[IndentingNewLine]", 
+            RowBox[{"Erff", "=", 
+             RowBox[{"ucov", ".", "Rud", ".", "ucon"}]}], ";", 
+            "\[IndentingNewLine]", 
+            RowBox[{"Tudff", "=", 
+             RowBox[{"ucov", ".", "Tud", ".", "ucon"}]}], ";", 
+            "\[IndentingNewLine]", 
+            RowBox[{"Rud0ff", "=", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{"ucov", ".", "Rud", ".", "ucon"}], ")"}], "//.", 
+              "chooseresultU0"}]}], ";", "\[IndentingNewLine]", 
+            RowBox[{"Tud0ff", "=", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{"ucov", ".", "Tud", ".", "ucon"}], ")"}], "//.", 
+              "chooseresultU0"}]}], ";", "\[IndentingNewLine]", 
+            RowBox[{"Gdff", "=", 
+             RowBox[{"Gd", ".", "ucon"}]}], ";", "\[IndentingNewLine]", 
+            RowBox[{"dtau", "=", 
+             RowBox[{"dt", "*", 
+              RowBox[{"ucov", "[", 
+               RowBox[{"[", "1", "]"}], "]"}]}]}], ";", " ", 
+            RowBox[{"(*", " ", 
+             RowBox[{
+             "correct", " ", "fully", " ", "comoving", " ", "quantity"}], " ",
+              "*)"}], "\[IndentingNewLine]", 
+            RowBox[{"Gdff", "=", 
+             RowBox[{"(", 
+              RowBox[{
+               RowBox[{
+                RowBox[{"-", "kappa"}], "*", "Erff"}], "+", "lambda"}], 
+              ")"}]}], ";", "\[IndentingNewLine]", 
+            RowBox[{
+             RowBox[{"ferr1", "[", 
+              RowBox[{"[", "jj", "]"}], "]"}], "=", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{"Rudff", "-", "Rud0ff"}], ")"}], "+", 
+              RowBox[{"dtau", "*", "Gdff"}]}]}], ";", "\[IndentingNewLine]", 
+            RowBox[{
+             RowBox[{"ferr2", "[", 
+              RowBox[{"[", "jj", "]"}], "]"}], "=", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{"Tudff", "-", "Tud0ff"}], ")"}], "-", 
+              RowBox[{"dtau", "*", "Gdff"}]}]}], ";", "\[IndentingNewLine]", 
+            RowBox[{
+             RowBox[{"ferr1norm", "[", 
+              RowBox[{"[", "jj", "]"}], "]"}], "=", 
+             RowBox[{
+              RowBox[{"10", "^", 
+               RowBox[{"(", 
+                RowBox[{"-", "300"}], ")"}]}], "+", 
+              RowBox[{"(", 
+               RowBox[{
+                RowBox[{"Abs", "[", "Rudff", "]"}], "+", 
+                RowBox[{"Abs", "[", "Rud0ff", "]"}]}], ")"}], "+", 
+              RowBox[{"Abs", "[", 
+               RowBox[{"dtau", "*", "Gdff"}], "]"}]}]}], ";", 
+            "\[IndentingNewLine]", 
+            RowBox[{
+             RowBox[{"ferr2norm", "[", 
+              RowBox[{"[", "jj", "]"}], "]"}], "=", 
+             RowBox[{
+              RowBox[{"10", "^", 
+               RowBox[{"(", 
+                RowBox[{"-", "300"}], ")"}]}], "+", 
+              RowBox[{"(", 
+               RowBox[{
+                RowBox[{"Abs", "[", "Tudff", "]"}], "+", 
+                RowBox[{"Abs", "[", "Tud0ff", "]"}]}], ")"}], "+", 
+              RowBox[{"Abs", "[", 
+               RowBox[{"dtau", "*", "Gdff"}], "]"}]}]}], ";"}]}], 
           "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
          "\[IndentingNewLine]", "\[IndentingNewLine]", 
          RowBox[{"Print", "[", "\"\<0WFindRoot\>\"", "]"}], ";", 
@@ -3746,379 +4292,6 @@ Cell[BoxData[
            "myid", ",", "\"\< \>\"", ",", "failnum", ",", " ", "\"\< cc=\>\"",
             ",", "cc"}], "]"}], ";"}]}], "\[IndentingNewLine]", "]"}], ";", 
       "\[IndentingNewLine]", "\[IndentingNewLine]", "\[IndentingNewLine]", 
-      "\[IndentingNewLine]", 
-      RowBox[{"(*", " ", 
-       RowBox[{"Just", " ", "Ui"}], " ", "*)"}], "\[IndentingNewLine]", 
-      RowBox[{"If", "[", 
-       RowBox[{
-        RowBox[{"doradonly", "\[Equal]", "0"}], ",", "\[IndentingNewLine]", 
-        RowBox[{
-         RowBox[{"dtcold", "=", "0"}], ";", "\[IndentingNewLine]", 
-         RowBox[{"ferr0", "=", 
-          RowBox[{
-           RowBox[{"rhou", "[", 
-            RowBox[{"[", "1", "]"}], "]"}], "-", "rhouu0i"}]}], ";", 
-         "\[IndentingNewLine]", 
-         RowBox[{"ferr1", "=", 
-          RowBox[{"Table", "[", 
-           RowBox[{
-            RowBox[{
-             RowBox[{"(", 
-              RowBox[{
-               RowBox[{"Rud", "[", 
-                RowBox[{"[", 
-                 RowBox[{"1", ",", "ii"}], "]"}], "]"}], "-", 
-               RowBox[{"Rudi", "[", 
-                RowBox[{"[", "ii", "]"}], "]"}]}], ")"}], "+", 
-             RowBox[{"dtcold", "*", 
-              RowBox[{"Gd", "[", 
-               RowBox[{"[", "ii", "]"}], "]"}]}]}], ",", 
-            RowBox[{"{", 
-             RowBox[{"ii", ",", "1", ",", "4"}], "}"}]}], "]"}]}], ";", 
-         "\[IndentingNewLine]", 
-         RowBox[{"ferr2", "=", 
-          RowBox[{"Table", "[", 
-           RowBox[{
-            RowBox[{
-             RowBox[{"(", 
-              RowBox[{
-               RowBox[{"Tud", "[", 
-                RowBox[{"[", 
-                 RowBox[{"1", ",", "ii"}], "]"}], "]"}], "-", 
-               RowBox[{"Tudi", "[", 
-                RowBox[{"[", "ii", "]"}], "]"}]}], ")"}], "-", 
-             RowBox[{"dtcold", "*", 
-              RowBox[{"Gd", "[", 
-               RowBox[{"[", "ii", "]"}], "]"}]}]}], ",", 
-            RowBox[{"{", 
-             RowBox[{"ii", ",", "1", ",", "4"}], "}"}]}], "]"}]}], ";", 
-         "\[IndentingNewLine]", 
-         RowBox[{"eqns", "=", 
-          RowBox[{"{", 
-           RowBox[{
-            RowBox[{"ferr0", "\[Equal]", "0"}], ",", 
-            RowBox[{
-             RowBox[{"ferr1", "[", 
-              RowBox[{"[", "1", "]"}], "]"}], "\[Equal]", "0"}], ",", 
-            RowBox[{
-             RowBox[{"ferr1", "[", 
-              RowBox[{"[", "2", "]"}], "]"}], "\[Equal]", "0"}], ",", 
-            RowBox[{
-             RowBox[{"ferr1", "[", 
-              RowBox[{"[", "3", "]"}], "]"}], "\[Equal]", "0"}], ",", 
-            RowBox[{
-             RowBox[{"ferr1", "[", 
-              RowBox[{"[", "4", "]"}], "]"}], "\[Equal]", "0"}], ",", 
-            RowBox[{
-             RowBox[{"ferr2", "[", 
-              RowBox[{"[", "1", "]"}], "]"}], "\[Equal]", "0"}], ",", 
-            RowBox[{
-             RowBox[{"ferr2", "[", 
-              RowBox[{"[", "2", "]"}], "]"}], "\[Equal]", "0"}], ",", 
-            RowBox[{
-             RowBox[{"ferr2", "[", 
-              RowBox[{"[", "3", "]"}], "]"}], "\[Equal]", "0"}], ",", 
-            RowBox[{
-             RowBox[{"ferr2", "[", 
-              RowBox[{"[", "4", "]"}], "]"}], "\[Equal]", "0"}]}], "}"}]}], 
-         ";", "\[IndentingNewLine]", 
-         RowBox[{"Print", "[", "\"\<1FindRoot\>\"", "]"}], ";", 
-         "\[IndentingNewLine]", 
-         RowBox[{"(*", 
-          RowBox[{
-           RowBox[{"myIC", "=", "ICpintest"}], ";"}], "*)"}], 
-         "\[IndentingNewLine]", " ", 
-         RowBox[{"myIC", "=", "ICpin"}], ";", " ", "\[IndentingNewLine]", 
-         RowBox[{"resultorig", "=", 
-          RowBox[{"Block", "[", 
-           RowBox[{
-            RowBox[{"{", 
-             RowBox[{"cc", "=", "0"}], "}"}], ",", 
-            RowBox[{"{", 
-             RowBox[{
-              RowBox[{"FindRoot", "[", 
-               RowBox[{"eqns", ",", "myIC", ",", 
-                RowBox[{"WorkingPrecision", "\[Rule]", "normalwprec"}], ",", 
-                RowBox[{"MaxIterations", "\[Rule]", "1000"}], ",", 
-                RowBox[{"AccuracyGoal", "\[Rule]", "normaltolprec"}], ",", 
-                RowBox[{"PrecisionGoal", "\[Rule]", "normaltolprec"}], ",", 
-                " ", 
-                RowBox[{"Jacobian", "\[Rule]", "JacobianType"}], ",", " ", 
-                RowBox[{"StepMonitor", "\[RuleDelayed]", 
-                 RowBox[{"cc", "++"}]}]}], "]"}], ",", "cc"}], "}"}]}], 
-           "]"}]}], ";", "\[IndentingNewLine]", 
-         RowBox[{"result", "=", 
-          RowBox[{"resultorig", "[", 
-           RowBox[{"[", "1", "]"}], "]"}]}], ";", 
-         RowBox[{"cc", "=", 
-          RowBox[{"resultorig", "[", 
-           RowBox[{"[", "2", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
-         RowBox[{"chooseresult", "=", "result"}], ";", "\[IndentingNewLine]", 
-         
-         RowBox[{"Print", "[", 
-          RowBox[{"\"\<1result=\>\"", ",", "chooseresult"}], "]"}], ";", 
-         "\[IndentingNewLine]", 
-         RowBox[{"ferr0", "=", 
-          RowBox[{
-           RowBox[{"ferr0", "/", 
-            RowBox[{"Abs", "[", "rho", "]"}]}], "//.", "chooseresult"}]}], 
-         ";", "\[IndentingNewLine]", 
-         RowBox[{"ferr1", "=", 
-          RowBox[{
-           RowBox[{"(", 
-            RowBox[{"ferr1", "/", 
-             RowBox[{"Max", "[", 
-              RowBox[{
-               RowBox[{"Abs", "[", 
-                RowBox[{"u", "//.", "chooseresult"}], "]"}], ",", 
-               RowBox[{"Abs", "[", 
-                RowBox[{"Er", "//.", "chooseresult"}], "]"}]}], "]"}]}], 
-            ")"}], "//.", "chooseresult"}]}], ";", "\[IndentingNewLine]", 
-         RowBox[{"ferr2", "=", 
-          RowBox[{
-           RowBox[{"(", 
-            RowBox[{"ferr2", "/", 
-             RowBox[{"Max", "[", 
-              RowBox[{
-               RowBox[{"Abs", "[", 
-                RowBox[{"u", "//.", "chooseresult"}], "]"}], ",", 
-               RowBox[{"Abs", "[", 
-                RowBox[{"Er", "//.", "chooseresult"}], "]"}]}], "]"}]}], 
-            ")"}], "//.", "chooseresult"}]}], ";", "\[IndentingNewLine]", 
-         RowBox[{"ferrtotal", "=", 
-          RowBox[{"Join", "[", 
-           RowBox[{
-            RowBox[{"{", "ferr0", "}"}], ",", "ferr1", ",", "ferr2"}], 
-           "]"}]}], ";", "\[IndentingNewLine]", 
-         RowBox[{"ferrabs", "=", 
-          RowBox[{"Sqrt", "[", 
-           RowBox[{
-            RowBox[{"Re", "[", "ferrtotal", "]"}], ".", 
-            RowBox[{"Re", "[", "ferrtotal", "]"}]}], "]"}]}], ";", 
-         "\[IndentingNewLine]", 
-         RowBox[{"ferrabsim", "=", 
-          RowBox[{"Sqrt", "[", 
-           RowBox[{
-            RowBox[{"Im", "[", "ferrtotal", "]"}], ".", 
-            RowBox[{"Im", "[", "ferrtotal", "]"}]}], "]"}]}], ";", 
-         "\[IndentingNewLine]", 
-         RowBox[{"Print", "[", 
-          RowBox[{
-          "\"\<1ferr=\>\"", ",", "ferrtotal", ",", "\"\<ferrabs=\>\"", ",", 
-           "ferrabs", ",", "\"\<ferrabsim=\>\"", ",", "ferrabsim"}], "]"}], 
-         ";", "\[IndentingNewLine]", 
-         RowBox[{"If", "[", 
-          RowBox[{
-           RowBox[{
-            RowBox[{"ferrabs", "==", "0"}], " ", "||", " ", 
-            RowBox[{
-             RowBox[{"ferrabs", "<", "badtol"}], "&&", " ", 
-             RowBox[{"ferrabsim", "<", "badtol"}]}]}], ",", 
-           RowBox[{"resulttype10", "=", "\"\<Good\>\""}], ",", 
-           RowBox[{"resulttype10", "=", "\"\<Bad\>\""}]}], "]"}], ";", 
-         "\[IndentingNewLine]", 
-         RowBox[{"Print", "[", 
-          RowBox[{"\"\<1\>\"", ",", "resulttype10", ",", "\"\< \>\"", ",", 
-           RowBox[{"CForm", "[", "ferrabs", "]"}], ",", "\"\< \>\"", ",", 
-           "myj", ",", "\"\< \>\"", ",", "failtype", ",", "\"\< \>\"", ",", 
-           "myid", ",", "\"\< \>\"", ",", "failnum", ",", " ", "\"\< cc=\>\"",
-            ",", "cc"}], "]"}], ";", "\[IndentingNewLine]", 
-         RowBox[{"Print", "[", 
-          RowBox[{"\"\<1UU \>\"", ",", 
-           RowBox[{
-            RowBox[{"rhou", "[", 
-             RowBox[{"[", "1", "]"}], "]"}], "//.", "chooseresult"}], ",", 
-           " ", "\"\< \>\"", ",", 
-           RowBox[{
-            RowBox[{"Rud", "[", 
-             RowBox[{"[", "1", "]"}], "]"}], "//.", "chooseresult"}], ",", 
-           "\"\< \>\"", ",", 
-           RowBox[{
-            RowBox[{"Tud", "[", 
-             RowBox[{"[", "1", "]"}], "]"}], "//.", "chooseresult"}]}], "]"}],
-          ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
-         RowBox[{"(*", " ", 
-          RowBox[{"Just", " ", "UU0"}], " ", "*)"}], "\[IndentingNewLine]", 
-         RowBox[{"dtcold", "=", "0"}], ";", "\[IndentingNewLine]", 
-         RowBox[{"ferr0", "=", 
-          RowBox[{
-           RowBox[{"rhou", "[", 
-            RowBox[{"[", "1", "]"}], "]"}], "-", "rho0"}]}], ";", 
-         "\[IndentingNewLine]", 
-         RowBox[{"ferr1", "=", 
-          RowBox[{"Table", "[", 
-           RowBox[{
-            RowBox[{
-             RowBox[{"(", 
-              RowBox[{
-               RowBox[{"Rud", "[", 
-                RowBox[{"[", 
-                 RowBox[{"1", ",", "ii"}], "]"}], "]"}], "-", 
-               RowBox[{"Rud0", "[", 
-                RowBox[{"[", "ii", "]"}], "]"}]}], ")"}], "+", 
-             RowBox[{"dtcold", "*", 
-              RowBox[{"Gd", "[", 
-               RowBox[{"[", "ii", "]"}], "]"}]}]}], ",", 
-            RowBox[{"{", 
-             RowBox[{"ii", ",", "1", ",", "4"}], "}"}]}], "]"}]}], ";", 
-         "\[IndentingNewLine]", 
-         RowBox[{"ferr2", "=", 
-          RowBox[{"Table", "[", 
-           RowBox[{
-            RowBox[{
-             RowBox[{"(", 
-              RowBox[{
-               RowBox[{"Tud", "[", 
-                RowBox[{"[", 
-                 RowBox[{"1", ",", "ii"}], "]"}], "]"}], "-", 
-               RowBox[{"Tud0", "[", 
-                RowBox[{"[", "ii", "]"}], "]"}]}], ")"}], "-", 
-             RowBox[{"dtcold", "*", 
-              RowBox[{"Gd", "[", 
-               RowBox[{"[", "ii", "]"}], "]"}]}]}], ",", 
-            RowBox[{"{", 
-             RowBox[{"ii", ",", "1", ",", "4"}], "}"}]}], "]"}]}], ";", 
-         "\[IndentingNewLine]", 
-         RowBox[{"eqns", "=", 
-          RowBox[{"{", 
-           RowBox[{
-            RowBox[{"ferr0", "\[Equal]", "0"}], ",", 
-            RowBox[{
-             RowBox[{"ferr1", "[", 
-              RowBox[{"[", "1", "]"}], "]"}], "\[Equal]", "0"}], ",", 
-            RowBox[{
-             RowBox[{"ferr1", "[", 
-              RowBox[{"[", "2", "]"}], "]"}], "\[Equal]", "0"}], ",", 
-            RowBox[{
-             RowBox[{"ferr1", "[", 
-              RowBox[{"[", "3", "]"}], "]"}], "\[Equal]", "0"}], ",", 
-            RowBox[{
-             RowBox[{"ferr1", "[", 
-              RowBox[{"[", "4", "]"}], "]"}], "\[Equal]", "0"}], ",", 
-            RowBox[{
-             RowBox[{"ferr2", "[", 
-              RowBox[{"[", "1", "]"}], "]"}], "\[Equal]", "0"}], ",", 
-            RowBox[{
-             RowBox[{"ferr2", "[", 
-              RowBox[{"[", "2", "]"}], "]"}], "\[Equal]", "0"}], ",", 
-            RowBox[{
-             RowBox[{"ferr2", "[", 
-              RowBox[{"[", "3", "]"}], "]"}], "\[Equal]", "0"}], ",", 
-            RowBox[{
-             RowBox[{"ferr2", "[", 
-              RowBox[{"[", "4", "]"}], "]"}], "\[Equal]", "0"}]}], "}"}]}], 
-         ";", "\[IndentingNewLine]", 
-         RowBox[{"Print", "[", "\"\<2FindRoot\>\"", "]"}], ";", 
-         "\[IndentingNewLine]", 
-         RowBox[{"resultorig", "=", 
-          RowBox[{"Block", "[", 
-           RowBox[{
-            RowBox[{"{", 
-             RowBox[{"cc", "=", "0"}], "}"}], ",", 
-            RowBox[{"{", 
-             RowBox[{
-              RowBox[{"FindRoot", "[", 
-               RowBox[{"eqns", ",", "ICpin", ",", 
-                RowBox[{"WorkingPrecision", "\[Rule]", "normalwprec"}], ",", 
-                RowBox[{"MaxIterations", "\[Rule]", "1000"}], ",", 
-                RowBox[{"AccuracyGoal", "\[Rule]", "normaltolprec"}], ",", 
-                RowBox[{"PrecisionGoal", "\[Rule]", "normaltolprec"}], ",", 
-                " ", 
-                RowBox[{"Jacobian", "\[Rule]", "JacobianType"}], ",", " ", 
-                RowBox[{"StepMonitor", "\[RuleDelayed]", 
-                 RowBox[{"cc", "++"}]}]}], "]"}], ",", "cc"}], "}"}]}], 
-           "]"}]}], ";", "\[IndentingNewLine]", 
-         RowBox[{"result", "=", 
-          RowBox[{"resultorig", "[", 
-           RowBox[{"[", "1", "]"}], "]"}]}], ";", 
-         RowBox[{"cc", "=", 
-          RowBox[{"resultorig", "[", 
-           RowBox[{"[", "2", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
-         RowBox[{"chooseresult", "=", "result"}], ";", "\[IndentingNewLine]", 
-         
-         RowBox[{"Print", "[", 
-          RowBox[{"\"\<2result=\>\"", ",", "chooseresult"}], "]"}], ";", 
-         "\[IndentingNewLine]", 
-         RowBox[{"ferr0", "=", 
-          RowBox[{
-           RowBox[{"ferr0", "/", 
-            RowBox[{"Abs", "[", "rho", "]"}]}], "//.", "chooseresult"}]}], 
-         ";", "\[IndentingNewLine]", 
-         RowBox[{"ferr1", "=", 
-          RowBox[{
-           RowBox[{"(", 
-            RowBox[{"ferr1", "/", 
-             RowBox[{"Max", "[", 
-              RowBox[{
-               RowBox[{"Abs", "[", 
-                RowBox[{"u", "//.", "chooseresult"}], "]"}], ",", 
-               RowBox[{"Abs", "[", 
-                RowBox[{"Er", "//.", "chooseresult"}], "]"}]}], "]"}]}], 
-            ")"}], "//.", "chooseresult"}]}], ";", "\[IndentingNewLine]", 
-         RowBox[{"ferr2", "=", 
-          RowBox[{
-           RowBox[{"(", 
-            RowBox[{"ferr2", "/", 
-             RowBox[{"Max", "[", 
-              RowBox[{
-               RowBox[{"Abs", "[", 
-                RowBox[{"u", "//.", "chooseresult"}], "]"}], ",", 
-               RowBox[{"Abs", "[", 
-                RowBox[{"Er", "//.", "chooseresult"}], "]"}]}], "]"}]}], 
-            ")"}], "//.", "chooseresult"}]}], ";", "\[IndentingNewLine]", 
-         RowBox[{"ferrtotal", "=", 
-          RowBox[{"Join", "[", 
-           RowBox[{
-            RowBox[{"{", "ferr0", "}"}], ",", "ferr1", ",", "ferr2"}], 
-           "]"}]}], ";", "\[IndentingNewLine]", 
-         RowBox[{"ferrabs", "=", 
-          RowBox[{"Sqrt", "[", 
-           RowBox[{
-            RowBox[{"Re", "[", "ferrtotal", "]"}], ".", 
-            RowBox[{"Re", "[", "ferrtotal", "]"}]}], "]"}]}], ";", 
-         "\[IndentingNewLine]", 
-         RowBox[{"ferrabsim", "=", 
-          RowBox[{"Sqrt", "[", 
-           RowBox[{
-            RowBox[{"Im", "[", "ferrtotal", "]"}], ".", 
-            RowBox[{"Im", "[", "ferrtotal", "]"}]}], "]"}]}], ";", 
-         "\[IndentingNewLine]", 
-         RowBox[{"Print", "[", 
-          RowBox[{
-          "\"\<2ferr=\>\"", ",", "ferrtotal", ",", "\"\<ferrabs=\>\"", ",", 
-           "ferrabs", ",", "\"\<ferrabsim=\>\"", ",", "ferrabsim"}], "]"}], 
-         ";", "\[IndentingNewLine]", 
-         RowBox[{"If", "[", 
-          RowBox[{
-           RowBox[{
-            RowBox[{"ferrabs", "==", "0"}], " ", "||", " ", 
-            RowBox[{
-             RowBox[{"ferrabs", "<", "badtol"}], "&&", " ", 
-             RowBox[{"ferrabsim", "<", "badtol"}]}]}], ",", 
-           RowBox[{"resulttype11", "=", "\"\<Good\>\""}], ",", 
-           RowBox[{"resulttype11", "=", "\"\<Bad\>\""}]}], "]"}], ";", 
-         "\[IndentingNewLine]", 
-         RowBox[{"Print", "[", 
-          RowBox[{"\"\<2\>\"", ",", "resulttype11", ",", "\"\< \>\"", ",", 
-           RowBox[{"CForm", "[", "ferrabs", "]"}], ",", "\"\< \>\"", ",", 
-           "myj", ",", "\"\< \>\"", ",", "failtype", ",", "\"\< \>\"", ",", 
-           "myid", ",", "\"\< \>\"", ",", "failnum", ",", " ", "\"\< cc=\>\"",
-            ",", "cc"}], "]"}], ";", "\[IndentingNewLine]", 
-         RowBox[{"Print", "[", 
-          RowBox[{"\"\<2UU \>\"", ",", 
-           RowBox[{
-            RowBox[{"rhou", "[", 
-             RowBox[{"[", "1", "]"}], "]"}], "//.", "chooseresult"}], ",", 
-           " ", "\"\< \>\"", ",", 
-           RowBox[{
-            RowBox[{"Rud", "[", 
-             RowBox[{"[", "1", "]"}], "]"}], "//.", "chooseresult"}], ",", 
-           "\"\< \>\"", ",", 
-           RowBox[{
-            RowBox[{"Tud", "[", 
-             RowBox[{"[", "1", "]"}], "]"}], "//.", "chooseresult"}]}], "]"}],
-          ";"}]}], "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
-      "\[IndentingNewLine]", 
       RowBox[{"(*", " ", "OTHERS", " ", "*)"}], "\[IndentingNewLine]", 
       RowBox[{"If", "[", 
        RowBox[{"0", ",", "\[IndentingNewLine]", 
@@ -4794,7 +4967,14 @@ Cell[BoxData[
    3.5834338250964823`*^9, 3.583433836558392*^9}, {3.5834338872232227`*^9, 
    3.5834339133220367`*^9}, {3.583433980098956*^9, 3.583434033919039*^9}, {
    3.583434074398657*^9, 3.583434098115446*^9}, {3.583434146819644*^9, 
-   3.583434162356003*^9}}],
+   3.583434162356003*^9}, {3.5834544004573584`*^9, 3.5834544031805143`*^9}, {
+   3.5834551322552147`*^9, 3.5834551946467834`*^9}, {3.58345530770525*^9, 
+   3.583455323899176*^9}, {3.5834610830105786`*^9, 3.5834610929071445`*^9}, {
+   3.5834611327624245`*^9, 3.58346116817645*^9}, {3.5834612505071588`*^9, 
+   3.5834614431351767`*^9}, {3.5834614850835757`*^9, 
+   3.5834615691873865`*^9}, {3.583461696221652*^9, 3.5834617380460443`*^9}, {
+   3.583461854004677*^9, 3.583461877647029*^9}, {3.583461958948679*^9, 
+   3.583461960252754*^9}}],
 
 Cell[BoxData["\[IndentingNewLine]"], "Input",
  InitializationCell->True,
@@ -4822,9 +5002,9 @@ Cell[BoxData[""], "Input",
    3.577045862106975*^9}]
 },
 AutoGeneratedPackage->Automatic,
-WindowSize->{1751, 1057},
-WindowMargins->{{9, Automatic}, {Automatic, 0}},
-FrontEndVersion->"7.0 for Linux x86 (64-bit) (February 25, 2009)",
+WindowSize->{1590, 816},
+WindowMargins->{{Automatic, -1}, {2, Automatic}},
+FrontEndVersion->"7.0 for Microsoft Windows (64-bit) (November 10, 2008)",
 StyleDefinitions->"Default.nb"
 ]
 (* End of Notebook Content *)
@@ -4838,30 +5018,30 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[545, 20, 91, 1, 32, "Input"],
-Cell[639, 23, 243, 6, 32, "Input",
+Cell[545, 20, 142, 2, 31, "Input"],
+Cell[690, 24, 243, 6, 31, "Input",
  InitializationCell->True],
 Cell[CellGroupData[{
-Cell[907, 33, 179, 5, 32, "Input",
+Cell[958, 34, 179, 5, 31, "Input",
  InitializationCell->True],
-Cell[1089, 40, 327, 9, 43, "Output"]
+Cell[1140, 41, 327, 9, 42, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1453, 54, 102, 2, 32, "Input",
+Cell[1504, 55, 102, 2, 31, "Input",
  InitializationCell->True],
-Cell[1558, 58, 168, 3, 31, "Output"]
+Cell[1609, 59, 168, 3, 30, "Output"]
 }, Open  ]],
-Cell[1741, 64, 15163, 329, 1375, "Input",
+Cell[1792, 65, 15163, 329, 1252, "Input",
  InitializationCell->True],
-Cell[16907, 395, 191777, 4401, 14245, "Input",
+Cell[16958, 396, 200001, 4580, 13612, "Input",
  InitializationCell->True],
-Cell[208687, 4798, 529, 8, 55, "Input",
+Cell[216962, 4978, 529, 8, 52, "Input",
  InitializationCell->True],
-Cell[209219, 4808, 221, 4, 32, "Input",
+Cell[217494, 4988, 221, 4, 31, "Input",
  InitializationCell->True],
-Cell[209443, 4814, 97, 2, 32, "Input",
+Cell[217718, 4994, 97, 2, 31, "Input",
  InitializationCell->True],
-Cell[209543, 4818, 145, 3, 32, "Input",
+Cell[217818, 4998, 145, 3, 31, "Input",
  InitializationCell->True]
 }
 ]

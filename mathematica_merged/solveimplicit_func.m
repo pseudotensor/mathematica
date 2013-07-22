@@ -236,7 +236,8 @@ Wp=W-DD;
 Print["ucon=",ucon//.consts];
 Print["uradcon=",uradcon//.consts];
 
-(* Just Ui only *)
+
+(* Just Ui only to check pi (Ui) from harm *)
 If[doradonly==0,
 dtcold=0;
 ferr0=rhou[[1]]-rhouu0i;
@@ -276,7 +277,58 @@ Print["ARAD",resulttype2," ",CForm[ferrabs]," ",myj," ",failtype," ",myid," ",fa
 Print["ARADUU ",Rud[[1]]//.chooseresult];
 ];
 
-(* normal *)
+(* Just Ui corresponding to the "initial" contribution *)
+If[doradonly==0,
+dtcold=0;
+ferr0=rhou[[1]]-rhouu0i;
+ferr1=Table[(Rud[[1,ii]]-Rudi[[ii]])+dtcold*Gd[[ii]],{ii,1,4}];
+ferr2=Table[(Tud[[1,ii]]-Tudi[[ii]])-dtcold*Gd[[ii]],{ii,1,4}];
+eqns={ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0,ferr2[[1]]==0,ferr2[[2]]==0,ferr2[[3]]==0,ferr2[[4]]==0};
+Print["1FindRoot"];
+(*myIC=ICpintest;*)
+ myIC=ICpin; 
+resultorig=Block[{cc=0},{FindRoot[eqns,myIC,WorkingPrecision->normalwprec,MaxIterations->1000,AccuracyGoal->normaltolprec,PrecisionGoal->normaltolprec, Jacobian->JacobianType, StepMonitor:>cc++],cc}];
+result=resultorig[[1]];cc=resultorig[[2]];
+chooseresult=result;
+Print["1result=",chooseresult];
+ferr0=ferr0/Abs[rho]//.chooseresult;
+ferr1=(ferr1/Max[Abs[u//.chooseresult],Abs[Er//.chooseresult]])//.chooseresult;
+ferr2=(ferr2/Max[Abs[u//.chooseresult],Abs[Er//.chooseresult]])//.chooseresult;
+ferrtotal=Join[{ferr0},ferr1,ferr2];
+ferrabs=Sqrt[Re[ferrtotal].Re[ferrtotal]];
+ferrabsim=Sqrt[Im[ferrtotal].Im[ferrtotal]];
+Print["1ferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
+If[ferrabs==0 || ferrabs<badtol&& ferrabsim<badtol,resulttype10="Good",resulttype10="Bad"];
+Print["1",resulttype10," ",CForm[ferrabs]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
+Print["1UU ",rhou[[1]]//.chooseresult, " ",Rud[[1]]//.chooseresult," ",Tud[[1]]//.chooseresult];
+chooseresultUi=chooseresult;
+
+(* Just UU0 corresponding to "initial+flux" contribution *)
+dtcold=0;
+ferr0=rhou[[1]]-rho0;
+ferr1=Table[(Rud[[1,ii]]-Rud0[[ii]])+dtcold*Gd[[ii]],{ii,1,4}];
+ferr2=Table[(Tud[[1,ii]]-Tud0[[ii]])-dtcold*Gd[[ii]],{ii,1,4}];
+eqns={ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0,ferr2[[1]]==0,ferr2[[2]]==0,ferr2[[3]]==0,ferr2[[4]]==0};
+Print["2FindRoot"];
+resultorig=Block[{cc=0},{FindRoot[eqns,ICpin,WorkingPrecision->normalwprec,MaxIterations->1000,AccuracyGoal->normaltolprec,PrecisionGoal->normaltolprec, Jacobian->JacobianType, StepMonitor:>cc++],cc}];
+result=resultorig[[1]];cc=resultorig[[2]];
+chooseresult=result;
+Print["2result=",chooseresult];
+ferr0=ferr0/Abs[rho]//.chooseresult;
+ferr1=(ferr1/Max[Abs[u//.chooseresult],Abs[Er//.chooseresult]])//.chooseresult;
+ferr2=(ferr2/Max[Abs[u//.chooseresult],Abs[Er//.chooseresult]])//.chooseresult;
+ferrtotal=Join[{ferr0},ferr1,ferr2];
+ferrabs=Sqrt[Re[ferrtotal].Re[ferrtotal]];
+ferrabsim=Sqrt[Im[ferrtotal].Im[ferrtotal]];
+Print["2ferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
+If[ferrabs==0 || ferrabs<badtol&& ferrabsim<badtol,resulttype11="Good",resulttype11="Bad"];
+Print["2",resulttype11," ",CForm[ferrabs]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
+Print["2UU ",rhou[[1]]//.chooseresult, " ",Rud[[1]]//.chooseresult," ",Tud[[1]]//.chooseresult];
+chooseresultU0=chooseresult;
+];
+
+
+(* normal full inversion *)
 If[doradonly==0,
 ferr0=rhou[[1]]-rho0;
 (*dt=0*)
@@ -290,6 +342,7 @@ ferr1[[jj]]=ferr1.ucon;
 ferr2[[jj]]=ferr2.ucon;
 ];
 If[whichmhd==3,
+(* only contract original equation with ucon for partial comoving frame *)
 Rudff=Rud.ucon;
 Erff=ucov.Rud.ucon;
 Tudff=Tud.ucon;
@@ -301,6 +354,19 @@ dtau=dt/ucon[[1]];
 Gdff=(-kappa*Erff+lambda);
 ferr1[[jj]]=(Rudff[[1]]-Rud0ff)+dt*Gdff;
 ferr2[[jj]]=(Tudff[[1]]-Tud0ff)-dt*Gdff;
+];
+If[whichmhd==4,
+(* fully comoving frame.  Contract entire equation on left by ucov and on right by ucon . *)
+Rudff=ucov.Rud.ucon;
+Erff=ucov.Rud.ucon;
+Tudff=ucov.Tud.ucon;
+Rud0ff=(ucov.Rud.ucon)//.chooseresultU0;
+Tud0ff=(ucov.Tud.ucon)//.chooseresultU0;
+Gdff=Gd.ucon;
+dtau=dt*ucov[[1]]; (* correct fully comoving quantity *)
+Gdff=(-kappa*Erff+lambda);
+ferr1[[jj]]=(Rudff-Rud0ff)+dtau*Gdff;
+ferr2[[jj]]=(Tudff-Tud0ff)-dtau*Gdff;
 ];
 
 
@@ -443,6 +509,7 @@ ferr1norm[[jj]]=ferr1norm.ucon;
 ferr2norm[[jj]]=ferr2norm.ucon;
 ];
 If[whichmhd==3,
+(* only contract original equation with ucon for partial comoving frame *)
 Rudff=Rud.ucon;
 Erff=ucov.Rud.ucon;
 Tudff=Tud.ucon;
@@ -456,6 +523,21 @@ ferr1[[jj]]=(Rudff[[1]]-Rud0ff)+dt*Gdff;
 ferr2[[jj]]=(Tudff[[1]]-Tud0ff)-dt*Gdff;
 ferr1norm[[jj]]=10^(-300)+(Abs[Rudff[[1]]]+Abs[Rud0ff])+Abs[dt*Gdff];
 ferr2norm[[jj]]=10^(-300)+(Abs[Tudff[[1]]]+Abs[Tud0ff])+Abs[dt*Gdff];
+];
+If[whichmhd==4,
+(* fully comoving frame.  Contract entire equation on left by ucov and on right by ucon . *)
+Rudff=ucov.Rud.ucon;
+Erff=ucov.Rud.ucon;
+Tudff=ucov.Tud.ucon;
+Rud0ff=(ucov.Rud.ucon)//.chooseresultU0;
+Tud0ff=(ucov.Tud.ucon)//.chooseresultU0;
+Gdff=Gd.ucon;
+dtau=dt*ucov[[1]]; (* correct fully comoving quantity *)
+Gdff=(-kappa*Erff+lambda);
+ferr1[[jj]]=(Rudff-Rud0ff)+dtau*Gdff;
+ferr2[[jj]]=(Tudff-Tud0ff)-dtau*Gdff;
+ferr1norm[[jj]]=10^(-300)+(Abs[Rudff]+Abs[Rud0ff])+Abs[dtau*Gdff];
+ferr2norm[[jj]]=10^(-300)+(Abs[Tudff]+Abs[Tud0ff])+Abs[dtau*Gdff];
 ];
 
 
@@ -602,55 +684,6 @@ If[ferrabs==0 || ferrabs<badtol && ferrabsim<badtol,resulttype9="Good",resulttyp
 Print["0MRAD",resulttype9," ",CForm[ferrabs]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
 ];
 
-
-
-(* Just Ui *)
-If[doradonly==0,
-dtcold=0;
-ferr0=rhou[[1]]-rhouu0i;
-ferr1=Table[(Rud[[1,ii]]-Rudi[[ii]])+dtcold*Gd[[ii]],{ii,1,4}];
-ferr2=Table[(Tud[[1,ii]]-Tudi[[ii]])-dtcold*Gd[[ii]],{ii,1,4}];
-eqns={ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0,ferr2[[1]]==0,ferr2[[2]]==0,ferr2[[3]]==0,ferr2[[4]]==0};
-Print["1FindRoot"];
-(*myIC=ICpintest;*)
- myIC=ICpin; 
-resultorig=Block[{cc=0},{FindRoot[eqns,myIC,WorkingPrecision->normalwprec,MaxIterations->1000,AccuracyGoal->normaltolprec,PrecisionGoal->normaltolprec, Jacobian->JacobianType, StepMonitor:>cc++],cc}];
-result=resultorig[[1]];cc=resultorig[[2]];
-chooseresult=result;
-Print["1result=",chooseresult];
-ferr0=ferr0/Abs[rho]//.chooseresult;
-ferr1=(ferr1/Max[Abs[u//.chooseresult],Abs[Er//.chooseresult]])//.chooseresult;
-ferr2=(ferr2/Max[Abs[u//.chooseresult],Abs[Er//.chooseresult]])//.chooseresult;
-ferrtotal=Join[{ferr0},ferr1,ferr2];
-ferrabs=Sqrt[Re[ferrtotal].Re[ferrtotal]];
-ferrabsim=Sqrt[Im[ferrtotal].Im[ferrtotal]];
-Print["1ferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
-If[ferrabs==0 || ferrabs<badtol&& ferrabsim<badtol,resulttype10="Good",resulttype10="Bad"];
-Print["1",resulttype10," ",CForm[ferrabs]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
-Print["1UU ",rhou[[1]]//.chooseresult, " ",Rud[[1]]//.chooseresult," ",Tud[[1]]//.chooseresult];
-
-(* Just UU0 *)
-dtcold=0;
-ferr0=rhou[[1]]-rho0;
-ferr1=Table[(Rud[[1,ii]]-Rud0[[ii]])+dtcold*Gd[[ii]],{ii,1,4}];
-ferr2=Table[(Tud[[1,ii]]-Tud0[[ii]])-dtcold*Gd[[ii]],{ii,1,4}];
-eqns={ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0,ferr2[[1]]==0,ferr2[[2]]==0,ferr2[[3]]==0,ferr2[[4]]==0};
-Print["2FindRoot"];
-resultorig=Block[{cc=0},{FindRoot[eqns,ICpin,WorkingPrecision->normalwprec,MaxIterations->1000,AccuracyGoal->normaltolprec,PrecisionGoal->normaltolprec, Jacobian->JacobianType, StepMonitor:>cc++],cc}];
-result=resultorig[[1]];cc=resultorig[[2]];
-chooseresult=result;
-Print["2result=",chooseresult];
-ferr0=ferr0/Abs[rho]//.chooseresult;
-ferr1=(ferr1/Max[Abs[u//.chooseresult],Abs[Er//.chooseresult]])//.chooseresult;
-ferr2=(ferr2/Max[Abs[u//.chooseresult],Abs[Er//.chooseresult]])//.chooseresult;
-ferrtotal=Join[{ferr0},ferr1,ferr2];
-ferrabs=Sqrt[Re[ferrtotal].Re[ferrtotal]];
-ferrabsim=Sqrt[Im[ferrtotal].Im[ferrtotal]];
-Print["2ferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
-If[ferrabs==0 || ferrabs<badtol&& ferrabsim<badtol,resulttype11="Good",resulttype11="Bad"];
-Print["2",resulttype11," ",CForm[ferrabs]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
-Print["2UU ",rhou[[1]]//.chooseresult, " ",Rud[[1]]//.chooseresult," ",Tud[[1]]//.chooseresult];
-];
 
 (* OTHERS *)
 If[0,
