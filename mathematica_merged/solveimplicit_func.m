@@ -519,8 +519,9 @@ Tud0ff=Tud0.ucon;
 Gdff=Gd.ucon;
 dtau=dt/ucon[[1]];
  (* use analytic source that Ramesh says is biggest issue.  Note below is just like multiplying by ucon, but Gdff written more analytically apart from Erff.  No use of dtau here. *)
-Gdff=(-kappa*Erff+lambda);
+Gdff=-(-kappa*Erff+lambda);
 ferr1[[jj]]=(Rudff[[1]]-Rud0ff)+dt*Gdff;
+(* Tudff[[1]] = Tud0ff + dt*Gdff means lambda>0 gives Gdff<0 means Tudff[[1]] should drop *)
 ferr2[[jj]]=(Tudff[[1]]-Tud0ff)-dt*Gdff;
 ];
 If[whichmhd==4,
@@ -534,7 +535,9 @@ Rud0ff=Rudff//.chooseresultUU0;
 Tud0ff=Tudff//.chooseresultUU0;
 Gdff=Gd.ucon;
 dtau=dt*ucov[[1]]; (* correct fully comoving quantity *)
+(* lambda>0 means Gdff>0 means dtau*Gdff<0 means cooling gas means Tudff should drop *)
 Gdff=(-kappa*Erff+lambda);
+(* Tudff = Tud0ff + dtau Gdff, so Gdff<0 means Tudff drops as required *)
 ferr1[[jj]]=(Rudff-Rud0ff)+dtau*Gdff;
 ferr2[[jj]]=(Tudff-Tud0ff)-dtau*Gdff;
 ];
@@ -649,6 +652,7 @@ ferr2[[1]]=(u-uii)-(gam u/rho) (rho-rhoii) - (kappa Er - lambda) dt/ucon[[1]]; (
 If[whichentropy==3,
 Erff=ucov.Rud.ucon;
 (*ferr2[[1]]=(u-uii)-(gam u/rho) (rho-rhoii) - (kappa Erff - lambda) dt/ucon[[1]]; (* accurate fluid-frame version *)*)
+(* lambda>0 means gas entropy should drop, and have TSc=Tsc0+(kappa Erff-lambda)dt/ut *)
 ferr2[[1]]=T*(Sc/ucon[[1]]-Sc0/uu0ii)- (kappa Erff - lambda) dt/ucon[[1]]; (* accurate fluid-frame version *)
 ];
 If[whichentropy==4,
@@ -658,7 +662,8 @@ Scff=ucov.(Sc/ucon[[1]]*ucon); (* i.e. u\mu S u^\mu   *)
 Scff=-S;
 Sc0ff=Scff//.chooseresultUU0noG;
 dtau=ucov[[1]]*dt;
-ferr2[[1]]=T*(Scff-Sc0ff)- (kappa Erff - lambda) dtau; 
+(* lambda>0 means gas entropy should drop, and have TScff = TSc0ff - (kappa Erff - lambda)*dtau = Tsc0ff + (-#) *)
+ferr2[[1]]=T*(Scff-Sc0ff)+ (kappa Erff - lambda) dtau; 
 ];
 (* grep 0SGood math.out|wc;grep 0WSGood math.out|wc;grep 0WSBad math.out|wc *)
 (* grep 0Good math.out|wc;grep 0WGood math.out|wc;grep 0WBad math.out|wc *)
@@ -769,7 +774,7 @@ Tud0ff=Tud0.ucon;
 Gdff=Gd.ucon;
 dtau=dt/ucon[[1]];
  (* use analytic source that Ramesh says is biggest issue.  Note below is just like multiplying by ucon, but Gdff written more analytically apart from Erff.  No use of dtau here. *)
-Gdff=(-kappa*Erff+lambda);
+Gdff=-(-kappa*Erff+lambda);
 ferr1[[jj]]=(Rudff[[1]]-Rud0ff)+dt*Gdff;
 ferr2[[jj]]=(Tudff[[1]]-Tud0ff)-dt*Gdff;
 ferr1norm[[jj]]=10^(-300)+(Abs[Rudff[[1]]]+Abs[Rud0ff])+Abs[dt*Gdff];
@@ -865,7 +870,8 @@ Scff=ucov.(Sc/ucon[[1]]*ucon); (* i.e. u\mu S u^\mu   *)
 Scff=-S;
 Sc0ff=Scff//.chooseresultUU0noG;
 dtau=ucov[[1]]*dt;
-ferr2[[1]]=T*(Scff-Sc0ff)- (kappa Erff - lambda) dtau; 
+(* lambda>0 means gas entropy drops.  TScff = TSc0ff - (kappa Erff - lambda)*dtau = TSc0ff + (-#) *)
+ferr2[[1]]=T*(Scff-Sc0ff)+(kappa Erff - lambda) dtau; 
 ferr2norm[[1]]=10^(-300) + Abs[Scff]+Abs[Sc0ff]+(Abs[kappa Erff]+Abs[lambda]) dtau;
 ];
 
