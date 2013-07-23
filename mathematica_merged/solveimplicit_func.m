@@ -530,7 +530,7 @@ Rudff=ucov.Rud.ucon;
 Erff=ucov.Rud.ucon;
 Tudff=ucov.Tud.ucon;
 (* (rho + u + P + bsq) u^\mu u_ \n u + \delta^\mu_\n u (P+bsq/2) - b^\mu b_ \n u *)
-Tudff=(rho+u+bsq/2);
+Tudff=(u+bsq/2);
 Rud0ff=Rudff//.chooseresultUU0;
 Tud0ff=Tudff//.chooseresultUU0;
 Gdff=Gd.ucon;
@@ -785,7 +785,7 @@ If[whichmhd==4,
 Rudff=ucov.Rud.ucon;
 Erff=ucov.Rud.ucon;
 Tudff=ucov.Tud.ucon;
-Tudff=(rho+u+bsq/2);
+Tudff=(u+bsq/2);
 Rud0ff=Rudff//.chooseresultUU0;
 Tud0ff=Tudff//.chooseresultUU0;
 Gdff=Gd.ucon;
