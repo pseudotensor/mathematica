@@ -662,8 +662,8 @@ Scff=ucov.(Sc/ucon[[1]]*ucon); (* i.e. u\mu S u^\mu   *)
 Scff=-S;
 Sc0ff=Scff//.chooseresultUU0noG;
 dtau=ucov[[1]]*dt;
-(* lambda>0 means gas entropy should drop, and have TScff = TSc0ff - (kappa Erff - lambda)*dtau = Tsc0ff + (-#) *)
-ferr2[[1]]=T*(Scff-Sc0ff)+ (kappa Erff - lambda) dtau; 
+(* lambda>0 means gas entropy should drop means Scff rises, and have TScff = TSc0ff + (kappa Erff - lambda)*dtau = Tsc0ff + (+#) *)
+ferr2[[1]]=T*(Scff-Sc0ff)- (kappa Erff - lambda) dtau; 
 ];
 (* grep 0SGood math.out|wc;grep 0WSGood math.out|wc;grep 0WSBad math.out|wc *)
 (* grep 0Good math.out|wc;grep 0WGood math.out|wc;grep 0WBad math.out|wc *)
@@ -870,8 +870,8 @@ Scff=ucov.(Sc/ucon[[1]]*ucon); (* i.e. u\mu S u^\mu   *)
 Scff=-S;
 Sc0ff=Scff//.chooseresultUU0noG;
 dtau=ucov[[1]]*dt;
-(* lambda>0 means gas entropy drops.  TScff = TSc0ff - (kappa Erff - lambda)*dtau = TSc0ff + (-#) *)
-ferr2[[1]]=T*(Scff-Sc0ff)+(kappa Erff - lambda) dtau; 
+(* lambda>0 means gas entropy drops means Scff rises.  TScff = TSc0ff + (kappa Erff - lambda)*dtau = TSc0ff + (+#) *)
+ferr2[[1]]=T*(Scff-Sc0ff)-(kappa Erff - lambda) dtau; 
 ferr2norm[[1]]=10^(-300) + Abs[Scff]+Abs[Sc0ff]+(Abs[kappa Erff]+Abs[lambda]) dtau;
 ];
 
