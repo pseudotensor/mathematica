@@ -655,6 +655,7 @@ If[whichentropy==4,
 (* fully fluid-frame version *)
 Erff=ucov.Rud.ucon;
 Scff=ucov.(Sc/ucon[[1]]*ucon); (* i.e. u\mu S u^\mu   *)
+Scff=-S;
 Sc0ff=Scff//.chooseresultUU0noG;
 dtau=ucov[[1]]*dt;
 ferr2[[1]]=T*(Scff-Sc0ff)- (kappa Erff - lambda) dtau; 
@@ -861,6 +862,7 @@ If[whichentropy==4,
 (* fully fluid-frame version *)
 Erff=ucov.Rud.ucon;
 Scff=ucov.(Sc/ucon[[1]]*ucon); (* i.e. u\mu S u^\mu   *)
+Scff=-S;
 Sc0ff=Scff//.chooseresultUU0noG;
 dtau=ucov[[1]]*dt;
 ferr2[[1]]=T*(Scff-Sc0ff)- (kappa Erff - lambda) dtau; 
