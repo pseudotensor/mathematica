@@ -309,7 +309,9 @@ qsqr=urtilde.urtildedown;
 gammar=Sqrt[1+qsqr];
 uru0=gammar/alpha;
 urcon=urtilde+gammar*etavecup;
+uradcon=urcon;
 urcov=urtildedown+gammar*etavecdown;
+uradcov=urcov;
 (* test *)
 testuu=FullSimplify[urcon.urcov];
 Print["2testuu=",testuu];
