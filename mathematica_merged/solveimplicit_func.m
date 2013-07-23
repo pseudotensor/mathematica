@@ -649,7 +649,7 @@ ferr2[[1]]=(u-uii)-(gam u/rho) (rho-rhoii) - (kappa Er - lambda) dt/ucon[[1]]; (
 If[whichentropy==3,
 Erff=ucov.Rud.ucon;
 (*ferr2[[1]]=(u-uii)-(gam u/rho) (rho-rhoii) - (kappa Erff - lambda) dt/ucon[[1]]; (* accurate fluid-frame version *)*)
-ferr2[[1]]=Sc/ucon[[1]]-Sc0/uu0ii- (kappa Erff - lambda) dt/ucon[[1]]; (* accurate fluid-frame version *)
+ferr2[[1]]=T*(Sc/ucon[[1]]-Sc0/uu0ii)- (kappa Erff - lambda) dt/ucon[[1]]; (* accurate fluid-frame version *)
 ];
 If[whichentropy==4,
 (* fully fluid-frame version *)
@@ -657,7 +657,7 @@ Erff=ucov.Rud.ucon;
 Scff=ucov.(Sc/ucon[[1]]*ucon); (* i.e. u\mu S u^\mu   *)
 Sc0ff=Scff//.chooseresultUU0noG;
 dtau=ucov[[1]]*dt;
-ferr2[[1]]=Scff-Sc0ff- (kappa Erff - lambda) dtau; 
+ferr2[[1]]=T*(Scff-Sc0ff)- (kappa Erff - lambda) dtau; 
 ];
 (* grep 0SGood math.out|wc;grep 0WSGood math.out|wc;grep 0WSBad math.out|wc *)
 (* grep 0Good math.out|wc;grep 0WGood math.out|wc;grep 0WBad math.out|wc *)
@@ -854,7 +854,7 @@ ferr2norm[[1]]=10^(-300) + (Abs[u]+Abs[uii])+Abs[gam u/rho] (Abs[rho]+Abs[rhoii]
 If[whichentropy==3,
 Erff=ucov.Rud.ucon;
 (*ferr2[[1]]=(u-uii)-(gam u/rho) (rho-rhoii) - (kappa Erff - lambda) dt/ucon[[1]]; (* accurate fluid-frame version *)*)
-ferr2[[1]]=Sc/ucon[[1]]-Sc0/uu0ii- (kappa Erff - lambda) dt/ucon[[1]]; (* accurate fluid-frame version *)
+ferr2[[1]]=T*(Sc/ucon[[1]]-Sc0/uu0ii)- (kappa Erff - lambda) dt/ucon[[1]]; (* accurate fluid-frame version *)
 ferr2norm[[1]]=10^(-300) + Abs[Sc/ucon[[1]]]+Abs[Sc0/uu0ii]+(Abs[kappa Erff]+Abs[lambda]) dt/Abs[ucon[[1]]];
 ];
 If[whichentropy==4,
@@ -863,7 +863,7 @@ Erff=ucov.Rud.ucon;
 Scff=ucov.(Sc/ucon[[1]]*ucon); (* i.e. u\mu S u^\mu   *)
 Sc0ff=Scff//.chooseresultUU0noG;
 dtau=ucov[[1]]*dt;
-ferr2[[1]]=Scff-Sc0ff- (kappa Erff - lambda) dtau; 
+ferr2[[1]]=T*(Scff-Sc0ff)- (kappa Erff - lambda) dtau; 
 ferr2norm[[1]]=10^(-300) + Abs[Scff]+Abs[Sc0ff]+(Abs[kappa Erff]+Abs[lambda]) dtau;
 ];
 
