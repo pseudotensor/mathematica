@@ -58,6 +58,12 @@ numfails=165; (* number of failures in fail file loaded in *)
 
 COUNTFINDROOT=1; (* 1 = show number of iterations, stored in "cc" variable and outputted in math.out *)
 
+(* whichg=1 uses direct gcov  whichg=2 uses alpha - beta splitting for utilde *)
+whichg=2;
+
+(* whichvel=1 uses ucon[[i]] and uradcon[[i]] as primitives  whichvel=2 uses utilde version *)
+whichvel=2;
+
  (* 1 = lab-frame times T  ; 2 = Ramesh approximate fluid-frame entropy without flux contribution 3 = nearly completely accurate fluid-frame entropy version 4 = fully fluid frame version *)
 whichentropy=1;
  (* 1 = lab-frame for all quantities  2 = fluid-frame for energy terms  3= fluid-frame for energy terms using explicitly analytic source 4 = fully fluid frame version *)
@@ -186,6 +192,12 @@ uu0ii=N[uconi0,20];
 uu1ii=N[uconi1,20];
 uu2ii=N[uconi2,20];
 uu3ii=N[uconi3,20];
+uut1ii=N[pin2,20];
+uut2ii=N[pin3,20];
+uut3ii=N[pin4,20];
+urut1ii=N[pin8,20];
+urut2ii=N[pin9,20];
+urut3ii=N[pin10,20];
 Eri=N[pinuse8,20];
 Erii=N[pin8,20];
 uru1i=N[uradcon1,20];
@@ -202,7 +214,7 @@ Bcon1=N[pin5,20];
 Bcon2=N[pin6,20];
 Bcon3=N[pin7,20];
 
-
+If[whichvel==1,
 Clear[uu1,uu2,uu3,uru1,uru2,uru3];
 (* pinuse that gives uu?i and uru?i can be way off if failure from harm*)
 constspinuse={rho->rhoi,u->ui,uu1->uu1i,uu2->uu2i,uu3->uu3i,Er->Eri,uru1->uru1i,uru2->uru2i,uru3->uru3i,S->Si,whichuconi0->N[ucon0,20],whichuradconi0->N[uradcon0,20]};
@@ -214,6 +226,13 @@ ICpinS={{rho,rhoii},{S,Sii},{uu1,uu1ii},{uu2,uu2ii},{uu3,uu3ii},{Er,Erii},{uru1,
 ICpinrad={{Er,Erii},{uru1,uru1ii},{uru2,uru2ii},{uru3,uru3ii}};
 ICpintest={{rho,0.81294331641668613088},{u,-0.39623582536829021164},{uu1,0.0059983053605683365108},{uu2,-6.050321005028674004*10^(-05)},{uu3,0.0016122825983277623461},{Er,8.4180452807836352799},{uru1,1.8487475475809896162*10^(-07)},{uru2,3.0057769907110685415*10^(-07)},{uru3,0.0020962681965309745859}};
 constspintest={rho->0.81294331641668613088,u->-0.39623582536829021164,uu1->0.0059983053605683365108,uu2->-6.050321005028674004*10^(-05),uu3->0.0016122825983277623461,Er->8.4180452807836352799,uru1->1.8487475475809896162*10^(-07),uru2->3.0057769907110685415*10^(-07),uru3->0.0020962681965309745859};
+];
+If[whichvel==2,
+Clear[uut1,uut2,uut3,urut1,urut2,urut3];
+constspin={rho->rhoii,u->uii,uut1->uut1ii,uut2->uut2ii,uut3->uut3ii,Er->Erii,urut1->urut1ii,urut2->urut2ii,urut3->urut3ii,S->Sii,whichuconi0->N[uconi0,20],whichuradconi0->N[uradconi0,20]};
+ICpin={{rho,rhoii},{u,uii},{uut1,uut1ii},{uut2,uut2ii},{uut3,uut3ii},{Er,Erii},{urut1,urut1ii},{urut2,urut2ii},{urut3,urut3ii}};
+ICpinrad={{Er,Erii},{urut1,urut1ii},{urut2,urut2ii},{urut3,urut3ii}};
+];
 If[0==1,
 consts=constspinuse;
 IC=ICpinuse;
@@ -222,9 +241,29 @@ consts=constspin;
 IC=ICpin;
 ];
 
+If[whichg==1,
 gcon=SetPrecision[{{gn11,gn12,gn13,gn14},{gn12,gn22,gn23,gn24},{gn13,gn23,gn33,gn34},{gn14,gn24,gn34,gn44}},20];
 gcov=FullSimplify[Inverse[gcon]];
+];
+If[whichg==2,
+gcon={{gn11,gn12,gn13,gn14},{gn12,gn22,gn23,gn24},{gn13,gn23,gn33,gn34},{gn14,gn24,gn34,gn44}};
+gcov0={{gv11,gv12,gv13,gv14},{gv12,gv22,gv23,gv24},{gv13,gv23,gv33,gv34},{gv14,gv24,gv34,gv44}};
+gcon0=Inverse[gcov0];
+alpha=1/Sqrt[-gn11];
+etavecdown={-alpha,0,0,0};
+betaup={0,alpha^2*gcon[[1,2]],alpha^2*gcon[[1,3]],alpha^2*gcon[[1,4]]};
+betadown=betaup.gcov0;
+betadown[[1]]=0;
+etavecup=(1/alpha)*{1,-betaup[[2]],-betaup[[3]],-betaup[[4]]};
+betasq=betaup.betadown;
+gcov={{-alpha^2+betasq,betadown[[2]],betadown[[3]],betadown[[4]]},{betadown[[2]],gcov0[[2,2]],gcov0[[2,3]],gcov0[[2,4]]},{betadown[[3]],gcov0[[3,2]],gcov0[[3,3]],gcov0[[3,4]]},{betadown[[4]],gcov0[[4,2]],gcov0[[4,3]],gcov0[[4,4]]}};
 
+(* test *)
+testwhichg2=FullSimplify[(gcov-gcov0)//.{gn11->gcon0[[1,1]],gn12->gcon0[[1,2]],gn13->gcon0[[1,3]],gn14->gcon0[[1,4]],gn23->gcon0[[2,3]],gn24->gcon0[[2,4]],gn34->gcon0[[3,4]],gn44->gcon0[[4,4]]}];
+Print["testwhichg2=",testwhichg2];
+];
+
+If[whichvel==1,
 Clear[uu0,uu1,uu2,uu3];
 ucon={uu0,uu1,uu2,uu3};
 ucov=ucon.gcov;
@@ -248,6 +287,33 @@ valrb=soluru0b//.constspin;
 testuradcon0= whichuradconi0//.constspin;
 If[Abs[valra -testuradcon0]<Abs[valrb - uradconi0],uru0=soluru0a,uru0=soluru0b];
 Print["uradconi0=",uradconi0," uru0=",uru0//.constspin," soluru0a=",soluru0a//.constspin," soluru0b=",soluru0b//.constspin];
+];
+
+If[whichvel==2,
+Clear[uu0,uu1,uu2,uu3];
+utilde={0,uut1,uut2,uut3};
+utildedown=utilde.gcov;
+qsq=utilde.utildedown;
+gamma=Sqrt[1+qsq];
+uu0=gamma/alpha;
+ucon=utilde+gamma*etavecup;
+ucov=utildedown+gamma*etavecdown;
+(* test *)
+testuu=FullSimplify[ucon.ucov];
+Print["1testuu=",testuu];
+
+Clear[uru0,uru1,uru2,uru3];
+urtilde={0,urut1,urut2,urut3};
+urtildedown=gcov.urtilde;
+qsqr=urtilde.urtildedown;
+gammar=Sqrt[1+qsqr];
+uru0=gammar/alpha;
+urcon=urtilde+gammar*etavecup;
+urcov=urtildedown+gammar*etavecdown;
+(* test *)
+testuu=FullSimplify[urcon.urcov];
+Print["2testuu=",testuu];
+];
 
 Bcon={0,Bcon1,Bcon2,Bcon3};
 udotB=Sum[ucov[[ii]]*Bcon[[ii]],{ii,1,4}];
@@ -784,7 +850,15 @@ If[whichmhd==4,
 (* fully comoving frame.  Contract entire equation on left by ucov and on right by ucon . *)
 Rudff=ucov.Rud.ucon;
 Erff=ucov.Rud.ucon;
+(* below doesn't remove rho in comoving frame *)
 Tudff=ucov.Tud.ucon;
+
+(* eta_nu = (-alpha,0,0,0) *)
+(* gamma = -u^mu eta_nu = (alpha u^t) *)
+(* rho u^mu eta_nu/(-alpha u^t) + T^mu_nu = rho u^mu (eta_nu/(-alpha u^t) + u_nu) + (u+p+bsq)u^mu u_nu + delta^mu_nu (p+bsq/2) - b^mu b_nu *)
+(* -rho + rho + u + P + bsq - P - bsq/2 = u+bsq/2 *)
+(* but this doesn't work for lab-frame version, which works because D=rho0*ut is constant *)
+
 Tudff=(u+bsq/2);
 Rud0ff=Rudff//.chooseresultUU0;
 Tud0ff=Tudff//.chooseresultUU0;
