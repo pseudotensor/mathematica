@@ -44,7 +44,10 @@ InitializationCell->True
 InitializationCell->True
 
 
-MyPrint[x_]:=Write[sout,x];
+MyPrint[x_]:=Module[{foo,x0=x},
+Write[sout,x0];
+Print[x0];
+]
 (* MyPrint[x_]:=Print[x]; *)
 
 
