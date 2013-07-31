@@ -522,7 +522,7 @@ ochooseresult=myReP[chooseresult];
 Aplist={rho,u,uut1,uut2,uut3,Bconi[[1]],Bconi[[2]],Bconi[[3]],Er,urut1,urut2,urut3}//.ochooseresult;
 FullOutput={
 "Awhich(myj,failtype,myid,failnum)",myj,failtype,myid,failnum,
-"Aresulttype",resultype1,
+"Aresulttype",resulttype1,
 "Aerrorabs",ferrabs+ferrabsim,
 "Aiters=",ccA,
 "Ap",Aplist,
@@ -566,6 +566,7 @@ Print["ASferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
 complexprims=myRe[(u//.chooseresult)]<myIm[(u//.chooseresult)]/badtol||myRe[(rho//.chooseresult)]<myIm[(rho//.chooseresult)]/badtol||myRe[(Er//.chooseresult)]<myIm[(Er//.chooseresult)]/badtol;
 If[complexprims==1,MyPrint["AScomplexprims"];];
 If[ferrabs==0 || ferrabs<badtol && ferrabsim<badtol&&complexprims==False,resulttype4SnoG="Good",resulttype4SnoG="Bad"];
+cc=0;
 Print["AS",resulttype4SnoG," ",CForm[ferrabs]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
 chooseresultUU0noG=chooseresult;
 Print["AUUSi ",rhouu0i," ",Rudi," ",Tudi, " ", Sci];
@@ -581,7 +582,7 @@ ochooseresult=myReP[chooseresult];
 ASplist={rho,u,uut1,uut2,uut3,Bconi[[1]],Bconi[[2]],Bconi[[3]],Er,urut1,urut2,urut3}//.ochooseresult;
 FullOutput={
 "ASwhich(myj,failtype,myid,failnum)",myj,failtype,myid,failnum,
-"ASresulttype",resultype4SnoG,
+"ASresulttype",resulttype4SnoG,
 "ASerrorabs",ferrabs+ferrabsim,
 "ASiters=",cc,
 "ASp",ASplist,
@@ -668,7 +669,7 @@ ochooseresult=myReP[chooseresult];
 p1plist={rho,u,uut1,uut2,uut3,Bconi[[1]],Bconi[[2]],Bconi[[3]],Er,urut1,urut2,urut3}//.ochooseresult;
 FullOutput={
 "1which(myj,failtype,myid,failnum)",myj,failtype,myid,failnum,
-"1resulttype",resultype10,
+"1resulttype",resulttype10,
 "1errorabs",ferrabs+ferrabsim,
 "1iters=",cc,
 "1p",p1plist,
@@ -734,7 +735,7 @@ ochooseresult=myReP[chooseresult];
 p1Splist={rho,u,uut1,uut2,uut3,Bconi[[1]],Bconi[[2]],Bconi[[3]],Er,urut1,urut2,urut3}//.ochooseresult;
 FullOutput={
 "1Swhich(myj,failtype,myid,failnum)",myj,failtype,myid,failnum,
-"1Sresulttype",resultype4SnoG,
+"1Sresulttype",resulttype4SnoG,
 "1Serrorabs",ferrabs+ferrabsim,
 "1Siters=",cc,
 "1Sp",p1Splist,
@@ -800,7 +801,7 @@ ochooseresult=myReP[chooseresult];
 p2plist={rho,u,uut1,uut2,uut3,Bcon[[1]],Bcon[[2]],Bcon[[3]],Er,urut1,urut2,urut3}//.ochooseresult;
 FullOutput={
 "2which(myj,failtype,myid,failnum)",myj,failtype,myid,failnum,
-"2resulttype",resultype11,
+"2resulttype",resulttype11,
 "2errorabs",ferrabs+ferrabsim,
 "2iters=",cc,
 "2p",p2plist,
@@ -933,7 +934,7 @@ ochooseresult=myReP[chooseresult];
 p0plist={rho,u,uut1,uut2,uut3,Bcon[[1]],Bcon[[2]],Bcon[[3]],Er,urut1,urut2,urut3}//.ochooseresult;
 FullOutput={
 "0which(myj,failtype,myid,failnum)",myj,failtype,myid,failnum,
-"0resulttype",resultype3,
+"0resulttype",resulttype3,
 "0errorabs",ferrabs+ferrabsim,
 "0iters=",cc,
 "0p",p0plist,
@@ -997,7 +998,7 @@ ochooseresult=myReP[chooseresult];
 p2Splist={rho,u,uut1,uut2,uut3,Bcon[[1]],Bcon[[2]],Bcon[[3]],Er,urut1,urut2,urut3}//.ochooseresult;
 FullOutput={
 "2Swhich(myj,failtype,myid,failnum)",myj,failtype,myid,failnum,
-"2Sresulttype",resultype4SnoG,
+"2Sresulttype",resulttype4SnoG,
 "2Serrorabs",ferrabs+ferrabsim,
 "2Siters=",cc,
 "2Sp",p2Splist,
@@ -1097,7 +1098,7 @@ ochooseresult=myReP[chooseresult];
 p0Splist={rho,u,uut1,uut2,uut3,Bcon[[1]],Bcon[[2]],Bcon[[3]],Er,urut1,urut2,urut3}//.ochooseresult;
 FullOutput={
 "0Swhich(myj,failtype,myid,failnum)",myj,failtype,myid,failnum,
-"0Sresulttype",resultype4S,
+"0Sresulttype",resulttype4S,
 "0Serrorabs",ferrabs+ferrabsim,
 "0Siters=",cc,
 "0Sp",p0Splist,
@@ -1258,7 +1259,7 @@ ochooseresult=myReP[chooseresult];
 p0Wplist={rho,u,uut1,uut2,uut3,Bcon[[1]],Bcon[[2]],Bcon[[3]],Er,urut1,urut2,urut3}//.ochooseresult;
 FullOutput={
 "0Wwhich(myj,failtype,myid,failnum)",myj,failtype,myid,failnum,
-"0Wresulttype",resultype6,
+"0Wresulttype",resulttype6,
 "0Werrorabs",ferrabs+ferrabsim,
 "0Witers=",cc,
 "0Wp",p0Wplist,
@@ -1353,7 +1354,7 @@ ochooseresult=myReP[chooseresult];
 p0WSplist={rho,u,uut1,uut2,uut3,Bcon[[1]],Bcon[[2]],Bcon[[3]],Er,urut1,urut2,urut3}//.ochooseresult;
 FullOutput={
 "0WSwhich(myj,failtype,myid,failnum)",myj,failtype,myid,failnum,
-"0WSresulttype",resultype7S,
+"0WSresulttype",resulttype7S,
 "0WSerrorabs",ferrabs+ferrabsim,
 "0WSiters=",cc,
 "0WSp",p0WSplist,
