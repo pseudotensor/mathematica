@@ -476,30 +476,22 @@ dtcold=0;
 ferr0=rhou[[1]]-rhouu0i;
 ferr1=Table[(Rud[[1,ii]]-Rudi[[ii]])+dtcold*Gd[[ii]],{ii,1,4}];
 ferr2=Table[(TudBi[[1,ii]]-Tudi[[ii]])-dtcold*Gd[[ii]],{ii,1,4}];
-(*ferrnorm1=Table[(Abs[Rud[[1,ii]]]+Abs[Rudi[[ii]]])+Abs[dtcold*Gd[[ii]]],{ii,1,4}];*)
-(*ferrnorm2=Table[(Abs[TudBi[[1,ii]]]+Abs[Tudi[[ii]]])+Abs[dtcold*Gd[[ii]]],{ii,1,4}];*)
+chooseresult=constspin;
+
 ferrnorm0=Abs[rhou[[1]]]+Abs[rhouu0i];
-(*ferrnorm1=Table[(Abs[Rud[[1,ii]]]+Abs[Rudi[[ii]]])+Abs[dtcold*Gd[[ii]]],{ii,1,4}];*)
-(*ferrnorm2=Table[(Abs[TudBi[[1,ii]]]+Abs[Tudi[[ii]]])+Abs[dtcold*Gd[[ii]]],{ii,1,4}];*)
 ferrnorm1t=Table[Sqrt[Abs[gcon[[ii,ii]]]]*((Abs[Rud[[1,ii]]]+Abs[Rudi[[ii]]])+Abs[dtcold*Gd[[ii]]]),{ii,1,1}];
 ferrnorm1s=Sum[Sqrt[Abs[gcon[[ii,ii]]]]*((Abs[Rud[[1,ii]]]+Abs[Rudi[[ii]]])+Abs[dtcold*Gd[[ii]]]),{ii,2,4}];
-ferrnorm1={ferrnorm1t[[1]],ferrnorm1s,ferrnorm1s,ferrnorm1s};
-(*ferrnorm2=Table[(Abs[TudBi[[1,ii]]]+Abs[Tudi[[ii]]])+Abs[dtcold*Gd[[ii]]],{ii,1,4}];*)
+ferrnorm1={ferrnorm1t[[1]],ferrnorm1s/Sqrt[Abs[gcon[[2,2]]]],ferrnorm1s/Sqrt[Abs[gcon[[3,3]]]],ferrnorm1s/Sqrt[Abs[gcon[[4,4]]]]};
 ferrnorm2t=Table[Sqrt[Abs[gcon[[ii,ii]]]]*((Abs[TudBi[[1,ii]]]+Abs[Tudi[[ii]]])+Abs[dtcold*Gd[[ii]]]),{ii,1,1}];
 ferrnorm2s=Sum[Sqrt[Abs[gcon[[ii,ii]]]]*((Abs[TudBi[[1,ii]]]+Abs[Tudi[[ii]]])+Abs[dtcold*Gd[[ii]]]),{ii,2,4}];
-ferrnorm2={ferrnorm2t[[1]],ferrnorm2s,ferrnorm2s,ferrnorm2s};
-chooseresult=constspin;
-(*chooseresult=constspintest;*)
-Print["Aresult=",chooseresult];
-Print["Pbi=",Pbi//.chooseresult];
-(*
-ferr0=(ferr0/rho)//.chooseresult;
-ferr1=(ferr1/Max[u,Er])//.chooseresult;
-ferr2=(ferr2/Max[u,Er])//.chooseresult;
-*)
+ferrnorm2={ferrnorm2t[[1]],ferrnorm2s/Sqrt[Abs[gcon[[2,2]]]],ferrnorm2s/Sqrt[Abs[gcon[[3,3]]]],ferrnorm2s/Sqrt[Abs[gcon[[4,4]]]]};
 ferr0=(ferr0/ferrnorm0)//.chooseresult;
 ferr1=(ferr1/ferrnorm1)//.chooseresult;
 ferr2=(ferr2/ferrnorm2)//.chooseresult;
+
+(*chooseresult=constspintest;*)
+Print["Aresult=",chooseresult];
+Print["Pbi=",Pbi//.chooseresult];
 ferrtotal=Join[{ferr0},ferr1,ferr2];
 ferrabs=Sqrt[myRe[ferrtotal].myRe[ferrtotal]];
 ferrabsim=Sqrt[myIm[ferrtotal].myIm[ferrtotal]];
@@ -552,26 +544,18 @@ ferr2[[1]]=T*(Sc-Sci -dtcold*GS); (* lab-frame version *)
 chooseresult=constspin;
 Print["ASresult=",chooseresult];
 Print["Pbi=",Pbi//.chooseresult];
-(*
-ferr0=ferr0/Abs[rho]//.chooseresult;
-ferr1=(ferr1/Max[Abs[(Er//.chooseresult)],Abs[(Er//.chooseresult)]])//.chooseresult;
-ferr2=(ferr2/Max[Abs[(Er//.chooseresult)],Abs[(Er//.chooseresult)]])//.chooseresult;
-*)
-(*ferrnorm1=Table[(Abs[Rud[[1,ii]]]+Abs[Rudi[[ii]]])+Abs[dtcold*Gd[[ii]]],{ii,1,4}];*)
-(*ferrnorm2=Table[(Abs[TudBi[[1,ii]]]+Abs[Tudi[[ii]]])+Abs[dtcold*Gd[[ii]]],{ii,1,4}];*)
+
 ferrnorm0=Abs[rhou[[1]]]+Abs[rhouu0i];
-(*ferrnorm1=Table[(Abs[Rud[[1,ii]]]+Abs[Rudi[[ii]]])+Abs[dtcold*Gd[[ii]]],{ii,1,4}];*)
-(*ferrnorm2=Table[(Abs[TudBi[[1,ii]]]+Abs[Tudi[[ii]]])+Abs[dtcold*Gd[[ii]]],{ii,1,4}];*)
 ferrnorm1t=Table[Sqrt[Abs[gcon[[ii,ii]]]]*((Abs[Rud[[1,ii]]]+Abs[Rudi[[ii]]])+Abs[dtcold*Gd[[ii]]]),{ii,1,1}];
 ferrnorm1s=Sum[Sqrt[Abs[gcon[[ii,ii]]]]*((Abs[Rud[[1,ii]]]+Abs[Rudi[[ii]]])+Abs[dtcold*Gd[[ii]]]),{ii,2,4}];
-ferrnorm1={ferrnorm1t[[1]],ferrnorm1s,ferrnorm1s,ferrnorm1s};
-(*ferrnorm2=Table[(Abs[TudBi[[1,ii]]]+Abs[Tudi[[ii]]])+Abs[dtcold*Gd[[ii]]],{ii,1,4}];*)
-ferrnorm2t=Sqrt[Abs[gcon[[1,1]]]]*(Abs[T]*(Abs[Sc]+Abs[Sci]+Abs[dtcold*GS]));
+ferrnorm1={ferrnorm1t[[1]],ferrnorm1s/Sqrt[Abs[gcon[[2,2]]]],ferrnorm1s/Sqrt[Abs[gcon[[3,3]]]],ferrnorm1s/Sqrt[Abs[gcon[[4,4]]]]};
+ferrnorm2t=(Abs[T]*(Abs[Sc]+Abs[Sci]+Abs[dtcold*GS]));
 ferrnorm2s=Sum[Sqrt[Abs[gcon[[ii,ii]]]]*((Abs[TudBi[[1,ii]]]+Abs[Tudi[[ii]]])+Abs[dtcold*Gd[[ii]]]),{ii,2,4}];
-ferrnorm2={ferrnorm2t[[1]],ferrnorm2s,ferrnorm2s,ferrnorm2s};
+ferrnorm2={ferrnorm2t[[1]],ferrnorm2s/Sqrt[Abs[gcon[[2,2]]]],ferrnorm2s/Sqrt[Abs[gcon[[3,3]]]],ferrnorm2s/Sqrt[Abs[gcon[[4,4]]]]};
 ferr0=(ferr0/ferrnorm0)//.chooseresult;
 ferr1=(ferr1/ferrnorm1)//.chooseresult;
 ferr2=(ferr2/ferrnorm2)//.chooseresult;
+
 ferrtotal=Join[{ferr0},ferr1,ferr2];
 ferrabs=Sqrt[myRe[ferrtotal].myRe[ferrtotal]];
 ferrabsim=Sqrt[myIm[ferrtotal].myIm[ferrtotal]];
@@ -642,9 +626,18 @@ result=resultorig[[1]];cc=resultorig[[2]];
 chooseresult=result;
 Print["1result=",chooseresult];
 Print["Pbi=",Pbi//.chooseresult];
-ferr0=ferr0/Abs[rho]//.chooseresult;
-ferr1=(ferr1/Max[Abs[((u//.chooseresult))],Abs[(Er//.chooseresult)]])//.chooseresult;
-ferr2=(ferr2/Max[Abs[((u//.chooseresult))],Abs[(Er//.chooseresult)]])//.chooseresult;
+
+ferrnorm0=Abs[rhou[[1]]]+Abs[rhouu0i];
+ferrnorm1t=Table[Sqrt[Abs[gcon[[ii,ii]]]]*((Abs[Rud[[1,ii]]]+Abs[Rudi[[ii]]])+Abs[dtcold*Gd[[ii]]]),{ii,1,1}];
+ferrnorm1s=Sum[Sqrt[Abs[gcon[[ii,ii]]]]*((Abs[Rud[[1,ii]]]+Abs[Rudi[[ii]]])+Abs[dtcold*Gd[[ii]]]),{ii,2,4}];
+ferrnorm1={ferrnorm1t[[1]],ferrnorm1s/Sqrt[Abs[gcon[[2,2]]]],ferrnorm1s/Sqrt[Abs[gcon[[3,3]]]],ferrnorm1s/Sqrt[Abs[gcon[[4,4]]]]};
+ferrnorm2t=Table[Sqrt[Abs[gcon[[ii,ii]]]]*((Abs[TudBi[[1,ii]]]+Abs[Tudi[[ii]]])+Abs[dtcold*Gd[[ii]]]),{ii,1,1}];
+ferrnorm2s=Sum[Sqrt[Abs[gcon[[ii,ii]]]]*((Abs[TudBi[[1,ii]]]+Abs[Tudi[[ii]]])+Abs[dtcold*Gd[[ii]]]),{ii,2,4}];
+ferrnorm2={ferrnorm2t[[1]],ferrnorm2s/Sqrt[Abs[gcon[[2,2]]]],ferrnorm2s/Sqrt[Abs[gcon[[3,3]]]],ferrnorm2s/Sqrt[Abs[gcon[[4,4]]]]};
+ferr0=(ferr0/ferrnorm0)//.chooseresult;
+ferr1=(ferr1/ferrnorm1)//.chooseresult;
+ferr2=(ferr2/ferrnorm2)//.chooseresult;
+
 ferrtotal=Join[{ferr0},ferr1,ferr2];
 ferrabs=Sqrt[myRe[ferrtotal].myRe[ferrtotal]];
 ferrabsim=Sqrt[myIm[ferrtotal].myIm[ferrtotal]];
@@ -700,9 +693,18 @@ resultorig=Block[{cc=0},{FindRoot[{ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3
 chooseresult=result;
 Print["1Sresult=",chooseresult];
 Print["Pbi=",Pbi//.chooseresult];
-ferr0=ferr0/Abs[rho]//.chooseresult;
-ferr1=(ferr1/Max[Abs[(Er//.chooseresult)],Abs[(Er//.chooseresult)]])//.chooseresult;
-ferr2=(ferr2/Max[Abs[(Er//.chooseresult)],Abs[(Er//.chooseresult)]])//.chooseresult;
+
+ferrnorm0=Abs[rhou[[1]]]+Abs[rhouu0i];
+ferrnorm1t=Table[Sqrt[Abs[gcon[[ii,ii]]]]*((Abs[Rud[[1,ii]]]+Abs[Rudi[[ii]]])+Abs[dtcold*Gd[[ii]]]),{ii,1,1}];
+ferrnorm1s=Sum[Sqrt[Abs[gcon[[ii,ii]]]]*((Abs[Rud[[1,ii]]]+Abs[Rudi[[ii]]])+Abs[dtcold*Gd[[ii]]]),{ii,2,4}];
+ferrnorm1={ferrnorm1t[[1]],ferrnorm1s/Sqrt[Abs[gcon[[2,2]]]],ferrnorm1s/Sqrt[Abs[gcon[[3,3]]]],ferrnorm1s/Sqrt[Abs[gcon[[4,4]]]]};
+ferrnorm2t=(Abs[T]*(Abs[Sc]+Abs[Sci]+Abs[dtcold*GS]));
+ferrnorm2s=Sum[Sqrt[Abs[gcon[[ii,ii]]]]*((Abs[TudBi[[1,ii]]]+Abs[Tudi[[ii]]])+Abs[dtcold*Gd[[ii]]]),{ii,2,4}];
+ferrnorm2={ferrnorm2t[[1]],ferrnorm2s/Sqrt[Abs[gcon[[2,2]]]],ferrnorm2s/Sqrt[Abs[gcon[[3,3]]]],ferrnorm2s/Sqrt[Abs[gcon[[4,4]]]]};
+ferr0=(ferr0/ferrnorm0)//.chooseresult;
+ferr1=(ferr1/ferrnorm1)//.chooseresult;
+ferr2=(ferr2/ferrnorm2)//.chooseresult;
+
 ferrtotal=Join[{ferr0},ferr1,ferr2];
 ferrabs=Sqrt[myRe[ferrtotal].myRe[ferrtotal]];
 ferrabsim=Sqrt[myIm[ferrtotal].myIm[ferrtotal]];
@@ -756,9 +758,18 @@ result=resultorig[[1]];cc=resultorig[[2]];
 chooseresult=result;
 Print["2result=",chooseresult];
 Print["Pb=",Pb//.chooseresult];
-ferr0=ferr0/Abs[rho]//.chooseresult;
-ferr1=(ferr1/Max[Abs[(u//.chooseresult)],Abs[(Er//.chooseresult)]])//.chooseresult;
-ferr2=(ferr2/Max[Abs[(u//.chooseresult)],Abs[(Er//.chooseresult)]])//.chooseresult;
+
+ferrnorm0=Abs[rhou[[1]]]+Abs[rho0];
+ferrnorm1t=Table[Sqrt[Abs[gcon[[ii,ii]]]]*((Abs[Rud[[1,ii]]]+Abs[Rud0[[ii]]])+Abs[dtcold*Gd[[ii]]]),{ii,1,1}];
+ferrnorm1s=Sum[Sqrt[Abs[gcon[[ii,ii]]]]*((Abs[Rud[[1,ii]]]+Abs[Rud0[[ii]]])+Abs[dtcold*Gd[[ii]]]),{ii,2,4}];
+ferrnorm1={ferrnorm1t[[1]],ferrnorm1s/Sqrt[Abs[gcon[[2,2]]]],ferrnorm1s/Sqrt[Abs[gcon[[3,3]]]],ferrnorm1s/Sqrt[Abs[gcon[[4,4]]]]};
+ferrnorm2t=Table[Sqrt[Abs[gcon[[ii,ii]]]]*((Abs[Tud[[1,ii]]]+Abs[Tud0[[ii]]])+Abs[dtcold*Gd[[ii]]]),{ii,1,1}];
+ferrnorm2s=Sum[Sqrt[Abs[gcon[[ii,ii]]]]*((Abs[Tud[[1,ii]]]+Abs[Tud0[[ii]]])+Abs[dtcold*Gd[[ii]]]),{ii,2,4}];
+ferrnorm2={ferrnorm2t[[1]],ferrnorm2s/Sqrt[Abs[gcon[[2,2]]]],ferrnorm2s/Sqrt[Abs[gcon[[3,3]]]],ferrnorm2s/Sqrt[Abs[gcon[[4,4]]]]};
+ferr0=(ferr0/ferrnorm0)//.chooseresult;
+ferr1=(ferr1/ferrnorm1)//.chooseresult;
+ferr2=(ferr2/ferrnorm2)//.chooseresult;
+
 ferrtotal=Join[{ferr0},ferr1,ferr2];
 ferrabs=Sqrt[myRe[ferrtotal].myRe[ferrtotal]];
 ferrabsim=Sqrt[myIm[ferrtotal].myIm[ferrtotal]];
@@ -862,9 +873,18 @@ resultorig=FindRoot[{ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4
 chooseresult=result;
 Print["0result=",chooseresult];
 Print["Pb=",Pb//.chooseresult];
-ferr0=ferr0/Abs[rho]//.chooseresult;
-ferr1=(ferr1/Max[Abs[(Er//.chooseresult)],Abs[(Er//.chooseresult)]])//.chooseresult;
-ferr2=(ferr2/Max[Abs[(Er//.chooseresult)],Abs[(Er//.chooseresult)]])//.chooseresult;
+
+ferrnorm0=Abs[rhou[[1]]]+Abs[rho0];
+ferrnorm1t=Table[Sqrt[Abs[gcon[[ii,ii]]]]*((Abs[Rud[[1,ii]]]+Abs[Rud0[[ii]]])+Abs[dt*Gd[[ii]]]),{ii,1,1}];
+ferrnorm1s=Sum[Sqrt[Abs[gcon[[ii,ii]]]]*((Abs[Rud[[1,ii]]]+Abs[Rud0[[ii]]])+Abs[dt*Gd[[ii]]]),{ii,2,4}];
+ferrnorm1={ferrnorm1t[[1]],ferrnorm1s/Sqrt[Abs[gcon[[2,2]]]],ferrnorm1s/Sqrt[Abs[gcon[[3,3]]]],ferrnorm1s/Sqrt[Abs[gcon[[4,4]]]]};
+ferrnorm2t=Table[Sqrt[Abs[gcon[[ii,ii]]]]*((Abs[Tud[[1,ii]]]+Abs[Tud0[[ii]]])+Abs[dt*Gd[[ii]]]),{ii,1,1}];
+ferrnorm2s=Sum[Sqrt[Abs[gcon[[ii,ii]]]]*((Abs[Tud[[1,ii]]]+Abs[Tud0[[ii]]])+Abs[dt*Gd[[ii]]]),{ii,2,4}];
+ferrnorm2={ferrnorm2t[[1]],ferrnorm2s/Sqrt[Abs[gcon[[2,2]]]],ferrnorm2s/Sqrt[Abs[gcon[[3,3]]]],ferrnorm2s/Sqrt[Abs[gcon[[4,4]]]]};
+ferr0=(ferr0/ferrnorm0)//.chooseresult;
+ferr1=(ferr1/ferrnorm1)//.chooseresult;
+ferr2=(ferr2/ferrnorm2)//.chooseresult;
+
 ferrtotal=Join[{ferr0},ferr1,ferr2];
 ferrabs=Sqrt[myRe[ferrtotal].myRe[ferrtotal]];
 ferrabsim=Sqrt[myIm[ferrtotal].myIm[ferrtotal]];
@@ -938,9 +958,18 @@ Print["0SnoGFindRoot"];
 resultorig=Block[{cc=0},{FindRoot[{ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0,ferr2[[1]]==0,ferr2[[2]]==0,ferr2[[3]]==0,ferr2[[4]]==0},ICpin,WorkingPrecision->Uwprec,MaxIterations->1000,AccuracyGoal->Utolprec,PrecisionGoal->Utolprec, Jacobian->JacobianType,StepMonitor:>cc++],cc}];result=resultorig[[1]];cc=resultorig[[2]];
 chooseresult=result;
 Print["0SnoGresult=",chooseresult];
-ferr0=ferr0/Abs[rho]//.chooseresult;
-ferr1=(ferr1/Max[Abs[(Er//.chooseresult)],Abs[(Er//.chooseresult)]])//.chooseresult;
-ferr2=(ferr2/Max[Abs[(Er//.chooseresult)],Abs[(Er//.chooseresult)]])//.chooseresult;
+
+ferrnorm0=Abs[rhou[[1]]]+Abs[rho0];
+ferrnorm1t=Table[Sqrt[Abs[gcon[[ii,ii]]]]*((Abs[Rud[[1,ii]]]+Abs[Rud0[[ii]]])+Abs[dtcold*Gd[[ii]]]),{ii,1,1}];
+ferrnorm1s=Sum[Sqrt[Abs[gcon[[ii,ii]]]]*((Abs[Rud[[1,ii]]]+Abs[Rud0[[ii]]])+Abs[dtcold*Gd[[ii]]]),{ii,2,4}];
+ferrnorm1={ferrnorm1t[[1]],ferrnorm1s/Sqrt[Abs[gcon[[2,2]]]],ferrnorm1s/Sqrt[Abs[gcon[[3,3]]]],ferrnorm1s/Sqrt[Abs[gcon[[4,4]]]]};
+ferrnorm2t=(Abs[T]*(Abs[Sc]+Abs[Sc0]+Abs[dtcold*GS]));
+ferrnorm2s=Sum[Sqrt[Abs[gcon[[ii,ii]]]]*((Abs[Tud[[1,ii]]]+Abs[Tud0[[ii]]])+Abs[dtcold*Gd[[ii]]]),{ii,2,4}];
+ferrnorm2={ferrnorm2t[[1]],ferrnorm2s/Sqrt[Abs[gcon[[2,2]]]],ferrnorm2s/Sqrt[Abs[gcon[[3,3]]]],ferrnorm2s/Sqrt[Abs[gcon[[4,4]]]]};
+ferr0=(ferr0/ferrnorm0)//.chooseresult;
+ferr1=(ferr1/ferrnorm1)//.chooseresult;
+ferr2=(ferr2/ferrnorm2)//.chooseresult;
+
 ferrtotal=Join[{ferr0},ferr1,ferr2];
 ferrabs=Sqrt[myRe[ferrtotal].myRe[ferrtotal]];
 ferrabsim=Sqrt[myIm[ferrtotal].myIm[ferrtotal]];
@@ -985,18 +1014,28 @@ ferr0=rhou[[1]]-rho0;
 (*dt=0*)
 ferr1=Table[(Rud[[1,ii]]-Rud0[[ii]])+dt*Gd[[ii]],{ii,1,4}];
 ferr2=Table[(Tud[[1,ii]]-Tud0[[ii]])-dt*Gd[[ii]],{ii,1,4}];
+
+ferrnorm0=Abs[rhou[[1]]]+Abs[rho0];
+ferrnorm1t=Table[Sqrt[Abs[gcon[[ii,ii]]]]*((Abs[Rud[[1,ii]]]+Abs[Rud0[[ii]]])+Abs[dt*Gd[[ii]]]),{ii,1,1}];
+ferrnorm1s=Sum[Sqrt[Abs[gcon[[ii,ii]]]]*((Abs[Rud[[1,ii]]]+Abs[Rud0[[ii]]])+Abs[dt*Gd[[ii]]]),{ii,2,4}];
+ferrnorm1={ferrnorm1t[[1]],ferrnorm1s/Sqrt[Abs[gcon[[2,2]]]],ferrnorm1s/Sqrt[Abs[gcon[[3,3]]]],ferrnorm1s/Sqrt[Abs[gcon[[4,4]]]]};
+ferrnorm2s=Sum[Sqrt[Abs[gcon[[ii,ii]]]]*((Abs[Tud[[1,ii]]]+Abs[Tud0[[ii]]])+Abs[dt*Gd[[ii]]]),{ii,2,4}];
+
 (* entropy error function still function of u, not changing independent variable to S or anything like that *)
 If[whichentropy==1,
 ferr2[[1]]=T*(Sc-Sc0 -dt*GS); (* lab-frame version *)
+ferrnorm2t=(Abs[T]*(Abs[Sc]+Abs[Sc0]+Abs[dt*GS]));
 ];
 If[whichentropy==2,
 ferr2[[1]]=(u-uii)-(gam u/rho) (rho-rhoii) - (kappa Er - lambda) dt/ucon[[1]]; (* approximate fluid-frame version *)
+ferrnorm2t=Abs[(u+uii)+(gam u/rho) (rho+rhoii) + (kappa Er+- lambda) dt/ucon[[1]]];
 ];
 If[whichentropy==3,
 Erff=ucov.Rud.ucon;
 (*ferr2[[1]]=(u-uii)-(gam u/rho) (rho-rhoii) - (kappa Erff - lambda) dt/ucon[[1]]; (* accurate fluid-frame version *)*)
 (* lambda>0 means gas entropy should drop, and have TSc=Tsc0+(kappa Erff-lambda)dt/ut *)
 ferr2[[1]]=T*(Sc/ucon[[1]]-Sc0/uu0ii)- (kappa Erff - lambda) dt/ucon[[1]]; (* accurate fluid-frame version *)
+ferrnorm2t=Abs[T*(Abs[Sc]/ucon[[1]]+Abs[Sc0]/uu0ii)- (kappaAbs[ Erff] - Abs[lambda]) dt/ucon[[1]]];
 ];
 If[whichentropy==4,
 (* fully fluid-frame version *)
@@ -1007,9 +1046,11 @@ Sc0ff=Scff//.chooseresultUU0noG;
 dtau=ucov[[1]]*dt;
 (* lambda>0 means gas entropy should drop means Scff rises, and have TScff = TSc0ff + (kappa Erff - lambda)*dtau = Tsc0ff + (+#) *)
 ferr2[[1]]=T*(Scff-Sc0ff)- (kappa Erff - lambda) dtau; 
+ferrnorm2t=Abs[T*(Abs[Scff]+Abs[Sc0ff])+(kappa Erff + lambda) dtau]; 
 ];
 (* grep 0SGood math.out|wc;grep 0WSGood math.out|wc;grep 0WSBad math.out|wc *)
 (* grep 0Good math.out|wc;grep 0WGood math.out|wc;grep 0WBad math.out|wc *)
+ferrnorm2={ferrnorm2t[[1]],ferrnorm2s/Sqrt[Abs[gcon[[2,2]]]],ferrnorm2s/Sqrt[Abs[gcon[[3,3]]]],ferrnorm2s/Sqrt[Abs[gcon[[4,4]]]]};
 
 Print["0SFindRoot"];
 If[CheckJacobian==1,
@@ -1024,9 +1065,11 @@ resultorig=FindRoot[{ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4
 ];
 chooseresult=result;
 Print["0Sresult=",chooseresult];
-ferr0=ferr0/Abs[rho]//.chooseresult;
-ferr1=(ferr1/Max[Abs[(Er//.chooseresult)],Abs[(Er//.chooseresult)]])//.chooseresult;
-ferr2=(ferr2/Max[Abs[(Er//.chooseresult)],Abs[(Er//.chooseresult)]])//.chooseresult;
+
+ferr0=(ferr0/ferrnorm0)//.chooseresult;
+ferr1=(ferr1/ferrnorm1)//.chooseresult;
+ferr2=(ferr2/ferrnorm2)//.chooseresult;
+
 ferrtotal=Join[{ferr0},ferr1,ferr2];
 ferrabs=Sqrt[myRe[ferrtotal].myRe[ferrtotal]];
 ferrabsim=Sqrt[myIm[ferrtotal].myIm[ferrtotal]];
@@ -1229,26 +1272,31 @@ Do[Write[sout,FullOutput[[ii]]],{ii,1,numFullOutput}];
 (* normal but entropy *and* but more working precision to test if matters *)
 If[resulttype4S=="Bad" &&doradonly==0,
 ferr0=rhou[[1]]-rho0;
-ferr0norm=10^(-300)+Abs[rhou[[1]]]+Abs[rho0];
 (*dt=0*)
 ferr1=Table[(Rud[[1,ii]]-Rud0[[ii]])+dt*Gd[[ii]],{ii,1,4}];
-ferr1norm=10^(-300)+Table[(Abs[Rud[[1,ii]]]+Abs[Rud0[[ii]]])+Abs[dt*Gd[[ii]]],{ii,1,4}];
 ferr2=Table[(Tud[[1,ii]]-Tud0[[ii]])-dt*Gd[[ii]],{ii,1,4}];
-ferr2norm=10^(-300)+Table[(Abs[Tud[[1,ii]]]+Abs[Tud0[[ii]]])+Abs[dt*Gd[[ii]]],{ii,1,4}];
 
+ferrnorm0=Abs[rhou[[1]]]+Abs[rho0];
+ferrnorm1t=Table[Sqrt[Abs[gcon[[ii,ii]]]]*((Abs[Rud[[1,ii]]]+Abs[Rud0[[ii]]])+Abs[dt*Gd[[ii]]]),{ii,1,1}];
+ferrnorm1s=Sum[Sqrt[Abs[gcon[[ii,ii]]]]*((Abs[Rud[[1,ii]]]+Abs[Rud0[[ii]]])+Abs[dt*Gd[[ii]]]),{ii,2,4}];
+ferrnorm1={ferrnorm1t[[1]],ferrnorm1s/Sqrt[Abs[gcon[[2,2]]]],ferrnorm1s/Sqrt[Abs[gcon[[3,3]]]],ferrnorm1s/Sqrt[Abs[gcon[[4,4]]]]};
+ferrnorm2s=Sum[Sqrt[Abs[gcon[[ii,ii]]]]*((Abs[Tud[[1,ii]]]+Abs[Tud0[[ii]]])+Abs[dt*Gd[[ii]]]),{ii,2,4}];
+
+(* entropy error function still function of u, not changing independent variable to S or anything like that *)
 If[whichentropy==1,
 ferr2[[1]]=T*(Sc-Sc0 -dt*GS); (* lab-frame version *)
-ferr2norm[[1]]=10^(-300) +T*( Abs[Sc]+Abs[Sc0]+Abs[dt*GS]);
+ferrnorm2t=(Abs[T]*(Abs[Sc]+Abs[Sc0]+Abs[dt*GS]));
 ];
 If[whichentropy==2,
 ferr2[[1]]=(u-uii)-(gam u/rho) (rho-rhoii) - (kappa Er - lambda) dt/ucon[[1]]; (* approximate fluid-frame version *)
-ferr2norm[[1]]=10^(-300) + (Abs[u]+Abs[uii])+Abs[gam u/rho] (Abs[rho]+Abs[rhoii])+(Abs[kappa Er]+Abs[lambda]) dt/ucon[[1]];
+ferrnorm2t=Abs[(u+uii)+(gam u/rho) (rho+rhoii) + (kappa Er+- lambda) dt/ucon[[1]]];
 ];
 If[whichentropy==3,
 Erff=ucov.Rud.ucon;
 (*ferr2[[1]]=(u-uii)-(gam u/rho) (rho-rhoii) - (kappa Erff - lambda) dt/ucon[[1]]; (* accurate fluid-frame version *)*)
+(* lambda>0 means gas entropy should drop, and have TSc=Tsc0+(kappa Erff-lambda)dt/ut *)
 ferr2[[1]]=T*(Sc/ucon[[1]]-Sc0/uu0ii)- (kappa Erff - lambda) dt/ucon[[1]]; (* accurate fluid-frame version *)
-ferr2norm[[1]]=10^(-300) + Abs[Sc/ucon[[1]]]+Abs[Sc0/uu0ii]+(Abs[kappa Erff]+Abs[lambda]) dt/Abs[ucon[[1]]];
+ferrnorm2t=Abs[T*(Abs[Sc]/ucon[[1]]+Abs[Sc0]/uu0ii)- (kappaAbs[ Erff] - Abs[lambda]) dt/ucon[[1]]];
 ];
 If[whichentropy==4,
 (* fully fluid-frame version *)
@@ -1257,36 +1305,26 @@ Scff=ucov.(Sc/ucon[[1]]*ucon); (* i.e. u\mu S u^\mu   *)
 Scff=-S;
 Sc0ff=Scff//.chooseresultUU0noG;
 dtau=ucov[[1]]*dt;
-(* lambda>0 means gas entropy drops means Scff rises.  TScff = TSc0ff + (kappa Erff - lambda)*dtau = TSc0ff + (+#) *)
-ferr2[[1]]=T*(Scff-Sc0ff)-(kappa Erff - lambda) dtau; 
-ferr2norm[[1]]=10^(-300) + Abs[Scff]+Abs[Sc0ff]+(Abs[kappa Erff]+Abs[lambda]) dtau;
+(* lambda>0 means gas entropy should drop means Scff rises, and have TScff = TSc0ff + (kappa Erff - lambda)*dtau = Tsc0ff + (+#) *)
+ferr2[[1]]=T*(Scff-Sc0ff)- (kappa Erff - lambda) dtau; 
+ferrnorm2t=Abs[T*(Abs[Scff]+Abs[Sc0ff])+(kappa Erff + lambda) dtau]; 
 ];
+(* grep 0SGood math.out|wc;grep 0WSGood math.out|wc;grep 0WSBad math.out|wc *)
+(* grep 0Good math.out|wc;grep 0WGood math.out|wc;grep 0WBad math.out|wc *)
+ferrnorm2={ferrnorm2t[[1]],ferrnorm2s/Sqrt[Abs[gcon[[2,2]]]],ferrnorm2s/Sqrt[Abs[gcon[[3,3]]]],ferrnorm2s/Sqrt[Abs[gcon[[4,4]]]]};
 
 
-(*ferr0=ferr0/ferr0norm;
-ferr1=ferr1/ferr1norm;
-ferr2=ferr2/ferr2norm;
-*)
 Print["0WSFindRoot"];
 resultorig=Block[{cc=0},{FindRoot[{ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0,ferr2[[1]]==0,ferr2[[2]]==0,ferr2[[3]]==0,ferr2[[4]]==0},ICpin,WorkingPrecision->Wwprec,MaxIterations->1000,AccuracyGoal->Wtolprec,PrecisionGoal->Wtolprec, Jacobian->JacobianType, StepMonitor:>cc++],cc}];
 (*DampingFactor->2,*)
 result=resultorig[[1]];cc=resultorig[[2]];
 chooseresult=result;
 Print["0WSresult=",chooseresult];
-(*ferr0=ferr0/Abs[rho]//.chooseresult;
-ferr1=(ferr1/Max[Abs[(Er//.chooseresult)],Abs[(Er//.chooseresult)]])//.chooseresult;
-ferr2=(ferr2/Max[Abs[(Er//.chooseresult)],Abs[(Er//.chooseresult)]])//.chooseresult;
-*)
+
 ferr0=ferr0/ferr0norm//.chooseresult;
 ferr1=ferr1/ferr1norm//.chooseresult;
 ferr2=ferr2/ferr2norm//.chooseresult;
 
-
-(*
-ferr0=ferr0//.chooseresult;
-ferr1=ferr1//.chooseresult;
-ferr2=ferr2//.chooseresult;
-*)
 ferrtotal=Join[{ferr0},ferr1,ferr2];
 ferrabs=Sqrt[myRe[ferrtotal].myRe[ferrtotal]];
 ferrabsim=Sqrt[myIm[ferrtotal].myIm[ferrtotal]];
