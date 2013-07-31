@@ -30,9 +30,6 @@ Remove["Global`*"]
 (* 6) run on command line as below for correct system *)
 
 
-Remove::"rmnsm": "\!\(\*StyleBox[\"\\\"There are no symbols matching \\\\\\\"\\\"\", \"MT\"]\)\[NoBreak]\!\(\*StyleBox[\!\(\"Global`*\"\), \"MT\"]\)\[NoBreak]\!\(\*StyleBox[\"\\\"\\\\\\\".\\\"\", \"MT\"]\) \!\(\*ButtonBox[\"\[RightSkeleton]\", ButtonStyle->\"Link\", ButtonFrame->None, ButtonData:>\"paclet:ref/message/Remove/rmnsm\", ButtonNote -> \"Remove::rmnsm\"]\)"
-
-
 
 (* copy as plain text *)
 (*windows laptop:*)
