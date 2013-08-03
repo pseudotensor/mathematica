@@ -71,26 +71,35 @@ sout = OpenWrite[fileout,FormatType->CForm];
 (* CHOOSE WHICH FILE TO LOAD IN *)
 (* Jon's physics-179.umd.edu *)
 If[whichcomputer==4,
+filenamebase="fails.txt";
+(*filenamebase="failshigherror.txt";*)
+filenamein=StringJoin[Directory[],"/",filenamebase];
 (*filin=ToString[$ScriptCommandLine[[1]]];*)
-(*filein="/data/jon/harmgit/longdoubleversion/runtt/test.txt";*)
-(*filein=StringJoin[Directory[],"/","fails100.txt"];*)
-(*filein=StringJoin[Directory[],"/","fails.txt"];*)
-filein=StringJoin[Directory[],"/","failshigherror.txt"];
-(*filein=StringJoin[Directory[],"/","fails0WGood.txt"];*)
 ];
 (* Ramesh's computer *)
 If[whichcomputer==5,
-filein="/Users/rameshnarayan/documents/olek/radhydro/inversion/fails.txt";
+filenamein="/Users/rameshnarayan/documents/olek/radhydro/inversion/fails.txt";
 ];
 (*OpenRead[filein];*)
 (*allfailsin=Import[filein,"Table"];*)
 (*filein=StringJoin["/data/jon/harmgit/longdoubleversion/runo","/","fails.txt"];*)
-str=OpenRead[filein];
+str=OpenRead[filenamein];
+
+(* choose output file name *)
+filenameout=StringJoin[filenamein,"_out.txt"];
+sout = OpenWrite[filenameout,FormatType->CForm];
+
+(* choose Print stderr/stdout output file name *)
+filenamemathout=StringJoin[filenamein,"_math.txt"];
+stream=OpenWrite[filenamemathout,FormatType->OutputForm];
+$Output={stream};
+$Messages={stream};
 
 (*numfails=165; (* number of failures in fail file loaded in *)*)
 (*numfails=18373; (* number of failures in fail file loaded in *)*)
 (*numfails=50000; (* number of failures in fail file loaded in *)*)
-numfails=694; (* number of failures in fail file loaded in *)
+(*numfails=694; (* number of failures in fail file loaded in *)*)
+numfails=300; (* number of failures in fail file loaded in *)
 
 COUNTFINDROOT=1; (* 1 = show number of iterations, stored in "cc" variable and outputted in math.out *)
 
@@ -110,9 +119,9 @@ dogammamax=0; (* whether to try gammamax for radiation case *)
 
  (* 18 = long doubles 14 = doubles *)
 (* normal working precision and tolerance *)
-normalwprec=14;
-normaltolprec=9; badtol=10^(-5);
-(*normaltolprec=12; badtol=10^(-6);*)
+
+(* normalwprec=14; normaltolprec=9; badtol=10^(-5);*)
+normalwprec=15; normaltolprec=12; badtol=10^(-6);
 (*normaltolprec=6;  badtol=10^(-4);*)
 (* current harm choice *)
 (*normaltolprec=9;  badtol=10^(-2);*)
@@ -905,6 +914,7 @@ cc0max=Max[cc0max,cc];
 error0=error0+ferrabs+ferrabsim;
 error0max=Max[error0max,ferrabs+ferrabsim];
 If[Re[(u//.chooseresult)]<=0,MyPrint["0resultnegu"];];
+If[Re[(u//.chooseresult)]>0,MyPrint["0resultposu"];];
 If[Re[(rho//.chooseresult)]<=0,MyPrint["0resultnegrho"];];
 If[Re[(Er//.chooseresult)]<=0,MyPrint["0resultnegEr"];];
 If[myRe[(u//.chooseresult)]<myIm[(u//.chooseresult)]/badtol,MyPrint["0resultcomplexu"];];
@@ -1088,12 +1098,13 @@ cc0Smax=Max[cc0Smax,cc];
 error0S=error0S+ferrabs+ferrabsim;
 error0Smax=Max[error0Smax,ferrabs+ferrabsim];
 If[Re[(u//.chooseresult)]<=0,MyPrint["0Sresultnegu"];];
+If[Re[(u//.chooseresult)]>0,MyPrint["0Sresultnposu"];];
 If[Re[(rho//.chooseresult)]<=0,MyPrint["0Sresultnegrho"];];
 If[Re[(Er//.chooseresult)]<=0,MyPrint["0SresultnegEr"];];
 If[myRe[(u//.chooseresult)]<myIm[(u//.chooseresult)]/badtol,MyPrint["0Sresultcomplexu"];];
 If[myRe[(rho//.chooseresult)]<myIm[(rho//.chooseresult)]/badtol,MyPrint["0Sresultcomplexrho"];];
 If[myRe[(Er//.chooseresult)]<myIm[(Er//.chooseresult)]/badtol,MyPrint["0SresultcomplexEr"];];
-
+];
 ochooseresult=myReP[chooseresult];
 p0Splist={rho,u,uut1,uut2,uut3,Bcon[[1]],Bcon[[2]],Bcon[[3]],Er,urut1,urut2,urut3}//.ochooseresult;
 FullOutput={
@@ -1110,7 +1121,6 @@ FullOutput=Flatten[FullOutput];
 numFullOutput=Length[FullOutput];
 Do[Write[sout,FullOutput[[ii]]],{ii,1,numFullOutput}];
 
-];
 chooseresult0S=chooseresult;
 Print["W and W' ",W//.chooseresult," ",Wp//.chooseresult];
 Print["DD",DD//.chooseresult];
