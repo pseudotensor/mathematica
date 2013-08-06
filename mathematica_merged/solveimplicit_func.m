@@ -71,7 +71,8 @@ If[whichcomputer==4,
 (*filenamebase="fails.txt";numfails=36212;*)
 (*filenamebase="fails.txt";numfails=565;*)
 (*filenamebase="fails.txt";numfails=1395;*)
-filenamebase="failshigherror100.txt";numfails=100;
+(*filenamebase="failshigherror100.txt";numfails=100;*)
+filenamebase="fails1new.txt";numfails=1;
 (*filenamebase="failshigherror.txt";numfails=300;*)
 filenamein=StringJoin[Directory[],"/",filenamebase];
 (*filin=ToString[$ScriptCommandLine[[1]]];*)
@@ -145,7 +146,8 @@ JacobianType={FiniteDifference,"DifferenceOrder"->1};
 
 (* read-in data *)
 (*numele=134; (* don't change *)*)
-numele=181; (* don't change *)
+(*numele=181; (* don't change *)*)
+numele=208; (* don't change *)
 Clear[j];
 
 ccUi=0;
@@ -222,6 +224,8 @@ If[numele==134,
 ];
 If[numele==181,
 {failtype,myid,failnum,gotfirstnofail,errorabs,iters,dt,nstep,steppart,gamgas,gn11,gn12,gn13,gn14,gn21,gn22,gn23,gn24,gn31,gn32,gn33,gn34,gn41,gn42,gn43,gn44,gv11,gv12,gv13,gv14,gv21,gv22,gv23,gv24,gv31,gv32,gv33,gv34,gv41,gv42,gv43,gv44,pp0,ppfirst0,pb0,pin0,uu00,uu0,uui0,pp1,ppfirst1,pb1,pin1,uu01,uu1,uui1,pp2,ppfirst2,pb2,pin2,uu02,uu2,uui2,pp3,ppfirst3,pb3,pin3,uu03,uu3,uui3,pp4,ppfirst4,pb4,pin4,uu04,uu4,uui4,pp5,ppfirst5,pb5,pin5,uu05,uu5,uui5,pp6,ppfirst6,pb6,pin6,uu06,uu6,uui6,pp7,ppfirst7,pb7,pin7,uu07,uu7,uui7,pp8,ppfirst8,pb8,pin8,uu08,uu8,uui8,pp9,ppfirst9,pb9,pin9,uu09,uu9,uui9,pp10,ppfirst10,pb10,pin10,uu010,uu10,uui10,pp11,ppfirst11,pb11,pin11,uu011,uu11,uui11,pp12,ppfirst12,pb12,pin12,uu012,uu12,uui12,uradcon0,uradcov0,uradcon1,uradcov1,uradcon2,uradcov2,uradcon3,uradcov3,ucon0,ucov0,ucon1,ucov1,ucon2,ucov2,ucon3,ucov3,uradconb0,uradcovb0,uradconb1,uradcovb1,uradconb2,uradcovb2,uradconb3,uradcovb3,uconb0,ucovb0,uconb1,ucovb1,uconb2,ucovb2,uconb3,ucovb3,uradconi0,uradcovi0,uradconi1,uradcovi1,uradconi2,uradcovi2,uradconi3,uradcovi3,uconi0,ucovi0,uconi1,ucovi1,uconi2,ucovi2,uconi3,ucovi3}=mylist;
+If[numele==208,
+{failtype,myid,failnum,gotfirstnofail,eomtype,errorabs,iters,dt,nstep,steppart,gamgas,gn11,gn12,gn13,gn14,gn21,gn22,gn23,gn24,gn31,gn32,gn33,gn34,gn41,gn42,gn43,gn44,gv11,gv12,gv13,gv14,gv21,gv22,gv23,gv24,gv31,gv32,gv33,gv34,gv41,gv42,gv43,gv44,pp0,ppfirst0,pb0,pin0,prtuui0,prtuu00,uu00,uu0,uui0,pp1,ppfirst1,pb1,pin1,prtuui1,prtuu01,uu01,uu1,uui1,pp2,ppfirst2,pb2,pin2,prtuui2,prtuu02,uu02,uu2,uui2,pp3,ppfirst3,pb3,pin3,prtuui3,prtuu03,uu03,uu3,uui3,pp4,ppfirst4,pb4,pin4,prtuui4,prtuu04,uu04,uu4,uui4,pp5,ppfirst5,pb5,pin5,prtuui5,prtuu05,uu05,uu5,uui5,pp6,ppfirst6,pb6,pin6,prtuui6,prtuu06,uu06,uu6,uui6,pp7,ppfirst7,pb7,pin7,prtuui7,prtuu07,uu07,uu7,uui7,pp8,ppfirst8,pb8,pin8,prtuui8,prtuu08,uu08,uu8,uui8,pp9,ppfirst9,pb9,pin9,prtuui9,prtuu09,uu09,uu9,uui9,pp10,ppfirst10,pb10,pin10,prtuui10,prtuu010,uu010,uu10,uui10,pp11,ppfirst11,pb11,pin11,prtuui11,prtuu011,uu011,uu11,uui11,pp12,ppfirst12,pb12,pin12,prtuui12,prtuu012,uu012,uu12,uui12,uradcon0,uradcov0,uradcon1,uradcov1,uradcon2,uradcov2,uradcon3,uradcov3,ucon0,ucov0,ucon1,ucov1,ucon2,ucov2,ucon3,ucov3,uradconb0,uradcovb0,uradconb1,uradcovb1,uradconb2,uradcovb2,uradconb3,uradcovb3,uconb0,ucovb0,uconb1,ucovb1,uconb2,ucovb2,uconb3,ucovb3,uradconi0,uradcovi0,uradconi1,uradcovi1,uradconi2,uradcovi2,uradconi3,uradcovi3,uconi0,ucovi0,uconi1,ucovi1,uconi2,ucovi2,uconi3,ucovi3}=mylist;
 (* pp and uradcon0-12 etc. are related *)
 (* pb and uradconb0-12 etc. are related *)
 (* pin and uradconi0-12 etc. are related *)
@@ -247,39 +251,67 @@ Scpp=SetPrecision[uu12,myprec];
 
 rhoi=SetPrecision[pp0,myprec];
 ui=SetPrecision[pp1,myprec];
-uu0i=SetPrecision[ucon0,myprec];
-uu1i=SetPrecision[ucon1,myprec];
-uu2i=SetPrecision[ucon2,myprec];
-uu3i=SetPrecision[ucon3,myprec];
 uut1i=SetPrecision[pp2,myprec];
 uut2i=SetPrecision[pp3,myprec];
 uut3i=SetPrecision[pp4,myprec];
 Eri=SetPrecision[pp8,myprec];
-uru1i=SetPrecision[uradcon1,myprec];
-uru2i=SetPrecision[uradcon2,myprec];
-uru3i=SetPrecision[uradcon3,myprec];
 urut1i=SetPrecision[pp9,myprec];
 urut2i=SetPrecision[pp10,myprec];
 urut3i=SetPrecision[pp11,myprec];
 Si=SetPrecision[pp12,myprec];
 
+uu0i=SetPrecision[ucon0,myprec];
+uu1i=SetPrecision[ucon1,myprec];
+uu2i=SetPrecision[ucon2,myprec];
+uu3i=SetPrecision[ucon3,myprec];
+uru0i=SetPrecision[uradcon0,myprec];
+uru1i=SetPrecision[uradcon1,myprec];
+uru2i=SetPrecision[uradcon2,myprec];
+uru3i=SetPrecision[uradcon3,myprec];
+
 rhoii=SetPrecision[pin0,myprec];
 uii=SetPrecision[pin1,myprec];
-uu0ii=SetPrecision[uconi0,myprec];
-uu1ii=SetPrecision[uconi1,myprec];
-uu2ii=SetPrecision[uconi2,myprec];
-uu3ii=SetPrecision[uconi3,myprec];
 uut1ii=SetPrecision[pin2,myprec];
 uut2ii=SetPrecision[pin3,myprec];
 uut3ii=SetPrecision[pin4,myprec];
 Erii=SetPrecision[pin8,myprec];
-uru1ii=SetPrecision[uradconi1,myprec];
-uru2ii=SetPrecision[uradconi2,myprec];
-uru3ii=SetPrecision[uradconi3,myprec];
 urut1ii=SetPrecision[pin9,myprec];
 urut2ii=SetPrecision[pin10,myprec];
 urut3ii=SetPrecision[pin11,myprec];
 Sii=SetPrecision[pin12,myprec];
+
+uu0ii=SetPrecision[uconi0,myprec];
+uu1ii=SetPrecision[uconi1,myprec];
+uu2ii=SetPrecision[uconi2,myprec];
+uu3ii=SetPrecision[uconi3,myprec];
+uru0ii=SetPrecision[uradconi0,myprec];
+uru1ii=SetPrecision[uradconi1,myprec];
+uru2ii=SetPrecision[uradconi2,myprec];
+uru3ii=SetPrecision[uradconi3,myprec];
+
+(* prtestUiin *)
+rhoptruui=SetPrecision[prtuui0,myprec];
+uptruui=SetPrecision[prtuui1,myprec];
+uut1ptruui=SetPrecision[prtuui2,myprec];
+uut2ptruui=SetPrecision[prtuui3,myprec];
+uut3ptruui=SetPrecision[prtuui4,myprec];
+Erptruui=SetPrecision[prtuui8,myprec];
+urut1ptruui=SetPrecision[prtuui9,myprec];
+urut2ptruui=SetPrecision[prtuui10,myprec];
+urut3ptruui=SetPrecision[prtuui11,myprec];
+Sptruui=SetPrecision[prtuui12,myprec];
+
+(* prtestUU0 *)
+rhoprtuu0=SetPrecision[prtuu00,myprec];
+uprtuu0=SetPrecision[prtuu01,myprec];
+uut1prtuu0=SetPrecision[prtuu02,myprec];
+uut2prtuu0=SetPrecision[prtuu03,myprec];
+uut3prtuu0=SetPrecision[prtuu04,myprec];
+Erprtuu0=SetPrecision[prtuu08,myprec];
+urut1prtuu0=SetPrecision[prtuu09,myprec];
+urut2prtuu0=SetPrecision[prtuu010,myprec];
+urut3prtuu0=SetPrecision[prtuu011,myprec];
+Sprtuu0=SetPrecision[prtuu012,myprec];
 
 gamgas=SetPrecision[gamgas,myprec];
 
@@ -302,6 +334,7 @@ constspp={rho->rhoi,u->ui,uu1->uu1i,uu2->uu2i,uu3->uu3i,Er->Eri,uru1->uru1i,uru2
 ICpp={{rho,rhoi},{u,ui},{uu1,uu1i},{uu2,uu2i},{uu3,uu3i},{Er,Eri},{uru1,uru1i},{uru2,uru2i},{uru3,uru3i}};
 ICppS={{rho,rhoi},{S,Si},{uu1,uu1i},{uu2,uu2i},{uu3,uu3i},{Er,Eri},{uru1,uru1i},{uru2,uru2i},{uru3,uru3i}};
 constspin={rho->rhoii,u->uii,uu1->uu1ii,uu2->uu2ii,uu3->uu3ii,Er->Erii,uru1->uru1ii,uru2->uru2ii,uru3->uru3ii,S->Sii,whichuconi0->SetPrecision[uconi0,myprec],whichuradconi0->SetPrecision[uradconi0,myprec]};
+(* no constsprtuui or constsprtuu0 *)
 ICpin={{rho,rhoii},{u,uii},{uu1,uu1ii},{uu2,uu2ii},{uu3,uu3ii},{Er,Erii},{uru1,uru1ii},{uru2,uru2ii},{uru3,uru3ii}};
 ICpinS={{rho,rhoii},{S,Sii},{uu1,uu1ii},{uu2,uu2ii},{uu3,uu3ii},{Er,Erii},{uru1,uru1ii},{uru2,uru2ii},{uru3,uru3ii}};
 ICpinrad={{Er,Erii},{uru1,uru1ii},{uru2,uru2ii},{uru3,uru3ii}};
@@ -312,6 +345,8 @@ If[whichvel==2,
 Clear[uut1,uut2,uut3,urut1,urut2,urut3];
 constspp={rho->rhoi,u->ui,uut1->uut1i,uut2->uut2i,uut3->uut3i,Er->Eri,urut1->urut1i,urut2->urut2i,urut3->urut3i,S->Si,whichuconi0->SetPrecision[ucon0,myprec],whichuradconi0->SetPrecision[uradcon0,myprec]};
 constspin={rho->rhoii,u->uii,uut1->uut1ii,uut2->uut2ii,uut3->uut3ii,Er->Erii,urut1->urut1ii,urut2->urut2ii,urut3->urut3ii,S->Sii,whichuconi0->SetPrecision[uconi0,myprec],whichuradconi0->SetPrecision[uradconi0,myprec]};
+constsprtuui={rho->rhoptruui,u->uptruui,uut1->uu1ptruui,uut2->uu2ptruui,uut3->uu3ptruui,Er->Erptruui,urut1->uru1ptruui,urut2->uru2ptruui,urut3->uru3ptruui,S->Sptruui};
+constsprtuu0={rho->rhoptruu0,u->uptruu0,uut1->uu1ptruu0,uut2->uu2ptruu0,uut3->uu3ptruu0,Er->Erptruu0,urut1->uru1ptruu0,urut2->uru2ptruu0,urut3->uru3ptruu0,S->Sptruu0};
 ICpin={{rho,rhoii},{u,uii},{uut1,uut1ii},{uut2,uut2ii},{uut3,uut3ii},{Er,Erii},{urut1,urut1ii},{urut2,urut2ii},{urut3,urut3ii}};
 ICpinrad={{Er,Erii},{urut1,urut1ii},{urut2,urut2ii},{urut3,urut3ii}};
 ];
@@ -499,6 +534,8 @@ ferr2=(ferr2/ferrnorm2)//.chooseresult;
 
 (*chooseresult=constspintest;*)
 Print["Aresult=",chooseresult];
+Print["AprtestUiin=",constsprtuui];
+Print["AprtestUU0=",constsprtuu0];
 Print["Pbi=",Pbi//.chooseresult];
 ferrtotal=Join[{ferr0},ferr1,ferr2];
 ferrabs=Sqrt[myRe[ferrtotal].myRe[ferrtotal]];
