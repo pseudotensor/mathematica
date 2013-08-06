@@ -337,7 +337,7 @@ Clear[uut1,uut2,uut3,urut1,urut2,urut3];
 constspp={rho->rhoi,u->ui,uut1->uut1i,uut2->uut2i,uut3->uut3i,Er->Eri,urut1->urut1i,urut2->urut2i,urut3->urut3i,S->Si,whichuconi0->SetPrecision[ucon0,myprec],whichuradconi0->SetPrecision[uradcon0,myprec]};
 constspin={rho->rhoii,u->uii,uut1->uut1ii,uut2->uut2ii,uut3->uut3ii,Er->Erii,urut1->urut1ii,urut2->urut2ii,urut3->urut3ii,S->Sii,whichuconi0->SetPrecision[uconi0,myprec],whichuradconi0->SetPrecision[uradconi0,myprec]};
 constsprtuui={rho->rhoprtuui,u->uprtuui,uut1->uut1prtuui,uut2->uut2prtuui,uut3->uut3prtuui,Er->Erprtuui,urut1->urut1prtuui,urut2->urut2prtuui,urut3->urut3prtuui,S->Sprtuui};
-constsprtuu0={rho->rhoptruu0,u->uptruu0,uut1->uut1ptruu0,uut2->uut2ptruu0,uut3->uut3ptruu0,Er->Erptruu0,urut1->urut1ptruu0,urut2->urut2ptruu0,urut3->urut3ptruu0,S->Sptruu0};
+constsprtuu0={rho->rhoprtuu0,u->uprtuu0,uut1->uut1prtuu0,uut2->uut2prtuu0,uut3->uut3prtuu0,Er->Erprtuu0,urut1->urut1prtuu0,urut2->urut2prtuu0,urut3->urut3prtuu0,S->Sprtuu0};
 ICpin={{rho,rhoii},{u,uii},{uut1,uut1ii},{uut2,uut2ii},{uut3,uut3ii},{Er,Erii},{urut1,urut1ii},{urut2,urut2ii},{urut3,urut3ii}};
 ICpinrad={{Er,Erii},{urut1,urut1ii},{urut2,urut2ii},{urut3,urut3ii}};
 ];
