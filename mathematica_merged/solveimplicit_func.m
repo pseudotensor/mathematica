@@ -281,16 +281,16 @@ uru2ii=SetPrecision[uradconi2,myprec];
 uru3ii=SetPrecision[uradconi3,myprec];
 
 (* prtestUiin *)
-rhoptruui=SetPrecision[prtuui0,myprec];
-uptruui=SetPrecision[prtuui1,myprec];
-uut1ptruui=SetPrecision[prtuui2,myprec];
-uut2ptruui=SetPrecision[prtuui3,myprec];
-uut3ptruui=SetPrecision[prtuui4,myprec];
-Erptruui=SetPrecision[prtuui8,myprec];
-urut1ptruui=SetPrecision[prtuui9,myprec];
-urut2ptruui=SetPrecision[prtuui10,myprec];
-urut3ptruui=SetPrecision[prtuui11,myprec];
-Sptruui=SetPrecision[prtuui12,myprec];
+rhoprtuui=SetPrecision[prtuui0,myprec];
+uprtuui=SetPrecision[prtuui1,myprec];
+uut1prtuui=SetPrecision[prtuui2,myprec];
+uut2prtuui=SetPrecision[prtuui3,myprec];
+uut3prtuui=SetPrecision[prtuui4,myprec];
+Erprtuui=SetPrecision[prtuui8,myprec];
+urut1prtuui=SetPrecision[prtuui9,myprec];
+urut2prtuui=SetPrecision[prtuui10,myprec];
+urut3prtuui=SetPrecision[prtuui11,myprec];
+Sprtuui=SetPrecision[prtuui12,myprec];
 
 (* prtestUU0 *)
 rhoprtuu0=SetPrecision[prtuu00,myprec];
@@ -336,7 +336,7 @@ If[whichvel==2,
 Clear[uut1,uut2,uut3,urut1,urut2,urut3];
 constspp={rho->rhoi,u->ui,uut1->uut1i,uut2->uut2i,uut3->uut3i,Er->Eri,urut1->urut1i,urut2->urut2i,urut3->urut3i,S->Si,whichuconi0->SetPrecision[ucon0,myprec],whichuradconi0->SetPrecision[uradcon0,myprec]};
 constspin={rho->rhoii,u->uii,uut1->uut1ii,uut2->uut2ii,uut3->uut3ii,Er->Erii,urut1->urut1ii,urut2->urut2ii,urut3->urut3ii,S->Sii,whichuconi0->SetPrecision[uconi0,myprec],whichuradconi0->SetPrecision[uradconi0,myprec]};
-constsprtuui={rho->rhoptruui,u->uptruui,uut1->uu1ptruui,uut2->uu2ptruui,uut3->uu3ptruui,Er->Erptruui,urut1->uru1ptruui,urut2->uru2ptruui,urut3->uru3ptruui,S->Sptruui};
+constsprtuui={rho->rhoprtuui,u->uprtuui,uut1->uu1prtuui,uut2->uu2prtuui,uut3->uu3prtuui,Er->Erprtuui,urut1->uru1prtuui,urut2->uru2prtuui,urut3->uru3prtuui,S->Sprtuui};
 constsprtuu0={rho->rhoptruu0,u->uptruu0,uut1->uu1ptruu0,uut2->uu2ptruu0,uut3->uu3ptruu0,Er->Erptruu0,urut1->uru1ptruu0,urut2->uru2ptruu0,urut3->uru3ptruu0,S->Sptruu0};
 ICpin={{rho,rhoii},{u,uii},{uut1,uut1ii},{uut2,uut2ii},{uut3,uut3ii},{Er,Erii},{urut1,urut1ii},{urut2,urut2ii},{urut3,urut3ii}};
 ICpinrad={{Er,Erii},{urut1,urut1ii},{urut2,urut2ii},{urut3,urut3ii}};
