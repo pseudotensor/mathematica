@@ -59,11 +59,13 @@ dosolveimplicitwrapper[whichcomputer0_]:=Module[
 If[whichcomputer==4,
  (* name and number of failures in fail file loaded in *)
 (*filenamebase="fails.txt";numfails=36212;*)
-(*filenamebase="fails.txt";numfails=565;*)
-(*filenamebase="fails.txt";numfails=1395;*)
+(*filenamebase="fails.txt";numfails=1031;*)
+(*filenamebase="failshigh100.txt";numfails=100;*)
 (*filenamebase="failshigherror100.txt";numfails=100;*)
-filenamebase="fails1new.txt";numfails=1;
-(*filenamebase="failshigherror.txt";numfails=300;*)
+filenamebase="failshigherror.txt";numfails=31;
+(*filenamebase="fails1new.txt";numfails=1;*)
+(*filenamebase="failscheck3.txt";numfails=3;*)
+
 filenamein=StringJoin[Directory[],"/",filenamebase];
 (*filin=ToString[$ScriptCommandLine[[1]]];*)
 ];
@@ -102,16 +104,20 @@ whichentropy=1;
 whichmhd=1;
 
 doradonly=0; (* 0 = do mhd or entropy as normal   1 = do radiation only *)
-dogammamax=0; (* whether to try gammamax for radiation case *)
+dogammamax=1; (* whether to try gammamax for radiation case *)
 
  (* 18 = long doubles 14 = doubles *)
-(* normal working precision and tolerance *)
+(* set Precision of numbers read-in *)
+myprec=20;
 
+(* normal working precision and tolerance *)
 (* normalwprec=14; normaltolprec=9; badtol=10^(-5);*)
-normalwprec=15; normaltolprec=12; badtol=10^(-6);
+(*normalwprec=15; normaltolprec=12; badtol=10^(-6);*)
+normalwprec=30; normaltolprec=12; badtol=10^(-6); (* for just getting accurate solution *)
 (*normaltolprec=6;  badtol=10^(-4);*)
 (* current harm choice *)
 (*normaltolprec=9;  badtol=10^(-2);*)
+normaliters=100;
 
 (* tolerance for Ui, UU0, and UU0S *)
 (* point is that sometimes want to test if can get solution at harm-like tolerance using mathematica, but other times assume harm can get solution using more accurate method than 9D method, and then just want these to be good solution so only testing cases when G is also present *)
@@ -120,18 +126,18 @@ normalwprec=15; normaltolprec=12; badtol=10^(-6);
 Uwprec=20;
 Utolprec=14;
 
-(* set Precision of numbers read-in *)
-myprec=20;
 
 (* high working precision and tolerance *)
+dohighprec=0; (* whether to attempt high precision, high iteration cases *)
 Wwprec=60;
 Wtolprec=14;
+Witers=1000;
 (* Choose Jacobian type: Automatic will choose whatever is optimal. *)
-(*JacobianType=Automatic;*)
+JacobianType=Automatic;
 (*JacobianType=Symbolic;*)
 (*JacobianType=FiniteDifference;*)
 (* default difference order is 1 *)
-JacobianType={FiniteDifference,"DifferenceOrder"->1};
+(*JacobianType={FiniteDifference,"DifferenceOrder"->1};*)
 
 
 (* read-in data *)
@@ -223,6 +229,8 @@ If[numele==208,
 ];
 (*Import[filein,"Table"][[1]];*)
 
+result181={failtype,myid,failnum,gotfirstnofail,errorabs,iters,dt,nstep,steppart,gamgas,gn11,gn12,gn13,gn14,gn21,gn22,gn23,gn24,gn31,gn32,gn33,gn34,gn41,gn42,gn43,gn44,gv11,gv12,gv13,gv14,gv21,gv22,gv23,gv24,gv31,gv32,gv33,gv34,gv41,gv42,gv43,gv44,pp0,ppfirst0,pb0,pin0,uu00,uu0,uui0,pp1,ppfirst1,pb1,pin1,uu01,uu1,uui1,pp2,ppfirst2,pb2,pin2,uu02,uu2,uui2,pp3,ppfirst3,pb3,pin3,uu03,uu3,uui3,pp4,ppfirst4,pb4,pin4,uu04,uu4,uui4,pp5,ppfirst5,pb5,pin5,uu05,uu5,uui5,pp6,ppfirst6,pb6,pin6,uu06,uu6,uui6,pp7,ppfirst7,pb7,pin7,uu07,uu7,uui7,pp8,ppfirst8,pb8,pin8,uu08,uu8,uui8,pp9,ppfirst9,pb9,pin9,uu09,uu9,uui9,pp10,ppfirst10,pb10,pin10,uu010,uu10,uui10,pp11,ppfirst11,pb11,pin11,uu011,uu11,uui11,pp12,ppfirst12,pb12,pin12,uu012,uu12,uui12,uradcon0,uradcov0,uradcon1,uradcov1,uradcon2,uradcov2,uradcon3,uradcov3,ucon0,ucov0,ucon1,ucov1,ucon2,ucov2,ucon3,ucov3,uradconb0,uradcovb0,uradconb1,uradcovb1,uradconb2,uradcovb2,uradconb3,uradcovb3,uconb0,ucovb0,uconb1,ucovb1,uconb2,ucovb2,uconb3,ucovb3,uradconi0,uradcovi0,uradconi1,uradcovi1,uradconi2,uradcovi2,uradconi3,uradcovi3,uconi0,ucovi0,uconi1,ucovi1,uconi2,ucovi2,uconi3,ucovi3};
+MyPrint[result181];
 
 
 rho0=SetPrecision[uu00,myprec];
@@ -658,7 +666,7 @@ eqns={ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0,ferr2[[1]
 Print["1FindRoot"];
 (*myIC=ICpintest;*)
  myIC=ICpin; 
-resultorig=Block[{cc=0},{FindRoot[eqns,myIC,WorkingPrecision->Uwprec,MaxIterations->1000,AccuracyGoal->Utolprec,PrecisionGoal->Utolprec, Jacobian->JacobianType, StepMonitor:>cc++],cc}];
+resultorig=Block[{cc=0},{FindRoot[eqns,myIC,WorkingPrecision->Uwprec,MaxIterations->normaliters,AccuracyGoal->Utolprec,PrecisionGoal->Utolprec, Jacobian->JacobianType, StepMonitor:>cc++],cc}];
 result=resultorig[[1]];cc=resultorig[[2]];
 chooseresult=result;
 Print["1result=",chooseresult];
@@ -726,7 +734,7 @@ ferr2[[1]]=T*(Sc-Sci -dtcold*GS); (* lab-frame version *)
 
 Print["1SFindRoot"];
 (*DampingFactor->2,*)
-resultorig=Block[{cc=0},{FindRoot[{ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0,ferr2[[1]]==0,ferr2[[2]]==0,ferr2[[3]]==0,ferr2[[4]]==0},ICpin,WorkingPrecision->Uwprec,MaxIterations->1000,AccuracyGoal->Utolprec,PrecisionGoal->Utolprec, Jacobian->JacobianType,StepMonitor:>cc++],cc}];result=resultorig[[1]];cc=resultorig[[2]];
+resultorig=Block[{cc=0},{FindRoot[{ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0,ferr2[[1]]==0,ferr2[[2]]==0,ferr2[[3]]==0,ferr2[[4]]==0},ICpin,WorkingPrecision->Uwprec,MaxIterations->normaliters,AccuracyGoal->Utolprec,PrecisionGoal->Utolprec, Jacobian->JacobianType,StepMonitor:>cc++],cc}];result=resultorig[[1]];cc=resultorig[[2]];
 chooseresult=result;
 Print["1Sresult=",chooseresult];
 Print["Pbi=",Pbi//.chooseresult];
@@ -790,7 +798,7 @@ ferr1=Table[(Rud[[1,ii]]-Rud0[[ii]])+dtcold*Gd[[ii]],{ii,1,4}];
 ferr2=Table[(Tud[[1,ii]]-Tud0[[ii]])-dtcold*Gd[[ii]],{ii,1,4}];
 eqns={ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0,ferr2[[1]]==0,ferr2[[2]]==0,ferr2[[3]]==0,ferr2[[4]]==0};
 Print["2FindRoot"];
-resultorig=Block[{cc=0},{FindRoot[eqns,ICpin,WorkingPrecision->Uwprec,MaxIterations->1000,AccuracyGoal->Utolprec,PrecisionGoal->Utolprec, Jacobian->JacobianType, StepMonitor:>cc++],cc}];
+resultorig=Block[{cc=0},{FindRoot[eqns,ICpin,WorkingPrecision->Uwprec,MaxIterations->normaliters,AccuracyGoal->Utolprec,PrecisionGoal->Utolprec, Jacobian->JacobianType, StepMonitor:>cc++],cc}];
 result=resultorig[[1]];cc=resultorig[[2]];
 chooseresult=result;
 Print["2result=",chooseresult];
@@ -902,10 +910,10 @@ gold=1;
 ];
 (*DampingFactor->2,*)
 If[COUNTFINDROOT==1,
-resultorig=Block[{cc=0},{FindRoot[{ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0,ferr2[[1]]==0,ferr2[[2]]==0,ferr2[[3]]==0,ferr2[[4]]==0},ICpin,WorkingPrecision->normalwprec,MaxIterations->1000,AccuracyGoal->normaltolprec,PrecisionGoal->normaltolprec,Jacobian->JacobianType ,StepMonitor:>cc++],cc}];result=resultorig[[1]];cc=resultorig[[2]];
+resultorig=Block[{cc=0},{FindRoot[{ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0,ferr2[[1]]==0,ferr2[[2]]==0,ferr2[[3]]==0,ferr2[[4]]==0},ICpin,WorkingPrecision->normalwprec,MaxIterations->normaliters,AccuracyGoal->normaltolprec,PrecisionGoal->normaltolprec,Jacobian->JacobianType ,StepMonitor:>cc++],cc}];result=resultorig[[1]];cc=resultorig[[2]];
 (* , Jacobian->FiniteDifference *) (* shows how Symbolic Jacobian is crucial *)
 ,
-resultorig=FindRoot[{ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0,ferr2[[1]]==0,ferr2[[2]]==0,ferr2[[3]]==0,ferr2[[4]]==0},ICpin,WorkingPrecision->normalwprec,MaxIterations->1000,AccuracyGoal->normaltolprec,PrecisionGoal->normaltolprec, Jacobian->JacobianType , StepMonitor:>Print["Step to:",rho," ",u," ",uu1," ",uu2," ",uu3," ",Er," ",uru1," ",uru2," ",uru3]];result=resultorig;
+resultorig=FindRoot[{ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0,ferr2[[1]]==0,ferr2[[2]]==0,ferr2[[3]]==0,ferr2[[4]]==0},ICpin,WorkingPrecision->normalwprec,MaxIterations->normaliters,AccuracyGoal->normaltolprec,PrecisionGoal->normaltolprec, Jacobian->JacobianType , StepMonitor:>Print["Step to:",rho," ",u," ",uu1," ",uu2," ",uu3," ",Er," ",uru1," ",uru2," ",uru3]];result=resultorig;
 ];
 chooseresult=result;
 Print["0result=",chooseresult];
@@ -995,7 +1003,7 @@ ferr2[[1]]=T*(Sc-Sc0 -dtcold*GS); (* lab-frame version *)
 
 Print["0SnoGFindRoot"];
 (*DampingFactor->2,*)
-resultorig=Block[{cc=0},{FindRoot[{ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0,ferr2[[1]]==0,ferr2[[2]]==0,ferr2[[3]]==0,ferr2[[4]]==0},ICpin,WorkingPrecision->Uwprec,MaxIterations->1000,AccuracyGoal->Utolprec,PrecisionGoal->Utolprec, Jacobian->JacobianType,StepMonitor:>cc++],cc}];result=resultorig[[1]];cc=resultorig[[2]];
+resultorig=Block[{cc=0},{FindRoot[{ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0,ferr2[[1]]==0,ferr2[[2]]==0,ferr2[[3]]==0,ferr2[[4]]==0},ICpin,WorkingPrecision->Uwprec,MaxIterations->normaliters,AccuracyGoal->Utolprec,PrecisionGoal->Utolprec, Jacobian->JacobianType,StepMonitor:>cc++],cc}];result=resultorig[[1]];cc=resultorig[[2]];
 chooseresult=result;
 Print["0SnoGresult=",chooseresult];
 
@@ -1098,10 +1106,10 @@ gold=1;
 ];
 (*DampingFactor->2,*)
 If[COUNTFINDROOT==1,
-resultorig=Block[{cc=0},{FindRoot[{ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0,ferr2[[1]]==0,ferr2[[2]]==0,ferr2[[3]]==0,ferr2[[4]]==0},ICpin,WorkingPrecision->normalwprec,MaxIterations->1000,AccuracyGoal->normaltolprec,PrecisionGoal->normaltolprec, Jacobian->JacobianType,StepMonitor:>cc++],cc}];result=resultorig[[1]];cc=resultorig[[2]];
+resultorig=Block[{cc=0},{FindRoot[{ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0,ferr2[[1]]==0,ferr2[[2]]==0,ferr2[[3]]==0,ferr2[[4]]==0},ICpin,WorkingPrecision->normalwprec,MaxIterations->normaliters,AccuracyGoal->normaltolprec,PrecisionGoal->normaltolprec, Jacobian->JacobianType,StepMonitor:>cc++],cc}];result=resultorig[[1]];cc=resultorig[[2]];
 (* , Jacobian->FiniteDifference *) (* shows how Symbolic Jacobian is crucial *)
 ,
-resultorig=FindRoot[{ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0,ferr2[[1]]==0,ferr2[[2]]==0,ferr2[[3]]==0,ferr2[[4]]==0},ICpin,WorkingPrecision->normalwprec,MaxIterations->1000,AccuracyGoal->normaltolprec,PrecisionGoal->normaltolprec, Jacobian->JacobianType, StepMonitor:>Print["Step to:",rho," ",u," ",uu1," ",uu2," ",uu3," ",Er," ",uru1," ",uru2," ",uru3]];result=resultorig;
+resultorig=FindRoot[{ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0,ferr2[[1]]==0,ferr2[[2]]==0,ferr2[[3]]==0,ferr2[[4]]==0},ICpin,WorkingPrecision->normalwprec,MaxIterations->normaliters,AccuracyGoal->normaltolprec,PrecisionGoal->normaltolprec, Jacobian->JacobianType, StepMonitor:>Print["Step to:",rho," ",u," ",uu1," ",uu2," ",uu3," ",Er," ",uru1," ",uru2," ",uru3]];result=resultorig;
 ];
 chooseresult=result;
 Print["0Sresult=",chooseresult];
@@ -1124,7 +1132,7 @@ cc0Smax=Max[cc0Smax,cc];
 error0S=error0S+ferrabs+ferrabsim;
 error0Smax=Max[error0Smax,ferrabs+ferrabsim];
 If[Re[(u//.chooseresult)]<=0,MyPrint["0Sresultnegu"];];
-If[Re[(u//.chooseresult)]>0,MyPrint["0Sresultnposu"];];
+If[Re[(u//.chooseresult)]>0,MyPrint["0Sresultposu"];];
 If[Re[(rho//.chooseresult)]<=0,MyPrint["0Sresultnegrho"];];
 If[Re[(Er//.chooseresult)]<=0,MyPrint["0SresultnegEr"];];
 If[myRe[(u//.chooseresult)]<myIm[(u//.chooseresult)]/badtol,MyPrint["0Sresultcomplexu"];];
@@ -1174,9 +1182,9 @@ ferr1=Table[(Rud[[1,ii]]-Rud0[[ii]]),{ii,1,4}];
 Print["0RADFindRoot"];
 (*DampingFactor->2,*)
 If[COUNTFINDROOT==1,
-resultorig=Block[{cc=0},{FindRoot[{ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0},ICpinrad,WorkingPrecision->normalwprec,MaxIterations->1000,AccuracyGoal->normaltolprec,PrecisionGoal->normaltolprec, Jacobian->JacobianType, StepMonitor:>cc++],cc}];result=resultorig[[1]];cc=resultorig[[2]];
+resultorig=Block[{cc=0},{FindRoot[{ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0},ICpinrad,WorkingPrecision->normalwprec,MaxIterations->normaliters,AccuracyGoal->normaltolprec,PrecisionGoal->normaltolprec, Jacobian->JacobianType, StepMonitor:>cc++],cc}];result=resultorig[[1]];cc=resultorig[[2]];
 ,
-resultorig=FindRoot[{ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0},ICpinrad,WorkingPrecision->normalwprec,MaxIterations->1000,AccuracyGoal->normaltolprec,PrecisionGoal->normaltolprec, Jacobian->JacobianType, StepMonitor:>Print["Step to: ",Er," ",uru1," ",uru2," ",uru3]];result=resultorig;
+resultorig=FindRoot[{ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0},ICpinrad,WorkingPrecision->normalwprec,MaxIterations->normaliters,AccuracyGoal->normaltolprec,PrecisionGoal->normaltolprec, Jacobian->JacobianType, StepMonitor:>Print["Step to: ",Er," ",uru1," ",uru2," ",uru3]];result=resultorig;
 ];
 chooseresult=result;
 Print["0RADresult=",chooseresult];
@@ -1194,7 +1202,7 @@ Print["UU ",Rud[[1]]//.chooseresult];
 
 
 (* normal but more working precision to test if matters *)
-If[resulttype3=="Bad" &&doradonly==0,
+If[resulttype3=="Bad" &&doradonly==0&&dohighprec==1,
 ferr0=rhou[[1]]-rho0;
 ferr0norm=10^(-300)+Abs[rhou[[1]]]+Abs[rho0];
 (*dt=0*)
@@ -1254,7 +1262,7 @@ ferr2norm[[jj]]=10^(-300)+(Abs[Tudff]+Abs[Tud0ff])+Abs[dtau*Gdff];
 
 
 Print["0WFindRoot"];
-resultorig=Block[{cc=0},{FindRoot[{ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0,ferr2[[1]]==0,ferr2[[2]]==0,ferr2[[3]]==0,ferr2[[4]]==0},ICpin,WorkingPrecision->Wwprec,MaxIterations->1000,AccuracyGoal->Wtolprec,PrecisionGoal->Wtolprec, Jacobian->JacobianType, StepMonitor:>cc++],cc}];
+resultorig=Block[{cc=0},{FindRoot[{ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0,ferr2[[1]]==0,ferr2[[2]]==0,ferr2[[3]]==0,ferr2[[4]]==0},ICpin,WorkingPrecision->Wwprec,MaxIterations->Witers,AccuracyGoal->Wtolprec,PrecisionGoal->Wtolprec, Jacobian->JacobianType, StepMonitor:>cc++],cc}];
 (*DampingFactor->2,*)
 result=resultorig[[1]];cc=resultorig[[2]];
 chooseresult=result;
@@ -1314,7 +1322,7 @@ Do[Write[sout,FullOutput[[ii]]],{ii,1,numFullOutput}];
 ];
 
 (* normal but entropy *and* but more working precision to test if matters *)
-If[resulttype4S=="Bad" &&doradonly==0,
+If[resulttype4S=="Bad" &&doradonly==0&&dohighprec==1,
 ferr0=rhou[[1]]-rho0;
 (*dt=0*)
 ferr1=Table[(Rud[[1,ii]]-Rud0[[ii]])+dt*Gd[[ii]],{ii,1,4}];
@@ -1359,7 +1367,7 @@ ferrnorm2={ferrnorm2t[[1]],ferrnorm2s/Sqrt[Abs[gcon[[2,2]]]],ferrnorm2s/Sqrt[Abs
 
 
 Print["0WSFindRoot"];
-resultorig=Block[{cc=0},{FindRoot[{ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0,ferr2[[1]]==0,ferr2[[2]]==0,ferr2[[3]]==0,ferr2[[4]]==0},ICpin,WorkingPrecision->Wwprec,MaxIterations->1000,AccuracyGoal->Wtolprec,PrecisionGoal->Wtolprec, Jacobian->JacobianType, StepMonitor:>cc++],cc}];
+resultorig=Block[{cc=0},{FindRoot[{ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0,ferr2[[1]]==0,ferr2[[2]]==0,ferr2[[3]]==0,ferr2[[4]]==0},ICpin,WorkingPrecision->Wwprec,MaxIterations->Witers,AccuracyGoal->Wtolprec,PrecisionGoal->Wtolprec, Jacobian->JacobianType, StepMonitor:>cc++],cc}];
 (*DampingFactor->2,*)
 result=resultorig[[1]];cc=resultorig[[2]];
 chooseresult=result;
@@ -1431,23 +1439,40 @@ If[Erenergy<=0 && Erentropy>0&&complexentropy==False&&ferrabs0S<badtol,MyPrint["
 
 
 
-(* normal but revert to gammamax if still can't find solution *)
-If[dogammamax==1&&resulttype6=="Bad" && doradonly==0,
-ferr0=rhou[[1]]-rho0;
-(*dt=0*)
-alphasq=1/-SetPrecision[gcon[[1,1]],myprec];
-gammarelmax=1000;
-gammamax=gammarelmax/alphasq;
+If[dogammamax==1,
+If[whichvel==1,
 mysolsuru1=Solve[uru0==gammamax,uru1];
 Print["GOD: ",mysolsuru1//.consts];
 choosesolsuru1=mysolsuru1[[2,1,2]];
 mysolsuru1;
+];
+If[whichvel==2,
+mysolsurut1=Solve[uru0==gammamax,urut1];
+Print["GOD: ",mysolsurut1//.consts];
+choosesolsurut1=mysolsurut1[[2,1,2]];
+mysolsurut1;
+];
+];
+
+(* normal but revert to gammamax if still can't find solution *)
+If[dogammamax==1&&resulttype3=="Bad" && doradonly==0,
+ferr0=rhou[[1]]-rho0;
+(*dt=0*)
 ferr1=Table[(Rud[[1,ii]]-Rud0[[ii]])+dt*Gd[[ii]],{ii,1,4}];
+(* setup gammamax *)
+alphasq=1/-SetPrecision[gcon[[1,1]],myprec];
+gammarelmax=1000;
+gammamax=gammarelmax/alphasq;
 (* replace equation for uru1 *)
+If[whichvel==1,
 ferr1[[1]]=choosesolsuru1-uru1;
+];
+If[whichvel==2,
+ferr1[[1]]=choosesolsurut1-urut1;
+];
 ferr2=Table[(Tud[[1,ii]]-Tud0[[ii]])-dt*Gd[[ii]],{ii,1,4}];
 Print["0MFindRoot"];
-resultorig=Block[{cc=0},{FindRoot[{ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0,ferr2[[1]]==0,ferr2[[2]]==0,ferr2[[3]]==0,ferr2[[4]]==0},ICpin,WorkingPrecision->Wwprec,MaxIterations->1000,AccuracyGoal->Wtolprec,PrecisionGoal->Wtolprec, Jacobian->JacobianType, StepMonitor:>cc++],cc}];
+resultorig=Block[{cc=0},{FindRoot[{ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0,ferr2[[1]]==0,ferr2[[2]]==0,ferr2[[3]]==0,ferr2[[4]]==0},ICpin,WorkingPrecision->Wwprec,MaxIterations->normaliters,AccuracyGoal->Wtolprec,PrecisionGoal->Wtolprec, Jacobian->JacobianType, StepMonitor:>cc++],cc}];
 (*DampingFactor->2,*)
 result=resultorig[[1]];cc=resultorig[[2]];
 chooseresult=result;
@@ -1465,7 +1490,7 @@ If[ferrabs==0 && ferrabsim==0 || ferrabs<badtol && ferrabsim<badtol&&complexprim
 Print["0M",resulttype8," ",CForm[ferrabs+ferrabsim]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
 ];
 
-If[resulttype6=="Bad" && doradonly==1,
+If[ doradonly==1,
 alphasq=1/-SetPrecision[gcon[[1,1]],myprec];
 gammarelmax=1000;
 gammamax=gammarelmax/alphasq;
@@ -1477,7 +1502,7 @@ ferr1=Table[(Rud[[1,ii]]-Rud0[[ii]]),{ii,1,4}];
 (* replace equation for uru1 *)
 ferr1[[1]]=choosesolsuru1-uru1;
 Print["0MRADFindRoot"];
-resultorig=Block[{cc=0},{FindRoot[{ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0},ICpinrad,WorkingPrecision->Wwprec,MaxIterations->1000,AccuracyGoal->Wtolprec,PrecisionGoal->Wtolprec, Jacobian->JacobianType, StepMonitor:>cc++],cc}];
+resultorig=Block[{cc=0},{FindRoot[{ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0},ICpinrad,WorkingPrecision->Wwprec,MaxIterations->Witers,AccuracyGoal->Wtolprec,PrecisionGoal->Wtolprec, Jacobian->JacobianType, StepMonitor:>cc++],cc}];
 (*DampingFactor->2,*)
 result=resultorig[[1]];cc=resultorig[[2]];
 chooseresult=result;
@@ -1492,6 +1517,141 @@ If[complexprims==1,Print["0MRADcomplexprims"];];
 If[ferrabs==0 && ferrabsim==0 || ferrabs<badtol && ferrabsim<badtol&&complexprims==False,resulttype9="Good",resulttype9="Bad"];
 Print["0MRAD",resulttype9," ",CForm[ferrabs+ferrabsim]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
 ];
+
+
+
+(* normal but uses entropy instead of energy equation *)
+if[dogammamax==1&&resulttype4S=="Bad" &&doradonly==0,
+ferr0=rhou[[1]]-rho0;
+(*dt=0*)
+ferr1=Table[(Rud[[1,ii]]-Rud0[[ii]])+dt*Gd[[ii]],{ii,1,4}];
+(* replace equation for uru1 *)
+If[whichvel==1,
+ferr1[[1]]=choosesolsuru1-uru1;
+];
+If[whichvel==2,
+ferr1[[1]]=choosesolsurut1-urut1;
+];
+ferr2=Table[(Tud[[1,ii]]-Tud0[[ii]])-dt*Gd[[ii]],{ii,1,4}];
+
+ferrnorm0=Abs[rhou[[1]]]+Abs[rho0];
+ferrnorm1t=Table[Sqrt[Abs[gcon[[ii,ii]]]]*((Abs[Rud[[1,ii]]]+Abs[Rud0[[ii]]])+Abs[dt*Gd[[ii]]]),{ii,1,1}];
+ferrnorm1s=Sum[Sqrt[Abs[gcon[[ii,ii]]]]*((Abs[Rud[[1,ii]]]+Abs[Rud0[[ii]]])+Abs[dt*Gd[[ii]]]),{ii,2,4}];
+ferrnorm1={ferrnorm1t[[1]]/Sqrt[Abs[gcon[[1,1]]]],ferrnorm1s/Sqrt[Abs[gcon[[2,2]]]],ferrnorm1s/Sqrt[Abs[gcon[[3,3]]]],ferrnorm1s/Sqrt[Abs[gcon[[4,4]]]]};
+ferrnorm2s=Sum[Sqrt[Abs[gcon[[ii,ii]]]]*((Abs[Tud[[1,ii]]]+Abs[Tud0[[ii]]])+Abs[dt*Gd[[ii]]]),{ii,2,4}];
+
+(* entropy error function still function of u, not changing independent variable to S or anything like that *)
+If[whichentropy==1,
+ferr2[[1]]=T*(Sc-Sc0 -dt*GS); (* lab-frame version *)
+ferrnorm2t=(Abs[T]*(Abs[Sc]+Abs[Sc0]+Abs[dt*GS]));
+];
+If[whichentropy==2,
+ferr2[[1]]=(u-uii)-(gam u/rho) (rho-rhoii) - (kappa Er - lambda) dt/ucon[[1]]; (* approximate fluid-frame version *)
+ferrnorm2t=Abs[(u+uii)+(gam u/rho) (rho+rhoii) + (kappa Er+- lambda) dt/ucon[[1]]];
+];
+If[whichentropy==3,
+Erff=ucov.Rud.ucon;
+(*ferr2[[1]]=(u-uii)-(gam u/rho) (rho-rhoii) - (kappa Erff - lambda) dt/ucon[[1]]; (* accurate fluid-frame version *)*)
+(* lambda>0 means gas entropy should drop, and have TSc=Tsc0+(kappa Erff-lambda)dt/ut *)
+ferr2[[1]]=T*(Sc/ucon[[1]]-Sc0/uu0ii)- (kappa Erff - lambda) dt/ucon[[1]]; (* accurate fluid-frame version *)
+ferrnorm2t=Abs[T*(Abs[Sc]/ucon[[1]]+Abs[Sc0]/uu0ii)- (kappaAbs[ Erff] - Abs[lambda]) dt/ucon[[1]]];
+];
+If[whichentropy==4,
+(* fully fluid-frame version *)
+Erff=ucov.Rud.ucon;
+Scff=ucov.(Sc/ucon[[1]]*ucon); (* i.e. u\mu S u^\mu   *)
+Scff=-S;
+Sc0ff=Scff//.chooseresultUU0noG;
+dtau=ucov[[1]]*dt;
+(* lambda>0 means gas entropy should drop means Scff rises, and have TScff = TSc0ff + (kappa Erff - lambda)*dtau = Tsc0ff + (+#) *)
+ferr2[[1]]=T*(Scff-Sc0ff)- (kappa Erff - lambda) dtau; 
+ferrnorm2t=Abs[T*(Abs[Scff]+Abs[Sc0ff])+(kappa Erff + lambda) dtau]; 
+];
+(* grep 0MSGood math.out|wc;grep 0WSGood math.out|wc;grep 0WSBad math.out|wc *)
+(* grep 0Good math.out|wc;grep 0WGood math.out|wc;grep 0WBad math.out|wc *)
+ferrnorm2={ferrnorm2t[[1]],ferrnorm2s/Sqrt[Abs[gcon[[2,2]]]],ferrnorm2s/Sqrt[Abs[gcon[[3,3]]]],ferrnorm2s/Sqrt[Abs[gcon[[4,4]]]]};
+
+Print["0MSFindRoot"];
+If[CheckJacobian==1,
+gold=1;
+];
+(*DampingFactor->2,*)
+If[COUNTFINDROOT==1,
+resultorig=Block[{cc=0},{FindRoot[{ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0,ferr2[[1]]==0,ferr2[[2]]==0,ferr2[[3]]==0,ferr2[[4]]==0},ICpin,WorkingPrecision->normalwprec,MaxIterations->normaliters,AccuracyGoal->normaltolprec,PrecisionGoal->normaltolprec, Jacobian->JacobianType,StepMonitor:>cc++],cc}];result=resultorig[[1]];cc=resultorig[[2]];
+(* , Jacobian->FiniteDifference *) (* shows how Symbolic Jacobian is crucial *)
+,
+resultorig=FindRoot[{ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0,ferr2[[1]]==0,ferr2[[2]]==0,ferr2[[3]]==0,ferr2[[4]]==0},ICpin,WorkingPrecision->normalwprec,MaxIterations->normaliters,AccuracyGoal->normaltolprec,PrecisionGoal->normaltolprec, Jacobian->JacobianType, StepMonitor:>Print["Step to:",rho," ",u," ",uu1," ",uu2," ",uu3," ",Er," ",uru1," ",uru2," ",uru3]];result=resultorig;
+];
+chooseresult=result;
+Print["0MSresult=",chooseresult];
+
+ferr0=(ferr0/ferrnorm0)//.chooseresult;
+ferr1=(ferr1/ferrnorm1)//.chooseresult;
+ferr2=(ferr2/ferrnorm2)//.chooseresult;
+
+ferrtotal=Join[{ferr0},ferr1,ferr2];
+ferrabs=Sqrt[myRe[ferrtotal].myRe[ferrtotal]];
+ferrabsim=Sqrt[myIm[ferrtotal].myIm[ferrtotal]];
+Print["0MSferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
+complexprims=myRe[(u//.chooseresult)]<myIm[(u//.chooseresult)]/badtol||myRe[(rho//.chooseresult)]<myIm[(rho//.chooseresult)]/badtol||myRe[(Er//.chooseresult)]<myIm[(Er//.chooseresult)]/badtol;
+If[complexprims==1,MyPrint["0MScomplexprims"];];
+If[ferrabs==0 && ferrabsim==0 || ferrabs<badtol && ferrabsim<badtol&&complexprims==False,resulttype4MS="Good",resulttype4MS="Bad"];
+Print["0MS",resulttype4MS," ",CForm[ferrabs+ferrabsim]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
+If[resulttype4MS=="Good",
+(*
+cc0MS=cc0MS+cc;
+cc0MSmax=Max[cc0MSmax,cc];
+error0MS=error0MS+ferrabs+ferrabsim;
+error0MSmax=Max[error0MSmax,ferrabs+ferrabsim];
+*)
+If[Re[(u//.chooseresult)]<=0,MyPrint["0MSresultnegu"];];
+If[Re[(u//.chooseresult)]>0,MyPrint["0MSresultposu"];];
+If[Re[(rho//.chooseresult)]<=0,MyPrint["0MSresultnegrho"];];
+If[Re[(Er//.chooseresult)]<=0,MyPrint["0MSresultnegEr"];];
+If[myRe[(u//.chooseresult)]<myIm[(u//.chooseresult)]/badtol,MyPrint["0MSresultcomplexu"];];
+If[myRe[(rho//.chooseresult)]<myIm[(rho//.chooseresult)]/badtol,MyPrint["0MSresultcomplexrho"];];
+If[myRe[(Er//.chooseresult)]<myIm[(Er//.chooseresult)]/badtol,MyPrint["0MSresultcomplexEr"];];
+];
+ochooseresult=myReP[chooseresult];
+p0MSplist={rho,u,uut1,uut2,uut3,Bcon[[1]],Bcon[[2]],Bcon[[3]],Er,urut1,urut2,urut3}//.ochooseresult;
+FullOutput={
+"0MSwhich(myj,failtype,myid,failnum)",myj,failtype,myid,failnum,
+"0MSresulttype",resulttype4MS,
+"0MSerrorabs",ferrabs+ferrabsim,
+"0MSiters=",cc,
+"0MSp",p0MSplist,
+"0MSucon",ucon//.ochooseresult,
+"0MSuradcon",uradcon//.ochooseresult,
+"0MSUU",rhou[[1]]//.ochooseresult,Tud[[1]]//.ochooseresult,Rud[[1]]//.ochooseresult,Re[Sc]//.ochooseresult
+};
+FullOutput=Flatten[FullOutput];
+numFullOutput=Length[FullOutput];
+Do[Write[sout,FullOutput[[ii]]],{ii,1,numFullOutput}];
+
+chooseresult0MS=chooseresult;
+ferrabs0MS=ferrabs+ferrabsim; (* overwrite *)
+
+Print["W and W' ",W//.chooseresult," ",Wp//.chooseresult];
+Print["DD",DD//.chooseresult];
+Print["UU ",rhou[[1]]//.chooseresult, " ",Rud[[1]]//.chooseresult," ",Tud[[1]]//.chooseresult];
+Print["dt*Gd=",dt*Gd//.chooseresult];
+Print["term0=",(rho)*ucon[[1]]//.chooseresult];
+Print["term1=",(rho+u+P+bsq)*ucon[[1]]*ucov[[1]]//.chooseresult];
+Print["term1a=",(rho+u+P+bsq)//.chooseresult];
+Print["term1b=",ucon[[1]]//.chooseresult];
+Print["term1c=",ucov[[1]]//.chooseresult];
+Print["term2=",(P+bsq/2)//.chooseresult];
+Print["term2a=",P//.chooseresult];
+Print["term2b=",(bsq/2)//.chooseresult];
+Print["term3=",-bcon[[1]]*bcov[[1]]//.chooseresult];
+Print["uu0=",uu0//.chooseresult," uru0=",uru0//.chooseresult];
+Print["ucon=",ucon//.chooseresult];
+Print["uradcon=",uradcon//.chooseresult];
+];
+
+
+
+
 
 
 (* OTHERS *)
