@@ -1715,10 +1715,11 @@ If[resultC==1,MyPrint["OneActualGood"];];
 If[resultC==0,MyPrint["NotOneActualGood"];];
 
 If[resultC==0,
+space=" ";
 (*Write[soutbad,{failtype,myid,failnum,gotfirstnofail,eomtype,errorabs,iters,dt,nstep,steppart,gamgas}];*)
-For[jj=1,jj<=numele,jj++,
-WriteString[soutbad,ToString[CForm[result181[[jj]]]]];
-WriteString[soutbad," "];
+For[jj=1,jj<=181,jj++,
+WriteString[soutbad,CForm[result181[[jj]]]];
+WriteString[soutbad,space];
 ];
 WriteString[soutbad,"\n"];
 ];
