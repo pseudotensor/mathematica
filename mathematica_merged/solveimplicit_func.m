@@ -84,6 +84,10 @@ str=OpenRead[filenamein];
 filenameout=StringJoin[filenamein,"_out.txt"];
 sout = OpenWrite[filenameout,FormatType->CForm];
 
+(* choose output bad file name *)
+filenameoutbad=StringJoin[filenamein,"_outbad.txt"];
+soutbad= OpenWrite[filenameoutbad,FormatType->CForm];
+
 (* choose Print stderr/stdout output file name *)
 filenamemathout=StringJoin[filenamein,"_math.txt"];
 stream=OpenWrite[filenamemathout,FormatType->OutputForm];
@@ -204,6 +208,7 @@ MyPrint["average error counts: ",CForm[errorUi/numfailsN]," ",CForm[errorUiS/num
 MyPrint["errormax counts: ",CForm[errorUimax]," ",CForm[errorUiSmax]," ",CForm[errorUU0max]," ",CForm[errorUU0Smax]," ",CForm[error0max]," ",CForm[error0Smax]," ",CForm[error0Wmax]," ",CForm[error0WSmax] ];
 
 Close[sout];
+Close[soutbad];
 ];
 
 
@@ -1708,6 +1713,14 @@ If[resultB==1,MyPrint["OneGood"];];
 If[resultB==0,MyPrint["NotOneGood"];];
 If[resultC==1,MyPrint["OneActualGood"];];
 If[resultC==0,MyPrint["NotOneActualGood"];];
+
+If[resultC==0,
+(*Write[soutbad,{failtype,myid,failnum,gotfirstnofail,eomtype,errorabs,iters,dt,nstep,steppart,gamgas}];*)
+For[jj=1,jj<=numele,jj++,
+Write[soutbad,result181[[jj]]];
+Write[soutbad," "];
+];
+];
 
 
 
