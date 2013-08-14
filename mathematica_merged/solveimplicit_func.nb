@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       145,          7]
-NotebookDataLength[    554964,      12641]
-NotebookOptionsPosition[    553480,      12588]
-NotebookOutlinePosition[    553849,      12604]
-CellTagsIndexPosition[    553806,      12601]
+NotebookDataLength[    557048,      12687]
+NotebookOptionsPosition[    555554,      12634]
+NotebookOutlinePosition[    555933,      12650]
+CellTagsIndexPosition[    555890,      12647]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -264,6 +264,19 @@ txt\>\""}], ";"}]}], "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]",
       RowBox[{"sout", " ", "=", " ", 
        RowBox[{"OpenWrite", "[", 
         RowBox[{"filenameout", ",", 
+         RowBox[{"FormatType", "\[Rule]", "CForm"}]}], "]"}]}], ";", 
+      "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      RowBox[{"(*", " ", 
+       RowBox[{
+       "choose", " ", "output", " ", "bad", " ", "file", " ", "name"}], " ", 
+       "*)"}], "\[IndentingNewLine]", 
+      RowBox[{"filenameoutbad", "=", 
+       RowBox[{"StringJoin", "[", 
+        RowBox[{"filenamein", ",", "\"\<_outbad.txt\>\""}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"soutbad", "=", " ", 
+       RowBox[{"OpenWrite", "[", 
+        RowBox[{"filenameoutbad", ",", 
          RowBox[{"FormatType", "\[Rule]", "CForm"}]}], "]"}]}], ";", 
       "\[IndentingNewLine]", "\[IndentingNewLine]", 
       RowBox[{"(*", " ", 
@@ -692,7 +705,8 @@ txt\>\""}], ";"}]}], "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]",
         RowBox[{"CForm", "[", "error0Wmax", "]"}], ",", "\"\< \>\"", ",", 
         RowBox[{"CForm", "[", "error0WSmax", "]"}]}], " ", "]"}], ";", 
       "\[IndentingNewLine]", "\[IndentingNewLine]", 
-      RowBox[{"Close", "[", "sout", "]"}], ";"}]}], "\[IndentingNewLine]", 
+      RowBox[{"Close", "[", "sout", "]"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"Close", "[", "soutbad", "]"}], ";"}]}], "\[IndentingNewLine]", 
     "]"}]}], ";"}]], "Input",
  InitializationCell->True,
  CellChangeTimes->{{3.577053004583735*^9, 3.57705305355448*^9}, {
@@ -828,7 +842,8 @@ txt\>\""}], ";"}]}], "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]",
    3.585419243592317*^9, 3.585419245615368*^9}, {3.585423500161127*^9, 
    3.585423525092552*^9}, 3.5854236113666973`*^9, {3.585428760990522*^9, 
    3.585428782793332*^9}, {3.585431287459841*^9, 3.585431293507142*^9}, {
-   3.585432989913808*^9, 3.5854329963730507`*^9}}],
+   3.585432989913808*^9, 3.5854329963730507`*^9}, {3.5854412708338747`*^9, 
+   3.5854412903319893`*^9}}],
 
 Cell[BoxData[""], "Input",
  InitializationCell->True],
@@ -11668,6 +11683,35 @@ Cell[BoxData[
         RowBox[{
          RowBox[{"MyPrint", "[", "\"\<NotOneActualGood\>\"", "]"}], ";"}]}], 
        "]"}], ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      RowBox[{"If", "[", 
+       RowBox[{
+        RowBox[{"resultC", "\[Equal]", "0"}], ",", "\[IndentingNewLine]", 
+        RowBox[{"(*", 
+         RowBox[{
+          RowBox[{"Write", "[", 
+           RowBox[{"soutbad", ",", 
+            RowBox[{"{", 
+             RowBox[{
+             "failtype", ",", "myid", ",", "failnum", ",", "gotfirstnofail", 
+              ",", "eomtype", ",", "errorabs", ",", "iters", ",", "dt", ",", 
+              "nstep", ",", "steppart", ",", "gamgas"}], "}"}]}], "]"}], 
+          ";"}], "*)"}], "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"For", "[", 
+          RowBox[{
+           RowBox[{"jj", "=", "1"}], ",", 
+           RowBox[{"jj", "<=", "numele"}], ",", 
+           RowBox[{"jj", "++"}], ",", "\[IndentingNewLine]", 
+           RowBox[{
+            RowBox[{"Write", "[", 
+             RowBox[{"soutbad", ",", 
+              RowBox[{"result181", "[", 
+               RowBox[{"[", "jj", "]"}], "]"}]}], "]"}], ";", 
+            "\[IndentingNewLine]", 
+            RowBox[{"Write", "[", 
+             RowBox[{"soutbad", ",", "\"\< \>\""}], "]"}], ";"}]}], 
+          "\[IndentingNewLine]", "]"}], ";"}]}], "\[IndentingNewLine]", "]"}],
+       ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
       "\[IndentingNewLine]", "\[IndentingNewLine]", "\[IndentingNewLine]", 
       RowBox[{"(*", " ", "OTHERS", " ", "*)"}], "\[IndentingNewLine]", 
       RowBox[{"If", "[", 
@@ -12555,7 +12599,9 @@ Cell[BoxData[
    3.5854371279612226`*^9}, {3.585437160302437*^9, 3.585437226751972*^9}, {
    3.585437587406322*^9, 3.585437613867647*^9}, {3.585437714437759*^9, 
    3.585437723699712*^9}, {3.5854378180228367`*^9, 3.5854378661985903`*^9}, {
-   3.5854406434901733`*^9, 3.585440655216515*^9}}],
+   3.5854406434901733`*^9, 3.5854406998992186`*^9}, 3.585440854660071*^9, {
+   3.585440885800852*^9, 3.5854410143832064`*^9}, {3.585441168058996*^9, 
+   3.585441301767644*^9}}],
 
 Cell[BoxData["\[IndentingNewLine]"], "Input",
  InitializationCell->True,
@@ -12587,9 +12633,9 @@ Cell[BoxData[""], "Input",
  CellChangeTimes->{{3.5847753848158894`*^9, 3.584775387600048*^9}}]
 },
 AutoGeneratedPackage->Automatic,
-WindowSize->{1614, 975},
-WindowMargins->{{0, Automatic}, {Automatic, 0}},
-FrontEndVersion->"7.0 for Linux x86 (64-bit) (February 25, 2009)",
+WindowSize->{1584, 649},
+WindowMargins->{{-2, Automatic}, {Automatic, 18}},
+FrontEndVersion->"7.0 for Microsoft Windows (64-bit) (November 10, 2008)",
 StyleDefinitions->"Default.nb"
 ]
 (* End of Notebook Content *)
@@ -12603,45 +12649,45 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[545, 20, 243, 6, 32, "Input",
+Cell[545, 20, 243, 6, 31, "Input",
  InitializationCell->True],
 Cell[CellGroupData[{
-Cell[813, 30, 179, 5, 32, "Input",
+Cell[813, 30, 179, 5, 31, "Input",
  InitializationCell->True],
-Cell[995, 37, 374, 11, 43, "Output",
+Cell[995, 37, 374, 11, 42, "Output",
  Evaluatable->True,
  InitializationCell->True]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1406, 53, 102, 2, 32, "Input",
+Cell[1406, 53, 102, 2, 31, "Input",
  InitializationCell->True],
-Cell[1511, 57, 215, 5, 31, "Output",
+Cell[1511, 57, 215, 5, 30, "Output",
  Evaluatable->True,
  InitializationCell->True]
 }, Open  ]],
-Cell[1741, 65, 769, 21, 121, "Input",
+Cell[1741, 65, 769, 21, 112, "Input",
  InitializationCell->True],
-Cell[2513, 88, 120, 2, 32, "Input",
+Cell[2513, 88, 120, 2, 31, "Input",
  InitializationCell->True],
-Cell[2636, 92, 813, 24, 32, "Input",
+Cell[2636, 92, 813, 24, 31, "Input",
  InitializationCell->True],
-Cell[3452, 118, 682, 16, 55, "Input",
+Cell[3452, 118, 682, 16, 52, "Input",
  InitializationCell->True],
-Cell[4137, 136, 34718, 694, 3531, "Input",
+Cell[4137, 136, 35417, 709, 3272, "Input",
  InitializationCell->True],
-Cell[38858, 832, 53, 1, 32, "Input",
+Cell[39557, 847, 53, 1, 31, "Input",
  InitializationCell->True],
-Cell[38914, 835, 513434, 11722, 36333, "Input",
+Cell[39613, 850, 514809, 11753, 32992, "Input",
  InitializationCell->True],
-Cell[552351, 12559, 529, 8, 55, "Input",
+Cell[554425, 12605, 529, 8, 52, "Input",
  InitializationCell->True],
-Cell[552883, 12569, 221, 4, 32, "Input",
+Cell[554957, 12615, 221, 4, 31, "Input",
  InitializationCell->True],
-Cell[553107, 12575, 97, 2, 32, "Input",
+Cell[555181, 12621, 97, 2, 31, "Input",
  InitializationCell->True],
-Cell[553207, 12579, 145, 3, 32, "Input",
+Cell[555281, 12625, 145, 3, 31, "Input",
  InitializationCell->True],
-Cell[553355, 12584, 121, 2, 32, "Input",
+Cell[555429, 12630, 121, 2, 31, "Input",
  InitializationCell->True]
 }
 ]
