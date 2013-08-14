@@ -1930,6 +1930,8 @@ If[resultB==0,MyPrint["NotOneGood"];];
 If[resultC==1,MyPrint["OneActualGood"];];
 If[resultC==0,MyPrint["NotOneActualGood"];];
 
+MyPrint["SolutionType: ",myj," ",resulttype3," ",resulttype4S," ",resulttype8," ",resulttype4MS," ",resulttype8Q," ",resulttype4QS];
+
 If[resultC==0,
 space=" ";
 (*Write[soutbad,{failtype,myid,failnum,gotfirstnofail,eomtype,errorabs,iters,dt,nstep,steppart,gamgas}];*)
