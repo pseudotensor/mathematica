@@ -62,7 +62,9 @@ If[whichcomputer==4,
 (*filenamebase="fails.txt";numfails=1031;*)
 (*filenamebase="failshigh100.txt";numfails=100;*)
 (*filenamebase="failshigherror100.txt";numfails=100;*)
-filenamebase="failshigherror.txt";numfails=31;
+filenamebase="failshigherror.txt";numfails=548;
+(*filenamebase="failsentropy453.txt";numfails=453;*)
+(*filenamebase="failsenergy.txt";numfails=141;*)
 (*filenamebase="fails1new.txt";numfails=1;*)
 (*filenamebase="failscheck3.txt";numfails=3;*)
 
@@ -554,10 +556,10 @@ If[myRe[(Er//.chooseresult)]<myIm[(Er//.chooseresult)]/badtol,MyPrint["Aresultco
 Print["A",resulttype1," ",CForm[ferrabs+ferrabsim]," ",myj," ",failtype," ",myid," ",failnum, " ccA=",ccA];
 Print["AUUi ",rhouu0i," ",Rudi," ",Tudi, " ", Sci];
 Print["AUU ",rhou[[1]]//.chooseresult, " ",Rud[[1]]//.chooseresult," ",TudBi[[1]]//.chooseresult," ",Sc//.chooseresult];
-Print["W and W' ",W//.chooseresult," ",Wp//.chooseresult];
-Print["ucon=",ucon//.chooseresult];
-Print["uradcon=",uradcon//.chooseresult];
-Print["gcov=",gcov," gcon=",gcon];
+Print["AW and W' ",W//.chooseresult," ",Wp//.chooseresult];
+Print["Aucon=",ucon//.chooseresult];
+Print["Auradcon=",uradcon//.chooseresult];
+Print["Agcov=",gcov," gcon=",gcon];
 
 ochooseresult=myReP[chooseresult];
 Aplist={rho,u,uut1,uut2,uut3,Bconi[[1]],Bconi[[2]],Bconi[[3]],Er,urut1,urut2,urut3}//.ochooseresult;
@@ -693,7 +695,7 @@ If[ferrabs==0 && ferrabsim==0 || ferrabs<badtol&& ferrabsim<badtol&&complexprims
 Print["1",resulttype10," ",CForm[ferrabs+ferrabsim]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
 Print["1UUi ",rhouu0i," ",Rudi," ",Tudi, " ", Sci];
 Print["1UU ",rhou[[1]]//.chooseresult, " ",Rud[[1]]//.chooseresult," ",TudBi[[1]]//.chooseresult," ",Sc//.chooseresult];
-Print["W and W' ",W//.chooseresult," ",Wp//.chooseresult];
+Print["1W and W' ",W//.chooseresult," ",Wp//.chooseresult];
 chooseresultUi=chooseresult;
 ccUi=ccUi+cc;
 ccUimax=Max[ccUimax,cc];
@@ -856,6 +858,11 @@ Do[Write[sout,FullOutput[[ii]]],{ii,1,numFullOutput}];
 
 ];
 
+(* default *)
+resulttype4MS="Bad" ;
+resulttype3="Bad";
+resulttype4S="Bad" ;
+resulttype8="Bad" ;
 
 (* normal full inversion *)
 If[doradonly==0,
@@ -956,23 +963,23 @@ If[myRe[(Er//.chooseresult)]<myIm[(Er//.chooseresult)]/badtol,MyPrint["0resultco
 chooseresult0=chooseresult;
 ferrabs0=ferrabs+ferrabsim; 
 
-Print["W and W' ",W//.chooseresult," ",Wp//.chooseresult];
-Print["DD",DD//.chooseresult];
+Print["0W and W' ",W//.chooseresult," ",Wp//.chooseresult];
+Print["0DD",DD//.chooseresult];
 Print["0UUi ",rhouu0i," ",Rudi," ",Tudi, " ", Sci];
 Print["0UU ",rhou[[1]]//.chooseresult, " ",Rud[[1]]//.chooseresult," ",Tud[[1]]//.chooseresult," ",Sc//.chooseresult];
-Print["dt*Gd=",dt*Gd//.chooseresult];
-Print["term0=",(rho)*ucon[[1]]//.chooseresult];
-Print["term1=",(rho+u+P+bsq)*ucon[[1]]*ucov[[1]]//.chooseresult];
-Print["term1a=",(rho+u+P+bsq)//.chooseresult];
-Print["term1b=",ucon[[1]]//.chooseresult];
-Print["term1c=",ucov[[1]]//.chooseresult];
-Print["term2=",(P+bsq/2)//.chooseresult];
-Print["term2a=",P//.chooseresult];
-Print["term2b=",(bsq/2)//.chooseresult];
-Print["term3=",-bcon[[1]]*bcov[[1]]//.chooseresult];
-Print["uu0=",uu0//.chooseresult," uru0=",uru0//.chooseresult];
-Print["ucon=",ucon//.chooseresult];
-Print["uradcon=",uradcon//.chooseresult];
+Print["0dt*Gd=",dt*Gd//.chooseresult];
+Print["0term0=",(rho)*ucon[[1]]//.chooseresult];
+Print["0term1=",(rho+u+P+bsq)*ucon[[1]]*ucov[[1]]//.chooseresult];
+Print["0term1a=",(rho+u+P+bsq)//.chooseresult];
+Print["0term1b=",ucon[[1]]//.chooseresult];
+Print["0term1c=",ucov[[1]]//.chooseresult];
+Print["0term2=",(P+bsq/2)//.chooseresult];
+Print["0term2a=",P//.chooseresult];
+Print["0term2b=",(bsq/2)//.chooseresult];
+Print["0term3=",-bcon[[1]]*bcov[[1]]//.chooseresult];
+Print["0uu0=",uu0//.chooseresult," uru0=",uru0//.chooseresult];
+Print["0ucon=",ucon//.chooseresult];
+Print["0uradcon=",uradcon//.chooseresult];
 
 ochooseresult=myReP[chooseresult];
 p0plist={rho,u,uut1,uut2,uut3,Bcon[[1]],Bcon[[2]],Bcon[[3]],Er,urut1,urut2,urut3}//.ochooseresult;
@@ -1158,22 +1165,22 @@ Do[Write[sout,FullOutput[[ii]]],{ii,1,numFullOutput}];
 chooseresult0S=chooseresult;
 ferrabs0S=ferrabs+ferrabsim; (* overwrite *)
 
-Print["W and W' ",W//.chooseresult," ",Wp//.chooseresult];
-Print["DD",DD//.chooseresult];
-Print["UU ",rhou[[1]]//.chooseresult, " ",Rud[[1]]//.chooseresult," ",Tud[[1]]//.chooseresult];
-Print["dt*Gd=",dt*Gd//.chooseresult];
-Print["term0=",(rho)*ucon[[1]]//.chooseresult];
-Print["term1=",(rho+u+P+bsq)*ucon[[1]]*ucov[[1]]//.chooseresult];
-Print["term1a=",(rho+u+P+bsq)//.chooseresult];
-Print["term1b=",ucon[[1]]//.chooseresult];
-Print["term1c=",ucov[[1]]//.chooseresult];
-Print["term2=",(P+bsq/2)//.chooseresult];
-Print["term2a=",P//.chooseresult];
-Print["term2b=",(bsq/2)//.chooseresult];
-Print["term3=",-bcon[[1]]*bcov[[1]]//.chooseresult];
-Print["uu0=",uu0//.chooseresult," uru0=",uru0//.chooseresult];
-Print["ucon=",ucon//.chooseresult];
-Print["uradcon=",uradcon//.chooseresult];
+Print["0SW and W' ",W//.chooseresult," ",Wp//.chooseresult];
+Print["0SDD",DD//.chooseresult];
+Print["0SUU ",rhou[[1]]//.chooseresult, " ",Rud[[1]]//.chooseresult," ",Tud[[1]]//.chooseresult];
+Print["0Sdt*Gd=",dt*Gd//.chooseresult];
+Print["0Sterm0=",(rho)*ucon[[1]]//.chooseresult];
+Print["0Sterm1=",(rho+u+P+bsq)*ucon[[1]]*ucov[[1]]//.chooseresult];
+Print["0Sterm1a=",(rho+u+P+bsq)//.chooseresult];
+Print["0Sterm1b=",ucon[[1]]//.chooseresult];
+Print["0Sterm1c=",ucov[[1]]//.chooseresult];
+Print["0Sterm2=",(P+bsq/2)//.chooseresult];
+Print["0Sterm2a=",P//.chooseresult];
+Print["0Sterm2b=",(bsq/2)//.chooseresult];
+Print["0Sterm3=",-bcon[[1]]*bcov[[1]]//.chooseresult];
+Print["0Suu0=",uu0//.chooseresult," uru0=",uru0//.chooseresult];
+Print["0Sucon=",ucon//.chooseresult];
+Print["0Suradcon=",uradcon//.chooseresult];
 ];
 
 (* normal radiation only *)
@@ -1440,6 +1447,10 @@ If[Erenergy<=0 && Erentropy>0&&complexentropy==False&&ferrabs0S<badtol,MyPrint["
 
 
 If[dogammamax==1,
+(* setup gammamax *)
+alphasq=1/-SetPrecision[gcon[[1,1]],myprec];
+gammarelmax=1000;
+gammamax=gammarelmax/alphasq;
 If[whichvel==1,
 mysolsuru1=Solve[uru0==gammamax,uru1];
 Print["GOD: ",mysolsuru1//.consts];
@@ -1459,10 +1470,7 @@ If[dogammamax==1&&resulttype3=="Bad" && doradonly==0,
 ferr0=rhou[[1]]-rho0;
 (*dt=0*)
 ferr1=Table[(Rud[[1,ii]]-Rud0[[ii]])+dt*Gd[[ii]],{ii,1,4}];
-(* setup gammamax *)
-alphasq=1/-SetPrecision[gcon[[1,1]],myprec];
-gammarelmax=1000;
-gammamax=gammarelmax/alphasq;
+
 (* replace equation for uru1 *)
 If[whichvel==1,
 ferr1[[1]]=choosesolsuru1-uru1;
@@ -1488,6 +1496,23 @@ complexprims=myRe[(u//.chooseresult)]<myIm[(u//.chooseresult)]/badtol||myRe[(rho
 If[complexprims==1,Print["0Mcomplexprims"];];
 If[ferrabs==0 && ferrabsim==0 || ferrabs<badtol && ferrabsim<badtol&&complexprims==False,resulttype8="Good",resulttype8="Bad"];
 Print["0M",resulttype8," ",CForm[ferrabs+ferrabsim]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
+
+Print["0MW and W' ",W//.chooseresult," ",Wp//.chooseresult];
+Print["0MDD",DD//.chooseresult];
+Print["0MUU ",rhou[[1]]//.chooseresult, " ",Rud[[1]]//.chooseresult," ",Tud[[1]]//.chooseresult];
+Print["0Mdt*Gd=",dt*Gd//.chooseresult];
+Print["0Mterm0=",(rho)*ucon[[1]]//.chooseresult];
+Print["0Mterm1=",(rho+u+P+bsq)*ucon[[1]]*ucov[[1]]//.chooseresult];
+Print["0Mterm1a=",(rho+u+P+bsq)//.chooseresult];
+Print["0Mterm1b=",ucon[[1]]//.chooseresult];
+Print["0Mterm1c=",ucov[[1]]//.chooseresult];
+Print["0Mterm2=",(P+bsq/2)//.chooseresult];
+Print["0Mterm2a=",P//.chooseresult];
+Print["0Mterm2b=",(bsq/2)//.chooseresult];
+Print["0Mterm3=",-bcon[[1]]*bcov[[1]]//.chooseresult];
+Print["0Muu0=",uu0//.chooseresult," uru0=",uru0//.chooseresult];
+Print["0Mucon=",ucon//.chooseresult];
+Print["0Muradcon=",uradcon//.chooseresult];
 ];
 
 If[ doradonly==1,
@@ -1631,25 +1656,26 @@ Do[Write[sout,FullOutput[[ii]]],{ii,1,numFullOutput}];
 chooseresult0MS=chooseresult;
 ferrabs0MS=ferrabs+ferrabsim; (* overwrite *)
 
-Print["W and W' ",W//.chooseresult," ",Wp//.chooseresult];
-Print["DD",DD//.chooseresult];
-Print["UU ",rhou[[1]]//.chooseresult, " ",Rud[[1]]//.chooseresult," ",Tud[[1]]//.chooseresult];
-Print["dt*Gd=",dt*Gd//.chooseresult];
-Print["term0=",(rho)*ucon[[1]]//.chooseresult];
-Print["term1=",(rho+u+P+bsq)*ucon[[1]]*ucov[[1]]//.chooseresult];
-Print["term1a=",(rho+u+P+bsq)//.chooseresult];
-Print["term1b=",ucon[[1]]//.chooseresult];
-Print["term1c=",ucov[[1]]//.chooseresult];
-Print["term2=",(P+bsq/2)//.chooseresult];
-Print["term2a=",P//.chooseresult];
-Print["term2b=",(bsq/2)//.chooseresult];
-Print["term3=",-bcon[[1]]*bcov[[1]]//.chooseresult];
-Print["uu0=",uu0//.chooseresult," uru0=",uru0//.chooseresult];
-Print["ucon=",ucon//.chooseresult];
-Print["uradcon=",uradcon//.chooseresult];
+Print["0MSW and W' ",W//.chooseresult," ",Wp//.chooseresult];
+Print["0MSDD",DD//.chooseresult];
+Print["0MSUU ",rhou[[1]]//.chooseresult, " ",Rud[[1]]//.chooseresult," ",Tud[[1]]//.chooseresult];
+Print["0MSdt*Gd=",dt*Gd//.chooseresult];
+Print["0MSterm0=",(rho)*ucon[[1]]//.chooseresult];
+Print["0MSterm1=",(rho+u+P+bsq)*ucon[[1]]*ucov[[1]]//.chooseresult];
+Print["0MSterm1a=",(rho+u+P+bsq)//.chooseresult];
+Print["0MSterm1b=",ucon[[1]]//.chooseresult];
+Print["0MSterm1c=",ucov[[1]]//.chooseresult];
+Print["0MSterm2=",(P+bsq/2)//.chooseresult];
+Print["0MSterm2a=",P//.chooseresult];
+Print["0MSterm2b=",(bsq/2)//.chooseresult];
+Print["0MSterm3=",-bcon[[1]]*bcov[[1]]//.chooseresult];
+Print["0MSuu0=",uu0//.chooseresult," uru0=",uru0//.chooseresult];
+Print["0MSucon=",ucon//.chooseresult];
+Print["0MSuradcon=",uradcon//.chooseresult];
 ];
 
-
+If[resulttype4MS=="Bad" && resulttype3=="Bad" && resulttype4S=="Bad"  && resulttype8=="Bad" ,MyPrint["AllBad"];];
+If[resulttype4MS=="Good" || resulttype3=="Good" || resulttype4S=="Good"  || resulttype8=="Good" ,MyPrint["OneGood"];];
 
 
 
