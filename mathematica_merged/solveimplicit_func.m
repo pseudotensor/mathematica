@@ -863,11 +863,13 @@ Do[Write[sout,FullOutput[[ii]]],{ii,1,numFullOutput}];
 
 ];
 
-(* default *)
+(* defaults *)
 resulttype4MS="Bad" ;
+resulttype4QS="Bad" ;
 resulttype3="Bad";
 resulttype4S="Bad" ;
 resulttype8="Bad" ;
+resulttype8Q="Bad" ;
 
 (* normal full inversion *)
 If[doradonly==0,
@@ -1469,9 +1471,28 @@ choosesolsurut1=mysolsurut1[[2,1,2]];
 mysolsurut1;
 ];
 ];
+If[dogammamax==1,
+(* setup gammamax *)
+alphasq=1/-SetPrecision[gcon[[1,1]],myprec];
+gammarelmin=1.0;
+gammamin=gammarelmin/alphasq;
+If[whichvel==1,
+mysolsuru1min=Solve[uru0==gammamin,uru1];
+Print["GOD: ",mysolsuru1min//.consts];
+choosesolsuru1min=mysolsuru1min[[2,1,2]];
+mysolsuru1min;
+];
+If[whichvel==2,
+mysolsurut1min=Solve[uru0==gammamin,urut1];
+Print["GOD: ",mysolsurut1min//.consts];
+choosesolsurut1min=mysolsurut1min[[2,1,2]];
+mysolsurut1min;
+];
+];
 
 (* normal but revert to gammamax if still can't find solution *)
-If[dogammamax==1&&resulttype3=="Bad" && doradonly==0,
+(* &&resulttype3=="Bad" *)
+If[dogammamax==1&& doradonly==0,
 ferr0=rhou[[1]]-rho0;
 (*dt=0*)
 ferr1=Table[(Rud[[1,ii]]-Rud0[[ii]])+dt*Gd[[ii]],{ii,1,4}];
@@ -1521,6 +1542,59 @@ Print["0Mucon=",ucon//.chooseresult];
 Print["0Muradcon=",uradcon//.chooseresult];
 ];
 
+
+
+(* normal but revert to gammamin if still can't find solution *)
+If[dogammamax==1&& doradonly==0,
+ferr0=rhou[[1]]-rho0;
+(*dt=0*)
+ferr1=Table[(Rud[[1,ii]]-Rud0[[ii]])+dt*Gd[[ii]],{ii,1,4}];
+
+(* replace equation for uru1 *)
+If[whichvel==1,
+ferr1[[1]]=choosesolsuru1min-uru1;
+];
+If[whichvel==2,
+ferr1[[1]]=choosesolsurut1min-urut1;
+];
+ferr2=Table[(Tud[[1,ii]]-Tud0[[ii]])-dt*Gd[[ii]],{ii,1,4}];
+Print["0QFindRoot"];
+resultorig=Block[{cc=0},{FindRoot[{ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0,ferr2[[1]]==0,ferr2[[2]]==0,ferr2[[3]]==0,ferr2[[4]]==0},ICpin,WorkingPrecision->Wwprec,MaxIterations->normaliters,AccuracyGoal->Wtolprec,PrecisionGoal->Wtolprec, Jacobian->JacobianType, StepMonitor:>cc++],cc}];
+(*DampingFactor->2,*)
+result=resultorig[[1]];cc=resultorig[[2]];
+chooseresult=result;
+Print["0Qresult=",chooseresult];
+ferr0=ferr0/Abs[rho]//.chooseresult;
+ferr1=(ferr1/Max[Abs[(u//.chooseresult)],Abs[(Er//.chooseresult)]])//.chooseresult;
+ferr2=(ferr2/Max[Abs[(u//.chooseresult)],Abs[(Er//.chooseresult)]])//.chooseresult;
+ferrtotal=Join[{ferr0},ferr1,ferr2];
+ferrabs=Sqrt[myRe[ferrtotal].myRe[ferrtotal]];
+ferrabsim=Sqrt[myIm[ferrtotal].myIm[ferrtotal]];
+Print["0Qferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
+complexprims=myRe[(u//.chooseresult)]<myIm[(u//.chooseresult)]/badtol||myRe[(rho//.chooseresult)]<myIm[(rho//.chooseresult)]/badtol||myRe[(Er//.chooseresult)]<myIm[(Er//.chooseresult)]/badtol;
+If[complexprims==1,Print["0Qcomplexprims"];];
+If[ferrabs==0 && ferrabsim==0 || ferrabs<badtol && ferrabsim<badtol&&complexprims==False,resulttype8Q="Good",resulttype8Q="Bad"];
+Print["0Q",resulttype8Q," ",CForm[ferrabs+ferrabsim]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
+chooseresult0Q=chooseresult;
+
+Print["0QW and W' ",W//.chooseresult," ",Wp//.chooseresult];
+Print["0QDD",DD//.chooseresult];
+Print["0QUU ",rhou[[1]]//.chooseresult, " ",Rud[[1]]//.chooseresult," ",Tud[[1]]//.chooseresult];
+Print["0Qdt*Gd=",dt*Gd//.chooseresult];
+Print["0Qterm0=",(rho)*ucon[[1]]//.chooseresult];
+Print["0Qterm1=",(rho+u+P+bsq)*ucon[[1]]*ucov[[1]]//.chooseresult];
+Print["0Qterm1a=",(rho+u+P+bsq)//.chooseresult];
+Print["0Qterm1b=",ucon[[1]]//.chooseresult];
+Print["0Qterm1c=",ucov[[1]]//.chooseresult];
+Print["0Qterm2=",(P+bsq/2)//.chooseresult];
+Print["0Qterm2a=",P//.chooseresult];
+Print["0Qterm2b=",(bsq/2)//.chooseresult];
+Print["0Qterm3=",-bcon[[1]]*bcov[[1]]//.chooseresult];
+Print["0Quu0=",uu0//.chooseresult," uru0=",uru0//.chooseresult];
+Print["0Qucon=",ucon//.chooseresult];
+Print["0Quradcon=",uradcon//.chooseresult];
+];
+
 If[ doradonly==1,
 alphasq=1/-SetPrecision[gcon[[1,1]],myprec];
 gammarelmax=1000;
@@ -1552,7 +1626,7 @@ Print["0MRAD",resulttype9," ",CForm[ferrabs+ferrabsim]," ",myj," ",failtype," ",
 
 
 (* normal but uses entropy instead of energy equation *)
-if[dogammamax==1&&resulttype4S=="Bad" &&doradonly==0,
+if[dogammamax==1&&doradonly==0,
 ferr0=rhou[[1]]-rho0;
 (*dt=0*)
 ferr1=Table[(Rud[[1,ii]]-Rud0[[ii]])+dt*Gd[[ii]],{ii,1,4}];
@@ -1680,6 +1754,138 @@ Print["0MSucon=",ucon//.chooseresult];
 Print["0MSuradcon=",uradcon//.chooseresult];
 ];
 
+(* normal but uses entropy instead of energy equation *)
+if[dogammamax==1&&doradonly==0,
+ferr0=rhou[[1]]-rho0;
+(*dt=0*)
+ferr1=Table[(Rud[[1,ii]]-Rud0[[ii]])+dt*Gd[[ii]],{ii,1,4}];
+(* replace equation for uru1 *)
+If[whichvel==1,
+ferr1[[1]]=choosesolsuru1-uru1;
+];
+If[whichvel==2,
+ferr1[[1]]=choosesolsurut1-urut1;
+];
+ferr2=Table[(Tud[[1,ii]]-Tud0[[ii]])-dt*Gd[[ii]],{ii,1,4}];
+
+ferrnorm0=Abs[rhou[[1]]]+Abs[rho0];
+ferrnorm1t=Table[Sqrt[Abs[gcon[[ii,ii]]]]*((Abs[Rud[[1,ii]]]+Abs[Rud0[[ii]]])+Abs[dt*Gd[[ii]]]),{ii,1,1}];
+ferrnorm1s=Sum[Sqrt[Abs[gcon[[ii,ii]]]]*((Abs[Rud[[1,ii]]]+Abs[Rud0[[ii]]])+Abs[dt*Gd[[ii]]]),{ii,2,4}];
+ferrnorm1={ferrnorm1t[[1]]/Sqrt[Abs[gcon[[1,1]]]],ferrnorm1s/Sqrt[Abs[gcon[[2,2]]]],ferrnorm1s/Sqrt[Abs[gcon[[3,3]]]],ferrnorm1s/Sqrt[Abs[gcon[[4,4]]]]};
+ferrnorm2s=Sum[Sqrt[Abs[gcon[[ii,ii]]]]*((Abs[Tud[[1,ii]]]+Abs[Tud0[[ii]]])+Abs[dt*Gd[[ii]]]),{ii,2,4}];
+
+(* entropy error function still function of u, not changing independent variable to S or anything like that *)
+If[whichentropy==1,
+ferr2[[1]]=T*(Sc-Sc0 -dt*GS); (* lab-frame version *)
+ferrnorm2t=(Abs[T]*(Abs[Sc]+Abs[Sc0]+Abs[dt*GS]));
+];
+If[whichentropy==2,
+ferr2[[1]]=(u-uii)-(gam u/rho) (rho-rhoii) - (kappa Er - lambda) dt/ucon[[1]]; (* approximate fluid-frame version *)
+ferrnorm2t=Abs[(u+uii)+(gam u/rho) (rho+rhoii) + (kappa Er+- lambda) dt/ucon[[1]]];
+];
+If[whichentropy==3,
+Erff=ucov.Rud.ucon;
+(*ferr2[[1]]=(u-uii)-(gam u/rho) (rho-rhoii) - (kappa Erff - lambda) dt/ucon[[1]]; (* accurate fluid-frame version *)*)
+(* lambda>0 means gas entropy should drop, and have TSc=Tsc0+(kappa Erff-lambda)dt/ut *)
+ferr2[[1]]=T*(Sc/ucon[[1]]-Sc0/uu0ii)- (kappa Erff - lambda) dt/ucon[[1]]; (* accurate fluid-frame version *)
+ferrnorm2t=Abs[T*(Abs[Sc]/ucon[[1]]+Abs[Sc0]/uu0ii)- (kappaAbs[ Erff] - Abs[lambda]) dt/ucon[[1]]];
+];
+If[whichentropy==4,
+(* fully fluid-frame version *)
+Erff=ucov.Rud.ucon;
+Scff=ucov.(Sc/ucon[[1]]*ucon); (* i.e. u\mu S u^\mu   *)
+Scff=-S;
+Sc0ff=Scff//.chooseresultUU0noG;
+dtau=ucov[[1]]*dt;
+(* lambda>0 means gas entropy should drop means Scff rises, and have TScff = TSc0ff + (kappa Erff - lambda)*dtau = Tsc0ff + (+#) *)
+ferr2[[1]]=T*(Scff-Sc0ff)- (kappa Erff - lambda) dtau; 
+ferrnorm2t=Abs[T*(Abs[Scff]+Abs[Sc0ff])+(kappa Erff + lambda) dtau]; 
+];
+(* grep 0QSGood math.out|wc;grep 0WSGood math.out|wc;grep 0WSBad math.out|wc *)
+(* grep 0Good math.out|wc;grep 0WGood math.out|wc;grep 0WBad math.out|wc *)
+ferrnorm2={ferrnorm2t[[1]],ferrnorm2s/Sqrt[Abs[gcon[[2,2]]]],ferrnorm2s/Sqrt[Abs[gcon[[3,3]]]],ferrnorm2s/Sqrt[Abs[gcon[[4,4]]]]};
+
+Print["0QSFindRoot"];
+If[CheckJacobian==1,
+gold=1;
+];
+(*DampingFactor->2,*)
+If[COUNTFINDROOT==1,
+resultorig=Block[{cc=0},{FindRoot[{ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0,ferr2[[1]]==0,ferr2[[2]]==0,ferr2[[3]]==0,ferr2[[4]]==0},ICpin,WorkingPrecision->normalwprec,MaxIterations->normaliters,AccuracyGoal->normaltolprec,PrecisionGoal->normaltolprec, Jacobian->JacobianType,StepMonitor:>cc++],cc}];result=resultorig[[1]];cc=resultorig[[2]];
+(* , Jacobian->FiniteDifference *) (* shows how Symbolic Jacobian is crucial *)
+,
+resultorig=FindRoot[{ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0,ferr2[[1]]==0,ferr2[[2]]==0,ferr2[[3]]==0,ferr2[[4]]==0},ICpin,WorkingPrecision->normalwprec,MaxIterations->normaliters,AccuracyGoal->normaltolprec,PrecisionGoal->normaltolprec, Jacobian->JacobianType, StepMonitor:>Print["Step to:",rho," ",u," ",uu1," ",uu2," ",uu3," ",Er," ",uru1," ",uru2," ",uru3]];result=resultorig;
+];
+chooseresult=result;
+Print["0QSresult=",chooseresult];
+
+ferr0=(ferr0/ferrnorm0)//.chooseresult;
+ferr1=(ferr1/ferrnorm1)//.chooseresult;
+ferr2=(ferr2/ferrnorm2)//.chooseresult;
+
+ferrtotal=Join[{ferr0},ferr1,ferr2];
+ferrabs=Sqrt[myRe[ferrtotal].myRe[ferrtotal]];
+ferrabsim=Sqrt[myIm[ferrtotal].myIm[ferrtotal]];
+Print["0QSferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
+complexprims=myRe[(u//.chooseresult)]<myIm[(u//.chooseresult)]/badtol||myRe[(rho//.chooseresult)]<myIm[(rho//.chooseresult)]/badtol||myRe[(Er//.chooseresult)]<myIm[(Er//.chooseresult)]/badtol;
+If[complexprims==1,MyPrint["0QScomplexprims"];];
+If[ferrabs==0 && ferrabsim==0 || ferrabs<badtol && ferrabsim<badtol&&complexprims==False,resulttype4QS="Good",resulttype4QS="Bad"];
+Print["0QS",resulttype4QS," ",CForm[ferrabs+ferrabsim]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
+If[resulttype4QS=="Good",
+(*
+cc0QS=cc0QS+cc;
+cc0QSmax=Max[cc0QSmax,cc];
+error0QS=error0QS+ferrabs+ferrabsim;
+error0QSmax=Max[error0QSmax,ferrabs+ferrabsim];
+*)
+If[Re[(u//.chooseresult)]<=0,MyPrint["0QSresultnegu"];];
+If[Re[(u//.chooseresult)]>0,MyPrint["0QSresultposu"];];
+If[Re[(rho//.chooseresult)]<=0,MyPrint["0QSresultnegrho"];];
+If[Re[(Er//.chooseresult)]<=0,MyPrint["0QSresultnegEr"];];
+If[myRe[(u//.chooseresult)]<myIm[(u//.chooseresult)]/badtol,MyPrint["0QSresultcomplexu"];];
+If[myRe[(rho//.chooseresult)]<myIm[(rho//.chooseresult)]/badtol,MyPrint["0QSresultcomplexrho"];];
+If[myRe[(Er//.chooseresult)]<myIm[(Er//.chooseresult)]/badtol,MyPrint["0QSresultcomplexEr"];];
+];
+ochooseresult=myReP[chooseresult];
+p0QSplist={rho,u,uut1,uut2,uut3,Bcon[[1]],Bcon[[2]],Bcon[[3]],Er,urut1,urut2,urut3}//.ochooseresult;
+FullOutput={
+"0QSwhich(myj,failtype,myid,failnum)",myj,failtype,myid,failnum,
+"0QSresulttype",resulttype4QS,
+"0QSerrorabs",ferrabs+ferrabsim,
+"0QSiters=",cc,
+"0QSp",p0QSplist,
+"0QSucon",ucon//.ochooseresult,
+"0QSuradcon",uradcon//.ochooseresult,
+"0QSUU",rhou[[1]]//.ochooseresult,Tud[[1]]//.ochooseresult,Rud[[1]]//.ochooseresult,Re[Sc]//.ochooseresult
+};
+FullOutput=Flatten[FullOutput];
+numFullOutput=Length[FullOutput];
+Do[Write[sout,FullOutput[[ii]]],{ii,1,numFullOutput}];
+
+chooseresult0QS=chooseresult;
+ferrabs0QS=ferrabs+ferrabsim; (* overwrite *)
+
+Print["0QSW and W' ",W//.chooseresult," ",Wp//.chooseresult];
+Print["0QSDD",DD//.chooseresult];
+Print["0QSUU ",rhou[[1]]//.chooseresult, " ",Rud[[1]]//.chooseresult," ",Tud[[1]]//.chooseresult];
+Print["0QSdt*Gd=",dt*Gd//.chooseresult];
+Print["0QSterm0=",(rho)*ucon[[1]]//.chooseresult];
+Print["0QSterm1=",(rho+u+P+bsq)*ucon[[1]]*ucov[[1]]//.chooseresult];
+Print["0QSterm1a=",(rho+u+P+bsq)//.chooseresult];
+Print["0QSterm1b=",ucon[[1]]//.chooseresult];
+Print["0QSterm1c=",ucov[[1]]//.chooseresult];
+Print["0QSterm2=",(P+bsq/2)//.chooseresult];
+Print["0QSterm2a=",P//.chooseresult];
+Print["0QSterm2b=",(bsq/2)//.chooseresult];
+Print["0QSterm3=",-bcon[[1]]*bcov[[1]]//.chooseresult];
+Print["0QSuu0=",uu0//.chooseresult," uru0=",uru0//.chooseresult];
+Print["0QSucon=",ucon//.chooseresult];
+Print["0QSuradcon=",uradcon//.chooseresult];
+];
+
+
+
+(* SOME DIAGS *)
 
 uenergy=Re[(u//.chooseresult0)];
 rhogenergy=Re[(rho//.chooseresult0)];
@@ -1691,6 +1897,11 @@ rhogenergym=Re[(rho//.chooseresult0M)];
 Ergenergym=Re[(Er//.chooseresult0M)];
 complexenergym=myRe[(u//.chooseresult0M)]<myIm[(u//.chooseresult0M)]/badtol||myRe[(rho//.chooseresult0M)]<myIm[(rho//.chooseresult0M)]/badtol||myRe[(Er//.chooseresult0M)]<myIm[(Er//.chooseresult0M)]/badtol;
 
+uenergyq=Re[(u//.chooseresult0Q)];
+rhogenergyq=Re[(rho//.chooseresult0Q)];
+Ergenergyq=Re[(Er//.chooseresult0Q)];
+complexenergyq=myRe[(u//.chooseresult0Q)]<myIm[(u//.chooseresult0Q)]/badtol||myRe[(rho//.chooseresult0Q)]<myIm[(rho//.chooseresult0Q)]/badtol||myRe[(Er//.chooseresult0Q)]<myIm[(Er//.chooseresult0Q)]/badtol;
+
 uentropy=Re[(u//.chooseresult0S)];
 rhogentropy=Re[(rho//.chooseresult0S)];
 Ergentropy=Re[(Er//.chooseresult0S)];
@@ -1701,11 +1912,16 @@ rhogentropyms=Re[(rho//.chooseresult0MS)];
 Ergentropyms=Re[(Er//.chooseresult0MS)];
 complexentropyms=myRe[(u//.chooseresult0MS)]<myIm[(u//.chooseresult0MS)]/badtol||myRe[(rho//.chooseresult0MS)]<myIm[(rho//.chooseresult0MS)]/badtol||myRe[(Er//.chooseresult0MS)]<myIm[(Er//.chooseresult0MS)]/badtol;
 
+uentropyqs=Re[(u//.chooseresult0QS)];
+rhogentropyqs=Re[(rho//.chooseresult0QS)];
+Ergentropyqs=Re[(Er//.chooseresult0QS)];
+complexentropyqs=myRe[(u//.chooseresult0QS)]<myIm[(u//.chooseresult0QS)]/badtol||myRe[(rho//.chooseresult0QS)]<myIm[(rho//.chooseresult0QS)]/badtol||myRe[(Er//.chooseresult0QS)]<myIm[(Er//.chooseresult0QS)]/badtol;
 
 
-resultA=If[resulttype4MS=="Bad" && resulttype3=="Bad" && resulttype4S=="Bad"  && resulttype8=="Bad" ,1,0];
-resultB=If[resulttype4MS=="Good" || resulttype3=="Good" || resulttype4S=="Good"  || resulttype8=="Good" ,1,0];
-resultC=If[resulttype4MS=="Good"&&uentropyms>0&&complexentropyms==False||resulttype3=="Good"&&uenergy>0&&complexenergy==False||resulttype4S=="Good"&&uentropy>0&&complexentropy==False||resulttype8=="Good"&&uenergym>0&&complexenergym==False,1,0];
+
+resultA=If[resulttype4MS=="Bad" &&resulttype4QS=="Bad" && resulttype3=="Bad" && resulttype4S=="Bad"  && resulttype8=="Bad"  && resulttype8Q=="Bad",1,0];
+resultB=If[resulttype4MS=="Good" || resulttype4QS=="Good" || resulttype3=="Good" || resulttype4S=="Good"  || resulttype8=="Good" || resulttype8Q=="Good",1,0];
+resultC=If[resulttype4MS=="Good"&&uentropyms>0&&complexentropyms==False||resulttype4QS=="Good"&&uentropyqs>0&&complexentropyqs==False||resulttype3=="Good"&&uenergy>0&&complexenergy==False||resulttype4S=="Good"&&uentropy>0&&complexentropy==False||resulttype8=="Good"&&uenergym>0&&complexenergym==False||resulttype8Q=="Good"&&uenergyq>0&&complexenergyq==False,1,0];
 
 If[resultA==1,MyPrint["AllBad"];];
 If[resultA==0,MyPrint["NotAllBad"];];
