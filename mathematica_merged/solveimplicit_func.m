@@ -1496,6 +1496,7 @@ complexprims=myRe[(u//.chooseresult)]<myIm[(u//.chooseresult)]/badtol||myRe[(rho
 If[complexprims==1,Print["0Mcomplexprims"];];
 If[ferrabs==0 && ferrabsim==0 || ferrabs<badtol && ferrabsim<badtol&&complexprims==False,resulttype8="Good",resulttype8="Bad"];
 Print["0M",resulttype8," ",CForm[ferrabs+ferrabsim]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
+chooseresult0M=chooseresult;
 
 Print["0MW and W' ",W//.chooseresult," ",Wp//.chooseresult];
 Print["0MDD",DD//.chooseresult];
@@ -1680,10 +1681,10 @@ rhogenergy=Re[(rho//.chooseresult0)];
 Ergenergy=Re[(Er//.chooseresult0)];
 complexenergy=myRe[(u//.chooseresult0)]<myIm[(u//.chooseresult0)]/badtol||myRe[(rho//.chooseresult0)]<myIm[(rho//.chooseresult0)]/badtol||myRe[(Er//.chooseresult0)]<myIm[(Er//.chooseresult0)]/badtol;
 
-uenergym=Re[(u//.chooseresult0)];
-rhogenergym=Re[(rho//.chooseresult0)];
-Ergenergym=Re[(Er//.chooseresult0)];
-complexenergym=myRe[(u//.chooseresult0)]<myIm[(u//.chooseresult0)]/badtol||myRe[(rho//.chooseresult0)]<myIm[(rho//.chooseresult0)]/badtol||myRe[(Er//.chooseresult0)]<myIm[(Er//.chooseresult0)]/badtol;
+uenergym=Re[(u//.chooseresult0M)];
+rhogenergym=Re[(rho//.chooseresult0M)];
+Ergenergym=Re[(Er//.chooseresult0M)];
+complexenergym=myRe[(u//.chooseresult0M)]<myIm[(u//.chooseresult0M)]/badtol||myRe[(rho//.chooseresult0M)]<myIm[(rho//.chooseresult0M)]/badtol||myRe[(Er//.chooseresult0M)]<myIm[(Er//.chooseresult0M)]/badtol;
 
 uentropy=Re[(u//.chooseresult0S)];
 rhogentropy=Re[(rho//.chooseresult0S)];
@@ -1695,9 +1696,18 @@ rhogentropyms=Re[(rho//.chooseresult0MS)];
 Ergentropyms=Re[(Er//.chooseresult0MS)];
 complexentropyms=myRe[(u//.chooseresult0MS)]<myIm[(u//.chooseresult0MS)]/badtol||myRe[(rho//.chooseresult0MS)]<myIm[(rho//.chooseresult0MS)]/badtol||myRe[(Er//.chooseresult0MS)]<myIm[(Er//.chooseresult0MS)]/badtol;
 
-If[resulttype4MS=="Bad" && resulttype3=="Bad" && resulttype4S=="Bad"  && resulttype8=="Bad" ,MyPrint["AllBad"];];
-If[resulttype4MS=="Good" || resulttype3=="Good" || resulttype4S=="Good"  || resulttype8=="Good" ,MyPrint["OneGood"];];
-If[resulttype4MS=="Good"&&uentropyms>0&&complexentropyms==0||resulttype3=="Good"&&uenergy>0&&complexenergy==0||resulttype4S=="Good"&&uentropy>0&&complexentropy==0||resulttype8=="Good"&&uenergym>0&&complexenergym==0,MyPrint["OneActualGood"];];
+
+
+resultA=If[resulttype4MS=="Bad" && resulttype3=="Bad" && resulttype4S=="Bad"  && resulttype8=="Bad" ,1,0];
+resultB=If[resulttype4MS=="Good" || resulttype3=="Good" || resulttype4S=="Good"  || resulttype8=="Good" ,1,0];
+resultC=If[resulttype4MS=="Good"&&uentropyms>0&&complexentropyms==False||resulttype3=="Good"&&uenergy>0&&complexenergy==False||resulttype4S=="Good"&&uentropy>0&&complexentropy==False||resulttype8=="Good"&&uenergym>0&&complexenergym==False,1,0];
+
+If[resultA==1,MyPrint["AllBad"];];
+If[resultA==0,MyPrint["NotAllBad"];];
+If[resultB==1,MyPrint["OneGood"];];
+If[resultB==0,MyPrint["NotOneGood"];];
+If[resultC==1,MyPrint["OneActualGood"];];
+If[resultC==0,MyPrint["NotOneActualGood"];];
 
 
 
