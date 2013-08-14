@@ -237,7 +237,7 @@ If[numele==208,
 (*Import[filein,"Table"][[1]];*)
 
 result181={failtype,myid,failnum,gotfirstnofail,errorabs,iters,dt,nstep,steppart,gamgas,gn11,gn12,gn13,gn14,gn21,gn22,gn23,gn24,gn31,gn32,gn33,gn34,gn41,gn42,gn43,gn44,gv11,gv12,gv13,gv14,gv21,gv22,gv23,gv24,gv31,gv32,gv33,gv34,gv41,gv42,gv43,gv44,pp0,ppfirst0,pb0,pin0,uu00,uu0,uui0,pp1,ppfirst1,pb1,pin1,uu01,uu1,uui1,pp2,ppfirst2,pb2,pin2,uu02,uu2,uui2,pp3,ppfirst3,pb3,pin3,uu03,uu3,uui3,pp4,ppfirst4,pb4,pin4,uu04,uu4,uui4,pp5,ppfirst5,pb5,pin5,uu05,uu5,uui5,pp6,ppfirst6,pb6,pin6,uu06,uu6,uui6,pp7,ppfirst7,pb7,pin7,uu07,uu7,uui7,pp8,ppfirst8,pb8,pin8,uu08,uu8,uui8,pp9,ppfirst9,pb9,pin9,uu09,uu9,uui9,pp10,ppfirst10,pb10,pin10,uu010,uu10,uui10,pp11,ppfirst11,pb11,pin11,uu011,uu11,uui11,pp12,ppfirst12,pb12,pin12,uu012,uu12,uui12,uradcon0,uradcov0,uradcon1,uradcov1,uradcon2,uradcov2,uradcon3,uradcov3,ucon0,ucov0,ucon1,ucov1,ucon2,ucov2,ucon3,ucov3,uradconb0,uradcovb0,uradconb1,uradcovb1,uradconb2,uradcovb2,uradconb3,uradcovb3,uconb0,ucovb0,uconb1,ucovb1,uconb2,ucovb2,uconb3,ucovb3,uradconi0,uradcovi0,uradconi1,uradcovi1,uradconi2,uradcovi2,uradconi3,uradcovi3,uconi0,ucovi0,uconi1,ucovi1,uconi2,ucovi2,uconi3,ucovi3};
-MyPrint[result181];
+
 
 
 rho0=SetPrecision[uu00,myprec];
@@ -1918,6 +1918,7 @@ Ergentropyqs=Re[(Er//.chooseresult0QS)];
 complexentropyqs=myRe[(u//.chooseresult0QS)]<myIm[(u//.chooseresult0QS)]/badtol||myRe[(rho//.chooseresult0QS)]<myIm[(rho//.chooseresult0QS)]/badtol||myRe[(Er//.chooseresult0QS)]<myIm[(Er//.chooseresult0QS)]/badtol;
 
 
+Print["SolutionType: ",myj," ",resulttype3," ",resulttype4S," ",resulttype8," ",resulttype4MS," ",resulttype8Q," ",resulttype4QS];
 
 resultA=If[resulttype4MS=="Bad" &&resulttype4QS=="Bad" && resulttype3=="Bad" && resulttype4S=="Bad"  && resulttype8=="Bad"  && resulttype8Q=="Bad",1,0];
 resultB=If[resulttype4MS=="Good" || resulttype4QS=="Good" || resulttype3=="Good" || resulttype4S=="Good"  || resulttype8=="Good" || resulttype8Q=="Good",1,0];
@@ -1930,7 +1931,7 @@ If[resultB==0,MyPrint["NotOneGood"];];
 If[resultC==1,MyPrint["OneActualGood"];];
 If[resultC==0,MyPrint["NotOneActualGood"];];
 
-MyPrint["SolutionType: ",myj," ",resulttype3," ",resulttype4S," ",resulttype8," ",resulttype4MS," ",resulttype8Q," ",resulttype4QS];
+
 
 If[resultC==0,
 space=" ";
