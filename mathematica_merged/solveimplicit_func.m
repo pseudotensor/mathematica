@@ -54,6 +54,10 @@ myIm[x_]:=Abs[Im[x]];
 dosolveimplicitwrapper[whichcomputer0_]:=Module[
 {foo,whichcomputer=whichcomputer0},
 
+
+(* 0 = 134 .  1 for 181 .  2 for 208 *)
+filetype=1;
+
 (* CHOOSE WHICH FILE TO LOAD IN *)
 (* Jon's physics-179.umd.edu *)
 If[whichcomputer==4,
@@ -62,7 +66,9 @@ If[whichcomputer==4,
 (*filenamebase="fails.txt";numfails=1031;*)
 (*filenamebase="failshigh100.txt";numfails=100;*)
 (*filenamebase="failshigherror100.txt";numfails=100;*)
-filenamebase="failshigherror.txt";numfails=548;
+(*filenamebase="failshigherror.globals.txt";numfails=1048;filetype=2;*)
+(*filenamebase="failshigherror.txt_outbad.txt";numfails=2;filetype=1;*)
+filenamebase="listbad181.txt";numfails=303;filetype=1;
 (*filenamebase="failsentropy453.txt";numfails=453;*)
 (*filenamebase="failsenergy.txt";numfails=141;*)
 (*filenamebase="fails1new.txt";numfails=1;*)
@@ -95,7 +101,7 @@ $Output={stream};
 $Messages={stream};
 
 
-
+continueguess=0;
 COUNTFINDROOT=1; (* 1 = show number of iterations, stored in "cc" variable and outputted in math.out *)
 
 (* whichg=1 uses direct gcov  whichg=2 uses alpha - beta splitting for utilde *)
@@ -104,6 +110,9 @@ whichg=2;
 (* whichvel=1 uses ucon[[i]] and uradcon[[i]] as primitives  whichvel=2 uses utilde version *)
 whichvel=2;
 
+(* whether to always do global method, for testing usually *)
+ doglobalalways=0;
+
  (* 1 = lab-frame times T  ; 2 = Ramesh approximate fluid-frame entropy without flux contribution 3 = nearly completely accurate fluid-frame entropy version 4 = fully fluid frame version *)
 whichentropy=1;
  (* 1 = lab-frame for all quantities  2 = fluid-frame for energy terms  3= fluid-frame for energy terms using explicitly analytic source 4 = fully fluid frame version *)
@@ -111,19 +120,27 @@ whichmhd=1;
 
 doradonly=0; (* 0 = do mhd or entropy as normal   1 = do radiation only *)
 dogammamax=1; (* whether to try gammamax for radiation case *)
+gammamax=50; 
+gammarelmin=1;
+gammarelmax=gammamax;(* like harm now *)
 
  (* 18 = long doubles 14 = doubles *)
 (* set Precision of numbers read-in *)
 myprec=20;
 
 (* normal working precision and tolerance *)
-(* normalwprec=14; normaltolprec=9; badtol=10^(-5);*)
-(*normalwprec=15; normaltolprec=12; badtol=10^(-6);*)
-normalwprec=30; normaltolprec=12; badtol=10^(-6); (* for just getting accurate solution *)
-(*normaltolprec=6;  badtol=10^(-4);*)
+(* normalwprec=14; normaltolprec=9; badtol=10^(-5);normaliters=100;*)
+(*normalwprec=15; normaltolprec=12; badtol=10^(-6);normaliters=100;*)
+(*normalwprec=30normaliters=100;; normaltolprec=12; badtol=10^(-6); (* for just getting accurate solution *)*)
+normalwprec=20; normaltolprec=14; badtol=10^(-6); normaliters=1000; (* for just getting accurate solution *)
+(*normaltolprec=6;  badtol=10^(-4);normaliters=100;*)
 (* current harm choice *)
-(*normaltolprec=9;  badtol=10^(-2);*)
-normaliters=100;
+(*normaltolprec=9;  badtol=10^(-2);normaliters=100;*)
+
+(* tolerance for global NMinimize method.  When used, rarely, needs to be highly accurate to be reliable as golden standard *)
+nminworkprec=40;
+nminmaxiter=400;
+nminprec=20;
 
 (* tolerance for Ui, UU0, and UU0S *)
 (* point is that sometimes want to test if can get solution at harm-like tolerance using mathematica, but other times assume harm can get solution using more accurate method than 9D method, and then just want these to be good solution so only testing cases when G is also present *)
@@ -147,9 +164,10 @@ JacobianType=Automatic;
 
 
 (* read-in data *)
-(*numele=134; (* don't change *)*)
-(*numele=181; (* don't change *)*)
-numele=208; (* don't change *)
+If[filetype==0,numele=134;];
+If[filetype==1,numele=181; ];
+If[filetype==2,numele=208;];
+
 Clear[j];
 
 ccUi=0;
@@ -227,6 +245,7 @@ If[numele==134,
 ];
 If[numele==181,
 {failtype,myid,failnum,gotfirstnofail,errorabs,iters,dt,nstep,steppart,gamgas,gn11,gn12,gn13,gn14,gn21,gn22,gn23,gn24,gn31,gn32,gn33,gn34,gn41,gn42,gn43,gn44,gv11,gv12,gv13,gv14,gv21,gv22,gv23,gv24,gv31,gv32,gv33,gv34,gv41,gv42,gv43,gv44,pp0,ppfirst0,pb0,pin0,uu00,uu0,uui0,pp1,ppfirst1,pb1,pin1,uu01,uu1,uui1,pp2,ppfirst2,pb2,pin2,uu02,uu2,uui2,pp3,ppfirst3,pb3,pin3,uu03,uu3,uui3,pp4,ppfirst4,pb4,pin4,uu04,uu4,uui4,pp5,ppfirst5,pb5,pin5,uu05,uu5,uui5,pp6,ppfirst6,pb6,pin6,uu06,uu6,uui6,pp7,ppfirst7,pb7,pin7,uu07,uu7,uui7,pp8,ppfirst8,pb8,pin8,uu08,uu8,uui8,pp9,ppfirst9,pb9,pin9,uu09,uu9,uui9,pp10,ppfirst10,pb10,pin10,uu010,uu10,uui10,pp11,ppfirst11,pb11,pin11,uu011,uu11,uui11,pp12,ppfirst12,pb12,pin12,uu012,uu12,uui12,uradcon0,uradcov0,uradcon1,uradcov1,uradcon2,uradcov2,uradcon3,uradcov3,ucon0,ucov0,ucon1,ucov1,ucon2,ucov2,ucon3,ucov3,uradconb0,uradcovb0,uradconb1,uradcovb1,uradconb2,uradcovb2,uradconb3,uradcovb3,uconb0,ucovb0,uconb1,ucovb1,uconb2,ucovb2,uconb3,ucovb3,uradconi0,uradcovi0,uradconi1,uradcovi1,uradconi2,uradcovi2,uradconi3,uradcovi3,uconi0,ucovi0,uconi1,ucovi1,uconi2,ucovi2,uconi3,ucovi3}=mylist;
+
 ];
 If[numele==208,
 {failtype,myid,failnum,gotfirstnofail,eomtype,errorabs,iters,dt,nstep,steppart,gamgas,gn11,gn12,gn13,gn14,gn21,gn22,gn23,gn24,gn31,gn32,gn33,gn34,gn41,gn42,gn43,gn44,gv11,gv12,gv13,gv14,gv21,gv22,gv23,gv24,gv31,gv32,gv33,gv34,gv41,gv42,gv43,gv44,pp0,ppfirst0,pb0,pin0,prtuui0,prtuu00,uu00,uu0,uui0,pp1,ppfirst1,pb1,pin1,prtuui1,prtuu01,uu01,uu1,uui1,pp2,ppfirst2,pb2,pin2,prtuui2,prtuu02,uu02,uu2,uui2,pp3,ppfirst3,pb3,pin3,prtuui3,prtuu03,uu03,uu3,uui3,pp4,ppfirst4,pb4,pin4,prtuui4,prtuu04,uu04,uu4,uui4,pp5,ppfirst5,pb5,pin5,prtuui5,prtuu05,uu05,uu5,uui5,pp6,ppfirst6,pb6,pin6,prtuui6,prtuu06,uu06,uu6,uui6,pp7,ppfirst7,pb7,pin7,prtuui7,prtuu07,uu07,uu7,uui7,pp8,ppfirst8,pb8,pin8,prtuui8,prtuu08,uu08,uu8,uui8,pp9,ppfirst9,pb9,pin9,prtuui9,prtuu09,uu09,uu9,uui9,pp10,ppfirst10,pb10,pin10,prtuui10,prtuu010,uu010,uu10,uui10,pp11,ppfirst11,pb11,pin11,prtuui11,prtuu011,uu011,uu11,uui11,pp12,ppfirst12,pb12,pin12,prtuui12,prtuu012,uu012,uu12,uui12,uradcon0,uradcov0,uradcon1,uradcov1,uradcon2,uradcov2,uradcon3,uradcov3,ucon0,ucov0,ucon1,ucov1,ucon2,ucov2,ucon3,ucov3,uradconb0,uradcovb0,uradconb1,uradcovb1,uradconb2,uradcovb2,uradconb3,uradcovb3,uconb0,ucovb0,uconb1,ucovb1,uconb2,ucovb2,uconb3,ucovb3,uradconi0,uradcovi0,uradconi1,uradcovi1,uradconi2,uradcovi2,uradconi3,uradcovi3,uconi0,ucovi0,uconi1,ucovi1,uconi2,ucovi2,uconi3,ucovi3}=mylist;
@@ -335,6 +354,7 @@ Bcon3=SetPrecision[pp7,myprec];
 
 If[whichvel==1,
 Clear[uu1,uu2,uu3,uru1,uru2,uru3];
+varlist={rho,u,uu1,uu2,uu3,Er,uru1,uru2,uru3};
 (* pp that gives uu?i and uru?i can be way off if failure from harm*)
 constspp={rho->rhoi,u->ui,uu1->uu1i,uu2->uu2i,uu3->uu3i,Er->Eri,uru1->uru1i,uru2->uru2i,uru3->uru3i,S->Si,whichuconi0->SetPrecision[ucon0,myprec],whichuradconi0->SetPrecision[uradcon0,myprec]};
 ICpp={{rho,rhoi},{u,ui},{uu1,uu1i},{uu2,uu2i},{uu3,uu3i},{Er,Eri},{uru1,uru1i},{uru2,uru2i},{uru3,uru3i}};
@@ -349,6 +369,7 @@ constspintest={rho->0.81294331641668613088,u->-0.39623582536829021164,uu1->0.005
 ];
 If[whichvel==2,
 Clear[uut1,uut2,uut3,urut1,urut2,urut3];
+varlist={rho,u,uut1,uut2,uut3,Er,urut1,urut2,urut3};
 constspp={rho->rhoi,u->ui,uut1->uut1i,uut2->uut2i,uut3->uut3i,Er->Eri,urut1->urut1i,urut2->urut2i,urut3->urut3i,S->Si,whichuconi0->SetPrecision[ucon0,myprec],whichuradconi0->SetPrecision[uradcon0,myprec]};
 constspin={rho->rhoii,u->uii,uut1->uut1ii,uut2->uut2ii,uut3->uut3ii,Er->Erii,urut1->urut1ii,urut2->urut2ii,urut3->urut3ii,S->Sii,whichuconi0->SetPrecision[uconi0,myprec],whichuradconi0->SetPrecision[uradconi0,myprec]};
 constsprtuui={rho->rhoprtuui,u->uprtuui,uut1->uut1prtuui,uut2->uut2prtuui,uut3->uut3prtuui,Er->Erprtuui,urut1->urut1prtuui,urut2->urut2prtuui,urut3->urut3prtuui,S->Sprtuui};
@@ -356,7 +377,7 @@ constsprtuu0={rho->rhoprtuu0,u->uprtuu0,uut1->uut1prtuu0,uut2->uut2prtuu0,uut3->
 ICpin={{rho,rhoii},{u,uii},{uut1,uut1ii},{uut2,uut2ii},{uut3,uut3ii},{Er,Erii},{urut1,urut1ii},{urut2,urut2ii},{urut3,urut3ii}};
 ICpinrad={{Er,Erii},{urut1,urut1ii},{urut2,urut2ii},{urut3,urut3ii}};
 ];
-If[0==1,
+If[continueguess==1,
 consts=constspp;
 IC=ICpp;
 ,
@@ -423,7 +444,7 @@ uu0=gamma/alpha;
 ucon=utilde+gamma*etavecup;
 ucov=utildedown+gamma*etavecdown;
 (* test *)
-testuu=FullSimplify[ucon.ucov];
+testuu=FullSimplify[(ucon.ucov)//.constspin];
 Print["1testuu=",testuu];
 
 Clear[uru0,uru1,uru2,uru3];
@@ -437,7 +458,7 @@ uradcon=urcon;
 urcov=urtildedown+gammar*etavecdown;
 uradcov=urcov;
 (* test *)
-testuu=FullSimplify[urcon.urcov];
+testuu=FullSimplify[(urcon.urcov)//.constspin];
 Print["2testuu=",testuu];
 ];
 
@@ -497,6 +518,39 @@ gamma=-etacov.ucon;
 W=DD*he*gamma;
 Wp=W-DD;
 
+
+
+
+
+(* modify u_g guess since solution is sensitive to it *)
+sols=FindRoot[{Sc0==S*uu0ii,rho*uu0ii==rho0},{{rho,rhoii},{u,uii}}];
+Print["pre-solution: ",sols];
+uii=Max[uii,Re[u//.sols]];
+pin1=uii;
+rhoii=Min[rhoii,Re[rho//.sols]];
+pin0=rhoii;
+(* re-set constspin and ICpin *)
+If[whichvel==1,
+constspin={rho->rhoii,u->uii,uu1->uu1ii,uu2->uu2ii,uu3->uu3ii,Er->Erii,uru1->uru1ii,uru2->uru2ii,uru3->uru3ii,S->Sii,whichuconi0->SetPrecision[uconi0,myprec],whichuradconi0->SetPrecision[uradconi0,myprec]};
+ICpin={{rho,rhoii},{u,uii},{uu1,uu1ii},{uu2,uu2ii},{uu3,uu3ii},{Er,Erii},{uru1,uru1ii},{uru2,uru2ii},{uru3,uru3ii}};
+];
+If[whichvel==2,
+constspin={rho->rhoii,u->uii,uut1->uut1ii,uut2->uut2ii,uut3->uut3ii,Er->Erii,urut1->urut1ii,urut2->urut2ii,urut3->urut3ii,S->Sii,whichuconi0->SetPrecision[uconi0,myprec],whichuradconi0->SetPrecision[uradconi0,myprec]};
+ICpin={{rho,rhoii},{u,uii},{uut1,uut1ii},{uut2,uut2ii},{uut3,uut3ii},{Er,Erii},{urut1,urut1ii},{urut2,urut2ii},{urut3,urut3ii}};
+];
+If[continueguess==1,
+consts=constspp;
+IC=ICpp;
+,
+consts=constspin;
+IC=ICpin;
+];
+
+
+
+
+
+
 pinlist={rho,u,uut1,uut2,uut3,Bconi[[1]],Bconi[[2]],Bconi[[3]],Er,urut1,urut2,urut3}//.constspin;
 pplist={rho,u,uut1,uut2,uut3,Bconi[[1]],Bconi[[2]],Bconi[[3]],Er,urut1,urut2,urut3}//.constspp;
 FullOutput={
@@ -548,7 +602,7 @@ ferrabs=Sqrt[myRe[ferrtotal].myRe[ferrtotal]];
 ferrabsim=Sqrt[myIm[ferrtotal].myIm[ferrtotal]];
 Print["Aferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
 complexprims=myRe[(u//.chooseresult)]<myIm[(u//.chooseresult)]/badtol||myRe[(rho//.chooseresult)]<myIm[(rho//.chooseresult)]/badtol||myRe[(Er//.chooseresult)]<myIm[(Er//.chooseresult)]/badtol;
-If[complexprims==1,MyPrint["Acomplexprims"];];
+If[complexprims==True,MyPrint["Acomplexprims"];];
 If[ferrabs==0 &&ferrabsim==0|| ferrabs<badtol && ferrabsim<badtol&&complexprims==False,resulttype1="Good",resulttype1="Bad"];
 (* Using badtol because apparently harm doesn't have inversion solution any more accurate than this even for ldouble *)
 ccA=0;
@@ -612,7 +666,7 @@ ferrabs=Sqrt[myRe[ferrtotal].myRe[ferrtotal]];
 ferrabsim=Sqrt[myIm[ferrtotal].myIm[ferrtotal]];
 Print["ASferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
 complexprims=myRe[(u//.chooseresult)]<myIm[(u//.chooseresult)]/badtol||myRe[(rho//.chooseresult)]<myIm[(rho//.chooseresult)]/badtol||myRe[(Er//.chooseresult)]<myIm[(Er//.chooseresult)]/badtol;
-If[complexprims==1,MyPrint["AScomplexprims"];];
+If[complexprims==True,MyPrint["AScomplexprims"];];
 If[ferrabs==0 && ferrabsim==0 || ferrabs<badtol && ferrabsim<badtol&&complexprims==False,resulttype4SnoG="Good",resulttype4SnoG="Bad"];
 cc=0;
 Print["AS",resulttype4SnoG," ",CForm[ferrabs+ferrabsim]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
@@ -655,7 +709,7 @@ ferrabs=Sqrt[myRe[ferrtotal].myRe[ferrtotal]];
 ferrabsim=Sqrt[myIm[ferrtotal].myIm[ferrtotal]];
 Print["ARADferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
 complexprims=myRe[((u//.chooseresult))]<myIm[((u//.chooseresult))]/badtol||myRe[(rho//.chooseresult)]<myIm[(rho//.chooseresult)]/badtol||myRe[(Er//.chooseresult)]<myIm[(Er//.chooseresult)]/badtol;
-If[complexprims==1,MyPrint["ARADcomplexprims"];];
+If[complexprims==True,MyPrint["ARADcomplexprims"];];
 If[ferrabs==0 && ferrabsim==0 || ferrabs<badtol && ferrabsim<badtol&&complexprims==False,resulttype2="Good",resulttype2="Bad"];
 (* Using badtol because apparently harm doesn't have inversion solution any more accurate than this even for ldouble *)
 ccARAD=0;
@@ -695,7 +749,7 @@ ferrabs=Sqrt[myRe[ferrtotal].myRe[ferrtotal]];
 ferrabsim=Sqrt[myIm[ferrtotal].myIm[ferrtotal]];
 Print["1ferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
 complexprims=myRe[(u//.chooseresult)]<myIm[(u//.chooseresult)]/badtol||myRe[(rho//.chooseresult)]<myIm[(rho//.chooseresult)]/badtol||myRe[(Er//.chooseresult)]<myIm[(Er//.chooseresult)]/badtol;
-If[complexprims==1,MyPrint["1complexprims"];];
+If[complexprims==True,MyPrint["1complexprims"];];
 If[ferrabs==0 && ferrabsim==0 || ferrabs<badtol&& ferrabsim<badtol&&complexprims==False,resulttype10="Good",resulttype10="Bad"];
 Print["1",resulttype10," ",CForm[ferrabs+ferrabsim]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
 Print["1UUi ",rhouu0i," ",Rudi," ",Tudi, " ", Sci];
@@ -762,7 +816,7 @@ ferrabs=Sqrt[myRe[ferrtotal].myRe[ferrtotal]];
 ferrabsim=Sqrt[myIm[ferrtotal].myIm[ferrtotal]];
 Print["1Sferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
 complexprims=myRe[(u//.chooseresult)]<myIm[(u//.chooseresult)]/badtol||myRe[(rho//.chooseresult)]<myIm[(rho//.chooseresult)]/badtol||myRe[(Er//.chooseresult)]<myIm[(Er//.chooseresult)]/badtol;
-If[complexprims==1,MyPrint["AScomplexprims"];];
+If[complexprims==True,MyPrint["AScomplexprims"];];
 If[ferrabs==0 && ferrabsim==0 || ferrabs<badtol && ferrabsim<badtol&&complexprims==False,resulttype4SnoG="Good",resulttype4SnoG="Bad"];
 Print["1S",resulttype4SnoG," ",CForm[ferrabs+ferrabsim]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
 Print["1SUUi ",rhouu0i," ",Rudi," ",Tudi, " ", Sci];
@@ -827,7 +881,7 @@ ferrabs=Sqrt[myRe[ferrtotal].myRe[ferrtotal]];
 ferrabsim=Sqrt[myIm[ferrtotal].myIm[ferrtotal]];
 Print["2ferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
 complexprims=myRe[(u//.chooseresult)]<myIm[(u//.chooseresult)]/badtol||myRe[(rho//.chooseresult)]<myIm[(rho//.chooseresult)]/badtol||myRe[(Er//.chooseresult)]<myIm[(Er//.chooseresult)]/badtol;
-If[complexprims==1,MyPrint["2complexprims"];];
+If[complexprims==True,MyPrint["2complexprims"];];
 If[ferrabs==0 && ferrabsim==0 || ferrabs<badtol&& ferrabsim<badtol&&complexprims==False,resulttype11="Good",resulttype11="Bad"];
 Print["2",resulttype11," ",CForm[ferrabs+ferrabsim]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
 Print["2UUi ",rhouu0i," ",Rudi," ",Tudi, " ", Sci];
@@ -940,20 +994,46 @@ ferrnorm1={ferrnorm1t[[1]]/Sqrt[Abs[gcon[[1,1]]]],ferrnorm1s/Sqrt[Abs[gcon[[2,2]
 ferrnorm2t=Table[Sqrt[Abs[gcon[[ii,ii]]]]*((Abs[Tud[[1,ii]]]+Abs[Tud0[[ii]]])+Abs[dt*Gd[[ii]]]),{ii,1,1}];
 ferrnorm2s=Sum[Sqrt[Abs[gcon[[ii,ii]]]]*((Abs[Tud[[1,ii]]]+Abs[Tud0[[ii]]])+Abs[dt*Gd[[ii]]]),{ii,2,4}];
 ferrnorm2={ferrnorm2t[[1]]/Sqrt[Abs[gcon[[1,1]]]],ferrnorm2s/Sqrt[Abs[gcon[[2,2]]]],ferrnorm2s/Sqrt[Abs[gcon[[3,3]]]],ferrnorm2s/Sqrt[Abs[gcon[[4,4]]]]};
-ferr0=(ferr0/ferrnorm0)//.chooseresult;
-ferr1=(ferr1/ferrnorm1)//.chooseresult;
-ferr2=(ferr2/ferrnorm2)//.chooseresult;
+ferr0n=(ferr0/ferrnorm0)//.chooseresult;
+ferr1n=(ferr1/ferrnorm1)//.chooseresult;
+ferr2n=(ferr2/ferrnorm2)//.chooseresult;
 
-ferrtotal=Join[{ferr0},ferr1,ferr2];
+ferrtotal=Join[{ferr0n},ferr1n,ferr2n];
 ferrabs=Sqrt[myRe[ferrtotal].myRe[ferrtotal]];
 ferrabsim=Sqrt[myIm[ferrtotal].myIm[ferrtotal]];
+ferrabstotal=ferrabs+ferrabsim;
 Print["0ferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
+
+(* global method *)
+global="L";
+If[ferrabstotal>badtol || doglobalalways==1,
+chooseresultlocal=chooseresult;
+ferrnorm0A=ferrnorm0//.constspin;
+ferrnorm1A=ferrnorm1//.constspin;
+ferrnorm2A=ferrnorm2//.constspin;
+ferr0A=(ferr0/ferrnorm0A);
+ferr1A=(ferr1/ferrnorm1A);
+ferr2A=(ferr2/ferrnorm2A);
+ferrtotalA=Join[{ferr0A},ferr1A,ferr2A];
+ferrabsA=SetPrecision[Sum[Abs[ferrtotalA[[ii]]]^2,{ii,1,9}],nminworkprec];
+minsol=NMinimize[{ferrabsA},varlist,WorkingPrecision->nminworkprec,MaxIterations->nminmaxiter,AccuracyGoal->nminprec,PrecisionGoal->nminprec];
+ferrabs=minsol[[1]];
+ferrabsim=0.0;
+ferrabstotal=ferrabs+ferrabsim;
+chooseresultglobal=minsol[[2]];
+chooseresult=chooseresultglobal;
+Print["0result=",chooseresult];
+Print["Global Used."];
+global="G";
+Print["0ferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
+];
+
 (* only look at densities since velocities can be very small in one component and ok *)
 complexprims=myRe[(u//.chooseresult)]<myIm[(u//.chooseresult)]/badtol||myRe[(rho//.chooseresult)]<myIm[(rho//.chooseresult)]/badtol||myRe[(Er//.chooseresult)]<myIm[(Er//.chooseresult)]/badtol;
 Print["0 complex prims=",complexprims];
-If[complexprims==1,MyPrint["0complexprims"];];
+If[complexprims==True,MyPrint["0complexprims"];];
 If[ferrabs==0 && ferrabsim==0 || ferrabs<badtol && ferrabsim<badtol &&complexprims==False,resulttype3="Good",resulttype3="Bad"];
-Print["0",resulttype3," ",CForm[ferrabs+ferrabsim]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
+Print["0",resulttype3," ",global," ",CForm[ferrabs+ferrabsim]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
 If[resulttype3=="Good",
 cc0=cc0+cc;
 cc0max=Max[cc0max,cc];
@@ -1037,7 +1117,7 @@ ferrabs=Sqrt[myRe[ferrtotal].myRe[ferrtotal]];
 ferrabsim=Sqrt[myIm[ferrtotal].myIm[ferrtotal]];
 Print["0SnoGferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
 complexprims=myRe[(u//.chooseresult)]<myIm[(u//.chooseresult)]/badtol||myRe[(rho//.chooseresult)]<myIm[(rho//.chooseresult)]/badtol||myRe[(Er//.chooseresult)]<myIm[(Er//.chooseresult)]/badtol;
-If[complexprims==1,MyPrint["0Scomplexprims"];];
+If[complexprims==True,MyPrint["0Scomplexprims"];];
 If[ferrabs==0 && ferrabsim==0 || ferrabs<badtol && ferrabsim<badtol&&complexprims==False,resulttype4SnoG="Good",resulttype4SnoG="Bad"];
 Print["0SnoG",resulttype4SnoG," ",CForm[ferrabs+ferrabsim]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
 chooseresultUU0noG=chooseresult;
@@ -1118,6 +1198,7 @@ Print["0SFindRoot"];
 If[CheckJacobian==1,
 gold=1;
 ];
+
 (*DampingFactor->2,*)
 If[COUNTFINDROOT==1,
 resultorig=Block[{cc=0},{FindRoot[{ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0,ferr2[[1]]==0,ferr2[[2]]==0,ferr2[[3]]==0,ferr2[[4]]==0},ICpin,WorkingPrecision->normalwprec,MaxIterations->normaliters,AccuracyGoal->normaltolprec,PrecisionGoal->normaltolprec, Jacobian->JacobianType,StepMonitor:>cc++],cc}];result=resultorig[[1]];cc=resultorig[[2]];
@@ -1128,18 +1209,44 @@ resultorig=FindRoot[{ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4
 chooseresult=result;
 Print["0Sresult=",chooseresult];
 
-ferr0=(ferr0/ferrnorm0)//.chooseresult;
-ferr1=(ferr1/ferrnorm1)//.chooseresult;
-ferr2=(ferr2/ferrnorm2)//.chooseresult;
-
-ferrtotal=Join[{ferr0},ferr1,ferr2];
+ferr0n=(ferr0/ferrnorm0)//.chooseresult;
+ferr1n=(ferr1/ferrnorm1)//.chooseresult;
+ferr2n=(ferr2/ferrnorm2)//.chooseresult;
+ferrtotal=Join[{ferr0n},ferr1n,ferr2n];
 ferrabs=Sqrt[myRe[ferrtotal].myRe[ferrtotal]];
 ferrabsim=Sqrt[myIm[ferrtotal].myIm[ferrtotal]];
+ferrabstotal=ferrabs+ferrabsim;
 Print["0Sferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
+
+(* global method *)
+global="L";
+If[ferrabstotal>badtol || doglobalalways==1 ,
+chooseresultlocal=chooseresult;
+ferrnorm0A=ferrnorm0//.constspin;
+ferrnorm1A=ferrnorm1//.constspin;
+ferrnorm2A=ferrnorm2//.constspin;
+ferr0A=(ferr0/ferrnorm0A);
+ferr1A=(ferr1/ferrnorm1A);
+ferr2A=(ferr2/ferrnorm2A);
+ferrtotalA=Join[{ferr0A},ferr1A,ferr2A];
+ferrabsA=SetPrecision[Sum[Abs[ferrtotalA[[ii]]]^2,{ii,1,9}],nminworkprec];
+minsol=NMinimize[{ferrabsA},{rho,u,uut1,uut2,uut3,Er,urut1,urut2,urut3},WorkingPrecision->nminworkprec,MaxIterations->nminmaxiter,AccuracyGoal->nminprec,PrecisionGoal->nminprec];
+ferrabs=minsol[[1]];
+ferrabsim=0.0;
+ferrabstotal=ferrabs+ferrabsim;
+chooseresultglobal=minsol[[2]];
+chooseresult=chooseresultglobal;
+Print["0Sresult=",chooseresult];
+Print["Global Used."];
+global="G";
+Print["0Sferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
+];
+
+
 complexprims=myRe[(u//.chooseresult)]<myIm[(u//.chooseresult)]/badtol||myRe[(rho//.chooseresult)]<myIm[(rho//.chooseresult)]/badtol||myRe[(Er//.chooseresult)]<myIm[(Er//.chooseresult)]/badtol;
-If[complexprims==1,MyPrint["0Scomplexprims"];];
+If[complexprims==True,MyPrint["0Scomplexprims"];];
 If[ferrabs==0 && ferrabsim==0 || ferrabs<badtol && ferrabsim<badtol&&complexprims==False,resulttype4S="Good",resulttype4S="Bad"];
-Print["0S",resulttype4S," ",CForm[ferrabs+ferrabsim]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
+Print["0S",resulttype4S," ",global," ",CForm[ferrabs+ferrabsim]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
 If[resulttype4S=="Good",
 cc0S=cc0S+cc;
 cc0Smax=Max[cc0Smax,cc];
@@ -1208,7 +1315,7 @@ ferrabs=Sqrt[myRe[ferrtotal].myRe[ferrtotal]];
 ferrabsim=Sqrt[myIm[ferrtotal].myIm[ferrtotal]];
 Print["0RADferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
 complexprims=myRe[(u//.chooseresult)]<myIm[(u//.chooseresult)]/badtol||myRe[(rho//.chooseresult)]<myIm[(rho//.chooseresult)]/badtol||myRe[(Er//.chooseresult)]<myIm[(Er//.chooseresult)]/badtol;
-If[complexprims==1,MyPrint["0RADcomplexprims"];];
+If[complexprims==True,MyPrint["0RADcomplexprims"];];
 If[ferrabs==0 && ferrabsim==0 || ferrabs<badtol && ferrabsim<badtol&&complexprims==False,resulttype5="Good",resulttype5="Bad"];
 Print["0RAD",resulttype5," ",CForm[ferrabs+ferrabsim]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
 Print["UU ",Rud[[1]]//.chooseresult];
@@ -1299,7 +1406,7 @@ ferrabs=Sqrt[myRe[ferrtotal].myRe[ferrtotal]];
 ferrabsim=Sqrt[myIm[ferrtotal].myIm[ferrtotal]];
 Print["0Wferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
 complexprims=myRe[(u//.chooseresult)]<myIm[(u//.chooseresult)]/badtol||myRe[(rho//.chooseresult)]<myIm[(rho//.chooseresult)]/badtol||myRe[(Er//.chooseresult)]<myIm[(Er//.chooseresult)]/badtol;
-If[complexprims==1,MyPrint["0Wcomplexprims"];];
+If[complexprims==True,MyPrint["0Wcomplexprims"];];
 If[ferrabs==0 && ferrabsim==0 || ferrabs<badtol && ferrabsim<badtol&&complexprims==False,resulttype6="Good",resulttype6="Bad"];
 Print["0W",resulttype6," ",CForm[ferrabs+ferrabsim]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
 cc0W=cc0W+cc;
@@ -1396,7 +1503,7 @@ ferrabs=Sqrt[myRe[ferrtotal].myRe[ferrtotal]];
 ferrabsim=Sqrt[myIm[ferrtotal].myIm[ferrtotal]];
 Print["0WSferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
 complexprims=myRe[(u//.chooseresult)]<myIm[(u//.chooseresult)]/badtol||myRe[(rho//.chooseresult)]<myIm[(rho//.chooseresult)]/badtol||myRe[(Er//.chooseresult)]<myIm[(Er//.chooseresult)]/badtol;
-If[complexprims==1,MyPrint["0WScomplexprims"];];
+If[complexprims==True,MyPrint["0WScomplexprims"];];
 If[ferrabs==0 && ferrabsim==0 || ferrabs<badtol && ferrabsim<badtol&&complexprims==False,resulttype7S="Good",resulttype7S="Bad"];
 Print["0WS",resulttype7S," ",CForm[ferrabs+ferrabsim]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
 cc0WS=cc0WS+cc;
@@ -1456,7 +1563,6 @@ If[Erenergy<=0 && Erentropy>0&&complexentropy==False&&ferrabs0S<badtol,MyPrint["
 If[dogammamax==1,
 (* setup gammamax *)
 alphasq=1/-SetPrecision[gcon[[1,1]],myprec];
-gammarelmax=1000;
 gammamax=gammarelmax/alphasq;
 If[whichvel==1,
 mysolsuru1=Solve[uru0==gammamax,uru1];
@@ -1474,7 +1580,6 @@ mysolsurut1;
 If[dogammamax==1,
 (* setup gammamax *)
 alphasq=1/-SetPrecision[gcon[[1,1]],myprec];
-gammarelmin=1.0;
 gammamin=gammarelmin/alphasq;
 If[whichvel==1,
 mysolsuru1min=Solve[uru0==gammamin,uru1];
@@ -1511,17 +1616,44 @@ resultorig=Block[{cc=0},{FindRoot[{ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3
 result=resultorig[[1]];cc=resultorig[[2]];
 chooseresult=result;
 Print["0Mresult=",chooseresult];
-ferr0=ferr0/Abs[rho]//.chooseresult;
-ferr1=(ferr1/Max[Abs[(u//.chooseresult)],Abs[(Er//.chooseresult)]])//.chooseresult;
-ferr2=(ferr2/Max[Abs[(u//.chooseresult)],Abs[(Er//.chooseresult)]])//.chooseresult;
-ferrtotal=Join[{ferr0},ferr1,ferr2];
+ferr0n=ferr0/Abs[rho]//.chooseresult;
+ferr1n=(ferr1/Max[Abs[(u//.chooseresult)],Abs[(Er//.chooseresult)]])//.chooseresult;
+ferr2n=(ferr2/Max[Abs[(u//.chooseresult)],Abs[(Er//.chooseresult)]])//.chooseresult;
+ferrtotal=Join[{ferr0n},ferr1n,ferr2n];
 ferrabs=Sqrt[myRe[ferrtotal].myRe[ferrtotal]];
 ferrabsim=Sqrt[myIm[ferrtotal].myIm[ferrtotal]];
+ferrabstotal=ferrabs+ferrabsim;
 Print["0Mferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
+
+(* global method *)
+global="L";
+If[ferrabstotal>badtol || doglobalalways==1,
+chooseresultlocal=chooseresult;
+ferrnorm0A=ferrnorm0//.constspin;
+ferrnorm1A=ferrnorm1//.constspin;
+ferrnorm2A=ferrnorm2//.constspin;
+ferr0A=(ferr0/ferrnorm0A);
+ferr1A=(ferr1/ferrnorm1A);
+ferr2A=(ferr2/ferrnorm2A);
+ferrtotalA=Join[{ferr0A},ferr1A,ferr2A];
+ferrabsA=SetPrecision[Sum[Abs[ferrtotalA[[ii]]]^2,{ii,1,9}],nminworkprec];
+minsol=NMinimize[{ferrabsA},{rho,u,uut1,uut2,uut3,Er,urut1,urut2,urut3},WorkingPrecision->nminworkprec,MaxIterations->nminmaxiter,AccuracyGoal->nminprec,PrecisionGoal->nminprec];
+ferrabs=minsol[[1]];
+ferrabsim=0.0;
+ferrabstotal=ferrabs+ferrabsim;
+chooseresultglobal=minsol[[2]];
+chooseresult=chooseresultglobal;
+Print["0result=",chooseresult];
+Print["Global Used."];
+global="G";
+Print["0Mferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
+];
+
+
 complexprims=myRe[(u//.chooseresult)]<myIm[(u//.chooseresult)]/badtol||myRe[(rho//.chooseresult)]<myIm[(rho//.chooseresult)]/badtol||myRe[(Er//.chooseresult)]<myIm[(Er//.chooseresult)]/badtol;
-If[complexprims==1,Print["0Mcomplexprims"];];
+If[complexprims==True,Print["0Mcomplexprims"];];
 If[ferrabs==0 && ferrabsim==0 || ferrabs<badtol && ferrabsim<badtol&&complexprims==False,resulttype8="Good",resulttype8="Bad"];
-Print["0M",resulttype8," ",CForm[ferrabs+ferrabsim]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
+Print["0M",resulttype8," ",global," ",CForm[ferrabs+ferrabsim]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
 chooseresult0M=chooseresult;
 
 Print["0MW and W' ",W//.chooseresult," ",Wp//.chooseresult];
@@ -1564,17 +1696,45 @@ resultorig=Block[{cc=0},{FindRoot[{ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3
 result=resultorig[[1]];cc=resultorig[[2]];
 chooseresult=result;
 Print["0Qresult=",chooseresult];
-ferr0=ferr0/Abs[rho]//.chooseresult;
-ferr1=(ferr1/Max[Abs[(u//.chooseresult)],Abs[(Er//.chooseresult)]])//.chooseresult;
-ferr2=(ferr2/Max[Abs[(u//.chooseresult)],Abs[(Er//.chooseresult)]])//.chooseresult;
-ferrtotal=Join[{ferr0},ferr1,ferr2];
+ferr0n=ferr0/Abs[rho]//.chooseresult;
+ferr1n=(ferr1/Max[Abs[(u//.chooseresult)],Abs[(Er//.chooseresult)]])//.chooseresult;
+ferr2n=(ferr2/Max[Abs[(u//.chooseresult)],Abs[(Er//.chooseresult)]])//.chooseresult;
+ferrtotal=Join[{ferr0n},ferr1n,ferr2n];
 ferrabs=Sqrt[myRe[ferrtotal].myRe[ferrtotal]];
 ferrabsim=Sqrt[myIm[ferrtotal].myIm[ferrtotal]];
+ferrabstotal=ferrabs+ferrabsim;
 Print["0Qferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
+
+(* global method *)
+global="L";
+If[ferrabstotal>badtol || doglobalalways==1,
+chooseresultlocal=chooseresult;
+ferrnorm0A=ferrnorm0//.constspin;
+ferrnorm1A=ferrnorm1//.constspin;
+ferrnorm2A=ferrnorm2//.constspin;
+ferr0A=(ferr0/ferrnorm0A);
+ferr1A=(ferr1/ferrnorm1A);
+ferr2A=(ferr2/ferrnorm2A);
+ferrtotalA=Join[{ferr0A},ferr1A,ferr2A];
+ferrabsA=SetPrecision[Sum[Abs[ferrtotalA[[ii]]]^2,{ii,1,9}],nminworkprec];
+minsol=NMinimize[{ferrabsA},{rho,u,uut1,uut2,uut3,Er,urut1,urut2,urut3},WorkingPrecision->nminworkprec,MaxIterations->nminmaxiter,AccuracyGoal->nminprec,PrecisionGoal->nminprec];
+ferrabs=minsol[[1]];
+ferrabsim=0.0;
+ferrabstotal=ferrabs+ferrabsim;
+chooseresultglobal=minsol[[2]];
+chooseresult=chooseresultglobal;
+Print["0result=",chooseresult];
+Print["Global Used."];
+global="G";
+Print["0Qferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
+];
+
+
+
 complexprims=myRe[(u//.chooseresult)]<myIm[(u//.chooseresult)]/badtol||myRe[(rho//.chooseresult)]<myIm[(rho//.chooseresult)]/badtol||myRe[(Er//.chooseresult)]<myIm[(Er//.chooseresult)]/badtol;
-If[complexprims==1,Print["0Qcomplexprims"];];
+If[complexprims==True,Print["0Qcomplexprims"];];
 If[ferrabs==0 && ferrabsim==0 || ferrabs<badtol && ferrabsim<badtol&&complexprims==False,resulttype8Q="Good",resulttype8Q="Bad"];
-Print["0Q",resulttype8Q," ",CForm[ferrabs+ferrabsim]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
+Print["0Q",resulttype8Q," ",global," ",CForm[ferrabs+ferrabsim]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
 chooseresult0Q=chooseresult;
 
 Print["0QW and W' ",W//.chooseresult," ",Wp//.chooseresult];
@@ -1618,7 +1778,7 @@ ferrabs=Sqrt[myRe[ferrtotal].myRe[ferrtotal]];
 ferrabsim=Sqrt[myIm[ferrtotal].myIm[ferrtotal]];
 Print["0MRADferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
 complexprims=myRe[(u//.chooseresult)]<myIm[(u//.chooseresult)]/badtol||myRe[(rho//.chooseresult)]<myIm[(rho//.chooseresult)]/badtol||myRe[(Er//.chooseresult)]<myIm[(Er//.chooseresult)]/badtol;
-If[complexprims==1,Print["0MRADcomplexprims"];];
+If[complexprims==True,Print["0MRADcomplexprims"];];
 If[ferrabs==0 && ferrabsim==0 || ferrabs<badtol && ferrabsim<badtol&&complexprims==False,resulttype9="Good",resulttype9="Bad"];
 Print["0MRAD",resulttype9," ",CForm[ferrabs+ferrabsim]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
 ];
@@ -1684,24 +1844,52 @@ gold=1;
 If[COUNTFINDROOT==1,
 resultorig=Block[{cc=0},{FindRoot[{ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0,ferr2[[1]]==0,ferr2[[2]]==0,ferr2[[3]]==0,ferr2[[4]]==0},ICpin,WorkingPrecision->normalwprec,MaxIterations->normaliters,AccuracyGoal->normaltolprec,PrecisionGoal->normaltolprec, Jacobian->JacobianType,StepMonitor:>cc++],cc}];result=resultorig[[1]];cc=resultorig[[2]];
 (* , Jacobian->FiniteDifference *) (* shows how Symbolic Jacobian is crucial *)
+(*Method->{"Newton","StepControl"->"TrustRegion"},*)
 ,
 resultorig=FindRoot[{ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4]]==0,ferr2[[1]]==0,ferr2[[2]]==0,ferr2[[3]]==0,ferr2[[4]]==0},ICpin,WorkingPrecision->normalwprec,MaxIterations->normaliters,AccuracyGoal->normaltolprec,PrecisionGoal->normaltolprec, Jacobian->JacobianType, StepMonitor:>Print["Step to:",rho," ",u," ",uu1," ",uu2," ",uu3," ",Er," ",uru1," ",uru2," ",uru3]];result=resultorig;
 ];
 chooseresult=result;
 Print["0MSresult=",chooseresult];
 
-ferr0=(ferr0/ferrnorm0)//.chooseresult;
-ferr1=(ferr1/ferrnorm1)//.chooseresult;
-ferr2=(ferr2/ferrnorm2)//.chooseresult;
+ferr0n=(ferr0/ferrnorm0)//.chooseresult;
+ferr1n=(ferr1/ferrnorm1)//.chooseresult;
+ferr2n=(ferr2/ferrnorm2)//.chooseresult;
 
-ferrtotal=Join[{ferr0},ferr1,ferr2];
+ferrtotal=Join[{ferr0n},ferr1n,ferr2n];
 ferrabs=Sqrt[myRe[ferrtotal].myRe[ferrtotal]];
 ferrabsim=Sqrt[myIm[ferrtotal].myIm[ferrtotal]];
+ferrabstotal=ferrabs+ferrabsim;
 Print["0MSferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
+
+(* global method *)
+global="L";
+If[ferrabstotal>badtol || doglobalalways==1,
+chooseresultlocal=chooseresult;
+ferrnorm0A=ferrnorm0//.constspin;
+ferrnorm1A=ferrnorm1//.constspin;
+ferrnorm2A=ferrnorm2//.constspin;
+ferr0A=(ferr0/ferrnorm0A);
+ferr1A=(ferr1/ferrnorm1A);
+ferr2A=(ferr2/ferrnorm2A);
+ferrtotalA=Join[{ferr0A},ferr1A,ferr2A];
+ferrabsA=SetPrecision[Sum[Abs[ferrtotalA[[ii]]]^2,{ii,1,9}],nminworkprec];
+minsol=NMinimize[{ferrabsA},{rho,u,uut1,uut2,uut3,Er,urut1,urut2,urut3},WorkingPrecision->nminworkprec,MaxIterations->nminmaxiter,AccuracyGoal->nminprec,PrecisionGoal->nminprec];
+ferrabs=minsol[[1]];
+ferrabsim=0.0;
+ferrabstotal=ferrabs+ferrabsim;
+chooseresultglobal=minsol[[2]];
+chooseresult=chooseresultglobal;
+Print["0result=",chooseresult];
+Print["Global Used."];
+global="G";
+Print["0MSferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
+];
+
+
 complexprims=myRe[(u//.chooseresult)]<myIm[(u//.chooseresult)]/badtol||myRe[(rho//.chooseresult)]<myIm[(rho//.chooseresult)]/badtol||myRe[(Er//.chooseresult)]<myIm[(Er//.chooseresult)]/badtol;
-If[complexprims==1,MyPrint["0MScomplexprims"];];
+If[complexprims==True,MyPrint["0MScomplexprims"];];
 If[ferrabs==0 && ferrabsim==0 || ferrabs<badtol && ferrabsim<badtol&&complexprims==False,resulttype4MS="Good",resulttype4MS="Bad"];
-Print["0MS",resulttype4MS," ",CForm[ferrabs+ferrabsim]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
+Print["0MS",resulttype4MS," ",global," ",CForm[ferrabs+ferrabsim]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
 If[resulttype4MS=="Good",
 (*
 cc0MS=cc0MS+cc;
@@ -1819,18 +2007,45 @@ resultorig=FindRoot[{ferr0==0,ferr1[[1]]==0,ferr1[[2]]==0,ferr1[[3]]==0,ferr1[[4
 chooseresult=result;
 Print["0QSresult=",chooseresult];
 
-ferr0=(ferr0/ferrnorm0)//.chooseresult;
-ferr1=(ferr1/ferrnorm1)//.chooseresult;
-ferr2=(ferr2/ferrnorm2)//.chooseresult;
+ferr0n=(ferr0/ferrnorm0)//.chooseresult;
+ferr1n=(ferr1/ferrnorm1)//.chooseresult;
+ferr2n=(ferr2/ferrnorm2)//.chooseresult;
 
-ferrtotal=Join[{ferr0},ferr1,ferr2];
+ferrtotal=Join[{ferr0n},ferr1n,ferr2n];
 ferrabs=Sqrt[myRe[ferrtotal].myRe[ferrtotal]];
 ferrabsim=Sqrt[myIm[ferrtotal].myIm[ferrtotal]];
+ferrabstotal=ferrabs+ferrabsim;
 Print["0QSferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
+
+(* global method *)
+global="L";
+If[ferrabstotal>badtol || doglobalalways==1,
+chooseresultlocal=chooseresult;
+ferrnorm0A=ferrnorm0//.constspin;
+ferrnorm1A=ferrnorm1//.constspin;
+ferrnorm2A=ferrnorm2//.constspin;
+ferr0A=(ferr0/ferrnorm0A);
+ferr1A=(ferr1/ferrnorm1A);
+ferr2A=(ferr2/ferrnorm2A);
+ferrtotalA=Join[{ferr0A},ferr1A,ferr2A];
+ferrabsA=SetPrecision[Sum[Abs[ferrtotalA[[ii]]]^2,{ii,1,9}],nminworkprec];
+minsol=NMinimize[{ferrabsA},{rho,u,uut1,uut2,uut3,Er,urut1,urut2,urut3},WorkingPrecision->nminworkprec,MaxIterations->nminmaxiter,AccuracyGoal->nminprec,PrecisionGoal->nminprec];
+ferrabs=minsol[[1]];
+ferrabsim=0.0;
+ferrabstotal=ferrabs+ferrabsim;
+chooseresultglobal=minsol[[2]];
+chooseresult=chooseresultglobal;
+Print["0result=",chooseresult];
+Print["Global Used."];
+global="G";
+Print["0QSferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
+];
+
+
 complexprims=myRe[(u//.chooseresult)]<myIm[(u//.chooseresult)]/badtol||myRe[(rho//.chooseresult)]<myIm[(rho//.chooseresult)]/badtol||myRe[(Er//.chooseresult)]<myIm[(Er//.chooseresult)]/badtol;
-If[complexprims==1,MyPrint["0QScomplexprims"];];
+If[complexprims==True,MyPrint["0QScomplexprims"];];
 If[ferrabs==0 && ferrabsim==0 || ferrabs<badtol && ferrabsim<badtol&&complexprims==False,resulttype4QS="Good",resulttype4QS="Bad"];
-Print["0QS",resulttype4QS," ",CForm[ferrabs+ferrabsim]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
+Print["0QS",resulttype4QS," ",global," ",sCForm[ferrabs+ferrabsim]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
 If[resulttype4QS=="Good",
 (*
 cc0QS=cc0QS+cc;
@@ -1918,8 +2133,6 @@ Ergentropyqs=Re[(Er//.chooseresult0QS)];
 complexentropyqs=myRe[(u//.chooseresult0QS)]<myIm[(u//.chooseresult0QS)]/badtol||myRe[(rho//.chooseresult0QS)]<myIm[(rho//.chooseresult0QS)]/badtol||myRe[(Er//.chooseresult0QS)]<myIm[(Er//.chooseresult0QS)]/badtol;
 
 
-Print["SolutionType: ",myj," ",resulttype3," ",resulttype4S," ",resulttype8," ",resulttype4MS," ",resulttype8Q," ",resulttype4QS];
-
 resultA=If[resulttype4MS=="Bad" &&resulttype4QS=="Bad" && resulttype3=="Bad" && resulttype4S=="Bad"  && resulttype8=="Bad"  && resulttype8Q=="Bad",1,0];
 resultB=If[resulttype4MS=="Good" || resulttype4QS=="Good" || resulttype3=="Good" || resulttype4S=="Good"  || resulttype8=="Good" || resulttype8Q=="Good",1,0];
 resultC=If[resulttype4MS=="Good"&&uentropyms>0&&complexentropyms==False||resulttype4QS=="Good"&&uentropyqs>0&&complexentropyqs==False||resulttype3=="Good"&&uenergy>0&&complexenergy==False||resulttype4S=="Good"&&uentropy>0&&complexentropy==False||resulttype8=="Good"&&uenergym>0&&complexenergym==False||resulttype8Q=="Good"&&uenergyq>0&&complexenergyq==False,1,0];
@@ -1931,7 +2144,7 @@ If[resultB==0,MyPrint["NotOneGood"];];
 If[resultC==1,MyPrint["OneActualGood"];];
 If[resultC==0,MyPrint["NotOneActualGood"];];
 
-
+Print["SolutionType: ",myj," ",resulttype3," ",resulttype4S," ",resulttype8," ",resulttype4MS," ",resulttype8Q," ",resulttype4QS,"  ",resultA," ",resultB," ",resultC];
 
 If[resultC==0,
 space=" ";
@@ -1988,7 +2201,6 @@ Print["3ferr1=",(ferr1/Max[ui,Eri])//.result];
 Print["3ferr2=",(ferr2/Max[ui,Eri])//.result];
 
 (* COLD COLD  LIKE CODE M1*)
-gammamax=1000;
 mysolsuru1=Solve[uru0==gammamax,uru1];
 mysolsuru1//.consts;
 choosesolsuru1=mysolsuru1[[2,1,2]];
