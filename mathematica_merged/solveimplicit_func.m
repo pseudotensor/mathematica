@@ -64,7 +64,7 @@ filetype=2;
 If[whichcomputer==4,
  (* name and number of failures in fail file loaded in *)
 (*filenamebase="fails.txt";numfails=36212;*)
-filenamebase="fails.txt";numfails=100; filetype=2;
+filenamebase="fails.txt";numfails=1543; filetype=2;
 (*filenamebase="failshigh100.txt";numfails=100;*)
 (*filenamebase="failshigherror100.txt";numfails=100;*)
 (*filenamebase="failshigherror.globals.txt";numfails=1048;filetype=2;*)
@@ -114,6 +114,7 @@ whichvel=2;
 
 (* whether to always do global method, for testing usually *)
  doglobalalways=0;
+tryglobal=0;
 
  (* 1 = lab-frame times T  ; 2 = Ramesh approximate fluid-frame entropy without flux contribution 3 = nearly completely accurate fluid-frame entropy version 4 = fully fluid frame version *)
 whichentropy=1;
@@ -1008,7 +1009,7 @@ Print["0ferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
 
 (* global method *)
 global="L";
-If[ferrabstotal>badtol || doglobalalways==1,
+If[tryglobal==1&&ferrabstotal>badtol || doglobalalways==1,
 chooseresultlocal=chooseresult;
 ferrnorm0A=ferrnorm0//.constspin;
 ferrnorm1A=ferrnorm1//.constspin;
@@ -1035,7 +1036,7 @@ complexprims=myRe[(u//.chooseresult)]<myIm[(u//.chooseresult)]/badtol||myRe[(rho
 Print["0 complex prims=",complexprims];
 If[complexprims==True,MyPrint["0complexprims"];];
 If[ferrabs==0 && ferrabsim==0 || ferrabs<badtol && ferrabsim<badtol &&complexprims==False,resulttype3="Good"<>global,resulttype3="Bad"];
-Print["0",resulttype3,global," ",global," ",CForm[ferrabs+ferrabsim]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
+Print["0",resulttype3," ",global," ",CForm[ferrabs+ferrabsim]," ",myj," ",failtype," ",myid," ",failnum, " cc=",cc];
 If[resulttype3=="Good"<>global,
 cc0=cc0+cc;
 cc0max=Max[cc0max,cc];
@@ -1222,7 +1223,7 @@ Print["0Sferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
 
 (* global method *)
 global="L";
-If[ferrabstotal>badtol || doglobalalways==1 ,
+If[tryglobal==1&&ferrabstotal>badtol || doglobalalways==1 ,
 chooseresultlocal=chooseresult;
 ferrnorm0A=ferrnorm0//.constspin;
 ferrnorm1A=ferrnorm1//.constspin;
@@ -1629,7 +1630,7 @@ Print["0Mferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
 
 (* global method *)
 global="L";
-If[ferrabstotal>badtol || doglobalalways==1,
+If[tryglobal==1&&ferrabstotal>badtol || doglobalalways==1,
 chooseresultlocal=chooseresult;
 ferrnorm0A=ferrnorm0//.constspin;
 ferrnorm1A=ferrnorm1//.constspin;
@@ -1709,7 +1710,7 @@ Print["0Qferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
 
 (* global method *)
 global="L";
-If[ferrabstotal>badtol || doglobalalways==1,
+If[tryglobal==1&&ferrabstotal>badtol || doglobalalways==1,
 chooseresultlocal=chooseresult;
 ferrnorm0A=ferrnorm0//.constspin;
 ferrnorm1A=ferrnorm1//.constspin;
@@ -1865,7 +1866,7 @@ Print["0MSferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
 
 (* global method *)
 global="L";
-If[ferrabstotal>badtol || doglobalalways==1,
+If[tryglobal==1&&ferrabstotal>badtol || doglobalalways==1,
 chooseresultlocal=chooseresult;
 ferrnorm0A=ferrnorm0//.constspin;
 ferrnorm1A=ferrnorm1//.constspin;
@@ -2021,7 +2022,7 @@ Print["0QSferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
 
 (* global method *)
 global="L";
-If[ferrabstotal>badtol || doglobalalways==1,
+If[tryglobal==1&&ferrabstotal>badtol || doglobalalways==1,
 chooseresultlocal=chooseresult;
 ferrnorm0A=ferrnorm0//.constspin;
 ferrnorm1A=ferrnorm1//.constspin;
