@@ -58,16 +58,16 @@ dosolveimplicitwrapper[whichcomputer0_]:=Module[
 {foo,whichcomputer=whichcomputer0},
 
 
-(* 0 = 134 .  1 for 181 .  2 for 208    .   3 for 209 *)
+(* 0 = 134 .  1 for 181 .  2 for 208    . 3 for 210 .   4 for 211 *)
 (* default *)
-filetype=3;
+filetype=4;
 
 (* CHOOSE WHICH FILE TO LOAD IN *)
 (* Jon's physics-179.umd.edu *)
 If[whichcomputer==4,
  (* name and number of failures in fail file loaded in *)
 (*filenamebase="fails.txt";numfails=36212;*)
-filenamebase="failsearly.txt";numfails=10^(10); filetype=3;
+filenamebase="fails1.txt";numfails=10^(10); filetype=4;
 (*filenamebase="fails.dat";numfails=1; filetype=1;*)
 (*filenamebase="failshigh100.txt";numfails=100;*)
 (*filenamebase="failshigherror100.txt";numfails=100;*)
@@ -111,7 +111,7 @@ continueguess=0;
 COUNTFINDROOT=1; (* 1 = show number of iterations, stored in "cc" variable and outputted in math.out *)
 
 (* whether to just output as 181 format *)
-justout181=1;
+justout181=0;
 
 (* whichg=1 uses direct gcov  whichg=2 uses alpha - beta splitting for utilde *)
 whichg=2;
@@ -120,7 +120,7 @@ whichg=2;
 whichvel=2;
 
 (* whether to always do global method, for testing usually *)
- doglobalalways=0;
+ doglobalalways=1;
 tryglobal=0;
 
  (* 1 = lab-frame times T  ; 2 = Ramesh approximate fluid-frame entropy without flux contribution 3 = nearly completely accurate fluid-frame entropy version 4 = fully fluid frame version *)
@@ -130,27 +130,28 @@ whichmhd=1;
 
 doradonly=0; (* 0 = do mhd or entropy as normal   1 = do radiation only *)
 dogammamax=1; (* whether to try gammamax for radiation case *)
-gammamax=50; 
+gammamax=50;
+(*gammamax=100;*)
 gammarelmin=1;
 gammarelmax=gammamax;(* like harm now *)
 
  (* 18 = long doubles 14 = doubles *)
 (* set Precision of numbers read-in *)
-myprec=20;
+myprec=100;
 
 (* normal working precision and tolerance *)
 (* normalwprec=14; normaltolprec=9; badtol=10^(-5);normaliters=100;*)
 (*normalwprec=15; normaltolprec=12; badtol=10^(-6);normaliters=100;*)
-(*normalwprec=30normaliters=100;; normaltolprec=12; badtol=10^(-6); (* for just getting accurate solution *)*)
+(*normalwprec=30;normaliters=100; normaltolprec=12; badtol=10^(-6); (* for just getting accurate solution *)*)
 normalwprec=20; normaltolprec=14; badtol=10^(-6); normaliters=1000; (* for just getting accurate solution *)
+normalwprec=100; normaltolprec=100; badtol=10^(-6); normaliters=1000; (* for just getting accurate solution *)
 (*normaltolprec=6;  badtol=10^(-4);normaliters=100;*)
 (* current harm choice *)
 (*normaltolprec=9;  badtol=10^(-2);normaliters=100;*)
 
 (* tolerance for global NMinimize method.  When used, rarely, needs to be highly accurate to be reliable as golden standard *)
-nminworkprec=40;
-nminmaxiter=400;
-nminprec=20;
+nminworkprec=40;nminmaxiter=400;nminprec=20;
+nminworkprec=60;nminmaxiter=1000;nminprec=70;
 
 (* tolerance for Ui, UU0, and UU0S *)
 (* point is that sometimes want to test if can get solution at harm-like tolerance using mathematica, but other times assume harm can get solution using more accurate method than 9D method, and then just want these to be good solution so only testing cases when G is also present *)
@@ -177,7 +178,8 @@ JacobianType=Automatic;
 If[filetype==0,numele=134;];
 If[filetype==1,numele=181; ];
 If[filetype==2,numele=208;];
-If[filetype==3,numele=209;];
+If[filetype==3,numele=210;];
+If[filetype==4,numele=211;];
 
 Clear[j];
 
@@ -265,11 +267,14 @@ If[numele==208,
 (* pb and uradconb0-12 etc. are related *)
 (* pin and uradconi0-12 etc. are related *)
 ];
-If[numele==209,
-{failtype,myid,failnum,gotfirstnofail,eomtype,itermode,errorabs,iters,dt,nstep,steppart,gamgas,gn11,gn12,gn13,gn14,gn21,gn22,gn23,gn24,gn31,gn32,gn33,gn34,gn41,gn42,gn43,gn44,gv11,gv12,gv13,gv14,gv21,gv22,gv23,gv24,gv31,gv32,gv33,gv34,gv41,gv42,gv43,gv44,pp0,ppfirst0,pb0,pin0,prtuui0,prtuu00,uu00,uu0,uui0,pp1,ppfirst1,pb1,pin1,prtuui1,prtuu01,uu01,uu1,uui1,pp2,ppfirst2,pb2,pin2,prtuui2,prtuu02,uu02,uu2,uui2,pp3,ppfirst3,pb3,pin3,prtuui3,prtuu03,uu03,uu3,uui3,pp4,ppfirst4,pb4,pin4,prtuui4,prtuu04,uu04,uu4,uui4,pp5,ppfirst5,pb5,pin5,prtuui5,prtuu05,uu05,uu5,uui5,pp6,ppfirst6,pb6,pin6,prtuui6,prtuu06,uu06,uu6,uui6,pp7,ppfirst7,pb7,pin7,prtuui7,prtuu07,uu07,uu7,uui7,pp8,ppfirst8,pb8,pin8,prtuui8,prtuu08,uu08,uu8,uui8,pp9,ppfirst9,pb9,pin9,prtuui9,prtuu09,uu09,uu9,uui9,pp10,ppfirst10,pb10,pin10,prtuui10,prtuu010,uu010,uu10,uui10,pp11,ppfirst11,pb11,pin11,prtuui11,prtuu011,uu011,uu11,uui11,pp12,ppfirst12,pb12,pin12,prtuui12,prtuu012,uu012,uu12,uui12,uradcon0,uradcov0,uradcon1,uradcov1,uradcon2,uradcov2,uradcon3,uradcov3,ucon0,ucov0,ucon1,ucov1,ucon2,ucov2,ucon3,ucov3,uradconb0,uradcovb0,uradconb1,uradcovb1,uradconb2,uradcovb2,uradconb3,uradcovb3,uconb0,ucovb0,uconb1,ucovb1,uconb2,ucovb2,uconb3,ucovb3,uradconi0,uradcovi0,uradconi1,uradcovi1,uradconi2,uradcovi2,uradconi3,uradcovi3,uconi0,ucovi0,uconi1,ucovi1,uconi2,ucovi2,uconi3,ucovi3}=mylist;
+If[numele==210,
+{failtype,myid,failnum,gotfirstnofail,eomtype,itermode,errorabs,errorabsbestexternal,iters,dt,nstep,steppart,gamgas,gn11,gn12,gn13,gn14,gn21,gn22,gn23,gn24,gn31,gn32,gn33,gn34,gn41,gn42,gn43,gn44,gv11,gv12,gv13,gv14,gv21,gv22,gv23,gv24,gv31,gv32,gv33,gv34,gv41,gv42,gv43,gv44,pp0,ppfirst0,pb0,pin0,prtuui0,prtuu00,uu00,uu0,uui0,pp1,ppfirst1,pb1,pin1,prtuui1,prtuu01,uu01,uu1,uui1,pp2,ppfirst2,pb2,pin2,prtuui2,prtuu02,uu02,uu2,uui2,pp3,ppfirst3,pb3,pin3,prtuui3,prtuu03,uu03,uu3,uui3,pp4,ppfirst4,pb4,pin4,prtuui4,prtuu04,uu04,uu4,uui4,pp5,ppfirst5,pb5,pin5,prtuui5,prtuu05,uu05,uu5,uui5,pp6,ppfirst6,pb6,pin6,prtuui6,prtuu06,uu06,uu6,uui6,pp7,ppfirst7,pb7,pin7,prtuui7,prtuu07,uu07,uu7,uui7,pp8,ppfirst8,pb8,pin8,prtuui8,prtuu08,uu08,uu8,uui8,pp9,ppfirst9,pb9,pin9,prtuui9,prtuu09,uu09,uu9,uui9,pp10,ppfirst10,pb10,pin10,prtuui10,prtuu010,uu010,uu10,uui10,pp11,ppfirst11,pb11,pin11,prtuui11,prtuu011,uu011,uu11,uui11,pp12,ppfirst12,pb12,pin12,prtuui12,prtuu012,uu012,uu12,uui12,uradcon0,uradcov0,uradcon1,uradcov1,uradcon2,uradcov2,uradcon3,uradcov3,ucon0,ucov0,ucon1,ucov1,ucon2,ucov2,ucon3,ucov3,uradconb0,uradcovb0,uradconb1,uradcovb1,uradconb2,uradcovb2,uradconb3,uradcovb3,uconb0,ucovb0,uconb1,ucovb1,uconb2,ucovb2,uconb3,ucovb3,uradconi0,uradcovi0,uradconi1,uradcovi1,uradconi2,uradcovi2,uradconi3,uradcovi3,uconi0,ucovi0,uconi1,ucovi1,uconi2,ucovi2,uconi3,ucovi3}=mylist;
 (* pp and uradcon0-12 etc. are related *)
 (* pb and uradconb0-12 etc. are related *)
 (* pin and uradconi0-12 etc. are related *)
+];
+If[numele==211,
+{failtype,myid,failnum,gotfirstnofail,eomtype,itermode,errorabs,errorabsbestexternal,iters,totaliters,dt,nstep,steppart,gamgas,gn11,gn12,gn13,gn14,gn21,gn22,gn23,gn24,gn31,gn32,gn33,gn34,gn41,gn42,gn43,gn44,gv11,gv12,gv13,gv14,gv21,gv22,gv23,gv24,gv31,gv32,gv33,gv34,gv41,gv42,gv43,gv44,pp0,ppfirst0,pb0,pin0,prtuui0,prtuu00,uu00,uu0,uui0,pp1,ppfirst1,pb1,pin1,prtuui1,prtuu01,uu01,uu1,uui1,pp2,ppfirst2,pb2,pin2,prtuui2,prtuu02,uu02,uu2,uui2,pp3,ppfirst3,pb3,pin3,prtuui3,prtuu03,uu03,uu3,uui3,pp4,ppfirst4,pb4,pin4,prtuui4,prtuu04,uu04,uu4,uui4,pp5,ppfirst5,pb5,pin5,prtuui5,prtuu05,uu05,uu5,uui5,pp6,ppfirst6,pb6,pin6,prtuui6,prtuu06,uu06,uu6,uui6,pp7,ppfirst7,pb7,pin7,prtuui7,prtuu07,uu07,uu7,uui7,pp8,ppfirst8,pb8,pin8,prtuui8,prtuu08,uu08,uu8,uui8,pp9,ppfirst9,pb9,pin9,prtuui9,prtuu09,uu09,uu9,uui9,pp10,ppfirst10,pb10,pin10,prtuui10,prtuu010,uu010,uu10,uui10,pp11,ppfirst11,pb11,pin11,prtuui11,prtuu011,uu011,uu11,uui11,pp12,ppfirst12,pb12,pin12,prtuui12,prtuu012,uu012,uu12,uui12,uradcon0,uradcov0,uradcon1,uradcov1,uradcon2,uradcov2,uradcon3,uradcov3,ucon0,ucov0,ucon1,ucov1,ucon2,ucov2,ucon3,ucov3,uradconb0,uradcovb0,uradconb1,uradcovb1,uradconb2,uradcovb2,uradconb3,uradcovb3,uconb0,ucovb0,uconb1,ucovb1,uconb2,ucovb2,uconb3,ucovb3,uradconi0,uradcovi0,uradconi1,uradcovi1,uradconi2,uradcovi2,uradconi3,uradcovi3,uconi0,ucovi0,uconi1,ucovi1,uconi2,ucovi2,uconi3,ucovi3}=mylist;
 ];
 (*Import[filein,"Table"][[1]];*)
 
@@ -368,6 +373,7 @@ urut3prtuu0=SetPrecision[prtuu011,myprec];
 Sprtuu0=SetPrecision[prtuu012,myprec];
 
 gamgas=SetPrecision[gamgas,myprec];
+dt=SetPrecision[dt,myprec];
 
 (* We don't check Uiin, Ufin fields because those are staggered positions *)
 
@@ -514,7 +520,8 @@ B=arad*T^4/(4*Pi);
 KAPPAES=1;
 KAPPA=1;
 KAPPAESCODE=590799;
-KAPPAFFCODE=3.46764*10^(-17);
+KAPPAFFCODE=3.46764``40*10^(-17);
+KAPPAFFCODE=SetPrecision[KAPPAFFCODE,myprec];
 kappa=rho*KAPPA*KAPPAFFCODE*rho*T^(-7/2);
 kappaes=rho*KAPPAES*KAPPAESCODE;
 (*
@@ -1098,14 +1105,17 @@ Print["0ferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
 global="L";
 If[tryglobal==1&&ferrabstotal>badtol || doglobalalways==1,
 chooseresultlocal=chooseresult;
-ferrnorm0A=ferrnorm0//.constspin;
-ferrnorm1A=ferrnorm1//.constspin;
-ferrnorm2A=ferrnorm2//.constspin;
-ferr0A=(ferr0/ferrnorm0A);
-ferr1A=(ferr1/ferrnorm1A);
-ferr2A=(ferr2/ferrnorm2A);
+ferrnorm0A=SetPrecision[ferrnorm0,nminworkprec]//.constspin;
+ferrnorm1A=SetPrecision[ferrnorm1,nminworkprec]//.constspin;
+ferrnorm2A=SetPrecision[ferrnorm2,nminworkprec]//.constspin;
+ferr0A=(SetPrecision[ferr0,nminworkprec]/ferrnorm0A);
+ferr1A=(SetPrecision[ferr1,nminworkprec]/ferrnorm1A);
+ferr2A=(SetPrecision[ferr2,nminworkprec]/ferrnorm2A);
 ferrtotalA=Join[{ferr0A},ferr1A,ferr2A];
 ferrabsA=SetPrecision[Sum[Abs[ferrtotalA[[ii]]]^2,{ii,1,9}],nminworkprec];
+ferrabsA1=SetPrecision[Sum[Abs[ferrtotalA[[ii]]]^2,{ii,1,1}],nminworkprec];
+ferrabsA2=SetPrecision[Sum[Abs[ferrtotalA[[ii]]]^2,{ii,2,2}],nminworkprec];
+ferrabsA3=SetPrecision[Sum[Abs[ferrtotalA[[ii]]]^2,{ii,3,3}],nminworkprec];
 minsol=NMinimize[{ferrabsA},varlist,WorkingPrecision->nminworkprec,MaxIterations->nminmaxiter,AccuracyGoal->nminprec,PrecisionGoal->nminprec];
 ferrabs=minsol[[1]];
 ferrabsim=0.0;
@@ -1115,7 +1125,13 @@ chooseresult=chooseresultglobal;
 Print["0result=",chooseresult];
 Print["Global Used."];
 global="G";
-Print["0ferr=",ferrtotal,"ferrabs=",ferrabs,"ferrabsim=",ferrabsim];
+ferrtotalAn=ferrtotalA//.chooseresult;
+ferrabsAn=ferrabsA//.chooseresult;
+ferrabsAn1=ferrabsA1//.chooseresult;
+ferrabsAn2=ferrabsA2//.chooseresult;
+ferrabsAn3=ferrabsA3//.chooseresult;
+Print["0ferrtotalAn=",ferrtotalAn,"ferrabs=",ferrabs,"ferrabsAn=",ferrabsAn,"ferrabsim=",ferrabsim];
+Print["other:",ferrabsAn1," ",ferrabsAn2," ",ferrabsAn3];
 ];
 
 (* only look at densities since velocities can be very small in one component and ok *)
@@ -1653,7 +1669,8 @@ If[Erenergy<=0 && Erentropy>0&&complexentropy==False&&ferrabs0S<badtol,MyPrint["
 If[dogammamax==1,
 (* setup gammamax *)
 alphasq=1/-SetPrecision[gcon[[1,1]],myprec];
-gammamax=gammarelmax/alphasq;
+myalpha=Sqrt[alphasq];
+gammamax=gammarelmax/myalpha;
 If[whichvel==1,
 mysolsuru1=Solve[uru0==gammamax,uru1];
 Print["GOD: ",mysolsuru1//.consts];
@@ -1670,7 +1687,8 @@ mysolsurut1;
 If[dogammamax==1,
 (* setup gammamax *)
 alphasq=1/-SetPrecision[gcon[[1,1]],myprec];
-gammamin=gammarelmin/alphasq;
+myalpha=Sqrt[alphasq];
+gammamin=gammarelmin/myalpha;
 If[whichvel==1,
 mysolsuru1min=Solve[uru0==gammamin,uru1];
 Print["GOD: ",mysolsuru1min//.consts];
